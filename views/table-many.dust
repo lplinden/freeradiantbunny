@@ -1,0 +1,15 @@
+<table class="grid">
+<!-- data table headers -->
+<tr>
+  <td class="header">#</td>
+{#data}{@first}{@iterate on=.}  <td class="header">{key|s}</td>
+{/iterate}{/first}{/data}
+</tr>
+<!-- data table rows -->
+{#data}
+<tr>
+{@iterateNum on=num}  <td>{value}</td>{/iterateNum}
+{@iterate on=.}  <td id="{#key}{.|s}{/key}-{@iterateId on=id}{value}{/iterateId}" class="{key|s}-instance" style="{value.style}">{value.chardata|s}</td>
+{/iterate}</tr>
+{/data}
+</table>

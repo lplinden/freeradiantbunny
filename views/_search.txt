@@ -1,0 +1,16 @@
+        print '<!-- search is on hold
+            <form action="' . $given_config->get_base_url() . '" method="post" id="search-block-form" accept-charset="UTF-8">
+            <div>
+              <div class="container-inline">
+                <h2 class="element-invisible">Search form</h2>
+                <div class="form-item form-type-textfield form-item-search-block-form">
+                  <input title="Enter the terms you wish to search for." type="text" name="search_block_form" value="" size="16" maxlength="128" class="form-text" />
+                </div>
+                <div class="form-actions form-wrapper" id="edit-actions"><input type="image" id="edit-submit" name="submit" src="http://mudia.com/_images-v6/search_home_smaller.png" class="form-submit" />
+                </div>
+                <input type="hidden" name="form_build_id" value="" />
+                <input type="hidden" name="form_id" value="search_block_form" />
+              </div>
+            </div>
+            </form>
+-->

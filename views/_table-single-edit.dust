@@ -1,0 +1,27 @@
+<table class="grid">
+<!-- data table rows -->
+{#data}
+  {@iterate on=.}
+    <tr>
+      <td class="header-single">{key|s}</td>
+      <td style="{value.style}">{value.chardata|s}</td>
+    </tr>
+  {/iterate}
+{/data}
+</table>
+<form action="{home-href}" method="post" id="search-block-form" accept-charset="UTF-8">
+<table style="margin-top: 12px;">
+<tr>
+  <td>
+    <p class="element-invisible" style="margin-top: 6px;">Edit</p>
+  </td>
+  <td>
+    <input title="Enter the terms you wish to search for." type="text" name="queryterm" value="" size="16" maxlength="30" class="form-text" />
+  </td>
+  <td>
+    <div class="search-button" id="search-submit-button" style="display: inline;"><input type="image" id="edit-submit" name="submit" src="{home-href}_images/search_stamp.png" style="width: 20px; margin-top: 3px;" class="form-submit" /></div>
+  </td>
+</table>
+</form>
+<br />
+

@@ -1,0 +1,23 @@
+<table class="special" id="special-search">
+<!-- data table headers -->
+<!-- data table rows -->
+{#data}
+<tr>
+{@iterate on=.}
+{@eq key=key value="classname"}
+  <td rowspan="2" class="{key|s}-instance">{value.chardata|s}</td>
+{:else}
+  {@eq key=key value="img"}
+    <td rowspan="2" class="{key|s}-instance">{value.chardata|s}</td>
+  {:else}
+    <td class="{key|s}-instance">{value.chardata|s}</td>
+    {@eq key=key value="nameurl"}
+</tr>
+<tr>
+    {/eq}
+  {/eq}
+{/eq}
+{/iterate}
+</tr>
+{/data}
+</table>

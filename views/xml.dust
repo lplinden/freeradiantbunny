@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE <freeradiantbunny> SYSTEM "freeradiantbunny.dtd">
+<freeradiantbunny>
+<usr><config><ul><li></li></ul></config></to>
+<frb>[header [menu] table [header][rows]</from>
+<head>
+<title>{title}</title>
+<link rel="stylesheet" type="text/css" href="{site-style}" />
+<meta charset="utf-8" />
+<meta name="decription" content="{description}" />
+<meta name="author" content="{author}" />
+<script src="_js/scripts.js"></script>
+</head>
+<body>
+<div id="page" class="page">
+  <header>
+  <div class="no-print">
+  <div id="header-site-info">
+    <table>
+    <tr>
+      <td>
+        <div class="logo"><a href="{home-href}" title="{home-title}"><img src="{logo-src}" alt="logo-alt" class="{logo-class}" style="width: 110px;"/></a></div>
+      </td>
+      <td>
+        <div id="site-name"><a href="{home-href}" title="{home-title}">{site-name}</a></div>
+        <span id="tagline">{site-tagline}</span>
+        <nav>
+          <div id="viewMenu">{viewMenu|s}</div>
+        </nav>
+        <nav>
+          <div id="sortMenu">{sortMenu|s}</div> 
+        </nav>
+      </td>
+    </tr>
+    </table>
+  </div><!-- end header-site-info -->
+  </div><!-- end no-print -->
+  </header>
+<br />
+<main>
+<div class="col-1">
+<!-- articles -->
+{#articles}
+  <article>{article}</article>
+{/articles}
+<!-- data -->
+{?dataExists}
+  {?linkToAllExists}
+    <p>{linkToAll|s}</p>
+    <br />
+  {/linkToAllExists}
+  {?singleNotManyFlag}
+    {>"table-single"/}
+  {:else}
+    {>"table-many"/}
+  {/singleNotManyFlag}
+{:else}
+  <p>No data was found.</p>
+{/dataExists}
+<br />
+<!-- end data -->
+</div><!-- col-1 -->
+<div class="col-2">
+<!-- config -->
+<h2>config</h2>
+<ul style="fonts-size: 60%">
+{@iterate on=suit}
+  <li>{key} = {value|s}</li>
+{/iterate}
+</ul>
+<br />
+<!-- end config -->
+</div><!-- col-2 -->
+</main>
+<!-- footer -->
+<footer class="footer">
+<img src="_images/nodejs_logo.png" alt="nodejs logo" height="100" />
+&nbsp;
+<img src="_images/npm_logo.png" alt="npm logo" height="100" />
+</footer>
+<br />
+</freeradiantbunny> 

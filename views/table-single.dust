@@ -1,0 +1,11 @@
+<table class="grid grid-single">
+<!-- data table rows -->
+{#data}
+  {@iterate on=.}
+    <tr>
+      <td class="header-single">{key|s}</td>
+      <td class="{key|s}-instance" style="{value.style}">{value.chardata|s}</td>
+    </tr>
+  {/iterate}
+{/data}
+</table>
