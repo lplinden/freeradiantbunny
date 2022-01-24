@@ -15,12 +15,12 @@ function Sqlmaker() {
     instanceCount = instanceCount + 1;
     debug("sqlmaker instantiated ", instanceCount);
     this.getSql = function (idOrNoId, paramSort, className, classNameFilter, specialFlag, queryTerms) {
-        console.log("sqlmaker className =", className);
-        console.log("sqlmaker classNameFilter =", classNameFilter);
-        console.log("sqlmaker idOrNoId =", idOrNoId);
-        debug("sqlmaker classNameFilter =", classNameFilter);
-        debug("sqlmaker specialFlag =", specialFlag);
-        debug("sqlmaker queryTerms =", queryTerms);
+        debug("sqlmaker idOrNoId = ", idOrNoId);
+        debug("sqlmaker paramSort = ", parmSort);
+        debug("sqlmaker className = ", className);
+        debug("sqlmaker classNameFilter = ", classNameFilter);
+        debug("sqlmaker specialFlag = ", specialFlag);
+        debug("sqlmaker queryTerms = ", queryTerms);
         // get sql from model
         var path = require('path');
         var modelName = '../model/' + className + '.js';
@@ -35,7 +35,6 @@ function Sqlmaker() {
         }
         var sql = model.getSql(idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms);
         debug("sqlmaker sql =", sql);
-        console.log("sqlmaker sql =", sql);
         return sql;
     };
     this.getSqlForUpdate = function (className, id, fieldName, value) {
@@ -68,7 +67,6 @@ function Sqlmaker() {
         // create sql
         var sql = "SELECT name FROM " + tableNameFilter + " WHERE id = " + id + ";";
         debug("sqlmaker sql =", sql);
-        console.log("sqlmaker sql =", sql);
         return sql;
     };
 }

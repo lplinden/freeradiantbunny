@@ -14,25 +14,25 @@ var linkChecksCount = 0;
 
 function Validator() {
     instanceCount = instanceCount + 1;
-    console.log("validator instantiated", instanceCount);
+    debug("validator instantiated", instanceCount);
     // used by server
     this.validateRequestPathName = function (userString) {
         // remove non-alphanumerical
         // in the regex below, the g means global for substituting all matches
         var validateString = userString.replace(/[^a-zA-Z0-9._\/\-]/g,'');
         if (validateString != userString) {
-            console.log("validator input rejected, contains unwelcome characters");
+            debug("validator input rejected, contains unwelcome characters");
             return "";
         }
         // do not allow .. (dotdot used in directory paths)
         var validateString = userString.replace(/[.][.]/g,'');
         if (validateString != userString) {
-            console.log("validator input rejected, contains dotdot");
+            debug("validator input rejected, contains dotdot");
             return "";
         }
         // make sure it is not too long
         if (userString.length > this.maxStringLength) {
-            console.log("validator input rejected, string too long", userString.length);
+            debug("validator input rejected, string too long", userString.length);
             return "";
         }
         return userString;
@@ -45,7 +45,7 @@ function Validator() {
         }
         // make sure it is not too long
         if (userString.length > this.maxStringLength) {
-            console.log("validator input rejected because it is too long", userString.length);
+            debug("validator input rejected because it is too long", userString.length);
             return "";
         }
         return userString;
@@ -180,7 +180,7 @@ function Validator() {
         }
         // make sure it is not too long
         if (userString.length > 18) {
-            console.log("validator input rejected because it is too long");
+            debug("validator input rejected because it is too long");
             return "";
         }
         return userString;
@@ -708,7 +708,7 @@ function Validator() {
     }
     // used by realtime
     this.getValidHtml = function (givenUrl) {
-        console.log("validator getValidHtml() url =", givenUrl);
+	debug("validator getValidHtml() url =", givenUrl);
         var promise = new Promise(function(resolve, reject) {
             var url = require('url');
             var myUrl;
@@ -716,17 +716,17 @@ function Validator() {
                 myUrl = new URL(givenUrl);
             } catch (error) {
                 var why = "validator error URL() givenUrl = " + givenUrl;
-                console.log("", why);
+                debug("validator catch error why = ", why);
                 reject(why);
 		return "";
             }
             var hoststring = myUrl.host;
+            debug("validator host = ", hoststring);
             var pathstring = givenUrl.toString().substring(32);
-            console.log("validator host =", hoststring);
-            console.log("validator path =", pathstring);        
+            debug("validator path = ", pathstring);        
             const htmlValidator = require('html-validator');
             // be slow
-            console.log("validator setTimeout()");
+            debug("validator setTimeout()");
             var options = {
                 url: givenUrl,
                 format: 'text'
@@ -737,7 +737,7 @@ function Validator() {
                         resolve(data);
                     })
                     .catch((error) => {
-                        console.log("validator getValidhtml() error ", error);
+                        debug("validator getValidhtml() error ", error);
                     });
             }, 2000);
         });
@@ -745,7 +745,8 @@ function Validator() {
     }
     // used by realtime
     this.getLinkCheck = function (givenUrl) {
-        console.log("validator getLinkCheck() url =", givenUrl);
+        debug("validator getLinkCheck()");
+	debug("validator given url = ", givenUrl);
         var promise = new Promise(function(resolve, reject) {
 	    var linkChecksNum = linkChecksCount + 1;
 	    linkChecksCount = linkChecksNum;
@@ -755,11 +756,11 @@ function Validator() {
             var url = require('url');
             var myUrl = new URL(givenUrl);
             var href = myUrl.href;
-            //console.log("validator href =", href);
+            debug("validator href = ", href);
             var blc;
             blc = require('broken-link-checker');
             // be slow
-            //console.log("validator setTimeout()");
+            debug("validator setTimeout()");
             setTimeout( function() {
 	        var options = {
                     rateLimit: 3000,
@@ -769,32 +770,32 @@ function Validator() {
 		// scans the HTML content at each queued URL to find broken links.
 		var htmlUrlChecker = new blc.HtmlUrlChecker(options, {
 		    html: function(tree, robots, response, pageUrl, customData){
-			//console.log("link tree =", tree);
-			console.log("link pageUrl =", pageUrl);
-			//console.log("link response =", response);
+			debug("validator link tree = ", tree);
+			debug("validator link pageUrl = ", pageUrl);
+			debug("validator link response = ", response);
 		    },
 		    junk: function(result, customData){
-			console.log("junk result");
+			debug("validator junk result");
 			if (result.excluded) {
-			    console.log("junk() result.excluded =", result.excluded);
+			    debug("validator junk() result.excluded = ", result.excluded);
 			}
 		    },
 		    link: function(result, customData){
 			linkCount = linkCount + 1;
 		    	if (result.broken) {
 			    brokenLinkCount = brokenLinkCount + 1;
-			    console.log("link() " + linkChecksNum + "-" + linkCount + " broken " + result.brokenReason + " " + result.url.resolved);
+			    debug("validator link() " + linkChecksNum + "-" + linkCount + " broken " + result.brokenReason + " " + result.url.resolved);
 			    brokenLinks.push(result.url.resolved);
 			} else {
-			    console.log("link() " + linkChecksNum + "-" + linkCount + " ok " + result.url.resolved);
+			    debug("validator link() " + linkChecksNum + "-" + linkCount + " ok " + result.url.resolved);
 			}
 		    },
 		    page: function(error, pageUrl, customData){
-			//console.log("page() error =", error);
-			//console.log("page() pageUrl =", pageUrl);
+			debug("validator page() error = ", error);
+			debug("validator page() pageUrl = ", pageUrl);
 		    },
 		    end: function(){
-			console.log("end()");
+			debug("validator end()");
 			if (brokenLinkCount === 0) {
 			    if (linkCount !== 0) {
 				if (linkCount === 1) {
@@ -822,16 +823,16 @@ function Validator() {
     }
     // used by server
     this.validateQueryTerm = function (userString) {
-        //console.log("validator userString =", userString);
+        debug("validator userString = ", userString);
         // remove non-alphanumerical but not spaces
         var validateString = userString.replace(/[^a-zA-Z0-9 ]/g,'');
-        //console.log("validator validateString =", validateString);
+        debug("validator validateString = ", validateString);
         if (validateString != userString) {
             return "";
         }
         // make sure it is not too long
         if (userString.length > 22) {
-            console.log("validator input rejected because it is too long", userString.length);
+            debug("validator input rejected because it is too long", userString.length);
             return "";
         }
         // remove stop words

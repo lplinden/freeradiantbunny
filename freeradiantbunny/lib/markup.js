@@ -14,7 +14,7 @@ var columnCount = 0;
 var columnNum = 1;
 
 var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pageName) {
-    //console.log("convertDataSet()");
+    debug("markup convertDataSet()");
     var aDataSet = [];
     var moulder = require('./moulder.js');
     // reset
@@ -23,8 +23,8 @@ var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pa
     var i;
     for (i = 0; i < dataSet.length; i++) {
         var row = dataSet[i];
-	//console.log("convertDataSet() i = ", i);
-	//console.log("convertDataSet() row = ", row);
+	debug("markup convertDataSet() i = ", i);
+	debug("markup convertDataSet() row = ", row);
         var aRow = [];
         var extends_class_id = "";
         // get the id so that other columns can be processed
@@ -34,7 +34,7 @@ var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pa
 	    columnCount++;
             if (columnName === "id") {
                 aId = row[columnName];
-		//console.log("convertDataSet() columnName, aId =", columnName + ", " + aId);
+		debug("markup convertDataSet() columnName, aId =", columnName + ", " + aId);
                 //break;
             }
         }
@@ -65,15 +65,15 @@ var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pa
             }
             // data assigned
 	    // debug
-            //console.log("markup.js columnName =", columnName);
-	    //console.log("markup.js row[columnName] =", row[columnName]);
-	    //console.log("markup.js className =", className);
-	    //console.log("markup.js id =", id);
-	    //console.log("markup.js baseUrl =", baseUrl);
-	    //console.log("localBaseUrl =", localBaseUrl);
-	    //console.log("extends_class_id =", extends_class_id);
-	    //console.log("markup.js pageName =", pageName);
-	    //console.log("aId =", aId);
+            debug("markup columnName =", columnName);
+	    debug("markup row[columnName] =", row[columnName]);
+	    debug("markup className =", className);
+	    debug("markup id =", id);
+	    debug("markup baseUrl =", baseUrl);
+	    debug("markup localBaseUrl =", localBaseUrl);
+	    debug("markup extends_class_id =", extends_class_id);
+	    debug("markup pageName =", pageName);
+	    debug("markup aId =", aId);
 	    var dataToUse = row[columnNameAsLinkOrNot];
 	    // store in array
             aRow[columnNameAsLinkOrNot] = moulder.get(columnName, dataToUse, className, id, baseUrl, localBaseUrl, extends_class_id, id, pageName, aId);
@@ -101,9 +101,6 @@ function Markup() {
         debug("markup className =", className);
         debug("markup pageName =", pageName);
         debug("markup paramView =", paramView);
-        //console.log("markup getPage()");
-        //console.log("markup className =", className);
-        //console.log("markup pageName =", pageName);
 
         var freeradiantbunny = require("freeradiantbunny");
         var config = freeradiantbunny.getConfig();
@@ -253,8 +250,8 @@ function Markup() {
             debug("markup Promise.all()");
             var dataSet = results[0];
 	    // test if empty
-	    //console.log("markup Promise.all results[0] =", results[0]);
-	    //console.log("markup Promise.all results[1] =", results[1]);
+	    debug("markup Promise.all results[0] =", results[0]);
+	    debug("markup Promise.all results[1] =", results[1]);
             var aDataSet = convertDataSet(dataSet, className, id, baseUrl, localBaseUrl, pageName);
             // process the data some before sending to template
             // sort field assumes that the id field is before it in sql query
@@ -279,7 +276,7 @@ function Markup() {
                     if (aDataSet[z].id !== null) {
 			// force to be one, hey, maybe the loop is not needed
 			if (className == "plant_list_plants") {
-			    console.log("markup aDataSet[z].plant_list_plant_id =", aDataSet[z].plant_list_plant_id.chardata);
+			    debug("markup aDataSet[z].plant_list_plant_id =", aDataSet[z].plant_list_plant_id.chardata);
                             var theId = aDataSet[z].plant_list_plant_id.chardata;
                             idArray.unshift(theId);
                             debug("markup idArray.theId =", theId);
@@ -336,10 +333,10 @@ function Markup() {
 
             dust.helpers.last = function (chunk, context, bodies) {
 		var lastIndex = columnCount - 1;
-		//console.log("markup helper lastIndex = ", lastIndex);
+		debug("markup helper lastIndex = ", lastIndex);
 		var thisIndex = columnNum - 1;
 		columnNum++;
-		//console.log("markup helper thisIndex = ", thisIndex);
+		debug("markup helper thisIndex = ", thisIndex);
 		if (thisIndex == lastIndex) {
 		    // reset
 		    thisIndex = 0;
@@ -442,8 +439,8 @@ function Markup() {
 			}
                     });
 		} else if (paramView == "json") {
-                    //debug("markup dust.render()")
-                    //console.log("markup dust.render() paraView =", paramView)
+                    debug("markup dust.render()")
+                    debug("markup dust.render() paraView =", paramView)
 		    // dust docs state to not compile on the server, too slow
 		    var fs = require('fs');
 		    var path = require('path');
@@ -461,7 +458,7 @@ function Markup() {
 			}
                     });
 		} else {
-		    console.log("markup error paramView not known.");
+		    debug("markup error paramView not known.");
 		}
             }
         }).catch(function (error) {
@@ -536,7 +533,7 @@ function Markup() {
 			idArray.unshift(theId);
 			debug("markup idArray.theId =", theId);
 		    } else {
-			console.log("markup error with raw property");
+			debug("markup error with raw property");
 		    }
                 }
             }

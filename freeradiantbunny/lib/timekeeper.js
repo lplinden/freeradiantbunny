@@ -126,30 +126,30 @@ function Timekeeper() {
     };
     this.getNowDate = function () {
 	// make localtime
-	//console.log("timekeeper getNowDate()");
+	debug("timekeeper getNowDate()");
 
 	// convert from UTC to localtime
 
         var date = new Date();
-	//console.log("timekeeper date =", date);
+	debug("timekeeper date = ", date);
 
 	var offset = date.getTimezoneOffset();
-	//console.log("timekeeper offset =", offset);
+	debug("timekeeper offset = ", offset);
 
 	var offset_hours = offset / 60;
-	//console.log("timekeeper offset_hours =", offset_hours);
+	debug("timekeeper offset_hours = ", offset_hours);
 
 	var hours = date.getHours();
-	//console.log("timekeeper hours =", hours);
+	debug("timekeeper hours = ", hours);
 
 	var diff_hours = hours - offset_hours;
-	//console.log("timekeeper diff_hours =", diff_hours);
+	debug("timekeeper diff_hours = ", diff_hours);
 	
 	date.setHours(diff_hours);
-	//console.log("timekeeper date =", date);
+	debug("timekeeper date = ", date);
 	
 	var dateStyled = date.toISOString().slice(0, 10)
-	//console.log("timekeeper dateStyles =", dateStyled);
+	debug("timekeeper dateStyles = ", dateStyled);
 
 	return dateStyled;
     };
@@ -159,97 +159,3 @@ function Timekeeper() {
 }
 
 module.exports = new Timekeeper();
-
-/*
-    get_oldest_date_in_db = function () {
-        return "2010-10-09";
-    }
-    this_date_plus_one_day = function (date) { 
-        var timestamp = strtotime(date + " + 1 day");
-        var next_date = date('Y-m-d', timestamp);
-        return next_date;
-    }
-    convert_from_timestamp_to_date_as_first_year_style = function (timestamp) {
-        // debug
-        //print "debug TimeKeeper: converting timestamp = " _ timestamp + "<br />\n";
-        return strftime('%Y-%m-%d', timestamp);
-    }
-    get_production_day_count = function(yearFirstStyleDateStart = "") {
-        // count the first day
-        // and count today (even if partial)
-        // and all days in between the two above
-        var yearFirstStyleDateStart = get_oldest_date_in_db();
-        // declare variable that is being solved for
-        var days_elapsed = 0;
-        // deal with date input
-        // the funcion below was a date but for 4 o'clock
-        // debug
-        //print "<p>timekeeper: year first style date to timestamp = yearFirstStyleDateStart</p>\n";
-        // this day is EST
-        // to get GMT add 4 hours
-        var timestamp_start = convertYearFirstStyleDateToTimestamp(yearFirstStyleDateStart);
-        // debug
-        //print "<p>timekeeper: timestamp start = " + timestamp_start + "</p>\n";
-        var year_first_style_date_today = get_today_date_as_first_year_style();
-        // debug
-        //print "<p>timekeep: year first style data today = year_first_style_date_today</p>\n";
-        // this day is rounded to the beginning of the day
-        // this day is EST
-        // to get GMT add 4 hours
-        var timestamp_today = convertYearFirstStyleDateToTimestamp(year_first_style_date_today);
-        // debug
-        //print "<p>timekeeper: timestamp today = " + timestamp_today + "</p>\n";
-        var diff = timestamp_today - timestamp_start;
-        // debug
-        //print "<p>timekeeper: diff = " + diff + "</p>\n";
-        // divide by seconds minutes hours
-        // in order to make days
-        var days_elapsed = Math.round((diff / (60 * 60 * 24)), 0);
-        // now add the fraction so that the hours of today are included
-        var hours_elapsed_today = (getNowTimestamp() - timestamp_today) / (60 * 60);
-        // convert to fraction of a day
-        var hours_elapsed_today_in_days = hours_elapsed_today / 24;
-        // debug
-        //print "<p>timekeeper: hours elapsed today in days = " + hours_elapsed_today_in_days + "</p>\n";
-        // add the hours that have elapsed today
-        days_elapsed += hours_elapsed_today_in_days;
-        // rwound
-        return Math.round(days_elapsed, 2);
-    }
-    get_cell_colorized_given_sort_date = function(given_sort_date, given_column_name, given_class_name_for_url = "", given_id = "", given_view = "", cell_element_flag = "") {
-        var markup = "";
-        // create an HTML table cell
-        // create a flag that tells whether there is a link or not
-        // assumes a letter and a space at the beginning of string
-        // for example "Z " or "Y "
-        var link_flag = 0;
-        if (given_class_name_for_url && given_id && ! isToday(substr(given_sort_date, 2))) {
-            // is today, so up goes the flag to add a link
-            link_flag = 1;
-        }
-        if (cell_element_flag != "off") {
-            markup += "  <td style=\"background-color: " + calculate_cell_color(given_column_name, given_sort_date) + "; text-align: center;\">\n";
-        }
-        markup += "      <span style=\"font-size: 80%;\">";
-        if (link_flag) {
-            var url = given_class_name_for_url + "?";
-            // move this to a be passed via parameter: below is for processes
-            //if (get_status() === "online") {
-            //  url += "status=online";
-            //  url += "&amp;";
-            //}
-            url += "makesorttoday=" + given_id;
-            markup += "<a href=\"" + url + "\" style=\"text-decoration: none;\">";
-        }
-        markup += given_sort_date;
-        if (link_flag) {
-            markup  += "</a>";
-        }
-        markup += "</span>\n";
-        if (cell_element_flag != "off") {
-            markup += "  </td>\n";
-        }
-        return markup;
-    }
-*/
-

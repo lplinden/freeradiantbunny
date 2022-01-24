@@ -37,7 +37,7 @@ function Realtime() {
             if (className === "webpages") {
                 if (statusCodeAttempted.indexOf(url) > -1) {
 		    // only check once
-		    //console.log("realtime updateStatusCheck() url already checked");
+		    debug("realtime updateStatusCheck() url already checked");
 		    return;
 		} else {
 		    // store this url
@@ -51,7 +51,6 @@ function Realtime() {
 		botPromise.then(function (data) {
                     var foundStatusCode = data.statusCode;
                     debug("realtime updateStatusCodes() foundStatusCode =", foundStatusCode);
-                    console.log("realtime updateStatusCodes() foundStatusCode =", foundStatusCode);
                     var backgroundColor;
                     if (foundStatusCode.toString() === "200") {
 			// green
@@ -72,7 +71,7 @@ function Realtime() {
             if (className === "webpages") {
                 if (validHtmlAttempted.indexOf(id) > -1) {
 		    // only check once
-		    //console.log("realtime validHtmlCheck() url already checked");
+		    debug("realtime validHtmlCheck() url already checked");
 		    return;
 		} else {
 		    // store this url
@@ -107,7 +106,7 @@ function Realtime() {
             if (className === "webpages") {
                 if (linkCheckAttempted.indexOf(url) > -1) {
 		    // only check once
-		    //console.log("realtime updateLinkCheck() url already checked");
+		   debug("realtime updateLinkCheck() url already checked");
 		    return;
 		} else {
 		    // store this url
@@ -135,7 +134,6 @@ function Realtime() {
 	});
 	socket.on('measure', function (id, className) {
             debug("realtime measure()", id + " " + className);
-            //console.log("realtime measure()", id + " " + className);
 	    // execute only once per page load
             if (measureAttempted.indexOf(id) > -1) {
 		// already done, so skip
@@ -157,11 +155,11 @@ function Realtime() {
 		};
 		httpRequest(params).then(function(body) {
 		    // debug
-		    //console.log(body);
+		    debug("realtime given body");
 		    var backgroundColor = '#84BE6A';
-		    console.log("realtime measure() id =", id);
-		    console.log("realtime measure() className =", className);
-		    console.log("realtime measure() backgroundColor =", backgroundColor);
+		    debug("realtime measure() id = ", id);
+		    debug("realtime measure() className = ", className);
+		    debug("realtime measure() backgroundColor = ", backgroundColor);
 		    // move line below
 		    io.sockets.emit('refreshMeasure', {msg1: id, msg2: className, msg3: body, msg4: backgroundColor});
 		});		

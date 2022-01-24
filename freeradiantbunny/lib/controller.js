@@ -34,7 +34,6 @@ function Controller() {
         if (reqQuery.view) {
             paramView = validator.validateView(reqQuery.view);
             debug("controller paramView = ", paramView);
-            console.log("controller paramView = ", paramView);
         }
         // see if db edits in order to do db changes
         if (editTerms instanceof Array && Object.keys(editTerms).length > 0) {
@@ -79,9 +78,6 @@ function Controller() {
         debug("controller serveUpWebPageWithId() className =", className);
         debug("controller serveUpWebPageWithId() classNameFilter =", classNameFilter);
         debug("controller serveUpWebPageWithId() id =", id);
-        console.log("controller serveUpWebPageWithId() className =", className);
-        console.log("controller serveUpWebPageWithId() classNameFilter =", classNameFilter);
-        console.log("controller serveUpWebPageWithId() id =", id);
         // frb
         var freeradiantbunny = require("freeradiantbunny");
         var validator = freeradiantbunny.getValidator();
@@ -95,7 +91,6 @@ function Controller() {
         if (reqQuery.view) {
             paramView = validator.validateView(reqQuery.view);
             debug("controller paramView = ", paramView);
-            console.log("controller paramView = ", paramView);
         }
         if (reqQuery.sort) {
             paramSort = validator.validateSort(reqQuery.sort);
@@ -113,7 +108,7 @@ function Controller() {
 	    var config = freeradiantbunny.getConfig();
             paramUpkIsValid = validator.isValidUserPassKey(reqQuery.upk, config);
 	    // do not log this value even for debugging purposes
-            console.log("controller paramUpkIsValid = ", paramUpkIsValid);
+            debug("controller paramUpkIsValid = ", paramUpkIsValid);
         }
         // aside pre start
         // before the action, deal with user requests (if any)
@@ -163,12 +158,12 @@ function Controller() {
             viewer.getOutputEdit(res, dataSetPromise, className, id);
         } else {
             // get data
-            console.log("controller get data");
+            debug("controller get data");
             try {
                 dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, specialFlag, queryTerms);
             } catch (error) {
                 var why = "controller failed getting dataSetPromise from modeller; " + error;
-		console.log("controller error: ", why);
+		debug("controller catch error why = ", why);
                 freeradiantbunny.send404(res, why);
                 return;
             }

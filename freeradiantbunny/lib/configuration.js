@@ -20,6 +20,7 @@ function Configuration() {
     // initialize variables for config variables
     this.homeDir = process.env[(process.plantform === 'win32') ? 'USERPROFILE' : 'HOME'];
     this.appDir = path.dirname(require.main.filename);
+    debug("configuration appDir = ", appDir);
     this.baseUrl = '';
     this.databaseInfo = '';
     this.vhosts = '';
@@ -29,22 +30,33 @@ function Configuration() {
     // read config file and parse TOML format
     this.loadConfigFile = function () {
         debug("configuration loadConfigFile()");
+	debug("configuration toml parse()");
+	var full_path_config_toml_file = this.homeDir + '/.freeradiantbunny/config.toml';
+	debug("configuration toml config-toml =", full_path_config_toml_file);
         var fs = require('fs'),
             toml = require('toml'),
             config = toml.parse(fs.readFileSync(this.homeDir + '/.freeradiantbunny/config.toml', 'utf-8'));
-        // store these configuration variables
+
+        // store configuration variables
         this.baseUrl = config.baseUrl;
+        debug("configuration baseUrl =", this.baseUrl);
+
         this.databaseInfo = config.databaseInfo;
-        this.vhosts = config.vhosts;
+        debug("configuration databaseInfo =", this.databaseInfo);
+
+        debug("configuration vhosts =", this.vhosts);
+
+	this.vhosts = config.vhosts;
+        debug("configuration vhosts =", this.vhosts);
+
         this.validPageNames = config.validPageNames;
+        debug("configuration validPageNames =", this.validPageNames);
+
         this.specialPages = config.specialPages;
-        this.defaultStrings = config.defaultStrings;
-        console.log("configuration baseUrl =", this.baseUrl);
-        console.log("configuration databaseInfo =", this.databaseInfo);
-        console.log("configuration vhosts =", this.vhosts);
-        console.log("configuration validPageNames =", this.validPageNames);
-        console.log("configuration specialPages =", this.specialPages);
-        console.log("configuration defaultStrings =", this.defaultStrings);
+        debug("configuration specialPages =", this.specialPages);
+
+	this.defaultStrings = config.defaultStrings;
+        ("configuration defaultStrings =", this.defaultStrings);
     };
     // base URL
     this.getBaseUrl = function () {
@@ -96,7 +108,7 @@ function Configuration() {
         var i;
         for (i = 0; i < this.specialPages.length; i++) {
             if (pageName === this.specialPages[i]) {
-                console.log("config isSpecialPage");
+                debug("configuration isSpecialPage");
                 return true;
             }
         }
@@ -136,8 +148,9 @@ function Configuration() {
     };
     // used by markup
     this.getDefaultStrings = function (className) {
-        console.log("configuation className =", className);
-        //manifest['headTitle'] = className + " - Permaculture Websites";
+        debug("configuation className =", className);
+	// todo set up configuration switches for the following
+        //manifest['headTitle'] = className + " - FreeRadiantBunny website";
         //manifest['site-style'] = this.getBaseUrl() + "_styles/main.css";
         //manifest['home-href'] = this.getBaseUrl();
         //manifest['logo-src'] = this.getBaseUrl() + "_images/logo.png";

@@ -144,7 +144,7 @@ function Menu() {
         if (flagFoundSort) {
             params += paramSort;
         }
-        //debug("menu getParams() creaed params =", params);
+        debug("menu getParams() created params =", params);
         return params;
     }
 };

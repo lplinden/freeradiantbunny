@@ -16,8 +16,8 @@ function Viewer() {
     debug("viewer instantiated", instanceCount);
     // used by controller
     this.getOutput = function (res, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, classNameFilterNamePromise, paramUpkIsValid, validator) {
-        debug("viewer className =", className);
-	console.log("viewer paramView =", paramView);
+        debug("viewer className = ", className);
+	debug("viewer paramView = ", paramView);
         var markup = require('./markup.js');
 	var pageName = "";
         // note that when view is a null string, use html

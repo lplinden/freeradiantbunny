@@ -26,8 +26,8 @@ function Moulder() {
     var theId
     var seed_packet_id;
     this.get = function(columnName, value, className, id, baseUrl, localBaseUrl, extends_class_id, idOrNotId, pageName, aId) {
-        //debug("moulder className =", className);
-        //debug("moulder columnName =", columnName);
+        debug("moulder given className =", className);
+        debug("moulder given columnName =", columnName);
         var styles = "";
         if (columnName === "id") {
 	    if (className == "plant_histories") {
@@ -520,15 +520,15 @@ function Moulder() {
             // sort data as hyperlink
             // note set url
             var sortNoPrefix = this.getSortNoPrefix(value);
-            //debug("moulder sortNoPrefix", sortNoPrefix);
+            debug("moulder sortNoPrefix", sortNoPrefix);
             var sort;
             if (timekeeper.isToday(sortNoPrefix) || className === "tenperdays") {
-                //debug("is today");
+                debug("is today and tenperdays class");
                 // today, so no link
                 sort = value;
                 // this if else clause should not be here so un-hardcode this
             } else {
-                //debug("not today");
+                debug("not today or tenperdays class");
                 // not today, so link button
                 // this if else clause should not be here so un-hardcode this
                 // make url
@@ -575,12 +575,12 @@ function Moulder() {
 		    valueAsLink = this.getAsLink(value, baseUrl, className, aId);
 		}
 	    }
-            //debug("moulder idOrNotId undefined? ", idOrNotId);
+            debug("moulder idOrNotId = ", idOrNotId);
             //if (idOrNotId) {
             //    valueAsLink = this.makeStandOut(valueAsLink);
 	    //}
             var styledData = this.getStyledData("", valueAsLink);
-            //debug("moulder styledData =", styledData);
+            debug("moulder styledData =", styledData);
             return styledData;
 
         } else if (columnName === "front_cover") {
@@ -590,7 +590,7 @@ function Moulder() {
 	    var chardata = this.getImgUrlAsImageElement(baseUrl, className, filteredValue, id, size);
 	    return this.getStyledData("", chardata);
         } else if (columnName === "img" || columnName === "image") {
-            //debug("moulder columnName =", columnName);
+            debug("moulder columnName =", columnName);
 	    // if baseUrl is offline, try localhost_baseurl
 	    var filteredValue = this.filterToLocalBaseUrlIfNotOnline(value, localBaseUrl);
 	    // special filter
@@ -624,13 +624,13 @@ function Moulder() {
             }
 
         } else if (columnName === "aimg") {
-            //debug("moulder columnName =", columnName);
-            //debug("moulder value =", value);
+            debug("moulder columnName =", columnName);
+            debug("moulder value =", value);
             // the sql does it all (both a element and img element)
             var chardata = value;
 	    var raw = "";
 	    var styles = "";
-	    //console.log("moulder styles =", styles);
+	    debug("moulder styles =", styles);
 	    return this.getStyledData("", chardata, raw, styles);
         } else if (columnName === "img_url") {
             // the field is for meta-purposes in the frb single data context
@@ -648,7 +648,7 @@ function Moulder() {
                    columnName === "tagscount" ||
                    columnName === "plantscount") {
             if (value > 0) {
-                //debug("moulder ptopicscount value > 0");
+                debug("moulder value > 0");
                 // green
                 styles = "background-color: #CCFFCC;"
             } else {
@@ -661,15 +661,21 @@ function Moulder() {
 
             // shorten field name for display purposes
             // save img_url field as img (see sql)
-            //debug("moulder extends_class =", extends_class_id);
+            debug("moulder extends_class = ", extends_class_id);
+
             var extendsClass = this.getExtendsClassStyle(extends_class_id);
-            //debug("moulder extendsClassStyle =", extendsClassStyle);
+            debug("moulder extendsClassStyle = ", extendsClassStyle);
+
             var valueAsLink = this.getAsLink(value, baseUrl, className, extends_class_id);
+            debug("moulder valueAsLink = ", valueAsLink);
+	    
             var styledData = this.getStyledData(extendsClass, valueAsLink);
-            //debug("moulder styledData =", styledData);
+            debug("moulder styledData = ", styledData);
+	    
             return styledData;
 
         } else if (columnName === "plant_attributes") {
+	    // todo refactor the code below fr plant_attributes
 	    // on hold
 	    // should be from plants table
 	    //var plantId = aId;
@@ -679,7 +685,6 @@ function Moulder() {
             //var styledData = this.getStyledData(extendsClass, valueAsLink);
             //debug("moulder styledData =", styledData);
             //return styledData;
-
 	    // new way
 	    // make meta
 	    className = "plant_attributes/plants/";
@@ -771,7 +776,8 @@ function Moulder() {
     }
     this.getImgUrlAsImageElementToSingle = function (baseUrl, className, imgUrl, id) {
         // need to implement alt attribute and title attribute
-        //debug("moulder getImgUrlAsImageElementToSingle() =", imgUrl);
+        debug("moulder getImgUrlAsImageElementToSingle()");
+	debug("moulder imgUrl = ", imgUrl);
         return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-img\" alt=\"\" title=\"\" style=\"width: 33px; height: 24px;\" /></a>";
     }
     this.getSortStyle = function(sort) {
@@ -807,19 +813,21 @@ function Moulder() {
         var color_7 = "#3BF965"; // bright green
         // check date prefix to see if this is an old "Z" date
         // make the Y editable in the config
-        //debug("mouldata sort =", sort);
+        debug("mouler sort =", sort);
         var sortLetter = "";
         if (sort !== null) {
             sortLetter = sort.substr(0, 1);
         }
-        //debug("moulder sortLetter =", sortLetter);
+	debug("moulder sortLetter = ", sortLetter);
         if (sortLetter === "Y") {
-            //debug("moulder timekeeper =", timekeeper);
+            debug("moulder timekeeper = ", timekeeper);
             // color according to the timespan
             var date = sort.substr(2);
-            //debug("mouldata date =", date);
+            debug("moulder date =", date);
+
             var daysElapsed = timekeeper.getDaysElapsed(date);
-            //debug("mouldata daysElapsed =", daysElapsed);
+            debug("moulder daysElapsed = ", daysElapsed);
+
             var timespans = [10, 90, 180, 200, 365];
             var color;
             if (timekeeper.isToday(date)) {
@@ -879,21 +887,21 @@ function Moulder() {
         return "";
     }
     this.getStyledData = function (theClass, chardata, raw = "", styles = "") {
+        debug("moulder getStyledData()");
         var styledData = {
             class: theClass,
             style: styles,
             chardata: chardata,
             raw: raw
         }
-        //debug("moulder getStyledData styledData =", styledData);
-	//console.log("moulder getStyledData styledData =", styledData);
+        debug("moulder styledData = ", styledData);
         return styledData;
     }
     this.getClassesListGivenZachmanId = function (zachman_id) {
         var classesList = [];
         // consult database to get list of classes matching this zachmand_id
         // foreign key
-        //debug("foreign key class list with zachman_id = " + zachman_id + "]");
+        debug("moulder foreign key class list with zachman_id = ", zachman_id);
         // Top Ten Promise() function
         // deal with a Promise() type
         //            try {

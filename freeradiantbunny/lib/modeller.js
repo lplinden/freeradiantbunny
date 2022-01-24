@@ -19,19 +19,14 @@ function Modeller() {
     debug("modeller instantiated", instanceCount);
     // used by controller
     this.getDataSetPromise = function (className, classNameFilter, id, paramSort, specialFlag, queryTerms) {
-        // get some data
+        // debug
         debug("modeller getDataSetPromise()");
         debug("modeller className =", className);
         debug("modeller classNameFilter =", classNameFilter);
         debug("modeller id =", id);
         debug("modeller specialFlag =", specialFlag);
         debug("modeller queryTerms =", queryTerms);
-        console.log("modeller getDataSetPromise()");
-        console.log("modeller className =", className);
-        console.log("modeller classNameFilter =", classNameFilter);
-        console.log("modeller id =", id);
-        console.log("modeller specialFlag =", specialFlag);
-        console.log("modeller queryTerms =", queryTerms);
+
         // get baseUrl
         var freeradiantbunny = require("freeradiantbunny");
         var config = freeradiantbunny.getConfig();
@@ -66,8 +61,10 @@ function Modeller() {
     };
     // used by controller
     this.getNameGivenClassNameFilterAndIdPromise = function (tableNameFilter, id) {
-        debug("getNameGivenClassNameFilterAndIdPromise()");
-        console.log("getNameGivenClassNameFilterAndIdPromise() tableNameFitler=", tableNameFilter);
+	// debug
+        debug("modeller getNameGivenClassNameFilterAndIdPromise()");
+        debug("modeller given tableNameFitler = ", tableNameFilter);
+
         // frb
         var freeradiantbunny = require("freeradiantbunny");
 

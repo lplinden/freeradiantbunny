@@ -33,7 +33,7 @@ function Database() {
                     debug("database db query " + error);
                     return reject(error);
                 }
-		console.log("database className =", className);
+		debug("database className =", className);
                 var dataSet = [];
                 result.rows.forEach(row=>{
                     dataSet.push(row);
@@ -50,7 +50,7 @@ function Database() {
         debug("database sql =", sql);
         // get connection string
         var connectionString = this.getConnectionString();
-	console.log("database connectionString-1 =", connectionString);
+	debug("database connectionString-1 =", connectionString);
         // use postgresql database
         var promise = new Promise(async function (resolve, reject) {
             debug("database new Promise()");
@@ -96,7 +96,6 @@ function Database() {
     }
     // used by modeller
     this.queryDatabaseSimple = function (sql, suitcase) {
-	console.log("database simple sql =", sql);
 	debug("database simple sql =", sql);
         var name = "name-not-found";
         debug("database queryDatabaseSimple()");
@@ -104,7 +103,7 @@ function Database() {
         var connectionString = this.getConnectionString();
         // use postgresql database
         var promise = new Promise(async function (resolve, reject) {
-	    console.log("database new new Promise");
+	    debug("database new new Promise");
             const { Pool } = require('pg');
             // get database info
             var freeradiantbunny = require("freeradiantbunny");
@@ -135,66 +134,9 @@ function Database() {
         var config = freeradiantbunny.getConfig();
         var databaseInfo = config.getDatabaseInfo();
         const connectionString = 'postgresql://' + databaseInfo.user + ':' + databaseInfo.password + '@' + databaseInfo.host + ":" + databaseInfo.postgresqlPort + "/" + databaseInfo.database;
-	console.log("database connectionString-2 =" . connectionString);
+	debug("database connectionString-2 =" . connectionString);
         return connectionString;
     };
-    /*
-      this.xqueryDatabase = function(connectionString, sql) {
-      return Promise.resolve(
-      [{
-      "id": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "1"
-      },
-      "name": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "projects"
-      },
-      "sort": {
-      "style": "background-color: #0099CC;",
-      "chardata": "Y 2017-12-5"
-      },
-      "status": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "zoneline"
-      },
-      "img_url": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "http://mudia.com/_images/logo.png"
-      },
-      "description": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "contains an initiative."
-      }
-      }, {
-      "id": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "2"
-      },
-      "name": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "goal_statements"
-      },
-      "sort": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "Y 2017-12-6"
-      },
-      "status": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "zoneline"
-      },
-      "img_url": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "http://mudia.com/_images/logo.png"
-      },
-      "description": {
-      "style": "background-color: #FFFFFF;",
-      "chardata": "written goal."
-      }
-      }]
-      )
-      }
-    */
 };
 
 var cleanUp = async (client) => {

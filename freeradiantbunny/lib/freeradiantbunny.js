@@ -7,6 +7,8 @@
 
 'use strict';
 
+var debug = require('debug')('frb');
+
 /**
  * Define 404.html.
  */
@@ -33,6 +35,7 @@ module.exports = {
         return bot;
     },
     getConfig: function () {
+	debug("freeradiantbunny getConfig()");
 	// current version
         var homeDir = process.env[(process.plantform === 'win32') ? 'USERPROFILE' : 'HOME'];
         var fileName = homeDir + '/.freeradiantbunny/config.js';
@@ -46,42 +49,47 @@ module.exports = {
         return configuration;
     },
     getController: function () {
+	debug("freeradiantbunny getController()");
         return controller;
     },
     getRealtime: function () {
+	debug("freeradiantbunny getRealtime()");
         return realtime;
     },
     getValidator: function () {
+	debug("freeradiantbunny getValidator()");
         return validator;
     },
     send404: function (res, why) {
+	debug("freeradiantbunny send404()");
         // send 404 error webpage
         var type = 'text/html';
         var fs = require('fs');
         fs.readFile(fileName404, function (error, data) {
             if (error) {
-                console.log("server readFile error =", error);
+                debug("server readFile error =", error);
                 return;
             }
             res.writeHead(404, {'Content-Type': type});
             res.end(data);
-            console.log("freeradiantbunny served 404 why =", why);
-            console.log("freeradiantbunny served " + type + " =", fileName404);
+            debug("freeradiantbunny served 404 why =", why);
+            debug("freeradiantbunny served " + type + " =", fileName404);
         });
     },
     send200: function (res, why) {
+	debug("freeradiantbunny send200()");
         // send 200 with message
         var type = 'text/html';
         var fs = require('fs');
         fs.readFile(fileName200, function (error, data) {
             if (error) {
-                console.log("server readFile error =", error);
+                debug("server readFile error =", error);
                 return;
             }
             res.writeHead(200, {'Content-Type': type});
             res.end(data);
-            console.log("freeradiantbunny served 200 why =", why);
-            console.log("freeradiantbunny served " + type + " =", fileName200);
+            debug("freeradiantbunny served 200 why =", why);
+            debug("freeradiantbunny served " + type + " =", fileName200);
         });
     }
 };

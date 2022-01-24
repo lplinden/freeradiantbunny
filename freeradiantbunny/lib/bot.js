@@ -15,19 +15,28 @@ function Bot() {
     instanceCount = instanceCount + 1;
     debug("bot instantiated", instanceCount);
     this.getStatusCode = function (givenUrl) {
-        debug("bot url =", givenUrl);
-        console.log("bot url =", givenUrl);
+        debug("bot getStatusCode() given url =", givenUrl);
         var promise = new Promise(function (resolve, reject) {
             var url = require('url');
+
             var myUrl = new URL(givenUrl);
+
             var hoststring = myUrl.host;
-            var stringLength = "https://".length + hoststring.length;
-            debug("bot stringlength =", stringLength);
+            debug("bot url host = ", hoststring);
+	    var hoststringLength = hoststring.length;
+            debug("bot found hoststringLength = ", hoststringLength);
+	    
+	    var protocolstring = "https://";
+            debug("bot protocolstring = ", protocolstring);
+	    var protocolstringLength = protocolstring.length;
+            debug("bot found protocolstringLength = ", protocolstringLength);
+
+	    // total string length
+	    var stringLength = protocolstringLength + hostingstringLength;
+            debug("bot found stringlength = ", stringLength);	    Q
             var pathstring = givenUrl.toString().substring(stringLength);
-            debug("bot host =", hoststring);
-            console.log("bot host =", hoststring);
-            debug("bot path =", pathstring);
-            console.log("bot path =", pathstring);
+            debug("bot url path = ", pathstring);
+	    
             var https = require('https');
             var options = {
                 host: hoststring,
@@ -35,6 +44,7 @@ function Bot() {
                 path: pathstring,
                 method: 'GET'
             };
+
             // be slow
             debug("bot setTimeout()");
             setTimeout( function () {
@@ -45,7 +55,6 @@ function Bot() {
                 });
                 req.on('error', (error) => {
                     debug("bot getStatusCode() error ", error);
-                    console.log("bot getStatusCode() error ", error);
                     reject(error);
                 });
             }, 500);

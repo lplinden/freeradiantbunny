@@ -1,0 +1,718 @@
+/* FreeRadiantBunny main.css LPL 2014-07-05 */
+/* has lots of kruft from drupal css that needs to be cleaned up */
+
+/* prevent applying -webkit */
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+  font-size: 75%;
+  margin: 0px 0px 0px 0px;
+  padding: 2px 0px 0px 0px;
+  background-color: #CCCCCC;
+  font-family: georgia, serif;
+}
+
+.error {
+  background-color: #F08080;
+}
+
+table.standard, table.simple {
+  border: 0;
+  margin: 0px 0px 0px 0px;
+  padding: 0;
+  border-collapse: collapse;
+}
+
+table.standard tr td h3 {
+  margin: 12px 0px 2px 0px;
+  padding: 0;
+}
+
+table.simple tr td {
+  vertical-align: top;
+}
+
+table.td.cell-top {
+  width: auto;
+  height: auto;
+  vertical-align: top;
+}
+
+p {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+p.simple {
+  margin: 0;
+  padding: 2px 6px 0px 0px;
+}
+
+div.meta {
+  margin: 0px 4px 8px 0px;
+}
+
+#block-blog-recent ul {
+  margin-bottom: 0px;
+}
+
+#block-blog-recent ul li {
+  font-size: 90%;
+  padding: 0px 0px 4px 0px;
+  font-weight: 400;
+}
+
+#block-system-main-menu {
+  margin: 4px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+/* the title of the blog when on blog page */
+/*
+div.content-inner h1.title {
+  font-size: 140%;
+  line-height: 26px;
+  padding: 2px 20px 0px 0px;
+}
+*/
+
+ul {
+  margin: 0px 0px 0px 4px;
+  padding: 0px 0px 0px 0px;
+}
+li {
+  margin: 0px 0px 0px 12px;
+  padding: 0px 0px 0px 0px;
+}
+
+.content-inner ul, .content-inner ol {
+  margin-bottom: 0px;
+}
+
+div.content div.field-name-body div.field-items {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+div.content p {
+  line-height: 110%;
+}
+
+/* blog img */
+.field-name-field-image {
+  float: left;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 16px 3px 0px;
+}
+
+/* for Tags */
+.field-name-field-tags .field-label,
+.field-name-field-tags .field-items,
+.field-name-field-tags .field-item {
+  display: inline;
+  margin: 0px 0px 2px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+/* do not display Images heading */
+div.field-name-field-image div.field-label {
+  background-color: #CCCC00;
+  display: none;
+}
+
+div.content {
+  margin-top: 0px;
+  font-size: 110%;
+  line-height: 14px;
+}
+
+div.user-picture {
+  float: left;
+  padding: 0px 4px 4px 0px;
+  display: inline;
+  text-align: right;
+}
+/* resize the user_picture */
+div.user-picture img {
+  width: 64px;
+  height: auto;
+}
+
+img.data-img {
+  width: 24px;
+  height: auto;
+}
+
+a,
+a:link,
+a:visited {
+}
+
+a:hover,
+a:focus,
+a:active {
+}
+
+.button a,
+.button a:link,
+.button a:visited,
+a.button,
+a.button:link,
+a.button:visited {	
+}
+
+.button a:hover,
+.button a:active,
+a.button:hover,
+a.button:active {
+}
+
+#header-site-info {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  text-align: left;
+}
+
+.header-site-info span {
+  padding: 12px 0px 0px 10px;
+}
+
+div#site-name {
+  font-size: 180%;
+  font-weight: 600;
+  text-align: left;
+  padding: 0px 0px 0px 0px;
+  margin: 2px 0px 0px 0px;
+  letter-spacing: 1px;
+}
+
+div#site-name a:link {
+  text-decoration: none;
+}
+
+h1 {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  -webkit-padding-start: 0px;
+}
+
+#site-name a:link,
+#site-name a:visited,
+#site-name a:hover,
+#site-name a:active {
+}
+
+#tagline {
+  display: block;
+  font-size: 140%;
+  text-align: left;
+  margin: 0px 0px 8px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+
+.page-inner {
+  border: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.header-group {
+}
+
+#main-menu-special {
+  margin: 0px 0px 0px 0px;
+  display: inline;
+}
+
+.main-menu {
+  margin: 0px 0px 0px 0px;
+  padding: 0px;
+  display: inline;
+}
+
+#main-menu .content {
+  margin: 0px;
+  padding: 0px;
+}
+
+.main-menu-inner ul.sf-menu {
+}
+
+.main-menu-inner ul.sf-menu a,
+.main-menu-inner ul.sf-menu a:visited  {
+}
+
+.main-menu-inner ul.sf-menu a:hover,
+.main-menu-inner ul.sf-menu a:active,
+.main-menu-inner ul.sf-menu a:focus {
+}
+
+.main-menu-inner ul.sf-menu li {
+}
+
+.main-menu-inner ul.sf-menu li.last {
+}
+
+.main-menu-inner ul.sf-menu ul {
+}
+
+.main-menu-inner ul.sf-menu li li {
+  background-color: #FFFFFF;
+}
+
+.main-menu-inner ul.sf-menu li li.last {
+}
+
+.main-menu-inner ul.sf-menu li li li {
+}
+
+.main-menu-inner ul.sf-menu li ul li:hover,
+.main-menu-inner ul.sf-menu li ul li.sfHover {
+}
+
+.search-box {
+}
+
+.search-box-inner {
+}
+
+.search-box-inner form#search-theme-form {
+}
+
+.search-box-inner input#edit-search-theme-form-header {
+}
+
+.main {
+}
+
+.hyperlink-subsub {
+  padding: 10px 0px 0px 0px;
+}
+
+.region-content {
+}
+
+.footer {
+    clear: both;
+}
+
+.logo {
+  padding: 6px 14px 2px 4px;
+}
+
+#logo > a:nth-child(1) > img:nth-child(1) {
+  padding: 15px 0px 0px 0px;
+  background-color: #FFFFFF;
+}
+
+div.node div.inner h2 {
+  font-size: 140%;
+  line-height: 26px;
+  padding: 2px 20px 0px 0px;
+}
+
+div.node div.inner h3 {
+  line-height: 18px;
+  font-size: 110%;
+  letter-spacing: 105%;
+}
+
+h2, h2.title {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.notes {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+div.node  {
+  padding: 0px 0px 26px 0px;
+}
+
+#site-name a:link,
+#site-name a:visited,
+#site-name a:hover,
+#site-name a:focus,
+#site-name a:active {
+  color: #000000;
+  text-decoration: none;
+}
+
+h2.title a:link,
+h2.title a:visited {
+}
+
+h2.title a:hover,
+h2.title a:focus,
+h2.title a:active {
+}
+
+.node-teaser {
+}
+
+.meta {
+}
+
+.submitted {
+}
+
+.node ul {
+  margin: 0px 0px 20px 30px;
+}
+
+.node ul.links li {
+}
+
+.node ul.links a {
+}
+
+.node ul.links {
+  background-color: red;
+}
+
+div.node .read-more a,
+div.node .more-link a {
+}
+
+div.content-messages div.messages,
+div.content-help div.help {
+}
+
+div.content-messages-inner div.status {
+}
+
+div.content-messages-inner div.warning {
+}
+
+div.content-messages-inner div.error {
+}
+
+div.content-help-inner div.help {
+}
+
+.form-item input.error,
+.form-item textarea.error,
+.form-item select.error {
+}
+
+.marker,
+.form-required {
+}
+
+.breadcrumbs {
+}
+
+.breadcrumbs a:link,
+.breadcrumbs a:visited {
+}
+
+ul.pager {
+}
+
+ul.pager li {
+}
+
+ul.pager a,
+ul.pager li.pager-current {
+}
+
+ul.pager li.pager-current {
+}
+
+ul.pager a:hover,
+ul.pager a:active,
+ul.pager a:focus {
+}
+
+form input.form-submit {
+}
+
+form input.form-submit:hover,
+form input.form-submit.hover,
+form input.form-submit:focus {
+}
+
+.form-item input,
+.form-item select,
+.form-item textarea {
+}
+
+.form-item .form-radio,
+.form-item .form-checkbox {
+  background: none;
+  border: none !important;
+}
+
+fieldset {
+}
+
+fieldset legend {
+}
+
+fieldset legend,
+legend.collapse-processed,
+legend.collapse-processed a:link,
+legend.collapse-processed a:visited {
+}
+
+html.js fieldset.collapsible legend a:link,
+html.js fieldset.collapsible legend a:visited {
+}
+
+html.js fieldset.collapsed legend a:link,
+html.js fieldset.collapsed legend a:visited {
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tbody {
+  box-shadow: 0;
+  border-width: 0px;
+}
+
+thead th,
+th {
+  border-width: 0px;
+  box-shadow: 0;
+}
+
+tbody th {
+  border-width: 0px;
+  box-shadow: 0;
+}
+
+tr.even,
+tr.even td {
+}
+
+tr.odd,
+tr.odd td {
+}
+
+td.active {
+}
+
+tr.drag td,
+tr.drag-previous td {
+}
+
+.book-navigation .menu {
+}
+
+.book-navigation .page-links {
+}
+
+div.comment {
+}
+
+div.comment h3.title {
+}
+
+div.comment div.links a,
+div.comment ul.links a {
+}
+
+.comments .comment.odd {
+}
+
+.comments .comment.even {
+}
+
+.comments div.comment-by-author {
+}
+
+.signature {
+}
+
+.comment-wrapper .picture img {
+}
+
+#forum .description {
+}
+
+.forum-topic-navigation {
+}
+
+div.poll div.bar {
+}
+
+div.poll div.bar div.foreground {
+}
+
+.profile .picture {
+}
+
+.profile dt {
+}
+
+table.sticky-enabled tr td {
+  line-height: 22px;
+}
+
+div.form-item-search-block-form { 
+  float: left;
+  margin: 0px 0px 0px 0px;
+  padding: 5px 0px 0px 10px;
+}
+
+div#edit-actions {
+  margin: 0px 0px 0px 2px;
+  padding: 0px 0px 0px 0px;
+}
+
+div#header-float-right {
+  float: right;
+  margin: 0px 0px 0px 0px;
+  padding: 6px 20px 0px 0px;
+}
+
+div#block-fusion_labels-fusion_region_label {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+table.blog-ready {
+  border-collapse: collapse;
+  margin: 2px 0px 2px 0px;
+}
+
+table.blog-ready td {
+  margin: 0px 0px 0px 0px;
+  padding: 2px 2px 2px 2px;
+  font-size: 90%;
+  border: 1px solid #999999;
+}
+
+.item-list > ul:nthu-child(1) {
+  margin: 0px 0px 0px 16px;
+  padding: 0px 0px 0px 0px;
+}
+
+td.header {
+  background-color: #EFEFEF;
+  font-weight: 700;
+}
+td.header-single {
+  background-color: #EFEFEF;
+  font-weight: 700;
+  width: 20%;
+}
+
+table.grid {
+  border-collapse: collapse;
+}
+
+table.grid td {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #999999;
+}
+
+table.grid td p {
+  font-size: 130%;
+  margin: 4px 4px 4px 4px;
+  padding: 2px 6px 2px 6px;
+  color: #3399FF;
+  background-color: #3344FF;
+  border-color: #9999FF;
+}
+
+h3.standard {
+  margin: 30px 0px 0px 0px;
+}
+
+h3.about {
+  margin: 36px 0px 0px 0px;
+  padding: 9px 0px 8px 6px;
+  background-color: #FFFF99;
+  color: #000000;
+  border-top: 7px solid #66CC66;
+  font-size: 120%;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.qualify { 
+  float: left;
+  padding: 4px 14px 4px 0px;
+}
+
+p.qualified-websitelist {
+  padding: 0px 0px 2px 6px;
+  font-style: italic;
+}
+
+p.code {
+  background-color: #EFEFEF;
+  padding: 10px 10px 10px 10px;
+  font-family: monospace;
+  font-size: 90%;
+}
+
+.stand-out {
+  padding: 10px 10px 10px 10px;
+  font-weight: 800;
+  font-size: 200%;
+}
+
+.column {
+  padding: 0px 0px 0px 0px;
+}
+
+div.column {
+  font-size: 120%;
+  margin: 0px 25% 0px 250px;
+  padding: 0px 0px 0px 0px;
+  background-color: #FFFFFF;
+}
+
+/* responsive */
+@media only screen and (max-width: 1100px) {
+    /* phones */
+    div#page {
+        background-color: lightblue;
+	margin: 0px 5px 0px 5px;
+	padding: 0px 0px 0px 0px;
+    }
+    .col-1 {
+	width: 100%;
+    }
+    .col-2 {
+	width: 100%;
+	background-color: #99AAFF;
+    }
+}
+
+/* @media only screen and (min-width: 768px) */
+@media only screen and (min-width: 1100px) {
+    /* desktop */
+    div#page {
+        background-color: #CCCCCC;
+	margin: 0px 20px 0px 20px;
+	padding: 0px 0px 0px 0px;
+    }
+    .col-1 {
+	width: 80%;
+	float: left;
+    }
+    .col-2 {
+	width: 19%;
+	margin: 0px 0px 0px 0px;
+	padding: 2px 2px 2px 4px;
+	float: right;
+	background-color: #BB77DD;
+    }
+}
+
+.footer {
+    content: "";
+    clear: both;
+    display: table;
+}
