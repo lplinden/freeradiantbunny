@@ -1,0 +1,4 @@
+{#data}
+      {@iterate on=.}"{key|u}": "{value.chardata|u}",
+      {/iterate}
+{/data}

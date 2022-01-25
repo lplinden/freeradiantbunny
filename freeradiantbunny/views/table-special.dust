@@ -1,0 +1,11 @@
+<table class="special">
+<!-- data table headers -->
+<!-- data table rows -->
+{#data}
+<tr>{@iterate on=.}{@eq key=key value="classname"}<td rowspan="2" class="{key|s}-instance" style="{value.style}">{value.chardata|s}</td>{:else}{@eq key=key value="aimg"}
+<td rowspan="2" class="{key|s}-instance" style="{value.style}">{value.chardata|s}</td>{:else}
+<td class="{key|s}-instance" style="{value.style}">{value.chardata|s}</td>{@eq key=key value="nameurl"}</tr>
+<tr>{/eq}{/eq}{/eq}{/iterate}
+</tr>
+{/data}
+</table>

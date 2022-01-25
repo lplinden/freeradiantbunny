@@ -1,0 +1,5 @@
+{#data}
+  {
+    "#", {@iterateNum on=num}"{value}"{/iterateNum}
+{@iterate on=.}    "{#key}{.|j}{/key}": "{value.chardata|j}",
+{/iterate}  },{/data}

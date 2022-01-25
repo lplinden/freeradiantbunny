@@ -1,0 +1,24 @@
+{
+{?table-title}
+  "table-title": "{table-title|j}",
+{/table-title}
+{?dataExistsFlag}
+  {?singleFlag}
+  "single":
+  {
+    {#data}
+    {@iterate on=.}"{key|u}": "{value.chardata|u}"{@last}{:else},{/last}
+    {/iterate}
+    {/data}
+  },
+  {/singleFlag}
+  {?manyFlag}
+  "many": {
+{>"json-many"/}
+  }
+  {/manyFlag}
+{:else}
+  "No data was found."
+{/dataExistsFlag}
+  "copyright": "&copy; 2020 Lars Paul Linden"
+}

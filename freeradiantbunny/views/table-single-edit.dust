@@ -1,0 +1,76 @@
+<table class="grid">
+{#data}
+  {@iterate on=.}
+    <tr>
+      <td class="header-single">
+        {key|s}
+      </td>
+      <td style="{value.style}">
+        {value.chardata|s}
+      </td>
+    </tr>
+  {/iterate}
+{/data}
+</table>
+<br />
+<h2 style="padding-bottom: 8px;"">Edit</h2>
+<form action="{home-href}" method="post" id="edit-form" accept-charset="UTF-8">
+<table class="form">
+    <tr>
+      <td>
+        <input type="hidden" name="hyperlink_id" value="{@iterateId on=id}{value}{/iterateId}" alt="hyperlink id">
+        <p>hyperlink_id = {@iterateId on=id}{value}{/iterateId}</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p class="instructions" style="margin-top: 6px;">Associated <strong>permaculture_topics</strong>:</p>
+<select name="permaculture_topic_id">
+<option value="1">Introduction to Permaculture</option>
+<option value="2">Design Science</option>
+<option value="3">Ethics and Principles</option>
+<option value="4">Principles of Ecologyy</option>
+<option value="5">Economics and Investment</option>
+<option value="6">Legal Structures</option>
+<option value="7">Cosmology</option>
+<option value="8">Methods of Design</option>
+<option value="9">Creative Problem Solving</option>
+<option value="10">Patterns Literacy</option>
+<option value="11">Maps and Documentation</option>
+<option value="12">Design Graphics</option>
+<option value="13">Site Analysis</option>
+<option value="14">Zones and Sectors</option>
+<option value="15">Income From Acres</option>
+<option value="16">Design Presentation</option>
+<option value="17">Land Access and Land Ownership</option>
+<option value="18">Landform (Topography)</option>
+<option value="19">Climate and Microclimate</option>
+<option value="20">Soils and the Web of Life</option>
+<option value="21">Water</option>
+<option value="22">Siting and Placement</option>
+<option value="23">Design for Disaster</option>
+<option value="24">Biotechnology</option>
+<option value="25">Earthworks and Windbreaks</option>
+<option value="26">Communities</option>
+<option value="27">Suburban Permaculture</option>
+<option value="28">Urban Permaculture</option>
+<option value="29">Village Permamculture</option>
+<option value="30">Zone 00</option>
+<option value="31">Zone 0</option>
+<option value="32">Zone I</option>
+<option value="33">Zone II</option>
+<option value="35">Zone III</option>
+<option value="36">Zone IV</option>
+<option value="37">Zone V</option>
+<option value="38">sectors</option>
+</select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button name="submit" type="submit" value="submit-true">submit </button>
+      </td>
+    </tr>
+</table>
+</form>
+<br />
