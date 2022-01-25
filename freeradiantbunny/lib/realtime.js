@@ -1,5 +1,5 @@
 /**
- * Module realtime.
+ * Module Realtime.
 * version 2.0
  *
  * @public
@@ -157,9 +157,9 @@ function Realtime() {
 		    // debug
 		    debug("realtime given body");
 		    var backgroundColor = '#84BE6A';
-		    debug("realtime measure() id = ", id);
-		    debug("realtime measure() className = ", className);
-		    debug("realtime measure() backgroundColor = ", backgroundColor);
+		    debug("realtime measure() id =", id);
+		    debug("realtime measure() className =", className);
+		    debug("realtime measure() backgroundColor =", backgroundColor);
 		    // move line below
 		    io.sockets.emit('refreshMeasure', {msg1: id, msg2: className, msg3: body, msg4: backgroundColor});
 		});		

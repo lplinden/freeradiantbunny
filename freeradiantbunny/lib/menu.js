@@ -1,5 +1,5 @@
 /**
- * Module menu.
+ * Module Menu.
  * version 2.0
  *
  * @public
@@ -14,7 +14,7 @@ var instanceCount = 0;
 function Menu() {
     instanceCount = instanceCount + 1;
     debug("menu instantiated", instanceCount);
-    this.getMenu = function (menuType, currentMenuSelections, choices, url, baseUrl = "") {
+    this.getMenu = function (menuType, currentMenuSelections, choices, url, baseUrl = "x") {
         var currentMenuSelected = "";
         var choice;
         if (menuType === "subs") {

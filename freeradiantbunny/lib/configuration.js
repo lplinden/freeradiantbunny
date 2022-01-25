@@ -1,5 +1,5 @@
 /**
- * Module configuration.
+ * Module Configuration.
 * version 2.0
  *
  * @public
@@ -20,7 +20,7 @@ function Configuration() {
     // initialize variables for config variables
     this.homeDir = process.env[(process.plantform === 'win32') ? 'USERPROFILE' : 'HOME'];
     this.appDir = path.dirname(require.main.filename);
-    debug("configuration appDir = ", appDir);
+    debug("configuration appDir =", appDir);
     this.baseUrl = '';
     this.databaseInfo = '';
     this.vhosts = '';

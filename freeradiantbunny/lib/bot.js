@@ -1,5 +1,5 @@
 /**
- * Module bot.
+ * Module Bot.
  * version 2.0
  *
  * @public
@@ -22,20 +22,20 @@ function Bot() {
             var myUrl = new URL(givenUrl);
 
             var hoststring = myUrl.host;
-            debug("bot url host = ", hoststring);
+            debug("bot url host =", hoststring);
 	    var hoststringLength = hoststring.length;
-            debug("bot found hoststringLength = ", hoststringLength);
+            debug("bot found hoststringLength =", hoststringLength);
 	    
 	    var protocolstring = "https://";
-            debug("bot protocolstring = ", protocolstring);
+            debug("bot protocolstring =", protocolstring);
 	    var protocolstringLength = protocolstring.length;
-            debug("bot found protocolstringLength = ", protocolstringLength);
+            debug("bot found protocolstringLength =", protocolstringLength);
 
 	    // total string length
 	    var stringLength = protocolstringLength + hostingstringLength;
-            debug("bot found stringlength = ", stringLength);	    Q
+            debug("bot found stringlength =", stringLength);	    Q
             var pathstring = givenUrl.toString().substring(stringLength);
-            debug("bot url path = ", pathstring);
+            debug("bot url path =", pathstring);
 	    
             var https = require('https');
             var options = {
@@ -54,7 +54,7 @@ function Bot() {
                     resolve(res);
                 });
                 req.on('error', (error) => {
-                    debug("bot getStatusCode() error ", error);
+                    debug("bot getStatusCode() error =", error);
                     reject(error);
                 });
             }, 500);

@@ -1,5 +1,5 @@
 /**
- * Module validator.
+ * Module Validator.
  * version 2.0
  *
  * @public
@@ -716,14 +716,14 @@ function Validator() {
                 myUrl = new URL(givenUrl);
             } catch (error) {
                 var why = "validator error URL() givenUrl = " + givenUrl;
-                debug("validator catch error why = ", why);
+                debug("validator catch error why =", why);
                 reject(why);
 		return "";
             }
             var hoststring = myUrl.host;
-            debug("validator host = ", hoststring);
+            debug("validator host =", hoststring);
             var pathstring = givenUrl.toString().substring(32);
-            debug("validator path = ", pathstring);        
+            debug("validator path =", pathstring);        
             const htmlValidator = require('html-validator');
             // be slow
             debug("validator setTimeout()");
@@ -746,7 +746,7 @@ function Validator() {
     // used by realtime
     this.getLinkCheck = function (givenUrl) {
         debug("validator getLinkCheck()");
-	debug("validator given url = ", givenUrl);
+	debug("validator given url =", givenUrl);
         var promise = new Promise(function(resolve, reject) {
 	    var linkChecksNum = linkChecksCount + 1;
 	    linkChecksCount = linkChecksNum;
@@ -756,7 +756,7 @@ function Validator() {
             var url = require('url');
             var myUrl = new URL(givenUrl);
             var href = myUrl.href;
-            debug("validator href = ", href);
+            debug("validator href =", href);
             var blc;
             blc = require('broken-link-checker');
             // be slow
@@ -770,14 +770,14 @@ function Validator() {
 		// scans the HTML content at each queued URL to find broken links.
 		var htmlUrlChecker = new blc.HtmlUrlChecker(options, {
 		    html: function(tree, robots, response, pageUrl, customData){
-			debug("validator link tree = ", tree);
-			debug("validator link pageUrl = ", pageUrl);
-			debug("validator link response = ", response);
+			debug("validator link tree =", tree);
+			debug("validator link pageUrl =", pageUrl);
+			debug("validator link response =", response);
 		    },
 		    junk: function(result, customData){
 			debug("validator junk result");
 			if (result.excluded) {
-			    debug("validator junk() result.excluded = ", result.excluded);
+			    debug("validator junk() result.excluded =", result.excluded);
 			}
 		    },
 		    link: function(result, customData){
@@ -791,8 +791,8 @@ function Validator() {
 			}
 		    },
 		    page: function(error, pageUrl, customData){
-			debug("validator page() error = ", error);
-			debug("validator page() pageUrl = ", pageUrl);
+			debug("validator page() error =", error);
+			debug("validator page() pageUrl =", pageUrl);
 		    },
 		    end: function(){
 			debug("validator end()");
@@ -823,10 +823,10 @@ function Validator() {
     }
     // used by server
     this.validateQueryTerm = function (userString) {
-        debug("validator userString = ", userString);
+        debug("validator userString =", userString);
         // remove non-alphanumerical but not spaces
         var validateString = userString.replace(/[^a-zA-Z0-9 ]/g,'');
-        debug("validator validateString = ", validateString);
+        debug("validator validateString =", validateString);
         if (validateString != userString) {
             return "";
         }

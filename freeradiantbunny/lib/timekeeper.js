@@ -1,5 +1,5 @@
 /**
- * Module timekeeper.
+ * Module Timekeeper.
  * version 2.0
  *
  * @public
@@ -131,25 +131,25 @@ function Timekeeper() {
 	// convert from UTC to localtime
 
         var date = new Date();
-	debug("timekeeper date = ", date);
+	debug("timekeeper date =", date);
 
 	var offset = date.getTimezoneOffset();
-	debug("timekeeper offset = ", offset);
+	debug("timekeeper offset =", offset);
 
 	var offset_hours = offset / 60;
-	debug("timekeeper offset_hours = ", offset_hours);
+	debug("timekeeper offset_hours =", offset_hours);
 
 	var hours = date.getHours();
-	debug("timekeeper hours = ", hours);
+	debug("timekeeper hours =", hours);
 
 	var diff_hours = hours - offset_hours;
-	debug("timekeeper diff_hours = ", diff_hours);
+	debug("timekeeper diff_hours =", diff_hours);
 	
 	date.setHours(diff_hours);
-	debug("timekeeper date = ", date);
+	debug("timekeeper date =", date);
 	
 	var dateStyled = date.toISOString().slice(0, 10)
-	debug("timekeeper dateStyles = ", dateStyled);
+	debug("timekeeper dateStyles =", dateStyled);
 
 	return dateStyled;
     };

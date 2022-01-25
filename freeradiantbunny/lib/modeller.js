@@ -1,5 +1,5 @@
 /**
- * Module modeller.
+ * Module Modeller.
  * version 2.0
  *
  * @public
@@ -63,7 +63,7 @@ function Modeller() {
     this.getNameGivenClassNameFilterAndIdPromise = function (tableNameFilter, id) {
 	// debug
         debug("modeller getNameGivenClassNameFilterAndIdPromise()");
-        debug("modeller given tableNameFitler = ", tableNameFilter);
+        debug("modeller given tableNameFitler =", tableNameFilter);
 
         // frb
         var freeradiantbunny = require("freeradiantbunny");

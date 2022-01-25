@@ -1,5 +1,5 @@
 /**
- * Module database.
+ * Module Database.
  * version 2.0
  *
  * @public

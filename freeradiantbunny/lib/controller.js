@@ -1,5 +1,5 @@
 /**
- * Module controller.
+ * Module Controller.
  * version 2.0
  *
  * @public
@@ -33,7 +33,7 @@ function Controller() {
 	// deal with paramView
         if (reqQuery.view) {
             paramView = validator.validateView(reqQuery.view);
-            debug("controller paramView = ", paramView);
+            debug("controller paramView =", paramView);
         }
         // see if db edits in order to do db changes
         if (editTerms instanceof Array && Object.keys(editTerms).length > 0) {
@@ -90,15 +90,15 @@ function Controller() {
         var paramUpkIsValid;
         if (reqQuery.view) {
             paramView = validator.validateView(reqQuery.view);
-            debug("controller paramView = ", paramView);
+            debug("controller paramView =", paramView);
         }
         if (reqQuery.sort) {
             paramSort = validator.validateSort(reqQuery.sort);
-            debug("controller paramSort = ", paramSort);
+            debug("controller paramSort =", paramSort);
         }
         if (reqQuery.command) {
             paramCommand = validator.validateCommand(reqQuery.command);
-            debug("controller paramCommand = ", paramCommand);
+            debug("controller paramCommand =", paramCommand);
         }
         if (reqQuery.makesorttoday) {
             paramMakeSortToday = validator.validateId(reqQuery.makesorttoday);
@@ -108,7 +108,7 @@ function Controller() {
 	    var config = freeradiantbunny.getConfig();
             paramUpkIsValid = validator.isValidUserPassKey(reqQuery.upk, config);
 	    // do not log this value even for debugging purposes
-            debug("controller paramUpkIsValid = ", paramUpkIsValid);
+            debug("controller paramUpkIsValid =", paramUpkIsValid);
         }
         // aside pre start
         // before the action, deal with user requests (if any)
@@ -116,7 +116,7 @@ function Controller() {
             debug("controller paramMakeSortToday =", paramMakeSortToday);
 	    // quick fix to keep spiders from using URLs that use this function
 	    // only process if param command=add
-	    if (paramCommand == "add") {
+	    if (paramCommand === "add") {
 		// update table sort field
 		modeller.updateTableMakeSortTodayPromise(className, paramMakeSortToday);
 	    }
@@ -163,7 +163,7 @@ function Controller() {
                 dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, specialFlag, queryTerms);
             } catch (error) {
                 var why = "controller failed getting dataSetPromise from modeller; " + error;
-		debug("controller catch error why = ", why);
+		debug("controller catch error why =", why);
                 freeradiantbunny.send404(res, why);
                 return;
             }

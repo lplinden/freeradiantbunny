@@ -1,5 +1,5 @@
 /**
- * Module sqlmaker.
+ * Module Sqlmaker.
  * version 2.0
  *
  * @public
@@ -13,14 +13,14 @@ var instanceCount = 0;
 
 function Sqlmaker() {
     instanceCount = instanceCount + 1;
-    debug("sqlmaker instantiated ", instanceCount);
+    debug("sqlmaker instantiated", instanceCount);
     this.getSql = function (idOrNoId, paramSort, className, classNameFilter, specialFlag, queryTerms) {
-        debug("sqlmaker idOrNoId = ", idOrNoId);
-        debug("sqlmaker paramSort = ", parmSort);
-        debug("sqlmaker className = ", className);
-        debug("sqlmaker classNameFilter = ", classNameFilter);
-        debug("sqlmaker specialFlag = ", specialFlag);
-        debug("sqlmaker queryTerms = ", queryTerms);
+        debug("sqlmaker idOrNoId =", idOrNoId);
+        debug("sqlmaker paramSort =", parmSort);
+        debug("sqlmaker className =", className);
+        debug("sqlmaker classNameFilter =", classNameFilter);
+        debug("sqlmaker specialFlag =", specialFlag);
+        debug("sqlmaker queryTerms =", queryTerms);
         // get sql from model
         var path = require('path');
         var modelName = '../model/' + className + '.js';

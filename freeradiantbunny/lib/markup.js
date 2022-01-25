@@ -1,5 +1,5 @@
 /**
- * Module markup.js
+ * Module Markup.
  * version 2.0
  *
  * @public
@@ -23,8 +23,8 @@ var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pa
     var i;
     for (i = 0; i < dataSet.length; i++) {
         var row = dataSet[i];
-	debug("markup convertDataSet() i = ", i);
-	debug("markup convertDataSet() row = ", row);
+	debug("markup convertDataSet() i =", i);
+	debug("markup convertDataSet() row =", row);
         var aRow = [];
         var extends_class_id = "";
         // get the id so that other columns can be processed
@@ -333,10 +333,10 @@ function Markup() {
 
             dust.helpers.last = function (chunk, context, bodies) {
 		var lastIndex = columnCount - 1;
-		debug("markup helper lastIndex = ", lastIndex);
+		debug("markup helper lastIndex =", lastIndex);
 		var thisIndex = columnNum - 1;
 		columnNum++;
-		debug("markup helper thisIndex = ", thisIndex);
+		debug("markup helper thisIndex =", thisIndex);
 		if (thisIndex == lastIndex) {
 		    // reset
 		    thisIndex = 0;

@@ -1,5 +1,5 @@
 /**
- * Module moulder.
+ * Module Moulder.
  * version 2.0
  *
  * @public
@@ -575,7 +575,7 @@ function Moulder() {
 		    valueAsLink = this.getAsLink(value, baseUrl, className, aId);
 		}
 	    }
-            debug("moulder idOrNotId = ", idOrNotId);
+            debug("moulder idOrNotId =", idOrNotId);
             //if (idOrNotId) {
             //    valueAsLink = this.makeStandOut(valueAsLink);
 	    //}
@@ -661,16 +661,16 @@ function Moulder() {
 
             // shorten field name for display purposes
             // save img_url field as img (see sql)
-            debug("moulder extends_class = ", extends_class_id);
+            debug("moulder extends_class =", extends_class_id);
 
             var extendsClass = this.getExtendsClassStyle(extends_class_id);
-            debug("moulder extendsClassStyle = ", extendsClassStyle);
+            debug("moulder extendsClassStyle =", extendsClassStyle);
 
             var valueAsLink = this.getAsLink(value, baseUrl, className, extends_class_id);
-            debug("moulder valueAsLink = ", valueAsLink);
+            debug("moulder valueAsLink =", valueAsLink);
 	    
             var styledData = this.getStyledData(extendsClass, valueAsLink);
-            debug("moulder styledData = ", styledData);
+            debug("moulder styledData =", styledData);
 	    
             return styledData;
 
@@ -777,7 +777,7 @@ function Moulder() {
     this.getImgUrlAsImageElementToSingle = function (baseUrl, className, imgUrl, id) {
         // need to implement alt attribute and title attribute
         debug("moulder getImgUrlAsImageElementToSingle()");
-	debug("moulder imgUrl = ", imgUrl);
+	debug("moulder imgUrl =", imgUrl);
         return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-img\" alt=\"\" title=\"\" style=\"width: 33px; height: 24px;\" /></a>";
     }
     this.getSortStyle = function(sort) {
@@ -818,15 +818,15 @@ function Moulder() {
         if (sort !== null) {
             sortLetter = sort.substr(0, 1);
         }
-	debug("moulder sortLetter = ", sortLetter);
+	debug("moulder sortLetter =", sortLetter);
         if (sortLetter === "Y") {
-            debug("moulder timekeeper = ", timekeeper);
+            debug("moulder timekeeper =", timekeeper);
             // color according to the timespan
             var date = sort.substr(2);
             debug("moulder date =", date);
 
             var daysElapsed = timekeeper.getDaysElapsed(date);
-            debug("moulder daysElapsed = ", daysElapsed);
+            debug("moulder daysElapsed =", daysElapsed);
 
             var timespans = [10, 90, 180, 200, 365];
             var color;
@@ -894,14 +894,14 @@ function Moulder() {
             chardata: chardata,
             raw: raw
         }
-        debug("moulder styledData = ", styledData);
+        debug("moulder styledData =", styledData);
         return styledData;
     }
     this.getClassesListGivenZachmanId = function (zachman_id) {
         var classesList = [];
         // consult database to get list of classes matching this zachmand_id
         // foreign key
-        debug("moulder foreign key class list with zachman_id = ", zachman_id);
+        debug("moulder foreign key class list with zachman_id =", zachman_id);
         // Top Ten Promise() function
         // deal with a Promise() type
         //            try {
