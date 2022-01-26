@@ -27,20 +27,32 @@ function Database() {
             var config = freeradiantbunny.getConfig();
             var databaseInfo = config.getDatabaseInfo();
             const { Pool } = require('pg')
-            const pool = new Pool(databaseInfo)
-            await pool.query(sql, function (error, result){
-                if (error) {
-                    debug("database db query " + error);
-                    return reject(error);
-                }
-		debug("database className =", className);
-                var dataSet = [];
-                result.rows.forEach(row=>{
-                    dataSet.push(row);
-                });
-                resolve(dataSet);
-                pool.end()
-            });
+            const pool = new Pool(databaseInfo);
+	    pool.connect((error, client, result) => {
+		if (error) {
+		    debug("database pool.connect() error =", error.stack);
+		    reject(error);
+		}
+		debug("database connection made");
+		// todo
+		// await pool.query(sql, function (error, result) {
+		client.query(sql, function (error, result) {
+		    release();
+                    if (error) {
+			debug("database query() error =" + error);
+			return reject(error);
+                    }
+                    var dataSet = [];
+                    result.rows.forEach(row=>{
+			dataSet.push(row);
+                    });
+                    resolve(dataSet);
+		    // todo
+                    pool.end().then(
+			() => debug("database pool.end()")
+		    );
+		});
+	    });
         });
         return promise;
     }

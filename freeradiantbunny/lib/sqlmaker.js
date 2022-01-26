@@ -16,7 +16,7 @@ function Sqlmaker() {
     debug("sqlmaker instantiated", instanceCount);
     this.getSql = function (idOrNoId, paramSort, className, classNameFilter, specialFlag, queryTerms) {
         debug("sqlmaker idOrNoId =", idOrNoId);
-        debug("sqlmaker paramSort =", parmSort);
+        debug("sqlmaker paramSort =", paramSort);
         debug("sqlmaker className =", className);
         debug("sqlmaker classNameFilter =", classNameFilter);
         debug("sqlmaker specialFlag =", specialFlag);
