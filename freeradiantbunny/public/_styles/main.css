@@ -1,5 +1,9 @@
 /* FreeRadiantBunny main.css LPL 2020 */
 
+/* prevent applying -webkit */
+*, *:before, *:after {
+    box-sizing: inherit;
+}
 body {
     background-color: #CCCCCC;
     margin: 0px 0px 0px 0px;
@@ -8,10 +12,10 @@ body {
     font-family: georgia, serif;
 }
 header {
+    width: 100%;
     background-color: #FFFF55;
     margin: 0px 0px 6px 0px;
     padding: 0px 0px 0px 0px;
-    height: 113px;
 }
 div.area {
     /* background-color: #FFFF55; */
@@ -21,26 +25,25 @@ div.area {
 h1, h1.table-title {
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
+    -webkit-padding-start: 0px;
 }
 h1.name {
     margin: 0px 0px 10px 10px;
     padding: 0px 0px 0px 15px;
 }
-/*
 h2 {
     font-size: 125%;
     line-height: 160%;
     margin: 2px 0px 0px 0px;
     padding: 12px 20px 10px 0px;
 }
-*/
-h2 {
+h3 {
     color: yellow;
     background-color: #7811AA;
     font-size: 110%;
     line-height: 110%;
     margin: 2px 0px 8px 0px;
-    padding: 8px 20px 40px 10px;
+    padding: 8px 20px 10px 10px;
 }
 h3.standard {
     margin: 30px 0px 0px 0px;
@@ -56,89 +59,27 @@ h3.about {
     letter-spacing: 1px;
 }
 nav {
-    padding: 1px 30px 23px 12px;
-}
-div.list {
-    font-size: 100%;
-}
-ul li {
-    margin: 4px 0px 6px 0px;
+    /* padding: 1px 30px 23px 12px; */
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
 }
 p {
-    font-weight: 500;
-    margin: 8px 0px 6px 0px;
-    padding: 2px 0px 2px 0px;
-    font-size: 110%;
-    line-height: 110%;
-}
-img.icon {
-    /* float: left; */
-    width: 120px;
-    padding: 10px 20px 20px 20px;
-}
-img.data {
-    float: left;
-    width: 40px;
-    height: auto;
-    padding: 0px 8px 2px 0px;
-}
-div.content {
-    margin: 10px 20% 0px 40px;
-    font-size: 120%;
-    line-height: 110%;
-}
-div.tagline {
-    /* margin: 2px 0px 10px 0px; */
-}
-div.list-wrap {
-    margin: 2px 0px 10px 120px;
-}
-div.tagline p.intro {
-    /* background-color: #CCCCFF;    */
     margin: 4px 0px 0px 0px;
-    padding: 12px 0px 10px 0px;
-    font-size: 120%;
-}
-div.memo {
-    margin: 10px 0px 8px 0px;
-    display: block;
-}
-div.memo h2 {
-    background-color: #7837AA;
-    margin: 0px 20px 10px 0px;
-    padding: 12px 4px 10px 6px;
-}
-div.memo p {
-    margin: 0px 0px 10px 0px;
-    padding: 0px 0px 4px 0px;
-}
-table.grid {
-    border-collapse: collapse;
-    width: 90%;
-    padding: 0px 10px 0px 10px;
-}
-table.grid td {
-    border-width: 1px;
-    border-style: solid;
-    border-color: #999999;
-    padding: 6px 4px 6px 4px;
-}
-table.grid td p {
-    font-size: 130%;
-    margin: 2px 4px 2px 4px;
-    padding: 6px 10px 6px 12px;
-    color: #3399FF;
-    background-color: #3344FF;
-    border-color: #9999FF;
-}
-td.grid-text {
-    vertical-align: top;
-    font-size: 80%;
+    padding: 2px 0px 0px 0px;
 }
 p.zap {
     margin: 4px 20px 2px 0px;
     padding: 12px 20px 10px 10px;
     background-color: #CCCCFF;
+}
+p#footer {
+    margin: 4px 10px 4px 20px;
+    padding: 0px 0px 0px 0px;
+}
+div.content {
+    margin: 40px 20% 0px 20px;
+    font-size: 140%;
+    line-height: 110%;
 }
 div#rawfeed {
     background-color: #FFa45A;
@@ -146,6 +87,28 @@ div#rawfeed {
     line-height: 26px;
     margin: 0px 14% 4px 0px;
     padding: 4px 10px 4px 10px;
+}
+div.memo {
+    margin: 10px 10% 8px 12px;
+}
+div.memo h2 {
+    background-color: #7837AA;
+    margin: 0px 0px 0px 0px;
+    padding: 12px 20% 10px 10px;
+}
+div.memo p {
+    margin: 0px 0px 10px 0px;
+    padding: 0px 0px 4px 0px;
+}
+div.tagline {
+    margin: 2px 4px 18px 0px;
+    background-color: #CCCCCC;    
+}
+div.tagline p.intro {
+    background-color: #CCCCFF;    
+    margin: 4px 0px 1% 0px;
+    padding: 12px 11px 10px 11px;
+    font-size: 120%;
 }
 p.simple {
     margin: 0;
@@ -155,8 +118,10 @@ p.simple {
     background-color: #F08080;
 }
 div#navbox {
-    padding: 10px 30px 10px 8px;
-    background-color: #FFFFAA;
+    padding: 10px 30px 10px 0px;
+    /* light yellow */
+    /* background-color: #FFFFAA; */
+    background-color: transparent;
 }
 ul.menu {
     margin: 4px 0px 0px 0px;
@@ -196,6 +161,10 @@ li.menu a:hover {
 }
 table {
     border-collapse: collapse;
+    width: 100%;
+}
+table.site-info {
+    width: 75%;
 }
 table.standard, table.simple {
     border: 0;
@@ -246,7 +215,7 @@ div.content p {
 }
 /* blog img */
 .field-name-field-image {
-    float: left;
+  float: left;
   margin: 0px 0px 0px 0px;
   padding: 0px 16px 3px 0px;
 }
@@ -274,17 +243,37 @@ div.user-picture img {
     width: 64px;
     height: auto;
 }
+img.data-img {
+    width: 50px;
+    height: auto;
+}
+img.data-image {
+    width: auto;
+    height: auto;
+}
+img.data-album-image {
+    width: 200px;
+    height: auto;
+}
 a, a:link, a:visited {
 }
 a:hover, a:focus, a:active {
 }
-
+#header-site-info {
+    margin: 0px 200px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: left;
+    display: inline;
+}
+.header-site-info span {
+    padding: 12px 0px 0px 10px;
+}
 div#site-name {
     font-size: 180%;
     font-weight: 600;
     text-align: left;
     padding: 0px 0px 0px 0px;
-    margin: 2px 0px 0px 0px;
+    margin: 12px 0px 0px 0px;
     letter-spacing: 1px;
 }
 div#site-name a:link {
@@ -310,6 +299,12 @@ a.table-title:link, a.table-title:visited {
     margin-bottom: 0;
     padding: 0;
 }
+.header-group {
+}
+table.upper-right {
+    margin: 0px 0px 0px 0px;
+    display: inline;
+}
 #main-menu-special {
     margin: 0px 0px 0px 0px;
     display: inline;
@@ -321,18 +316,38 @@ a.table-title:link, a.table-title:visited {
 .main-menu-inner ul.sf-menu li li {
     background-color: #FFFFFF;
 }
+img.subicon {
+    margin: 0px 20px 0px 0px;
+}
 .hyperlink-subsub {
     padding: 10px 0px 0px 0px;
 }
 .footer {
     clear: both;
 }
-.logo {
-    padding: 6px 14px 2px 4px;
+td.logo {
+    width: 110px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+div.logo {
+    width: 110px;
+    margin: 0px 0px 0px 0px;
+    padding: 6px 20px 2px 14px;
+}
+
+div.logo img {
+    border-radias: 25px;
+    background: transparent;
+}
+#logo > a:nth-child(1) > img:nth-child(1) {
+    padding: 15px 0px 0px 0px;
+    background-color: #FFFFFF;
 }
 div.node div.inner h3 {
     line-height: 120%;
     font-size: 110%;
+    letter-spacing: 105%;
 }
 .notes {
     padding: 0px 0px 0px 0px;
@@ -351,25 +366,46 @@ div.node  {
     text-decoration: none;
 }
 tbody {
+    box-shadow: 0;
     border-width: 0px;
 }
 thead th, th {
     border-width: 0px;
+    box-shadow: 0;
 }
 tbody th {
     border-width: 0px;
+    box-shadow: 0;
 }
 table.sticky-enabled tr td {
     line-height: 22px;
 }
-div.form-item-search-block-form { 
+form.search-block-form { 
     float: left;
     margin: 0px 0px 0px 0px;
     padding: 5px 0px 0px 10px;
+    display: inline;
+}
+id#search{ 
+    float: left;
+    margin: 0px 0px 0px 0px;
+    padding: 5px 10px 0px 0px;
+    display: inline;
+}
+#search-block-form { 
+    float: left;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 div#edit-actions {
     margin: 0px 0px 0px 2px;
     padding: 0px 0px 0px 0px;
+}
+div#header-float-right {
+    float: right;
+    margin: 0px 0px 0px 0px;
+    padding: 6px 10px 0px 12px;
+    text-align: right;
 }
 div#block-fusion_labels-fusion_region_label {
     margin: 0px 0px 0px 0px;
@@ -385,6 +421,10 @@ table.blog-ready td {
     font-size: 90%;
     border: 1px solid #999999;
 }
+.item-list > ul:nthu-child(1) {
+    margin: 0px 0px 0px 16px;
+    padding: 0px 0px 0px 0px;
+}
 td.header {
     background-color: #EFEFEF;
     font-weight: 700;
@@ -393,6 +433,26 @@ td.header-single {
     background-color: #EFEFEF;
     font-weight: 700;
     width: 20%;
+}
+table.grid {
+    border-collapse: collapse;
+    width: 100%;
+    padding: 10px;
+}
+table.grid td {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #999999;
+    /* padding: 16px 12px 16px 12px; */
+    padding: 6px 4px 6px 4px;
+}
+table.grid td p {
+    font-size: 130%;
+    margin: 2px 4px 2px 4px;
+    padding: 6px 10px 6px 12px;
+    color: #3399FF;
+    background-color: #3344FF;
+    border-color: #9999FF;
 }
 .qualify { 
   float: left;
@@ -429,53 +489,18 @@ div.column {
 }
 
 /* responsive */
-@media only screen and (max-width: 480px) {
-    /* small */
-    header {
-	background-color: #FFFF55;
-	margin: 0px 0px 6px 0px;
-	padding: 0px 0px 0px 0px;
-	height: 85px;
-    }
-    img {
-	width: 20%;
-    }
-    div.area {
-	/* margin: 0px 0px 4px 20px; */
-	margin: 0px 0px 4px 20px;
-	padding: 10px 0px 0px 0px;
-    }
-    h1.name {
-	/* font-size: 120%; */
-	font-size: 100%;
-	margin: 0px 0px 10px 10px;
-	padding: 0px 0px 0px 15px;
-    }
-    nav {
-	font-size: 80%;
-	padding: 1px 14px 3px 50px;
-    }
-    div#page {
+/* #### Mobile Phones Portrait #### */
+@media screen and (max-device-width: 480px) and (orientation: portrait){
+  /* some CSS here */
+   div#page {
         background-color: lightblue;
 	margin: 0px 5px 0px 5px;
 	padding: 0px 0px 0px 0px;
     }
-    ul.menu {
- 	margin: 4px 0px 20px 0px;
-	padding: 6px 10px 2px 20px;
-	list-style-type: none;
-	/*  overflow: hidden; */
-	/* background-color: #FFFFAA; */
-	font-size: 100%;
-    }
-    div.content {
+   div.content {
        margin: 20px 6px 0px 10px;
-       /* font-size: 120%; */
-       font-size: 100%;
+       font-size: 120%;
        line-height: 110%;
-   }
-   div.memo {
-	margin: 10px 6px 8px 6px;
    }
    div.column {
        font-size: 120%;
@@ -483,24 +508,87 @@ div.column {
        padding: 0px 0px 0px 0px;
        background-color: #FFFFFF;
    }
-   div.list-wrap {
-       margin: 2px 0px 10px 12px;
-   }
+    .col-1 {
+	width: 100%;
+    }
+    .col-2 {
+	width: 100%;
+	background-color: #99AAFF;
+    }
 }
-/*
-  other sizes:
-    320px 
-    667px
-    768px
-*/
 
+/* #### Mobile Phones Landscape #### */
+@media screen and (max-device-width: 640px) and (orientation: landscape){
+  /* some CSS here */
+}
+
+/* #### Mobile Phones Portrait or Landscape #### */
+@media screen and (max-device-width: 640px){
+  /* some CSS here */
+}
+
+/* #### iPhone 4+ Portrait or Landscape #### */
+@media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
+  /* some CSS here */
+}
+
+/* #### iPhone 5 Portrait or Landscape #### */
+@media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
+  /* some CSS here */
+}
+
+/* #### iPhone 6 and 6 plus Portrait or Landscape #### */
+@media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3){
+  /* some CSS here */
+}
+
+/* #### Tablets Portrait or Landscape #### */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px){
+  /* some CSS here */
+}
+
+/* #### Desktops #### */
+@media screen and (min-width: 1024px){
+    /* some CSS here */
+    /* desktop */
+    div#page {
+        background-color: #CCCCCC;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+    }
+    main {
+	margin: 0px 0px 0px 20px;
+	padding: 0px 0px 0px 0px;
+    }
+    .col-1 {
+	width: 80%;
+    }
+    .col-2 {
+      width: 19%;
+      margin: 10px 0px 10px 0px;
+      padding: 2px 2px 2px 4px;
+      background-color: #BB77DD;
+    }
+}
 .footer {
     content: "";
     clear: both;
     display: table;
 }
+.name-instance  {
+    width: 22%;
+    background-color: #CCFFCC;
+    padding: 0px 0px 0px 20px;
+}
+.pubdate-instance  {
+    vertical-align: top;
+    font-size: 50%;
+}
 .img-instance {
     vertical-align: top;
+}
+.body-instance {
+    font-size: 80%;
 }
 .example {
     background-color: #FFa45A;
@@ -509,8 +597,16 @@ div.column {
     margin: 0px 14% 4px 0px;
     padding: 10px 10px 10px 10px;
 }
-last-updated {
-    font-style: monospace;
-    font-size: 80%;
-    margin: 20px 20px 20px 0px;
+/* freeradiatbunny table id */
+table.gird tr td#sort-instance {
+    width: 300px;
+}
+/*
+div#subsMenu {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+*/
+.front_cover-instance {
+    width: 200px;
 }
