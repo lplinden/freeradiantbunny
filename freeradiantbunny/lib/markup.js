@@ -1,6 +1,6 @@
 /**
  * Module Markup.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -77,7 +77,6 @@ var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pa
 	    var dataToUse = row[columnNameAsLinkOrNot];
 	    // store in array
             aRow[columnNameAsLinkOrNot] = moulder.get(columnName, dataToUse, className, id, baseUrl, localBaseUrl, extends_class_id, id, pageName, aId);
-	    // debug
             debug("markup database aRow =", aRow[columnNameAsLinkOrNot]);
         }
         aDataSet.push(aRow);
@@ -101,22 +100,17 @@ function Markup() {
         debug("markup className =", className);
         debug("markup pageName =", pageName);
         debug("markup paramView =", paramView);
-
         var freeradiantbunny = require("freeradiantbunny");
         var config = freeradiantbunny.getConfig();
         var baseUrl = config.getBaseUrl();
         var localBaseUrl = config.getLocalBaseUrl();
-
         // refactor manifest below
         var manifest = config.getManifest(className);
-
         var classNameNoUnderscore = className.replace("_", " ");
-
         // no title on special webpage
         if (special) {
             manifest['table-title'] = null;
         }
-
         // should search form be displayed
         if (!special && className === "hyperlinks") {
             manifest.searchFormFlag = "1";
@@ -129,7 +123,6 @@ function Markup() {
             (!special && className === "moneymaker_measurement_instances")) {
             manifest.socketioFlag = "1";
         }
-
         // prepare url variable for menues
         var menu = require('./menu.js');
         var url = this.getUrl(baseUrl, className, classNameFilter);
@@ -142,7 +135,6 @@ function Markup() {
             manifest.linkToAllExists = "";
             //manifest.linkToAll = "<a href=\"./\">Display all " + className + "</a>";
         }
-
         // create menu for view
         var currentMenuSelections = [];
 	// view is on hold because it is under constructino
@@ -151,7 +143,6 @@ function Markup() {
         //var choicesViewMenu = ["html", "json", "stream", "postgres", "meta"];
 	// view is on hold because it is under constructino
         //var choicesViewMenu = ["html", "stream"];
-
 	// adding special menu that varies depending upon subsystems context
 	// manifest the menu
 	// default
@@ -207,7 +198,6 @@ function Markup() {
         if (pageNameSimple == "index") {
             pageNameSimple = "homepage";
         }
-
         // get headTitle
         if (special) {
             manifest.headTitle = this.getHeadTitle(pageNameSimple, manifest['site-name']);
@@ -217,18 +207,15 @@ function Markup() {
 	}
 	// set up
         manifest['frb-home-href'] = manifest['home-href'] + "classes";
-
 	// looks like a duplicate
         //var menuType = "sort";
         //var choicesSortMenu = ["id", "name", "sort", "status"];
         //manifest.sortMenu = menu.getMenu(menuType, currentMenuSelections, choicesSortMenu, url);
-
 	// ON HOLD because it was showing up on every page (need only plants)
         // manifest the menu
         //menuType = "sort";
         //var choices = ["id", "name", "sort", "status", "subsystem", "extends", "notes", "rank", "botanical_name", "plant_family", "plant_category", "attribute_name"];
         //manifest.sortMenu = menu.getMenu(menuType, currentMenuSelections, choices, url);
-	
 	// deal with table-title and make into hyperlink
 	//// only if on single page
 	//if (typeof id !== 'undefined' && id !== "") {
@@ -242,10 +229,8 @@ function Markup() {
             manifest['table-title'] = table_title;
 	}
 	//}
-	
         // for output
         manifest.suit = suitcase;
-
         Promise.all([dataSetPromise, classNameFilterNamePromise]).then(function (results) {
             debug("markup Promise.all()");
             var dataSet = results[0];
@@ -258,14 +243,12 @@ function Markup() {
             // the dataSet variable is created
             var table_title = className;
             var idOfclassNameFilter = id;
-
 	    // comment out the following block due to problems with classNameFilter variable not being defined
             //if (classNameFilter) {
             //    table_title += " given " + classNameFilter + " = " + idOfclassNameFilter;
             //    manifest['table-title'] = table_title;
             //    //debug("markup table_title =", table_title);
             //}
-
             // dust
             // preprocess
             // put the id values into an array for the tag id
@@ -289,11 +272,9 @@ function Markup() {
                 }
             }
             //debug("markup idArray.length =", idArray.length);
-
             // dust
             var dust = require('dustjs-helpers');
             dust.config.whitespace = true;
-
             // define dust.helpers to be used during view loops
             if (!special) {
                 var i = 0;
@@ -321,7 +302,6 @@ function Markup() {
                     return chunk;
                 }
             }
-
             dust.helpers.iterate = function (chunk, context, bodies, params) {
                 params = params || {};
                 var obj = params['on'] || context.current();
@@ -330,7 +310,6 @@ function Markup() {
                 }
                 return chunk;
             }
-
             dust.helpers.last = function (chunk, context, bodies) {
 		var lastIndex = columnCount - 1;
 		debug("markup helper lastIndex =", lastIndex);
@@ -345,14 +324,11 @@ function Markup() {
 		    return bodies.else(chunk, context);
 		}
             }
-
 	    // more
             //debug("markup aDataSet prototype:", Object.getPrototypeOf(aDataSet));
             //debug('markup attempting markupDataSet(aDataSet)...');
-
             var aDataSetLength = aDataSet.length;
             debug("markup markupDataSet() aDataSet.length:", aDataSetLength);
-
             // num variables is used to number the rows of data
             manifest.num = aDataSetLength;
             // toggle value for the template logic so it shows data
@@ -361,7 +337,6 @@ function Markup() {
                 // data exists, so display a table (else a not-found message)
                 manifest.dataExistsFlag = "1";
             }
-
 	    // compile template
 	    var dustFileName = "";
 	    var dustFileCompiledName = "";
@@ -408,13 +383,10 @@ function Markup() {
             var srcTable = fs.readFileSync(file, 'utf8');
             var compiledTable = dust.compile(srcTable, dustFileCompiledName);
             dust.loadSource(compiledTable);
-
             // try to keep from assigning data to another variable
             manifest.data = aDataSet;
-
             // add styles to the base context
             // baseContext.push(styleContext);
-
             // ready to render
             if (res.headersSent) {
                 debug('markup headers have been sent');

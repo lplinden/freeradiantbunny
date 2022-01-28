@@ -1,6 +1,6 @@
 /**
  * Module Moulder.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -523,12 +523,12 @@ function Moulder() {
             debug("moulder sortNoPrefix", sortNoPrefix);
             var sort;
             if (timekeeper.isToday(sortNoPrefix) || className === "tenperdays") {
-                debug("is today and tenperdays class");
+                debug("moulder is today and tenperdays class");
                 // today, so no link
                 sort = value;
                 // this if else clause should not be here so un-hardcode this
             } else {
-                debug("not today or tenperdays class");
+                debug("moulder not today or tenperdays class");
                 // not today, so link button
                 // this if else clause should not be here so un-hardcode this
                 // make url

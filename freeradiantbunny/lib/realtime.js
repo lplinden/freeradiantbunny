@@ -1,6 +1,6 @@
 /**
  * Module Realtime.
-* version 2.0
+* version 2.0.2
  *
  * @public
  */
@@ -154,7 +154,6 @@ function Realtime() {
 		    path: urlString
 		};
 		httpRequest(params).then(function(body) {
-		    // debug
 		    debug("realtime given body");
 		    var backgroundColor = '#84BE6A';
 		    debug("realtime measure() id =", id);

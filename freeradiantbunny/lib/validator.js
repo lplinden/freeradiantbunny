@@ -1,6 +1,6 @@
 /**
  * Module Validator.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -194,15 +194,14 @@ function Validator() {
         // check if an tli (three letter identifier)
         // todo check from database
         if (strlen(user_input) == 3) {
-            // debug
-            //print "debug validator output is 3 char in length<br />\n";
+            debug("validator user input is 3 char in length");
             if (preg_match("/^[a-z]+/", user_input)) {
-                // debug
-                //print "debug validator output only alpha chars<br />\n";
+                debug("validator output only alpha chars");
                 // ok
                 return user_input;
             }
-        }
+	}
+	// todo refactor the following line
         //markup += this.outputError("FRB error: parameter <strong>" + variable_name + "</strong> is not a valid three letter identifier.");
         return 0;
     }
@@ -279,7 +278,6 @@ function Validator() {
             }
         }
         markup += this.outputError("FRB error: view parameter is not valid.");
-
         return markup;
     }
     this.OFFLINE_validate_as_domain_tli = function (user_input, variable_name) {

@@ -1,6 +1,6 @@
 /**
  * Module Modeller.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -19,7 +19,6 @@ function Modeller() {
     debug("modeller instantiated", instanceCount);
     // used by controller
     this.getDataSetPromise = function (className, classNameFilter, id, paramSort, specialFlag, queryTerms) {
-        // debug
         debug("modeller getDataSetPromise()");
         debug("modeller className =", className);
         debug("modeller classNameFilter =", classNameFilter);
@@ -95,7 +94,7 @@ function Modeller() {
     this.insertIntoTableTenperdaysPromise = function () {
 	// despite the calling className, this is on behalf of tenperdays class
 	// so over-riding className... this is a case of one class impacting another class
-        debug("insertIntoTableTenperdaysPromiseI()");
+        debug("modeller insertIntoTableTenperdaysPromiseI()");
         // get date
         // solve for sqlMakerObj
         var sql = sqlmaker.getSqlToInsertIntoTenperdays();
@@ -106,7 +105,7 @@ function Modeller() {
     this.updateTableTenperdaysCountPromise = function () {
 	// despite the calling className, this is on behalf of tenperdays class
 	// so over-riding className... this is a case of one class impacting another class
-        debug("updateTableTenperdaysCountPromise()");
+        debug("modeller updateTableTenperdaysCountPromise()");
         // get date
         // solve for sqlMakerObj
         var sql = sqlmaker.getSqlToUpdateTenperdaysCount();
@@ -115,7 +114,7 @@ function Modeller() {
     };
     // used by controller
     this.updateTableHyperlinkAssociativePromise = function (tableName, associativeField, hyperlink_id, associativeFieldValue) {
-        debug("updateTableHyperlinkAssociativePromise() editTerms");
+        debug("modeller updateTableHyperlinkAssociativePromise() editTerms");
         // solve for sql
         var sql = sqlmaker.getSqlHyperlinkAssociative(tableName, associativeField, hyperlink_id, associativeFieldValue);
         // returns a promise

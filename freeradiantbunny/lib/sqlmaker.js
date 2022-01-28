@@ -1,6 +1,6 @@
 /**
  * Module Sqlmaker.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -39,12 +39,12 @@ function Sqlmaker() {
     };
     this.getSqlForUpdate = function (className, id, fieldName, value) {
         var sql = "UPDATE " + className + " SET " + fieldName + "='" + value + "' WHERE id = " + id + ";";
-        debug("sqlmaker sql =", sql);
+        debug("sqlmaker getSqlForUpdate() sql =", sql);
         return sql;
     };
     this.getSqlHyperlinkAssociative = function (tableName, associativeField, hyperlink_id, associativeFieldValue) {
         var sql = "INSERT INTO " + tableName + " (hyperlink_id, " + associativeField + ") VALUES (" + hyperlink_id + ", " + associativeFieldValue + ");";
-        debug("sqlmaker sql =", sql);
+        debug("sqlmaker getSqlHyperlinkAssociative sql =", sql);
         return sql;
     };
     this.getSqlToInsertIntoTenperdays = function () {
@@ -52,7 +52,7 @@ function Sqlmaker() {
         var timekeeper = require("./timekeeper.js");
         var date = timekeeper.getTodayDateAsFirstYearStyle();
         var sql = "INSERT INTO " + tableName + " (sort, count) VALUES ('" +  date + "', array(select count(id) from webpages where sort = '" + date + "'));";
-        debug("sqlmaker sql =", sql);
+        debug("sqlmaker getSqlToInsertIntoTenperdays sql =", sql);
         return sql;
     };
     this.getSqlToUpdateTenperdaysCount = function () {
@@ -60,13 +60,13 @@ function Sqlmaker() {
         var timekeeper = require("./timekeeper.js");
         var date = timekeeper.getTodayDateAsFirstYearStyle();
         var sql = "UPDATE " + tableName + " SET count = array(select count(id) from webpages where sort = '" + date + "') WHERE sort = '" + date + "';";
-        debug("sqlmaker sql =", sql);
+        debug("sqlmaker getSqlToUpdateTenperdaysCount sql =", sql);
         return sql;
     };
     this.getNameGivenClassNameFilterAndIdPromise = function (tableNameFilter, id) {
         // create sql
         var sql = "SELECT name FROM " + tableNameFilter + " WHERE id = " + id + ";";
-        debug("sqlmaker sql =", sql);
+        debug("sqlmaker getNameGivenClassNameFilterAndIdPromoise sql =", sql);
         return sql;
     };
 }

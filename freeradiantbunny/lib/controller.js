@@ -1,6 +1,6 @@
 /**
  * Module Controller.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -38,13 +38,6 @@ function Controller() {
         // see if db edits in order to do db changes
         if (editTerms instanceof Array && Object.keys(editTerms).length > 0) {
             debug("controller editTerms is Array =", editTerms instanceof Array);
-            // debug loop below
-            /*
-            for (var i in editTerms) {
-                var editTerm = i + " --> " + editTerms[i];
-                debug("controller editTerm =", editTerm);
-            }
-            */
             // update db table 
             var tableName = "hyperlink_permaculture_topics";
             var associativeField = "permaculture_topic_id";
@@ -189,7 +182,6 @@ function Controller() {
 		modeller.updateTableTenperdaysCountPromise();
             }
 	}
-
     };
 }
 

@@ -1,6 +1,6 @@
 /**
  * Module Zachmans.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Zachmans() {
     debug("zachmans instantiated", instanceCount);
     this.name = "zachmans";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("zachmans classNameFilter =", classNameFilter);
+        debug("zachmans idOrNoId =", idOrNoId);
+	debug("zachmans classNameFilter =", classNameFilter);	
         debug("zachmans paramSort =", paramSort);
         debug("zachmans specialFlag =", specialFlag);
         debug("zachmans queryTerms =", queryTerms);

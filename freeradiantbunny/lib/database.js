@@ -1,6 +1,6 @@
 /**
  * Module Database.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -37,7 +37,8 @@ function Database() {
 		// todo
 		// await pool.query(sql, function (error, result) {
 		client.query(sql, function (error, result) {
-		    release();
+		    // unknown function commented out
+		    //release();
                     if (error) {
 			debug("database query() error =" + error);
 			return reject(error);
@@ -66,24 +67,8 @@ function Database() {
         // use postgresql database
         var promise = new Promise(async function (resolve, reject) {
             debug("database new Promise()");
-	    /*
-            var pg = require('pg');
-            // heroku insisted on this
-            pg.defaults.ssl = true;
-            client = new pg.Client(connectionString); 
-            try {
-                client.connect();
-            } catch(error) {
-                debug("database client.connect() error", error);
-            };
-            await client.query(sql, function (error, result){
-                if (error) {
-                    debug("database db query " + error);
-                    return reject(error);
-                    }
-		    });
-		    });
-	    */
+            // todo heroku insisted on this next line of code
+            // pg.defaults.ssl = true;
             // get database info
             var freeradiantbunny = require("freeradiantbunny");
             var config = freeradiantbunny.getConfig();
@@ -115,7 +100,7 @@ function Database() {
         var connectionString = this.getConnectionString();
         // use postgresql database
         var promise = new Promise(async function (resolve, reject) {
-	    debug("database new new Promise");
+	    debug("database new Promise");
             const { Pool } = require('pg');
             // get database info
             var freeradiantbunny = require("freeradiantbunny");

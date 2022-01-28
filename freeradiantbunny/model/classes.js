@@ -1,6 +1,6 @@
 /**
  * Module Classes.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Classes() {
     debug("classes instantiated", instanceCount);
     this.name = "classes";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+        debug("classes idOrNoId", idOrNoId);
         debug("classes classNameFilter =", classNameFilter);
 	debug("classes paramSort=", paramSort);
 	debug("classes specialFlag =", specialFlag);
@@ -23,9 +24,9 @@ function Classes() {
         var orderBy;
         if (idOrNoId) {
             var id = idOrNoId;
-            sql = "select a.id, a.name, a.status, a.sort, a.img_url, a.description, a.subsystem, a.notes, a.zachman_id from classes a where a.id = " + idOrNoId + ";";
+            sql = "select a.id, a.name, a.status, a.sort, a.img_url, a.description, a.subsystem, a.notes, a.zachman_id, a.dev from classes a where a.id = " + idOrNoId + ";";
         } else {
-            orderBy = "ORDER BY a.sort DESC, a.subsystem, a.name";
+            orderBy = "ORDER BY a.sort DESC, a.dev, a.subsystem, a.name";
             if (paramSort === "sort") {
                 orderBy = "ORDER BY a.sort DESC, a.name";
             } else if (paramSort === "id") {
@@ -43,7 +44,7 @@ function Classes() {
             }
             debug("classes orderBy =", orderBy);
             // many
-            sql = "select a.status, a.sort, a.subsystem, a.id, a.img_url as img, a.name as name, a.dev as dev, array(select z.name from zachmans z where a.zachman_id = z.id) as zachman from classes a " + orderBy;
+            sql = "select a.status, a.sort, array(select z.name from zachmans z where a.zachman_id = z.id) as zachman, a.subsystem, a.id, a.img_url as img, a.name as name, a.dev as dev from classes a " + orderBy;
         }
         return sql;
     };

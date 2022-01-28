@@ -1,6 +1,6 @@
 /**
  * Module Configuration.
-* version 2.0
+* version 2.0.2
  *
  * @public
  */
@@ -19,6 +19,7 @@ function Configuration() {
     this.loadConfigFile();
     // initialize variables for config variables
     this.homeDir = process.env[(process.plantform === 'win32') ? 'USERPROFILE' : 'HOME'];
+    debug("configuration homeDir =", homeDir);
     this.appDir = path.dirname(require.main.filename);
     debug("configuration appDir =", appDir);
     this.baseUrl = '';
@@ -30,31 +31,22 @@ function Configuration() {
     // read config file and parse TOML format
     this.loadConfigFile = function () {
         debug("configuration loadConfigFile()");
-	debug("configuration toml parse()");
 	var full_path_config_toml_file = this.homeDir + '/.freeradiantbunny/config.toml';
 	debug("configuration toml config-toml =", full_path_config_toml_file);
         var fs = require('fs'),
             toml = require('toml'),
             config = toml.parse(fs.readFileSync(this.homeDir + '/.freeradiantbunny/config.toml', 'utf-8'));
-
         // store configuration variables
         this.baseUrl = config.baseUrl;
         debug("configuration baseUrl =", this.baseUrl);
-
         this.databaseInfo = config.databaseInfo;
         debug("configuration databaseInfo =", this.databaseInfo);
-
-        debug("configuration vhosts =", this.vhosts);
-
 	this.vhosts = config.vhosts;
         debug("configuration vhosts =", this.vhosts);
-
         this.validPageNames = config.validPageNames;
         debug("configuration validPageNames =", this.validPageNames);
-
         this.specialPages = config.specialPages;
         debug("configuration specialPages =", this.specialPages);
-
 	this.defaultStrings = config.defaultStrings;
         ("configuration defaultStrings =", this.defaultStrings);
     };
@@ -79,6 +71,7 @@ function Configuration() {
     };
     // used by server
     this.isHostValidVhost = function (givenHost) {
+	debug("configuration isHostValidVhost()");
         var i;
         var key;
         for (i = 0; i < this.vhosts.length; i++) {
@@ -91,6 +84,7 @@ function Configuration() {
     };
     // used by server
     this.getVhostHost = function (givenHost) {
+	debug("configuration getValidHost()");
         var i;
         var key;
         var value;
@@ -115,28 +109,19 @@ function Configuration() {
         return false;
     };
     // used by server
+    // todo might not be used, see configuration file
     this.isValidPageName = function (filename, host) {
         var filenames = [
             "index.html"
         ];
-        if (host === 'localhost:5001' ||
-                host === 'permaculturewebsites.org' ||
-                host === 'www.permaculturewebsites.org'
-                ) {
+        if (host === 'localhost:5001'
+           ) {
             filenames = [
                 "/index.html",
                 "/about.html",
                 "/robots.txt",
                 "/site_map.html",
-                "/aggregators.html",
-                "/badge.html",
-                "/what_qualifies_as_a_permaculture_website.html",
-                "/suggestions.html",
-                "/reasons.html",
-                "/featured_sites.html",
-                "/inquiring_systems.html",
                 "/_images/index.html",
-                "/testo/adserver.html",
             ];
         }
         if (filenames.indexOf(filename) > -1) {
