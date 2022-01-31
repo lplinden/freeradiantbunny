@@ -1,6 +1,6 @@
 /**
  * Module SceneElements.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function SceneElements() {
     debug("scene_elements instantiated", instanceCount);
     this.name = "scene_elements";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+	debug("scene_elements idOrNoId =", idOrNoId);
 	debug("scene_elements classNameFilter =", classNameFilter);
 	debug("scene_elements paramSort =", paramSort);
 	debug("scene_elements specialFlag =", specialFlag);

@@ -1,6 +1,6 @@
 /**
  * Module goal_statements.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function GoalStatements() {
     debug("goal_statements instantiated", instanceCount);
     this.name = "goal_statements";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+	debug("goal_statements idOrNoId =", idOrNoId);
 	debug("goal_statements classNameFilter =", classNameFilter);
 	debug("goal_statements paramSort =", paramSort);
 	debug("goal_statements specialFlag =", specialFlag);

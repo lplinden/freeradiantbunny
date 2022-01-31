@@ -3,7 +3,7 @@
 --
 
 CREATE SEQUENCE public.domain_id_seq
-    START WITH 9
+    START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
@@ -39,3 +39,18 @@ CREATE TABLE public.domains (
 
 
 ALTER TABLE public.domains OWNER TO freerad2_special;
+
+
+--
+-- Name: domains domains_tli_pk; Type: CONSTRAINT; Schema: public; Owner: freerad2_special
+--
+
+ALTER TABLE ONLY public.domains
+    ADD CONSTRAINT domain_tli_unique UNIQUE (tli);
+
+--
+-- Name: domains domain_id_unique; Type: CONSTRAINT; Schema: public; Owner: freerad2_special
+--
+
+ALTER TABLE ONLY public.domains
+    ADD CONSTRAINT domain_id_pk PRIMARY KEY (id);

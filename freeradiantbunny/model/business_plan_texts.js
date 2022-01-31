@@ -1,6 +1,6 @@
 /**
  * Module BusinessPlanTexts.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function BusinessPlanTexts() {
     debug("business_plan_texts instantiated", instanceCount);
     this.name = "business_plan_texts";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-	debug("business_plan_texts classNameFilter =", classNameFilter);
+	debug("business_plan_texts idOrNoId =", idOrNoId);
+	debug("business_plan_texts classNameFilter =", classNameFilter);	
 	debug("business_plan_texts paramSort =", paramSort);
 	debug("business_plan_texts specialFlag =", specialFlag);
 	debug("business_plan_texts queryTerms =", queryTerms);

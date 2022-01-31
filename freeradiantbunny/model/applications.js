@@ -1,6 +1,6 @@
 /**
  * Module Applications.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Applications() {
     debug("applications instantiated", instanceCount);
     this.name = "applications";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("applications classNameFilter =", classNameFilter);
+        debug("applications idOrNoId =", idOrNoId);
+	debug("applications classNameFilter =", classNameFilter);
         debug("applications paramSort =", paramSort);
         debug("applications specialFlag =", specialFlag);
         debug("applications queryTerms =", queryTerms);

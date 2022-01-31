@@ -22,7 +22,7 @@ CREATE TABLE public.applications (
     url text,
     source_code_url text,
     development text,
-    sort text DEFAULT '?'::text,
+    sort text DEFAULT 'Y'::text,
     img_url text,
     description text,
     status text,

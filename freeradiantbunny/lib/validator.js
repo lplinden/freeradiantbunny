@@ -52,8 +52,36 @@ function Validator() {
     }
     // used by server
     this.isValidClassName = function (userString) {
-        var validClassNames = ["classes",
-                               "zachmans"];
+        var validClassNames = [
+	    "accounts",
+	    "applications",
+	    "budgets",
+	    "business_plan_texts",
+	    "databases",
+	    "classes",
+	    "designs",
+	    "domains",
+	    "email_addresses",
+	    "goal_statements",
+	    "images",
+	    "indiegoals",
+	    "lands",
+	    "machines",
+	    "markets",
+	    "moneymaker_measurement_instances",
+	    "moneymaker_measurements",
+	    "namespaces",
+	    "process_flows",
+	    "processes",
+	    "projects",
+	    "scene_elements",
+	    "searches",
+	    "songs",
+	    "suppliers",
+	    "trades",
+	    "webpages",
+	    "zachmans",
+	];
         if (validClassNames.includes(userString)) {
             debug("validator found valid className =", userString);
             return true;
@@ -70,29 +98,34 @@ function Validator() {
         return false;
     }
     this.isBlockedClassName = function (userString) {
-        var blockedClassNames = ["applications",
-				 "machines",
-				 "budgets",
-				 "accounts",
-				 "databases",
-				 "designs",
-				 "searches",
-				 "trades",
-				 "images",
-				 "projects",
-				 "goal_statements",
-				 "business_plan_texts",
-				 "processes",
-				 "scene_elements",
-				 "suppliers",
-				 "process_flows",
-				 "lands",
-				 "markets",
-				 "namespaces",
-				 "albums",
-				 "songs",
-				 "moneymaker_measurements",
-				 "moneymaker_measurement_instances"];
+        var blockedClassNames = [
+	    "accounts",
+	    "applications",
+	    "budgets",
+	    "business_plan_texts",
+	    "databases",
+	    "designs",
+	    "domains",
+	    "email_addresses",
+	    "goal_statements",
+	    "images",
+	    "indiegoals",
+	    "lands",
+	    "machines",
+	    "markets",
+	    "moneymaker_measurement_instances",
+	    "moneymaker_measurements",
+	    "namespaces",
+	    "process_flows",
+	    "processes",
+	    "projects",
+	    "scene_elements",
+	    "searches",
+	    "songs",
+	    "suppliers",
+	    "trades",
+	    "webpages",
+	];
         if (blockedClassNames.includes(userString)) {
             debug("validator found blocked className =", userString);
             return true;

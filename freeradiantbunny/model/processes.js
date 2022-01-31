@@ -1,6 +1,6 @@
 /**
  * Module Processes.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Processes() {
     debug("processes instantiated", instanceCount);
     this.name = "processes";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+	debug("processes idOrNoId =",idOrNoId);
 	debug("processes classNameFilter =", classNameFilter);
 	debug("processes paramSort =", paramSort);
 	debug("processes specialFlag =", specialFlag);
@@ -48,6 +49,5 @@ function Processes() {
 }
 
 module.exports = new Processes();
-
 
 // end

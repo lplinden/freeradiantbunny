@@ -1,6 +1,6 @@
 /**
  * Module Databases.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Databases() {
     debug("databases instantiated", instanceCount);
     this.name = "databases";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+        debug("databases idOrNoId =", idOrNoId);
         debug("databases classNameFilter =", classNameFilter);
         debug("databases paramSort =", paramSort);
         debug("databases specialFlag =", specialFlag);

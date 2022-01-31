@@ -1,6 +1,6 @@
 /**
  * Module Budgets.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Budgets() {
     debug("budgets instantiated", instanceCount);
     this.name = "budgets";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+	debug("budgets idOrNoId =", idOrNoId);
 	debug("budgets classNameFilter =", classNameFilter);
 	debug("budgets paramSort =", paramSort);
 	debug("budgets specialFlag =", specialFlag);
@@ -26,8 +27,8 @@ function Budgets() {
 	} else {
 	    orderBy ="ORDER BY z.sort DESC, z.name, z.id";
 	    debug("budgets orderBy =", orderBy);
-	    // this has a special field to keep things on another level of private
-	    // data is in the database but given if the field is null then it cannot be selected
+	    // this has a special field named publish that helps to keep things private
+	    // data in the database is only given if the field is true
 	    sql = "select z.status, z.sort, z.id, z.img_url, z.name from budgets z where publish ='true' " + orderBy + ";";
 	}
 	return sql;

@@ -29,3 +29,18 @@ CREATE TABLE public.business_plan_texts (
 
 
 ALTER TABLE public.business_plan_texts OWNER TO freerad2_special;
+
+--
+-- Name: business_plan_texts business_plan_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: freerad2_special
+--
+
+ALTER TABLE ONLY public.business_plan_texts
+    ADD CONSTRAINT business_plan_text_id_pkey PRIMARY KEY (id);
+
+--
+-- Name: business_plan_texts business_plan_texts_goal_statement_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freerad2_special
+--
+
+ALTER TABLE ONLY public.business_plan_texts
+    ADD CONSTRAINT business_plan_texts_goal_statement_id_fkey FOREIGN KEY (goal_statement_id) REFERENCES public.goal_statements(id);
+

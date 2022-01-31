@@ -1,16 +1,3 @@
---
--- Name: class_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
-CREATE SEQUENCE public.class_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    MAXVALUE 999999
-    CACHE 1;
-
-
-ALTER TABLE public.class_id_seq OWNER TO freerad2_special;
 
 --
 -- Name: classes; Type: TABLE; Schema: public; Owner: freerad2_special

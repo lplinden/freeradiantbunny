@@ -30,3 +30,16 @@ CREATE TABLE public.goal_statements (
 
 ALTER TABLE public.goal_statements OWNER TO freerad2_special;
 
+--
+-- Name: goal_statements goal_statements_pkey; Type: CONSTRAINT; Schema: public; Owner: freerad2_special
+--
+
+ALTER TABLE ONLY public.goal_statements
+    ADD CONSTRAINT goal_statement_id_pkey PRIMARY KEY (id);
+
+--
+-- Name: goal_statements goal_statements_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freerad2_special
+--
+
+ALTER TABLE ONLY public.goal_statements
+    ADD CONSTRAINT goal_statements_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id);

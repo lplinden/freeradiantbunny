@@ -1,6 +1,6 @@
 /**
  * Module Webpages.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Webpages() {
     debug("webpages instantiated", instanceCount);
     this.name = "webpages";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+        debug("webpages idOrNoId =", idOrNoId);
         debug("webpages classNameFilter =", classNameFilter);
         debug("webpages paramSort =", paramSort);
         debug("webpages specialFlag =", specialFlag);

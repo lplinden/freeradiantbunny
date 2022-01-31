@@ -1,6 +1,6 @@
 /**
  * Module Machines.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Machines() {
     debug("machines instantiated", instanceCount);
     this.name = "machines";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+        debug("machines idOrNoId =",idOrNoId);
         debug("machines classNameFilter =", classNameFilter);
         debug("machines paramSort =", paramSort);
         debug("machines specialFlag =", specialFlag);
@@ -28,6 +29,7 @@ function Machines() {
         } else {
             orderBy = "order by z.sort DESC, z.location, z.status, z.name, z.id";
             debug("machines orderBy =", orderBy);
+	    // many
             sql = "select z.location, z.sort, z.status, z.id, z.img_url as img, z.name, z.description, z.model, z.cpu, z.ram, z.filesystems, z.details, z.networks, z.backups from machines z " + orderBy;
         }
         return sql;

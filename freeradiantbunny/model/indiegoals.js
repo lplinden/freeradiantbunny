@@ -1,6 +1,6 @@
 /**
  * Module Indiegoals.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Indiegoals() {
     debug("indiegoals instantiated", instanceCount);
     this.name = "indiegoals";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("indiegoals classNameFilter =", classNameFilter);
+        debug("indiegoals idOrNoId =",idOrNoId);
+	debug("indiegoals classNameFilter =", classNameFilter);
         debug("indiegoals paramSort =", paramSort);
 	debug("indiegoals specialFlag =", specialFlag);
         debug("indiegoals queryTerms =", queryTerms);

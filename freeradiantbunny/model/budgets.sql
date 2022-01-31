@@ -27,5 +27,4 @@ CREATE TABLE public.budgets (
     process_state text
 );
 
-
 ALTER TABLE public.budgets OWNER TO freerad2_special;
