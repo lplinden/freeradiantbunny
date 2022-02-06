@@ -1,6 +1,6 @@
 /**
  * Module ProcessFlows.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function ProcessFlows() {
     debug("process_flows instantiated", instanceCount);
     this.name = "process_flows";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+	debug("process_flows idOrNoId =", idOrNoId);
 	debug("process_flows classNameFilter =", classNameFilter);
 	debug("process_flows paramSort =", paramSort);
 	debug("process_flows specialFlag =", specialFlag);
@@ -31,9 +32,9 @@ function ProcessFlows() {
 		// todo and this made me realize that this classNameFilter should always check the name of the relation in database
 		// todo because this style of sql programming is hard-coding the table names of the second parameter
 		// todo and that assumption may fail, so fix this soon please
-		sql = "select z.status, z.sort, z.id, z.name from process_flows z, processes pr where pr.id = " + idOrNoId + " and z.proces_id = pr.id AND z.publish = 'true';";
+		sql = "select z.status, z.sort, z.id, z.name, p.name, c.name from process_flows z, processes p, processes c where z.id = " + idOrNoId + " and z.parent_process_id = z.parent_process_id AND z.child_process_id = c.id AND z.publish = 'true';";
 	    } else {
-		sql = "select z.status, z.sort, z.id, z.name from process_flows z where z.id = " + idOrNoId + " and z.publish = 'true';";
+		sql = "select z.status, z.sort, z.id, z.name, p.name as parent_process, c.name as child_process from process_flows z, processes p, processes c where z.id = " + idOrNoId + " and z.parent_process_id = p.id AND z.child_process_id = c.id AND z.publish = 'true';";
 	    }
 	} else {
 	    orderBy ="ORDER BY z.sort DESC, z.name, z.id";
@@ -45,6 +46,5 @@ function ProcessFlows() {
 }
 
 module.exports = new ProcessFlows();
-
 
 // end

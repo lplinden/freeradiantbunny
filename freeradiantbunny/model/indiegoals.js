@@ -23,8 +23,7 @@ function Indiegoals() {
         var sql;
         var orderBy;
         if (idOrNoId) {
-            var id = idOrNoId;
-            sql = "select a.id, a.name, a.sort, a.status, a.url from indiegoals a where a.id = " + id + ";";
+            sql = "select a.status, a.sort, a.id, a.name, a.url from indiegoals a where a.id = " + idOrNoId + ";";
         } else {
             orderBy = "ORDER BY a.status DESC, a.sort DESC, a.name, a.id";
             if (paramSort === "id") {

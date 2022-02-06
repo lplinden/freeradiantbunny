@@ -291,6 +291,8 @@ function Moulder() {
 			className === "goal_statements" ||
 			className === "business_plan_texts" ||
 			className === "processes" ||
+			className === "budgets" ||
+			className === "indiegoals" ||
 			className === "scene_elements" ||
 			className === "applications" ||
 			className === "maxonomies" ||
