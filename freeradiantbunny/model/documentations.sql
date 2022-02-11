@@ -1,7 +1,3 @@
---
--- Name: documentation_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.documentation_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -11,10 +7,6 @@ CREATE SEQUENCE public.documentation_id_seq
 
 
 ALTER TABLE public.documentation_id_seq OWNER TO freerad2_special;
-
---
--- Name: documentations; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.documentations (
     id integer DEFAULT nextval('public.documentation_id_seq'::regclass) NOT NULL,
@@ -32,3 +24,6 @@ CREATE TABLE public.documentations (
 
 ALTER TABLE public.documentations OWNER TO freerad2_special;
 
+ALTER TABLE ONLY public.documentations
+    ADD CONSTRAINT documentations_id_pkey PRIMARY KEY (id);
+    

@@ -1,7 +1,3 @@
---
--- Name: design_instance_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.design_instance_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -11,10 +7,6 @@ CREATE SEQUENCE public.design_instance_id_seq
 
 
 ALTER TABLE public.design_instance_id_seq OWNER TO freerad2_special;
-
---
--- Name: design_instances; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.design_instances (
     id integer DEFAULT nextval('public.design_instance_id_seq'::regclass) NOT NULL,
@@ -29,3 +21,7 @@ CREATE TABLE public.design_instances (
 
 
 ALTER TABLE public.design_instances OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.design_instances
+    ADD CONSTRAINT design_instance_id_pkey PRIMARY KEY (id);
+    

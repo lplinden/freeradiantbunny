@@ -1,7 +1,3 @@
---
--- Name: customer_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.customer_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -12,10 +8,6 @@ CREATE SEQUENCE public.customer_id_seq
 
 ALTER TABLE public.customer_id_seq OWNER TO freerad2_special;
 
---
--- Name: customers; Type: TABLE; Schema: public; Owner: freerad2_special
---
-
 CREATE TABLE public.customers (
     id integer DEFAULT nextval('public.customer_id_seq'::regclass) NOT NULL,
     name text,
@@ -24,3 +16,7 @@ CREATE TABLE public.customers (
 
 
 ALTER TABLE public.customers OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.customers
+    ADD CONSTRAINT customer_id_pkey PRIMARY KEY (id);
+    

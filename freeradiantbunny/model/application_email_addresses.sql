@@ -1,7 +1,3 @@
---
--- Name: application_email_addresses; Type: TABLE; Schema: public; Owner: freerad2_special
---
-
 CREATE TABLE public.application_email_addresses (
     id integer NOT NULL,
     application_id integer,
@@ -10,3 +6,6 @@ CREATE TABLE public.application_email_addresses (
 
 
 ALTER TABLE public.application_email_addresses OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.application_email_addresses
+    ADD CONSTRAINT application_email_id_pkey PRIMARY KEY (id);

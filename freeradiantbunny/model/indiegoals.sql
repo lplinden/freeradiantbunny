@@ -1,7 +1,3 @@
---
--- Name: indiegoal_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.indiegoal_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -11,10 +7,6 @@ CREATE SEQUENCE public.indiegoal_id_seq
 
 
 ALTER SEQUENCE public.indiegoal_id_seq OWNED BY freerad2_special;
-
---
--- Name: indiegoals; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.indiegoals (
     id integer DEFAULT nextval('public.indiegoal_id_seq'::regclass) NOT NULL,
@@ -31,4 +23,7 @@ CREATE TABLE public.indiegoals (
 
 
 ALTER TABLE public.indiegoals OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.indiegoals
+    ADD CONSTRAINT indiegoal_id_pkey PRIMARY KEY (id);
 

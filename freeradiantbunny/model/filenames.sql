@@ -1,8 +1,4 @@
---
--- Name: filenames; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
-CREATE TABLE public.filenames (
     id integer NOT NULL,
     path text,
     name text,

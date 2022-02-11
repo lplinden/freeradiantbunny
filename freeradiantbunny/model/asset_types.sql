@@ -15,3 +15,7 @@ CREATE TABLE public.asset_types (
 
 
 ALTER TABLE public.asset_types OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.asset_types
+    ADD CONSTRAINT asset_type_id_pkey PRIMARY KEY (id);
+    

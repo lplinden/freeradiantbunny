@@ -1,7 +1,3 @@
---
--- Name: hyperlink_category_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.hyperlink_category_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -12,10 +8,6 @@ CREATE SEQUENCE public.hyperlink_category_id_seq
 
 ALTER TABLE public.hyperlink_category_id_seq OWNER TO freerad2_special;
 
---
--- Name: hyperlink_categories; Type: TABLE; Schema: public; Owner: freerad2_special
---
-
 CREATE TABLE public.hyperlink_categories (
     hyperlink_id integer NOT NULL,
     category_id integer NOT NULL,
@@ -24,4 +16,7 @@ CREATE TABLE public.hyperlink_categories (
 
 
 ALTER TABLE public.hyperlink_categories OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.hyperlink_categories
+    ADD CONSTRAINT hyperlink_category_id_pkey PRIMARY KEY (id);
 

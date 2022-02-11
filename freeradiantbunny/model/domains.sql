@@ -1,7 +1,3 @@
---
--- Name: domain_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.domain_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -11,10 +7,6 @@ CREATE SEQUENCE public.domain_id_seq
 
 
 ALTER TABLE public.domain_id_seq OWNER TO freerad2_special;
-
---
--- Name: domains; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.domains (
     tli character varying(3) NOT NULL,
@@ -40,17 +32,8 @@ CREATE TABLE public.domains (
 
 ALTER TABLE public.domains OWNER TO freerad2_special;
 
-
---
--- Name: domains domains_tli_pk; Type: CONSTRAINT; Schema: public; Owner: freerad2_special
---
-
 ALTER TABLE ONLY public.domains
     ADD CONSTRAINT domain_tli_unique UNIQUE (tli);
-
---
--- Name: domains domain_id_unique; Type: CONSTRAINT; Schema: public; Owner: freerad2_special
---
 
 ALTER TABLE ONLY public.domains
     ADD CONSTRAINT domain_id_pk PRIMARY KEY (id);

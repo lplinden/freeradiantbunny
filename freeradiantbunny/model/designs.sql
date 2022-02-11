@@ -1,7 +1,3 @@
---
--- Name: design_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.design_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -25,3 +21,7 @@ CREATE TABLE public.designs (
 
 
 ALTER TABLE public.designs OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.designs
+    ADD CONSTRAINT design_id_pkey PRIMARY KEY (id);
+    

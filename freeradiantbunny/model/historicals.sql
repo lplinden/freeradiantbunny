@@ -1,7 +1,3 @@
---
--- Name: historicals; Type: TABLE; Schema: public; Owner: freerad2_special
---
-
 CREATE TABLE public.historicals (
     id integer NOT NULL,
     exchange text,
@@ -19,3 +15,7 @@ CREATE TABLE public.historicals (
 
 
 ALTER TABLE public.historicals OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.historicals
+    ADD CONSTRAINT historicals_id_pkey PRIMARY KEY (id);
+    

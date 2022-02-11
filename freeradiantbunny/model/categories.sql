@@ -1,7 +1,3 @@
---
--- Name: category_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.category_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -11,10 +7,6 @@ CREATE SEQUENCE public.category_id_seq
 
 
 ALTER TABLE public.category_id_seq OWNER TO freerad2_special;
-
---
--- Name: categories; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.categories (
     id integer DEFAULT nextval('public.category_id_seq'::regclass) NOT NULL,
@@ -26,3 +18,7 @@ CREATE TABLE public.categories (
 
 
 ALTER TABLE public.categories OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_id_pkey PRIMARY KEY (id);
+    

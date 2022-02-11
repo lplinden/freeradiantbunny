@@ -1,7 +1,3 @@
---
--- Name: hyperlink_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.hyperlink_id_seq
     START WITH 1
     INCREMENT BY 1

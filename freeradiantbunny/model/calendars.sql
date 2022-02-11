@@ -1,7 +1,3 @@
---
--- Name: calendar_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.calendar_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -12,9 +8,6 @@ CREATE SEQUENCE public.calendar_id_seq
 
 ALTER TABLE public.calendar_id_seq OWNER TO freerad2_special;
 
---
--- Name: calendars; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.calendars (
     id integer DEFAULT nextval('public.calendar_id_seq'::regclass) NOT NULL,
@@ -23,3 +16,7 @@ CREATE TABLE public.calendars (
 
 
 ALTER TABLE public.calendars OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.calendars
+    ADD CONSTRAINT calendars_id_pkey PRIMARY KEY (id);
+    

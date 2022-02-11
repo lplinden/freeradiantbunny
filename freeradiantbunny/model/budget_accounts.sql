@@ -1,7 +1,3 @@
---
--- Name: budget_accounts; Type: TABLE; Schema: public; Owner: freerad2_special
---
-
 CREATE TABLE public.budget_accounts (
     budget_id integer NOT NULL,
     account_id integer NOT NULL,
@@ -10,3 +6,7 @@ CREATE TABLE public.budget_accounts (
 
 
 ALTER TABLE public.budget_accounts OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.budget_accounts
+    ADD CONSTRAINT budget_account_id_pkey PRIMARY KEY (id);
+    

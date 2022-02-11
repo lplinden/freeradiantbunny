@@ -27,4 +27,3 @@ ALTER TABLE public.albums OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.albums
     ADD CONSTRAINT albums_id_pkey PRIMARY KEY (id);
-    

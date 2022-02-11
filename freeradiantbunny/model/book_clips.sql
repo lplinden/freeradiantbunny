@@ -1,7 +1,3 @@
---
--- Name: book_clip_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.book_clip_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -11,10 +7,6 @@ CREATE SEQUENCE public.book_clip_id_seq
 
 
 ALTER TABLE public.book_clip_id_seq OWNER TO freerad2_special;
-
---
--- Name: book_clips; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.book_clips (
     id integer DEFAULT nextval('public.book_clip_id_seq'::regclass) NOT NULL,
@@ -27,3 +19,7 @@ CREATE TABLE public.book_clips (
 
 
 ALTER TABLE public.book_clips OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.book_clips
+    ADD CONSTRAINT book_clip_id_pkey PRIMARY KEY (id);
+    

@@ -1,7 +1,3 @@
---
--- Name: email_address_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.email_address_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -11,10 +7,6 @@ CREATE SEQUENCE public.email_address_id_seq
 
 
 ALTER TABLE public.email_address_id_seq OWNER TO freerad2_special;
-
---
--- Name: email_addresses; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.email_addresses (
     id integer NOT NULL,
@@ -27,3 +19,7 @@ CREATE TABLE public.email_addresses (
 
 
 ALTER TABLE public.email_addresses OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.email_addresses
+    ADD CONSTRAINT email_address_id_pkey PRIMARY KEY (id);
+    

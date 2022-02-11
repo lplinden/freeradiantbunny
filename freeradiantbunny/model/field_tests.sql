@@ -1,7 +1,3 @@
---
--- Name: field_test_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.field_test_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -11,10 +7,6 @@ CREATE SEQUENCE public.field_test_id_seq
 
 
 ALTER TABLE public.field_test_id_seq OWNER TO freerad2_special;
-
---
--- Name: field_tests; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.field_tests (
     id integer DEFAULT nextval('public.field_test_id_seq'::regclass) NOT NULL,
@@ -27,3 +19,7 @@ CREATE TABLE public.field_tests (
 
 
 ALTER TABLE public.field_tests OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.field_tests
+    ADD CONSTRAINT field_test_id_pkey PRIMARY KEY (id);
+    

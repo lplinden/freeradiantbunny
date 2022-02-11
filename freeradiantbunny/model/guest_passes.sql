@@ -1,7 +1,3 @@
---
--- Name: guest_pass_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.guest_pass_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -12,10 +8,6 @@ CREATE SEQUENCE public.guest_pass_id_seq
 
 ALTER TABLE public.guest_pass_id_seq OWNER TO freerad2_special;
 
---
--- Name: guest_passes; Type: TABLE; Schema: public; Owner: freerad2_special
---
-
 CREATE TABLE public.guest_passes (
     id integer DEFAULT nextval('public.guest_pass_id_seq'::regclass) NOT NULL,
     owner_name text,
@@ -25,3 +17,6 @@ CREATE TABLE public.guest_passes (
 
 
 ALTER TABLE public.guest_passes OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.guest_passes
+    ADD CONSTRAINT guest_pass_id_pkey PRIMARY KEY (id);

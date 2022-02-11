@@ -1,7 +1,3 @@
---
--- Name: budget_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.budget_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -11,10 +7,6 @@ CREATE SEQUENCE public.budget_id_seq
 
 
 ALTER TABLE public.budget_id_seq OWNER TO freerad2_special;
-
---
--- Name: budgets; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.budgets (
     id integer DEFAULT nextval('public.budget_id_seq'::regclass) NOT NULL,
@@ -28,3 +20,7 @@ CREATE TABLE public.budgets (
 );
 
 ALTER TABLE public.budgets OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.budgets
+    ADD CONSTRAINT budget_id_pkey PRIMARY KEY (id);
+    

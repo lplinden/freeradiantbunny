@@ -1,8 +1,3 @@
-
---
--- Name: suppliers_id_sequence; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.supplier_id_sequence
     START WITH 1
     INCREMENT BY 1
@@ -12,10 +7,6 @@ CREATE SEQUENCE public.supplier_id_sequence
 
 
 ALTER TABLE public.supplier_id_sequence OWNER TO freerad2_special;
-
---
--- Name: suppliers; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.suppliers (
     id integer DEFAULT nextval('public.supplier_id_sequence'::regclass) NOT NULL,
@@ -34,3 +25,7 @@ CREATE TABLE public.suppliers (
 
 
 ALTER TABLE public.suppliers OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.suppliers
+    ADD CONSTRAINT supplier_id_pkey PRIMARY KEY (id);
+    
