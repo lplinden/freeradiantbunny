@@ -1,8 +1,3 @@
-
---
--- Name: classes; Type: TABLE; Schema: public; Owner: freerad2_special
---
-
 CREATE TABLE public.classes (
     id integer NOT NULL,
     name text NOT NULL,
@@ -17,5 +12,8 @@ CREATE TABLE public.classes (
     codebase text
 );
 
-
 ALTER TABLE public.classes OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.classes
+    ADD CONSTRAINT class_id_pkey PRIMARY KEY (id);
+    

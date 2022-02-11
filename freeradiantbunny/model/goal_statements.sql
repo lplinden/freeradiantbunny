@@ -1,7 +1,3 @@
---
--- Name: goal_statement_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.goal_statement_id_seq
     START WITH 7
     INCREMENT BY 1
@@ -9,12 +5,7 @@ CREATE SEQUENCE public.goal_statement_id_seq
     MAXVALUE 99999999
     CACHE 1;
 
-
 ALTER TABLE public.goal_statement_id_seq OWNER TO freerad2_special;
-
---
--- Name: goal_statements; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.goal_statements (
     id integer DEFAULT nextval('public.goal_statement_id_seq'::regclass) NOT NULL,
@@ -27,19 +18,10 @@ CREATE TABLE public.goal_statements (
     publish text
 );
 
-
 ALTER TABLE public.goal_statements OWNER TO freerad2_special;
-
---
--- Name: goal_statements goal_statements_pkey; Type: CONSTRAINT; Schema: public; Owner: freerad2_special
---
 
 ALTER TABLE ONLY public.goal_statements
     ADD CONSTRAINT goal_statement_id_pkey PRIMARY KEY (id);
-
---
--- Name: goal_statements goal_statements_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freerad2_special
---
 
 ALTER TABLE ONLY public.goal_statements
     ADD CONSTRAINT goal_statements_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id);

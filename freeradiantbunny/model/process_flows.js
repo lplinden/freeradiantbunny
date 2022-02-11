@@ -37,9 +37,9 @@ function ProcessFlows() {
 		sql = "select z.status, z.sort, z.id, z.name, p.name as parent_process, c.name as child_process from process_flows z, processes p, processes c where z.id = " + idOrNoId + " and z.parent_process_id = p.id AND z.child_process_id = c.id AND z.publish = 'true';";
 	    }
 	} else {
-	    orderBy ="ORDER BY z.sort DESC, z.name, z.id";
+	    orderBy ="ORDER BY z.parent_process_id, z.child_process_id, z.sort DESC, z.name, z.id";
 	    debug("process_flows orderBy =", orderBy);
-	    sql = "select z.status, z.sort, z.id, z.name from process_flows z where z.publish ='true' " + orderBy + ";";
+	    sql = "select z.status, z.sort, z.id, z.name, z.parent_process_id, z.child_process_id from process_flows z where z.publish ='true' " + orderBy + ";";
 	}
 	return sql;
     };

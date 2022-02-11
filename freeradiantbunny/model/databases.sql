@@ -1,7 +1,3 @@
---
--- Name: database_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.database_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -9,12 +5,7 @@ CREATE SEQUENCE public.database_id_seq
     MAXVALUE 99999999
     CACHE 1;
 
-
 ALTER TABLE public.database_id_seq OWNER TO freerad2_special;
-
---
--- Name: databases; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.databases (
     id integer DEFAULT nextval('public.database_id_seq'::regclass) NOT NULL,
@@ -28,5 +19,7 @@ CREATE TABLE public.databases (
     img_url text
 );
 
-
 ALTER TABLE public.databases OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.databases
+    ADD CONSTRAINT databases_id_pkey PRIMARY KEY (id);

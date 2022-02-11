@@ -1,6 +1,6 @@
 /**
  * Module PermacultureTopics.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function PermacultureTopics() {
     debug("permacultureTopics instantiated", instanceCount);
     this.name = "permaculture_topics";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("permaculture_topics classNameFilter =", classNameFilter);
+        debug("permaculture_topics idOrNoId =", idOrNoId);
+	debug("permaculture_topics classNameFilter =", classNameFilter);
         debug("permaculture_topics paramSort =", paramSort);
         debug("permaculture_topics specialFlag =", specialFlag);
         debug("permaculture_topics queryTerms =", queryTerms);

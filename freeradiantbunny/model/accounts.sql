@@ -1,7 +1,3 @@
---
--- Name: account_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.account_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -9,16 +5,7 @@ CREATE SEQUENCE public.account_id_seq
     MAXVALUE 99999999
     CACHE 1;
 
-
 ALTER TABLE public.account_id_seq OWNER TO freerad2_special;
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
---
--- Name: accounts; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.accounts (
     id integer DEFAULT nextval('public.account_id_seq'::regclass) NOT NULL,
@@ -35,5 +22,8 @@ CREATE TABLE public.accounts (
     ledger_type text
 );
 
-
 ALTER TABLE public.accounts OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.accounts
+    ADD CONSTRAINT account_id_pkey PRIMARY KEY (id);
+

@@ -71,6 +71,7 @@ function Validator() {
 	    "moneymaker_measurement_instances",
 	    "moneymaker_measurements",
 	    "namespaces",
+	    "permaculture_topics",
 	    "process_flows",
 	    "processes",
 	    "projects",

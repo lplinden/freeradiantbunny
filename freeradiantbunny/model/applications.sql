@@ -1,7 +1,3 @@
---
--- Name: application_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.application_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -9,12 +5,8 @@ CREATE SEQUENCE public.application_id_seq
     MAXVALUE 999999
     CACHE 1;
 
-
 ALTER TABLE public.application_id_seq OWNER TO freerad2_special;
 
---
--- Name: applications; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.applications (
     id integer DEFAULT nextval('public.application_id_seq'::regclass) NOT NULL,
@@ -31,3 +23,7 @@ CREATE TABLE public.applications (
 
 
 ALTER TABLE public.applications OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.applications
+    ADD CONSTRAINT application_id_pkey PRIMARY KEY (id);
+    

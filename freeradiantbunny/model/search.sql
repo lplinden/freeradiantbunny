@@ -1,8 +1,3 @@
-
---
--- Name: search(text); Type: FUNCTION; Schema: public; Owner: freerad2_special
---
-
 CREATE FUNCTION public.search(queryterm text) RETURNS TABLE(classname text, classprimarykey text, id integer, img text, nameurl text, description text)
     LANGUAGE plpgsql
     AS $$

@@ -1,7 +1,3 @@
---
--- Name: document_id_seq; Type: SEQUENCE; Schema: public; Owner: freerad2_special
---
-
 CREATE SEQUENCE public.document_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -9,12 +5,7 @@ CREATE SEQUENCE public.document_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
 ALTER TABLE public.document_id_seq OWNER TO freerad2_special;
-
---
--- Name: documents; Type: TABLE; Schema: public; Owner: freerad2_special
---
 
 CREATE TABLE public.documents (
     id integer DEFAULT nextval('public.document_id_seq'::regclass) NOT NULL,
@@ -27,6 +18,8 @@ CREATE TABLE public.documents (
     url text
 );
 
-
 ALTER TABLE public.documents OWNER TO freerad2_special;
 
+ALTER TABLE ONLY public.documents
+    ADD CONSTRAINT document_id_pkey PRIMARY KEY (id);
+ 

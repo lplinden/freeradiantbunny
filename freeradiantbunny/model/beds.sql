@@ -1,7 +1,3 @@
---
--- Name: beds; Type: TABLE; Schema: public; Owner: freerad2_special
---
-
 CREATE TABLE public.beds (
     id integer NOT NULL,
     name text NOT NULL,
@@ -14,3 +10,7 @@ CREATE TABLE public.beds (
 
 
 ALTER TABLE public.beds OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.beds
+    ADD CONSTRAINT bed_id_pkey PRIMARY KEY (id);
+ 
