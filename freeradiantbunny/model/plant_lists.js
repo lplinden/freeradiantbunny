@@ -1,6 +1,6 @@
 /**
  * Module PlantLists.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -12,10 +12,11 @@ var instanceCount = 0;
 function PlantLists() {
     'use strict';
     instanceCount = instanceCount + 1;
-    debug("plantLists instantiated", instanceCount);
+    debug("plant_lists instantiated", instanceCount);
     this.name = "plant_lists";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("plant_lists classNameFilter =", classNameFilter);
+	debug("plant_lists idOrNoId =", idOrNoId);
+	debug("plant_lists classNameFilter =", classNameFilter);
         debug("plant_lists paramSort =", paramSort);
         debug("plant_lists specialFlag =", specialFlag);
         debug("plant_lists queryTerms =", queryTerms);

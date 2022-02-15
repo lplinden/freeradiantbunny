@@ -1,4 +1,4 @@
-
+CREATE TABLE public.filenames (
     id integer NOT NULL,
     path text,
     name text,

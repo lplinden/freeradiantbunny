@@ -1,6 +1,6 @@
 /**
  * Module SeedPackets.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function SeedPackets() {
     debug("seed_packets instantiated", instanceCount);
     this.name = "seed_packets";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("seed_packets classNameFilter =", classNameFilter);
+        debug("seed_packets idOrNoId =", idOrNoId);
+	debug("seed_packets classNameFilter =", classNameFilter);
         debug("seed_packets paramSort =", paramSort);
         debug("seed_packets specialFlag =", specialFlag);
         debug("seed_packets queryTerms =", queryTerms);

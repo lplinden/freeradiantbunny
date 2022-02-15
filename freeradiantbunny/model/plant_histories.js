@@ -1,6 +1,6 @@
 /**
  * Module PlantHistories.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function PlantHistories() {
     debug("plant_histories instantiated", instanceCount);
     this.name = "plant_histories";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("plant_histories classNameFilter =", classNameFilter);
+	debug("plant_histories idOrNoId =", idOrNoId);
+	debug("plant_histories classNameFilter =", classNameFilter);
         debug("plant_histories paramSort =", paramSort);
         debug("plant_histories specialFlag =", specialFlag);
         debug("plant_histories queryTerms =", queryTerms);

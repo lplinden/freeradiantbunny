@@ -1,6 +1,6 @@
 /**
  * Module PlantFamilies.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function PlantFamilies() {
     debug("plant_families instantiated", instanceCount);
     this.name = "plant_families";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("plant_families classNameFilter =", classNameFilter);
+        debug("plant_families idOrNoId =", idOrNoId);
+	debug("plant_families classNameFilter =", classNameFilter);
         debug("plant_families paramSort =", paramSort);
         debug("plant_families specialFlag =", specialFlag);
         debug("plant_families queryTerms =", queryTerms);
