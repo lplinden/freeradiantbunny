@@ -1,6 +1,6 @@
 /**
  * Module Tags.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Tags() {
     debug("tags instantiated", instanceCount);
     this.name = "tags";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("tags classNameFilter =", classNameFilter);
+        debug("tags idOrNoId =", idOrNoId);
+	debug("tags classNameFilter =", classNameFilter);
         debug("tags paramSort =", paramSort);
         debug("tags specialFlag =", specialFlag);
         debug("tags queryTerms =", queryTerms);

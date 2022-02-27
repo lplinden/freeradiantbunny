@@ -1,6 +1,6 @@
 /**
  * Module Maxonomies.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Maxonomies() {
     debug("maxonomies instantiated", instanceCount);
     this.name = "maxonomies";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("maxonomies classNameFilter =", classNameFilter);
+        debug("maxonomies idOrNoId =", idOrNoId);
+	debug("maxonomies classNameFilter =", classNameFilter);
         debug("maxonomies paramSort =", paramSort);
         debug("maxonomies specialFlag =", specialFlag);
         debug("maxonomies queryTerms =", queryTerms);

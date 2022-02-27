@@ -1,6 +1,6 @@
 /**
  * Module Tenperdays.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Tenperdays() {
     debug("tenperdays instantiated", instanceCount);
     this.name = "tenperdays";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("tenperdays classNameFilter =", classNameFilter);
+        debug("tenperdays idOrNoId =", idOrNoId);
+	debug("tenperdays classNameFilter =", classNameFilter);
         debug("tenperdays paramSort =", paramSort);
         debug("tenperdays specialFlag =", specialFlag);
         debug("tenperdays queryTerms =", queryTerms);

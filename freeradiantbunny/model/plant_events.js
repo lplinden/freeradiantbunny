@@ -1,6 +1,6 @@
 /**
  * Module PlantEvents.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function PlantEvents() {
     debug("plant_events instantiated", instanceCount);
     this.name = "plant_events";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("plant_events classNameFilter =", classNameFilter);
+        debug("plant_events idOrNoId =", idOrNoId);
+	debug("plant_events classNameFilter =", classNameFilter);
         debug("plant_events specialFlag =", specialFlag);
         debug("plant_events queryTerms =", queryTerms);
         var sql;

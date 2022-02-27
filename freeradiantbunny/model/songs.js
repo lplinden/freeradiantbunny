@@ -1,6 +1,6 @@
 /**
  * Module Songs.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,8 +15,10 @@ function Songs() {
     debug("songs instantiated", instanceCount);
     this.name = "songs";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("songs classNameFilter =", classNameFilter);
-        debug("songs specialFlag =", specialFlag);
+        debug("songs idOrNoId =", idOrNoId);
+	debug("songs classNameFilter =", classNameFilter);
+        debug("songs paramSort =", paramSort);
+	debug("songs specialFlag =", specialFlag);
         debug("songs queryTerms =", queryTerms);
         var sql;
         var orderBy;

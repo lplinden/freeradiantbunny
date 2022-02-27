@@ -5,7 +5,6 @@ CREATE SEQUENCE public.album_id_seq
     MAXVALUE 999999
     CACHE 1;
 
-
 ALTER TABLE public.album_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.albums (

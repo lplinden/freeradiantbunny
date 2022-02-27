@@ -1,6 +1,6 @@
 /**
  * Module Categories.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Categories() {
     debug("categories instantiated", instanceCount);
     this.name = "categories";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("categories classNameFilter =", classNameFilter);
+        debug("categories idOrNoId =", idOrNoId);
+	debug("categories classNameFilter =", classNameFilter);
         debug("categories paramSort =", paramSort);
         debug("categories specialFlag =", specialFlag);
         debug("categories queryTerms =", queryTerms);

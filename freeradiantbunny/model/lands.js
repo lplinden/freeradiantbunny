@@ -1,6 +1,6 @@
 /**
  * Module Lands.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Lands() {
     debug("lands instantiated", instanceCount);
     this.name = "lands";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("lands classNameFilter =", classNameFilter);
+        debug("lands idOrNoId =", idOrNoId);
+	debug("lands classNameFilter =", classNameFilter);
         debug("lands paramSort =", paramSort);
 	debug("lands specialFlag =", specialFlag);
         debug("lands queryTerms =", queryTerms);

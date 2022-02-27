@@ -1,6 +1,6 @@
 /**
  * Module Albums.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Albums() {
     debug("albums instantiated", instanceCount);
     this.name = "albums";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("albums classNameFilter =", classNameFilter);
+        debug("albums idOrNoId =", idOrNoId);
+	debug("albums classNameFilter =", classNameFilter);
         debug("albums paramSort =", paramSort);
 	debug("albums specialFlag =", specialFlag);
         debug("albums queryTerms =", queryTerms);

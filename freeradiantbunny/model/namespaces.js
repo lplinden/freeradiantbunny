@@ -1,6 +1,6 @@
 /**
  * Module Namespaces.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Namespaces() {
     debug("namespaces instantiated", instanceCount);
     this.name = "namespaces";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("namespaces classNameFilter =", classNameFilter);
+        debug("namespaces idOrNoId =", idOrNoId);
+	debug("namespaces classNameFilter =", classNameFilter);
         debug("namespaces paramSort =", paramSort);
 	debug("namespaces specialFlag =", specialFlag);
         debug("namespaces queryTerms =", queryTerms);
