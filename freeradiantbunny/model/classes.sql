@@ -9,7 +9,8 @@ CREATE TABLE public.classes (
     img_url text,
     subsystem text,
     dev text,
-    codebase text
+    codebase text,
+    lookup text
 );
 
 ALTER TABLE public.classes OWNER TO freerad2_special;

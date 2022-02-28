@@ -24,7 +24,7 @@ function Classes() {
         var orderBy;
         if (idOrNoId) {
             var id = idOrNoId;
-            sql = "select a.id, a.name, a.status, a.sort, a.img_url, a.description, a.subsystem, a.notes, a.zachman_id, a.dev from classes a where a.id = " + idOrNoId + ";";
+            sql = "select a.id, a.name, a.status, a.sort, a.img_url, a.description, a.subsystem, a.notes, a.zachman_id, a.dev, a.lookup from classes a where a.id = " + idOrNoId + ";";
         } else {
             orderBy = "ORDER BY a.sort DESC, a.dev, a.subsystem, a.name";
             if (paramSort === "sort") {
@@ -41,10 +41,12 @@ function Classes() {
                 orderBy = "ORDER BY b.id, a.name";
             } else if (paramSort === "zachmans") {
                 orderBy = "ORDER BY z.name, a.name";
+	    } else if (paramSort === "lookup") {
+		orderBy = "ORDER BY a.lookup, a.name";
             }
             debug("classes orderBy =", orderBy);
             // many
-            sql = "select a.status, a.sort, array(select z.name from zachmans z where a.zachman_id = z.id) as zachman, a.subsystem, a.id, a.img_url as img, a.name as name, a.dev as dev from classes a " + orderBy;
+            sql = "select a.status, a.sort, array(select z.name from zachmans z where a.zachman_id = z.id) as zachman, a.subsystem, a.id, a.img_url as img, a.name as name, a.dev as dev, a.lookup as lookup from classes a " + orderBy;
         }
         return sql;
     };

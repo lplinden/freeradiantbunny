@@ -7,3 +7,15 @@ CREATE SEQUENCE public.hyperlink_id_seq
 
 
 ALTER TABLE public.hyperlink_id_seq OWNER TO freerad2_special;
+
+CREATE TABLE public.hyperlinks (
+    id integer DEFAULT nextval('public.hyperlink_id_seq'::regclass) NOT NULL,
+    date character varying(10),
+    url text,
+    name text,
+    description text,
+    alphabetical text,
+    img_url text
+);
+
+ALTER TABLE public.hyperlinks OWNER TO freerad2_special;
