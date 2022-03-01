@@ -1,4 +1,4 @@
-CREATE SEQUENCE public.supplier_id_sequence
+CREATE SEQUENCE public.supplier_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6,10 +6,10 @@ CREATE SEQUENCE public.supplier_id_sequence
     CACHE 1;
 
 
-ALTER TABLE public.supplier_id_sequence OWNER TO freerad2_special;
+ALTER TABLE public.supplier_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.suppliers (
-    id integer DEFAULT nextval('public.supplier_id_sequence'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.supplier_id_seq'::regclass) NOT NULL,
     name text,
     city text,
     state text,

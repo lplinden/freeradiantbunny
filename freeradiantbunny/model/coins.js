@@ -1,6 +1,6 @@
 /**
  * Module Coins.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Coins() {
     debug("coins instantiated", instanceCount);
     this.name = "coins";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+        debug("coins idOrNoId =", idOrNoId);
         debug("coins classNameFilter =", classNameFilter);
         debug("coins paramSort =", paramSort);
         debug("coins specialFlag =", specialFlag);
