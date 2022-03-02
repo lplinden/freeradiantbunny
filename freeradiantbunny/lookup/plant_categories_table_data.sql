@@ -1,0 +1,17 @@
+INSERT INTO public.plant_categories VALUES (1, 'vegetable', '');
+INSERT INTO public.plant_categories VALUES (2, 'herb', '');
+INSERT INTO public.plant_categories VALUES (3, 'flower', '');
+INSERT INTO public.plant_categories VALUES (4, 'fruit', '');
+INSERT INTO public.plant_categories VALUES (5, 'tree', '');
+INSERT INTO public.plant_categories VALUES (6, 'shrub', NULL);
+INSERT INTO public.plant_categories VALUES (7, 'annual', NULL);
+INSERT INTO public.plant_categories VALUES (9, 'perennial herb', NULL);
+INSERT INTO public.plant_categories VALUES (8, 'perennial', NULL);
+INSERT INTO public.plant_categories VALUES (11, 'annual herb', NULL);
+INSERT INTO public.plant_categories VALUES (12, 'self-seeding annual herb', NULL);
+INSERT INTO public.plant_categories VALUES (13, 'perennial shrub', NULL);
+INSERT INTO public.plant_categories VALUES (14, 'perennial flower', NULL);
+INSERT INTO public.plant_categories VALUES (10, 'fruit tree', NULL);
+INSERT INTO public.plant_categories VALUES (15, 'fruit shrub', NULL);
+INSERT INTO public.plant_categories VALUES (16, 'perennial vine', NULL);
+INSERT INTO public.plant_categories VALUES (17, 'herbaceous perennial', NULL);

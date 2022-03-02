@@ -23,11 +23,11 @@ function PlantAliases() {
         var sql;
         var orderBy;
 	if (typeof idOrNoId !== 'undefined' && idOrNoId !== "") {
-	    sql = "select p.status, p.sort, p.id, p.img_url as image, p.name, p.descriptions from plant_aliases p where p.id = " + idOrNoId + " and p.publish = 'true';";
+	    sql = "select p.id, p.plant_id, p.name from plant_aliases p where p.id = " + idOrNoId + ";";
         } else {
             orderBy = "ORDER BY u.name";
 	    debug("plant_aliases orderBy =", orderBy);
-            sql = "SELECT u.id, u.sort, u.name FROM plant_aliases u " + orderBy;
+            sql = "SELECT u.id, u.plant_id, u.name FROM plant_aliases u " + orderBy;
         }
         return sql;
     };

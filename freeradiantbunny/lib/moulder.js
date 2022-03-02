@@ -188,7 +188,6 @@ function Moulder() {
 		styles = "background-color: #CD5555;";
 		return this.getStyledData("", value, value, styles);
 	    }
-		
         } else if (columnName === "name") {
 	    if (className === "classes") {
 		var valuePrefix = value.substring(0, 4);
@@ -205,6 +204,18 @@ function Moulder() {
 		    // light-green
 		    styles = "background-color: #64e390;";
 		    return this.getStyledData("", valueAsLink, valueAsLink, styles);
+		}
+	    }
+	} else if (columnName === "lookup") {
+	    if (className === "classes") {
+		if (value === "yes") {
+		    // signal on
+		    styles = "text-align: center; background-color: #D3E3F3;";
+		    return this.getStyledData("", value, value, styles);
+		} else {
+		    // grey for nuetral
+		    styles = "text-align: center; background-color: #CCCCCC;";
+		    return this.getStyledData("", value, value, styles);
 		}
 	    }
         } else if (columnName === "count") {

@@ -1,6 +1,6 @@
 /**
  * Module Blogposts.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Blogposts() {
     debug("blogposts instantiated", instanceCount);
     this.name = "blogposts";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("blogposts classNameFilter =", classNameFilter);
+	debug("blogposts idOrNoId =", idOrNoId);
+	debug("blogposts classNameFilter =", classNameFilter);
         debug("blogposts paramSort =", paramSort);
 	debug("blogposts specialFlag =", specialFlag);
         debug("blogposts queryTerms =", queryTerms);

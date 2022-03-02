@@ -15,7 +15,7 @@ function PlantCategories() {
     debug("plant_categories instantiated", instanceCount);
     this.name = "plant_categories";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("plant_categories idOrNoId =", idOrNoId;
+        debug("plant_categories idOrNoId =", idOrNoId);
 	debug("plant_categories classNameFilter =", classNameFilter);
         debug("plant_categories paramSort =", paramSort);
         debug("plant_categories specialFlag =", specialFlag);
