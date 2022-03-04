@@ -35,7 +35,10 @@ function BusinessPlanTexts() {
 		sql = "select array(select concat('<a href=\"../goal_statements/', gs.id, '\">', gs.name, '</a>') from goal_statements gs where gs.id = bpt.goal_statement_id) as goal_statement_id, bpt.status, bpt.sort, bpt.id, bpt.img_url as image, bpt.name, bpt.description, array(select concat('<a href=\"../processes/business_plan_texts/', bpt.id, '\">', count(pr.id), '</a>') from processes pr where bpt.id = pr.business_plan_text_id AND bpt.id = " + idOrNoId + " and pr.publish = 'true') as processes_count, array(select concat('<br /><a href=\"../processes/', pr.id, '\">', pr.name, '</a>') from processes pr where bpt.id = pr.business_plan_text_id AND bpt.id = " + idOrNoId + " and pr.publish = 'true') as processes from business_plan_texts bpt where bpt.id = " + idOrNoId + " AND bpt.publish = 'true';";
 	    }
 	} else {
+	    // old way (standard way. what you would expect.)
 	    orderBy ="ORDER BY z.sort DESC, z.goal_statement_id, z.name, z.id";
+	    // new way (user-defined in table field oder_by7
+	    orderBy ="ORDER BY z.order_by";
 	    debug("business_plan_texts orderBy =", orderBy);
 	    // this has a special field to keep things on another level of private
 	    // data is in the database but given if the field is null then it cannot be selected

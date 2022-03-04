@@ -60,6 +60,7 @@ function Validator() {
 	    "business_plan_texts",
 	    "databases",
 	    "classes",
+	    "coin_markets",
 	    "coins",
 	    "designs",
 	    "domains",
@@ -89,6 +90,7 @@ function Validator() {
 	    "subsystems",
 	    "suppliers",
 	    "tags",
+	    "tools",
 	    "trades",
 	    "webpages",
 	    "zachmans",
@@ -134,6 +136,7 @@ function Validator() {
 	    "searches",
 	    "songs",
 	    "suppliers",
+	    "tools",
 	    "trades",
 	    "webpages",
 	];

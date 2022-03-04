@@ -1,6 +1,6 @@
 /**
  * Module Markets.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Markets() {
     debug("markets instantiated", instanceCount);
     this.name = "markets";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+        debug("markets idOrNoId =", idOrNoId);	
         debug("markets classNameFilter =", classNameFilter);
         debug("markets paramSort =", paramSort);
         debug("markets specialFlag =", specialFlag);

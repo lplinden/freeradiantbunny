@@ -38,11 +38,14 @@ function Processes() {
 		sql = "select array(select concat('<a href=\"../business_plan_texts/', bpt.id, '\">', bpt.name, '</a>') from business_plan_texts bpt where bpt.id = pr.business_plan_text_id) as business_plan_text_id, pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, pr.description, array(select concat('<br /><a href=\"../scene_elements/', se.id, '\">', se.name, '</a>') from scene_elements se, processes pr where pr.id = se.process_id AND pr.id = " + idOrNoId + " AND pr.publish = 'true') as scene_elements from processes pr where pr.id = " + idOrNoId + " and pr.publish = 'true';";
 	    }
 	} else {
-	    orderBy ="ORDER BY z.sort DESC, goal_statements, z.business_plan_text_id, z.name, z.id";
+	    // old way (standard way. what you would expect)
+	    //orderBy ="ORDER BY z.sort DESC, goal_statements, z.business_plan_text_id, z.name, z.id";
+	    // new way this allows user to specify using table field priority
+	    orderBy ="ORDER BY z.priority";
 	    debug("processes orderBy =", orderBy);
 	    // this has a special field to keep things on another level of private
 	    // data is in the database but given if the field is null then it cannot be selected
-	    sql = "select z.status, z.sort, array(select gs.name from goal_statements gs, business_plan_texts bpt where gs.id = bpt.goal_statement_id AND bpt.id = z.business_plan_text_id) as goal_statements, array(select bpt.name from business_plan_texts bpt where bpt.id = z.business_plan_text_id) as business_plan_texts, z.id, z.img_url as image, z.name, array(select concat('<a href=\"../scene_elements/processes/', z.id , '\">', count(se.id), '</a>') from scene_elements se where se.process_id = z.id AND z.publish = 'true') as se_count from processes z where z.publish ='true' " + orderBy + ";";
+	    sql = "select z.priority, z.status, z.sort, array(select gs.name from goal_statements gs, business_plan_texts bpt where gs.id = bpt.goal_statement_id AND bpt.id = z.business_plan_text_id) as goal_statements, array(select bpt.name from business_plan_texts bpt where bpt.id = z.business_plan_text_id) as business_plan_texts, z.id, z.img_url as image, z.name, array(select concat('<a href=\"../scene_elements/processes/', z.id , '\">', count(se.id), '</a>') from scene_elements se where se.process_id = z.id AND z.publish = 'true') as se_count from processes z where z.publish ='true' " + orderBy + ";";
 	}
 	return sql;
     };

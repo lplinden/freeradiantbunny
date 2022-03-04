@@ -298,6 +298,7 @@ function Moulder() {
 			className === "domains" ||
 			className === "databases" ||
 			className === "maxonomies" ||
+			className === "markets" ||
 			className === "projects" ||
 			className === "goal_statements" ||
 			className === "business_plan_texts" ||
@@ -310,6 +311,7 @@ function Moulder() {
 			className === "maxonomies" ||
 			className === "namespaces" ||
 			className === "tags" ||
+			className === "tools" ||
 			className === "zachmans" ||
 			className === "lands" ||
 			className === "machines" ||
