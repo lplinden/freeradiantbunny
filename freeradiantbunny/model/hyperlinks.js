@@ -1,6 +1,6 @@
 /**
  * Module Hyperlinks.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Hyperlinks() {
     debug("hyperlinks instantiated", instanceCount);
     this.name = "hyperlinks";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("hyperlinks classNameFilter =", classNameFilter);
+        debug("hyperlinks idOrNoId =", idOrNoId);
+	debug("hyperlinks classNameFilter =", classNameFilter);
         debug("hyperlinks paramSort =", paramSort);
 	debug("hyperlinks specialFlag =", specialFlag);
         debug("hyperlinks queryTerms =", queryTerms);
@@ -61,7 +62,10 @@ function Hyperlinks() {
             } else {
                 orderBy = "ORDER BY u.name";
                 debug("hyperlinks orderBy =", orderBy);
-                sql = "select u.id, u.img_url as img, concat('<a href=\"', u.url, '\">', u.name, '</a>') as nameurl, concat('<a href=\"', u.url, '\">', u.url, '</a>') as urlurl, count(r.id) as reasonscount, count(b.id) as ptopicscount, count(c.id) as categoriescount, count(t.id) as tagscount , count(p.id) as plantscount from hyperlinks u LEFT JOIN hyperlink_permaculture_topics b ON u.id = b.hyperlink_id LEFT JOIN hyperlink_reasons r ON u.id = r.hyperlink_id LEFT JOIN hyperlink_categories c ON u.id = c.hyperlink_id LEFT JOIN hyperlink_tags t ON u.id = t.hyperlink_id LEFT JOIN hyperlink_plants p ON u.id = p.hyperlink_id GROUP BY u.id " + orderBy;
+		// complicated, too complicated
+                //sql = "select u.id, u.img_url as img, concat('<a href=\"', u.url, '\">', u.name, '</a>') as nameurl, concat('<a href=\"', u.url, '\">', u.url, '</a>') as urlurl, count(r.id) as reasonscount, count(b.id) as ptopicscount, count(c.id) as categoriescount, count(t.id) as tagscount , count(p.id) as plantscount from hyperlinks u LEFT JOIN hyperlink_permaculture_topics b ON u.id = b.hyperlink_id LEFT JOIN hyperlink_reasons r ON u.id = r.hyperlink_id LEFT JOIN hyperlink_categories c ON u.id = c.hyperlink_id LEFT JOIN hyperlink_tags t ON u.id = t.hyperlink_id LEFT JOIN hyperlink_plants p ON u.id = p.hyperlink_id GROUP BY u.id " + orderBy;
+		// simple
+		sql = "select u.id, u.img_url as img, concat('<a href=\"', u.url, '\">', u.name, '</a>') as nameurl, concat('<a href=\"', u.url, '\">', u.url, '</a>') as urlurl from hyperlinks u " + orderBy;
             }
         }
         return sql;

@@ -39,8 +39,8 @@ function Classes() {
                 orderBy = "ORDER BY a.subsystem, a.name";
             } else if (paramSort === "extends_class") {
                 orderBy = "ORDER BY b.id, a.name";
-            } else if (paramSort === "zachmans") {
-                orderBy = "ORDER BY z.name, a.name";
+            } else if (paramSort === "zachman_id") {
+                orderBy = "ORDER BY a.zachman_id";
 	    } else if (paramSort === "lookup") {
 		orderBy = "ORDER BY a.lookup, a.name";
             }

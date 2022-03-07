@@ -293,7 +293,8 @@ function Moulder() {
 		if (value == "2021" || value == "2022") {
 		    // check that this value is in the correct connext
 		    if (className === "classes" ||
-			className === "webpages" ||
+			className === "webpages" |
+			className === "datastores" ||
 			className === "designs" ||
 			className === "domains" ||
 			className === "databases" ||

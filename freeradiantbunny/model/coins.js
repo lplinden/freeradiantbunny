@@ -45,7 +45,7 @@ function Coins() {
 	    // backup sql
             // sql = "select z.id, z.ticker, concat('<a href=\"', z.url, '\">', z.name, '</a>') as name, z.type, z.platform, z.frb, z.watch, z.ath, z.risk, z.volume, z.stablecoin as stable, z.sort from coins z " + orderBy + ";";
 	    // adding tags column
-            sql = "select z.status, z.watch, z.stage, z.sort, z.id, z.img_url as img, z.ticker, concat('<a href=\"', z.url, '\">', z.name, '</a>') as name, z.type, z.platform, z.frb, array(select concat(' <a href=\"../tags/', s2.id, '\">', s2.name, '</a>') from tags s2, classes_tags cl where cl.class_name = 'coins' and cl.tag_id = s2.id and cl.id_of_given_class = z.id order by s2.name) as tags from coins z " + orderBy + ";";
+            sql = "select z.status, z.watch, z.stage, array(select count(cm.coin_id) as exchange_count from coin_markets cm where cm.coin_id = z.id) as exchange_count, z.sort, z.id, z.img_url as img, z.ticker, concat('<a href=\"', z.url, '\">', z.name, '</a>') as name, z.type, z.platform, z.frb, array(select concat(' <a href=\"../tags/', s2.id, '\">', s2.name, '</a>') from tags s2, classes_tags cl where cl.class_name = 'coins' and cl.tag_id = s2.id and cl.id_of_given_class = z.id order by s2.name) as tags from coins z " + orderBy + ";";
         }
         return sql;
     };

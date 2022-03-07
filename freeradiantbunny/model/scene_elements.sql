@@ -33,6 +33,4 @@ ALTER TABLE ONLY public.scene_elements
 ALTER TABLE ONLY public.scene_elements
     ADD CONSTRAINT scene_elements_process_id_fkey FOREIGN KEY (process_id) REFERENCES public.processes(id);
 
-
-CREATE INDEX scene_elements_index_id ON public.scene_elements USING btree (id);
-
+CREATE INDEX scene_elements_index_id ON public.scene_elemnts USING btree (id);

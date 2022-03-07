@@ -33,7 +33,7 @@ function CoinMarkets() {
                 orderBy = "ORDER BY z.market_id, z.id";
 	    }
             debug("coins orderBy =", orderBy);
-            sql = "select z.id, z.coin_id, z.market_id from coin_markets z " + orderBy + ";";
+            sql = "select z.id, z.coin_id, c.ticker as coin, z.market_id, m.name as market from coin_markets z, coins c, markets m where z.coin_id = c.id AND z.market_id = m.id " + orderBy + ";";
         }
         return sql;
     };

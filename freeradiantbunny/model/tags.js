@@ -23,7 +23,7 @@ function Tags() {
         var sql;
         var orderBy;
         if (idOrNoId) {
-            sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.alias, z.description, z.url, concat('<a href=\"../hyperlinks/tags/', z.id, '\">', count(b.id), '</a>') as hyperlinkscount, z.permaculture_topic_id as ptopic from tags z LEFT JOIN (SELECT b.id, b.tag_id FROM hyperlink_tags b) b ON (z.id = b.tag_id) WHERE z.id = " + idOrNoId + " GROUP BY z.id;";
+            sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.alias, z.description, z.url, concat('<a href=\"../hyperlinks/tags/', z.id, '\">', count(b.id), '</a>') as hyperlinkscount, z.permaculture_topic_id as ptopic from tags z LEFT JOIN (SELECT b.id, b.tag_id FROM hyperlink_tags b) b ON (z.id = b.tag_id) WHERE z.id = " + idOrNoId + ";";
         } else {
             orderBy = "ORDER BY z.sort DESC, z.name, z.id";
             debug("tags orderBy =", orderBy);
