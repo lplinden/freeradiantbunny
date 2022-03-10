@@ -73,6 +73,21 @@ function Moulder() {
         } else if (columnName === "tli") {
 	    styles = "text-align: center;";
 	    return this.getStyledData("", value, value, styles);
+	    
+	} else if (columnName === "ex_ct") {
+	    styles = "text-align: center;";
+	    return this.getStyledData("", value, value, styles);
+	    
+	} else if (columnName === "sig_lvl" ||
+		   columnName === "recent" ||
+		   columnName === "change") {
+	    styles = "text-align: right; font-family: monospace; font-size: 130%;";
+	    return this.getStyledData("", value, value, styles);
+
+	} else if (columnName === "ticker") {
+	    styles = "text-align: center; font-family: monospace; font-size: 200%;";
+	    return this.getStyledData("", value, value, styles);
+	    
         } else if (columnName === "variety_id") {
 	    var  anotherClassName = "varieties";
             var chardata = this.getIdAsUrl(baseUrl, anotherClassName, value, value)

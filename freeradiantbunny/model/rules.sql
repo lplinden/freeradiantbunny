@@ -19,3 +19,6 @@ CREATE TABLE public.rules (
 );
 
 ALTER TABLE public.rules OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.rules
+    ADD CONSTRAINT rule_id_pkey PRIMARY KEY (id);

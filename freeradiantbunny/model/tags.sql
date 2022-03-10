@@ -20,3 +20,6 @@ CREATE TABLE public.tags (
 );
 
 ALTER TABLE public.tags OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.tags
+    ADD CONSTRAINT tag_id_pkey PRIMARY KEY (id);

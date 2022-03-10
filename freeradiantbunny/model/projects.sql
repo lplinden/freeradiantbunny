@@ -21,6 +21,4 @@ CREATE TABLE public.projects (
 
 ALTER TABLE public.projects OWNER TO freerad2_special;
 
-ALTER TABLE ONLY public.projects
-    ADD CONSTRAINT project_id_pkey PRIMARY KEY (id);
     
