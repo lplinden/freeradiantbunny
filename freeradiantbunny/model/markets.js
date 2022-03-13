@@ -25,11 +25,11 @@ function Markets() {
         if (idOrNoId) {
             // single
             debug("markets idOrNoId =", idOrNoId);
-            sql = "select z.id, z.abbreviation, z.name, z.img_url as img, z.description, z.status, z.sort, concat('<a href=\"', z.url, '\">', z.url, '</a>') as url z.api from markets as z where z.id = cast('" + idOrNoId + "' as integer);";
+            sql = "select z.id, z.name, z.img_url as img, z.description, z.status, z.sort, concat('<a href=\"', z.url, '\">', z.url, '</a>') as url z.api from markets as z where z.id = cast('" + idOrNoId + "' as integer);";
         } else {
             orderBy = "order by z.sort DESC, z.name";
             debug("markets orderBy =", orderBy);
-            sql = "select z.status, z.sort, z.id, z.img_url as img, concat('<a href=\"', z.url, '\">', z.abbreviation, '</a>') as abbreviation, concat('<a href=\"', z.url, '\">', z.name, '</a>') as name, z.description, z.api from markets as z " + orderBy;
+            sql = "select z.status, z.sort, z.id, z.img_url as img, concat('<a href=\"', z.url, '\">', z.name, '</a>') as name, z.description, z.api from markets as z " + orderBy;
         }
         return sql;
     };

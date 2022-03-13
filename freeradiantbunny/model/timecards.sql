@@ -9,15 +9,15 @@ ALTER TABLE public.timecard_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.timecards (
     id integer DEFAULT nextval('public.timecard_id_seq'::regclass) NOT NULL,
-    doer_user_name text,
+    description text,
     date_in text,
     time_in text,
-    time_out text,
-    description text,
-    class_primary_key_string text,
     date_out text,
-    database_string text,
-    class_name_string text
+    time_out text
 );
 
 ALTER TABLE public.timecards OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.timecards
+    ADD CONSTRAINT timecard_id_pkey PRIMARY KEY (id);
+    

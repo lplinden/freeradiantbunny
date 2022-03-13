@@ -29,7 +29,8 @@ CREATE TABLE public.coins (
     uuid text,
     notes text,
     recent text,
-    change text
+    change text,
+    recent_rank text
 );
 
 ALTER TABLE public.coins OWNER TO freerad2_special;

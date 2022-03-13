@@ -16,7 +16,6 @@ CREATE TABLE public.markets (
     sort character varying(12),
     status text,
     url text,
-    abbreviation text,
     api text
 );
 
