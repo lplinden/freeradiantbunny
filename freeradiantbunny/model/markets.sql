@@ -5,7 +5,6 @@ CREATE SEQUENCE public.market_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
 ALTER TABLE public.market_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.markets (
@@ -20,3 +19,6 @@ CREATE TABLE public.markets (
 );
 
 ALTER TABLE public.markets OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.markets
+    ADD CONSTRAINT market_id_pkey PRIMARY KEY (id);

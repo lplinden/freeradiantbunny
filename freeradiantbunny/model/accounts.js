@@ -25,7 +25,7 @@ function Accounts() {
 	    if (classNameFilter) {
   		if (classNameFilter == "budgets") {
 		    orderBy = "ORDER BY a.sort DESC, a.name";
-		    sql = "select a.status, a.sort, a.id, a.img_url as image, a.name, a.description from accounts a, budget_accounts ba where ba.account_id = a.id AND ba.budget_id = " + idOrNoId + " and a.publish='true' " + orderBy + ";";
+		    sql = "select a.status, a.sort, a.id, a.img_url as image, a.name, a.description, a.flow from accounts a, budget_accounts ba where ba.account_id = a.id AND ba.budget_id = " + idOrNoId + " and a.publish='true' " + orderBy + ";";
 		} else {
 		    sql = "select a.status, a.sort, a.id, a.img_url, a.name, a.description, a.database_string, a.class_name_string as class_name_string, concat('<a href=\"../', a.class_name_string, '/', a.class_primary_key_string,'\">', a.class_primary_key_string, '</a>') as class_primary_key_string from accounts a where a.id = " + idOrNoId + " and a.publish = 'true';";
 		}

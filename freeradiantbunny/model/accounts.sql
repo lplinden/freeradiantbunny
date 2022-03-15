@@ -19,7 +19,8 @@ CREATE TABLE public.accounts (
     class_primary_key_string text,
     state text,
     publish text,
-    ledger_type text
+    ledger_type text,
+    flow text
 );
 
 ALTER TABLE public.accounts OWNER TO freerad2_special;

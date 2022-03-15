@@ -30,7 +30,11 @@ CREATE TABLE public.coins (
     notes text,
     recent text,
     change text,
-    recent_rank text
+    recent_rank text,
+    change_previous text,
+    acceleration text,
+    acceleration_previous text,
+    acceleration_change text
 );
 
 ALTER TABLE public.coins OWNER TO freerad2_special;
