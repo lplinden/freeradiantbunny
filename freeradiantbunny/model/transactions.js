@@ -1,6 +1,6 @@
 /**
  * Module Transactions.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Transactions() {
     debug("transactions instantiated", instanceCount);
     this.name = "transactions";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+        debug("transactions idOrNoId =",idOrNoId);
         debug("transactions classNameFilter =", classNameFilter);
         debug("transactions paramSort =", paramSort);
         debug("transactions specialFlag =", specialFlag);
@@ -22,13 +23,12 @@ function Transactions() {
         var sql;
         var orderBy;
         if (idOrNoId) {
-            // single
-            debug("transactions idOrNoId =", idOrNoId);
-            sql = "select z.id, z.timestamp, z.broker_debit, z.unit_debit, z.amount_debit, z.price, z.broker_credit, z.unit_credit, z.amount_credit, z.tx_id from transactions as z where z.id = cast('" + idOrNoId + "' as integer);";
+            sql = "select z.id, z.date, z.broker_debit, z.unit_debit, z.amount_debit, z.broker_credit, z.unit_credit, z.amount_credit, z.tnx_ref, z.audit from transactions as z where z.id = cast('" + idOrNoId + "' as integer);";
         } else {
             orderBy = "order by z.id";
             debug("transactions orderBy =", orderBy);
-            sql = "select  concat('<a href=\"trades/', z.trade_id, '\">', z.trade_id, '</a>') as trade_id, z.id, z.timestamp, z.broker_debit, z.amount_debit, z.unit_debit, z.price, z.broker_credit, z.amount_credit, z.unit_credit, 'transaction_type' as transaction_type, z.tx_id from transactions as z " + orderBy;
+	    // many
+            sql = "select z.id, z.date, z.broker_debit, z.amount_debit, z.unit_debit, z.broker_credit, z.amount_credit, z.unit_credit, z.tnx_ref, z.audit from transactions as z " + orderBy;
         }
         return sql;
     };

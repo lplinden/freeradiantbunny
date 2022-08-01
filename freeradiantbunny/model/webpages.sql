@@ -15,7 +15,8 @@ CREATE TABLE public.webpages (
     sort text,
     img_url text,
     status text,
-    path text
+    path text,
+    UNIQUE (domain_tli, path)
 );
 
 
@@ -26,3 +27,4 @@ ALTER TABLE ONLY public.webpages
 
 ALTER TABLE ONLY public.webpages
     ADD CONSTRAINT webpages_domain_id_fkey FOREIGN KEY (domain_tli) REFERENCES public.domains(tli);
+

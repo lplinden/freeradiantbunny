@@ -30,7 +30,7 @@ function Suppliers() {
 	    // many
 	    // sql with seed_packets count
             //sql = "select u.status, u.sort, u.id, u.img_url as img, u.name, u.city, u.state, u.url, array(select count(x.id) from seed_packets x where x.supplier_id = u.id) as seed_packets_count from suppliers u " + orderBy;
-	    sql = "select u.status, u.sort, u.id, u.img_url as img, u.name, u.city, u.state, u.url from suppliers u " + orderBy;
+	    sql = "select u.status, u.sort, u.id, u.img_url as img, u.name, u.url from suppliers u " + orderBy;
         }
         return sql;
     };

@@ -47,7 +47,7 @@ function SceneElements() {
 	    debug("scene_elements orderBy =", orderBy);
 	    // this has a special field to keep things on another level of private
 	    // data is in the database but given if the field is null then it cannot be selected
-	    sql = "select z.status, array(select pr.name from processes pr where pr.id = z.process_id) as process_id, z.id, z.img_url as image, concat('<a href=\"../', z.class_name_string, '/', z.class_primary_key_string, '\">', z.class_name_string, '/', z.class_primary_key_string, '</a>') as class_primary_key_string, z.sort, z.name, concat('<a href=\"../accounts/', account_id, '\">', account_id, '</a>') as account_id from scene_elements z where publish ='true' " + orderBy + ";";
+	    sql = "select z.status, array(select pr.name from processes pr where pr.id = z.process_id) as process_id, z.id, z.img_url as image, concat('<a href=\"../', z.class_name_string, '/', z.class_primary_key_string, '\">', z.class_name_string, '/', z.class_primary_key_string, '</a>') as class_primary_key_string, z.sort, z.name, concat('<a href=\"../accounts/', account_id, '\">', account_id, '</a>') as account_id, a.name as account_name from scene_elements z, accounts a where z.account_id = a.id AND z.publish ='true' " + orderBy + ";";
 	}
 	return sql;
     };

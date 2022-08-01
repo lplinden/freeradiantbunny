@@ -1,6 +1,6 @@
 /**
  * Module Rules.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Rules() {
     debug("rules instantiated", instanceCount);
     this.name = "rules";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+        debug("rules idOrNoId =",idOrNoId);
         debug("rules classNameFilter =", classNameFilter);
         debug("rules paramSort =", paramSort);
         debug("rules specialFlag =", specialFlag);
@@ -24,8 +25,9 @@ function Rules() {
         if (idOrNoId) {
             sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.description, z.antecedent, z.consequent from rules z WHERE z.id = " + idOrNoId + ";";
         } else {
-            orderBy = "ORDER BY z.sort DESC, z.name";
+            orderBy = "order by z.name, z.id";
             debug("rules orderBy =", orderBy);
+	    // many
             sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.description, z.antecedent, z.consequent from rules z " + orderBy + ";";
         }
         return sql;

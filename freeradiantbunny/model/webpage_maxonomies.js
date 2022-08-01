@@ -1,6 +1,6 @@
 /**
  * Module WebpageMaxonomies.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function WebpageMaxonomies() {
     debug("webpage_maxonomies instantiated", instanceCount);
     this.name = "wepage_maxonomies";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("webpage_maxonomies classNameFilter =", classNameFilter);
+        debug("webpage_maxonomies idOrNoId =", idOrNoId);
+	debug("webpage_maxonomies classNameFilter =", classNameFilter);
         debug("webpage_maxonomies paramSort =", paramSort);
         debug("webpage_maxonomies specialFlag =", specialFlag);
         debug("webpage_maxonomies queryTerms =", queryTerms);

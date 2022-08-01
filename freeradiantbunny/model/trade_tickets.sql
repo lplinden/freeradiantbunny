@@ -38,7 +38,8 @@ CREATE TABLE public.trade_tickets (
     exit_amount text,
     partial_amount text,	
     partial_trade_ticket_id integer,
-    performance_measures text
+    performance_measures text,
+    tnx_ref text
 );
 
 ALTER TABLE public.trade_tickets OWNER TO freerad2_special;

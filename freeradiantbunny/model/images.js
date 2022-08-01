@@ -1,6 +1,6 @@
 /**
  * Module Images.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -26,10 +26,10 @@ function Images() {
 		// standard order
 		orderBy = "ORDER BY z.sort DESC, z.name";
 		// idOrNoId refers to domains table
-		sql = "select z.status, z.sort, z.id, z.url as url, z.name from images z, domains d where z.domain_tli = d.tli AND d.id = '" + idOrNoId + "' " + orderBy + ";";
+		sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from images z, domains d where z.domain_tli = d.tli AND d.id = '" + idOrNoId + "' " + orderBy + ";";
 	    } else {
 		var id = idOrNoId;
-		sql = "select a.id, a.name, a.description, a.url as image, a.sort, a.status, a.img_url, a.domain_tli, a.url from images a where a.id = " + id + ";";
+		sql = "select a.id, a.name, a.description, a.img_url as img, a.sort, a.status, a.domain_tli from images a where a.id = " + id + ";";
 	    }
         } else {
             orderBy = "ORDER BY a.status DESC, a.sort DESC, a.domain_tli, a.name, a.id";
@@ -40,7 +40,7 @@ function Images() {
             }
             debug("images orderBy =", orderBy);
             // many
-            sql = "select a.status, a.sort, a.domain_tli, a.id, a.name, a.img_url as img, a.url from images a " + orderBy;
+            sql = "select a.status, a.sort, a.domain_tli, a.id, a.img_url as img, a.name from images a " + orderBy;
         }
         return sql;
     };

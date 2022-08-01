@@ -54,7 +54,7 @@ function Coins() {
 	    if (paramSort === "notes" ||
 		paramSort === "change") {
 		// sort=notes gets special sql
-		sql = "select z.id, z.recent_rank as rank, z.notes, z.stage, z.sort, array(select count(cm.coin_id) as exchange_count from coin_markets cm where cm.coin_id = z.id) as ex_ct, z.signal_level as sig_lvl, z.recent as recent, z.change_previous as ch_0, z.change as ch, z.acceleration_previous as acc_0, z.acceleration as acc, acceleration_change as acc_ch, z.img_url as img, z.ticker, z.name from coins z where watch='true' and status='2022' " + orderBy + ";";
+		sql = "select z.id, z.recent_rank as rank, z.notes, z.stage, z.sort, array(select count(cm.coin_id) as exchange_count from coin_markets cm where cm.coin_id = z.id) as ex_ct, z.signal_level as sig_lvl, z.recent as recent, z.change_previous as ch_0, z.change as ch, z.acceleration_previous as acc_0, z.acceleration as acc, acceleration_change as acc_ch, z.img_url as img, z.ticker, z.name, z.change_all from coins z where watch='true' and status='2022' " + orderBy + ";";
 	    } else {
 		// backup sql
 		// sql = "select z.id, z.ticker, concat('<a href=\"', z.url, '\">', z.name, '</a>') as name, z.type, z.platform, z.frb, z.watch, z.ath, z.risk, z.volume, z.stablecoin as stable, z.sort from coins z " + orderBy + ";";

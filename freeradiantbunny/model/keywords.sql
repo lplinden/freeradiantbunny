@@ -17,3 +17,6 @@ CREATE TABLE public.keywords (
 );
 
 ALTER TABLE public.keywords OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.keywords
+    ADD CONSTRAINT keyword_name_unique UNIQUE (name);

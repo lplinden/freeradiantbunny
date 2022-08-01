@@ -367,6 +367,7 @@ function Moulder() {
 			className === "songs" ||
 			className === "coins" ||
 			className === "images" ||
+			className === "rules" ||
 			className === "suppliers") {
 			if (value == "2021") {
 			    // yellow on green

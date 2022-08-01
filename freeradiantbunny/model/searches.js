@@ -1,6 +1,6 @@
 /**
  * Module Searches.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,7 +15,8 @@ function Searches() {
     debug("searches instantiated", instanceCount);
     this.name = "searches";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
-        debug("searches classNameFilter =", classNameFilter);
+        debug("searches idOrNoId =", idOrNoId);
+	debug("searches classNameFilter =", classNameFilter);
         debug("searches paramSort =", paramSort);
         debug("searches specialFlag =", specialFlag);
         debug("searches queryTerms =", queryTerms);
