@@ -577,6 +577,15 @@ function Moulder() {
             var charadata = "total count = " + value + "<br />" + classesList;
             return this.getStyledData("", chardata);
 
+        } else if (columnName === "q") {
+            if (value == "ok") {
+                // color
+                styles = "background-color: #AAFFEE;"
+            } else {
+                // inherit
+                styles = "background-color: inherit;";
+            }
+            return this.getStyledData("", value, value, styles);
         } else if (columnName === "sort") {
             var sortClass = "";
             var styles = this.getSortStyle(value);

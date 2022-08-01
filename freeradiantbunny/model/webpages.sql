@@ -16,6 +16,7 @@ CREATE TABLE public.webpages (
     img_url text,
     status text,
     path text,
+    quality text,
     UNIQUE (domain_tli, path)
 );
 
