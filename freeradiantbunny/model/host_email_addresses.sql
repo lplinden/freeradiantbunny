@@ -8,5 +8,5 @@ CREATE TABLE public.host_email_addresses (
 ALTER TABLE public.host_email_addresses OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.host_email_addresses
-    ADD CONSTRAINT host_email_address_id_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT host_email_address_pk PRIMARY KEY (id);
     

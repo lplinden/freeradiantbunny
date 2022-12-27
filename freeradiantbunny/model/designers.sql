@@ -1,25 +1,22 @@
-CREATE SEQUENCE public.designer_id_seq
+CREATE SEQUENCE public.designers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    MAXVALUE 999999
+    MAXVALUE 99999999
     CACHE 1;
 
-
-ALTER TABLE public.designer_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.designers_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.designers (
-    id integer DEFAULT nextval('public.designer_id_seq'::regclass) NOT NULL,
-    name text,
+    id integer DEFAULT nextval('public.designers_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
-    sort text,
+    img_url text,
     status text,
-    img_url text
+    sort text
 );
 
 ALTER TABLE public.designers OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.designers
-    ADD CONSTRAINT designer_id_pkey PRIMARY KEY (id);
-
-
+    ADD CONSTRAINT designers_pk PRIMARY KEY (id);

@@ -40,7 +40,7 @@ function Images() {
             }
             debug("images orderBy =", orderBy);
             // many
-            sql = "select a.status, a.sort, a.domain_tli, a.id, a.img_url as img, a.name from images a " + orderBy;
+            sql = "select a.status, a.sort, a.domain_tli, a.id, a.img_url as img, a.name as alt, a.quality as q from images a " + orderBy;
         }
         return sql;
     };

@@ -1,15 +1,14 @@
-CREATE SEQUENCE public.color_id_seq
+CREATE SEQUENCE public.colors_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    MAXVALUE 999999
+    MAXVALUE 99999999
     CACHE 1;
 
-
-ALTER TABLE public.color_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.colors_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.colors (
-    id integer DEFAULT nextval('public.color_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.colors_id_seq'::regclass) NOT NULL,
     tla character varying(3),
     name text,
     url text,
@@ -17,9 +16,7 @@ CREATE TABLE public.colors (
     full_name text
 );
 
-
 ALTER TABLE public.colors OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.colors
-    ADD CONSTRAINT color_id_pkey PRIMARY KEY (id);
-    
+    ADD CONSTRAINT colors_pk PRIMARY KEY (id);

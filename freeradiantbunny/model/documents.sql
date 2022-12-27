@@ -1,19 +1,19 @@
-CREATE SEQUENCE public.document_id_seq
+CREATE SEQUENCE public.documents_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.document_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.documents_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.documents (
-    id integer DEFAULT nextval('public.document_id_seq'::regclass) NOT NULL,
-    name text,
+    id integer DEFAULT nextval('public.documents_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
-    sort text,
-    status text,
     img_url text,
+    status text,
+    sort text,
     domain_tli text,
     url text
 );
@@ -21,5 +21,7 @@ CREATE TABLE public.documents (
 ALTER TABLE public.documents OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.documents
-    ADD CONSTRAINT document_id_pkey PRIMARY KEY (id);
- 
+    ADD CONSTRAINT documents_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.documents
+    ADD CONSTRAINT documents_domain_tli_fk FOREIGN KEY (domain_tli) REFERENCES public.domains(tli);

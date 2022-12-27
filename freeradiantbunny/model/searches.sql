@@ -29,19 +29,21 @@ $$;
 
 ALTER FUNCTION public.search(queryterm text) OWNER TO freerad2_special;
 
-CREATE SEQUENCE public.search_id_seq
+CREATE SEQUENCE public.searches_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    MAXVALUE 999999
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.search_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.searches_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.searches (
-    id integer DEFAULT nextval('public.search_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.searches_id_seq'::regclass) NOT NULL,
     name text
 );
 
-
 ALTER TABLE public.searches OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.searches
+    ADD CONSTRAINT searches_pk PRIMARY KEY (id);

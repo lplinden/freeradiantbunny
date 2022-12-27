@@ -1,14 +1,14 @@
-CREATE SEQUENCE public.address_id_seq
+CREATE SEQUENCE public.addresses_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.address_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.addresses_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.addresses (
-    id integer DEFAULT nextval('public.address_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.addresses_id_seq'::regclass) NOT NULL,
     name text,
     address text,
     coin_id integer
@@ -16,5 +16,5 @@ CREATE TABLE public.addresses (
 
 ALTER TABLE public.addresses OWNER TO freerad2_special;
 
-ALTER TABLE ONLY public.addresss
-    ADD CONSTRAINT address_id_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.addresses
+    ADD CONSTRAINT addresses_pk PRIMARY KEY (id);

@@ -1,19 +1,19 @@
-CREATE SEQUENCE public.tag_id_seq
+CREATE SEQUENCE public.tags_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    MAXVALUE 999999
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.tag_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.tags_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.tags (
-    id integer DEFAULT nextval('public.tag_id_seq'::regclass) NOT NULL,
-    name text,
+    id integer DEFAULT nextval('public.tags_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
-    sort text,
-    status text,
     img_url text,
+    status text,
+    sort text,
     permaculture_topic_id integer,
     alias text,
     url text
@@ -22,4 +22,7 @@ CREATE TABLE public.tags (
 ALTER TABLE public.tags OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.tags
-    ADD CONSTRAINT tag_id_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT tags_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.tags
+    ADD CONSTRAINT tags_permaculture_topic_id_fk FOREIGN KEY (permaculture_topic_id) REFERENCES public.permaculture_topics(id);

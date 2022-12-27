@@ -1,19 +1,19 @@
-CREATE SEQUENCE public.rule_id_seq
+CREATE SEQUENCE public.rules_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.rule_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.rules_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.rules (
-    id integer DEFAULT nextval('public.rule_id_seq'::regclass) NOT NULL,
-    name text,
+    id integer DEFAULT nextval('public.rules_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
     img_url text,
-    sort text,
     status text,
+    sort text,
     antecedent text,
     consequent text
 );
@@ -21,4 +21,4 @@ CREATE TABLE public.rules (
 ALTER TABLE public.rules OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.rules
-    ADD CONSTRAINT rule_id_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT rules_pk PRIMARY KEY (id);

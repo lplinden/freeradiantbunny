@@ -1,23 +1,30 @@
-CREATE SEQUENCE public.image_id_seq
+CREATE SEQUENCE public.images_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.image_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.images_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.images (
-    id integer DEFAULT nextval('public.image_id_seq'::regclass) NOT NULL,
-    img_url text UNIQUE,
-    caption text,
+    id integer DEFAULT nextval('public.images_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
+    img_url text,
+    status text,
+    sort text,
+    domain_tli character varying(3) NOT NULL,
+    caption text,
     photographer text,
     license text,
-    domain_tli text,
-    name text,
-    sort text,
-    status text
+    quality text
 );
 
 ALTER TABLE public.images OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT images_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT images_domain_tli_fk FOREIGN KEY (domain_tli) REFERENCES public.domains(tli);

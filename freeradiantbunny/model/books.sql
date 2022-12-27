@@ -1,23 +1,23 @@
-CREATE SEQUENCE public.book_id_seq
+CREATE SEQUENCE public.books_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    MAXVALUE 999999
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.book_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.books_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.books (
-    id integer DEFAULT nextval('public.book_id_seq'::regclass) NOT NULL,
-    name text,
-    url text,
+    id integer DEFAULT nextval('public.books_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
-    sort text,
+    img_url text,
     status text,
-    img_url text
+    sort text,
+    url text
 );
 
 ALTER TABLE public.books OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.books
-    ADD CONSTRAINT book_id_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT books_pk PRIMARY KEY (id);

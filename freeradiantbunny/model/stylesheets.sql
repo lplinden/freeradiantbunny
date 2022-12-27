@@ -1,24 +1,30 @@
-CREATE SEQUENCE public.stylesheet_id_seq
+CREATE SEQUENCE public.stylesheets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.stylesheet_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.stylesheets_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.stylesheets (
-    id integer DEFAULT nextval('public.stylesheet_id_seq'::regclass) NOT NULL,
-    name text,
+    id integer DEFAULT nextval('public.stylesheets_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
-    sort text,
-    status text,
     img_url text,
-    domain_tli text,
-    url text UNIQUE
+    status text,
+    sort text,
+    domain_tli character varying(3) NOT NULL,
+    url text
 );
 
 ALTER TABLE public.stylesheets OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.stylesheets
-    ADD CONSTRAINT stylesheets_domain_id_fkey FOREIGN KEY (domain_tli) REFERENCES public.domains(tli);
+    ADD CONSTRAINT stylesheets_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.stylesheets
+    ADD CONSTRAINT stylesheets_domain_tli_fk FOREIGN KEY (domain_tli) REFERENCES public.domains(tli);
+
+ALTER TABLE ONLY public.stylesheets
+    ADD CONSTRAINT stylesheets_url_unique UNIQUE (url);

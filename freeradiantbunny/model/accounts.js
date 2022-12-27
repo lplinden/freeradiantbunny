@@ -1,6 +1,6 @@
-/**
+ /**
  * Module Accounts.
- * version 2.0
+ * version 2.0.2
  *
  * @public
  */
@@ -15,6 +15,7 @@ function Accounts() {
     debug("accounts instantiated", instanceCount);
     this.name = "accounts";
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+        debug("accounts idOrNoId =", idOrNoId);
 	debug("accounts classNameFilter =", classNameFilter);
 	debug("accounts paramSort =", paramSort);
 	debug("accounts specialFlag =", specialFlag);
@@ -37,11 +38,11 @@ function Accounts() {
 		sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from accounts z where publish ='true';";
 	    }
 	} else {
-	    orderBy ="ORDER BY z.sort DESC, z.name, z.id";
+	    orderBy ="ORDER BY z.img_url, z.flow, z.id";
 	    debug("accounts orderBy =", orderBy);
 	    // this has a special field to keep things on another level of private
 	    // data is in the database but given if the field is null then it cannot be selected
-	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from accounts z where publish ='true' " + orderBy + ";";
+	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.flow from accounts z where publish ='true' " + orderBy + ";";
 	}
 	return sql;
     };

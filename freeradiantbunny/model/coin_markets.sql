@@ -1,22 +1,20 @@
-CREATE SEQUENCE public.coin_market_id_seq
+CREATE SEQUENCE public.coin_markets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
+    MAXVALUE 99999999
     CACHE 1;
 
-
-ALTER TABLE public.coin_market_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.coin_markets_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.coin_markets (
-    id integer DEFAULT nextval('public.coin_market_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.coin_markets_id_seq'::regclass) NOT NULL,
     coin_id integer,
     market_id integer
 );
 
-
 ALTER TABLE public.coin_markets OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.coin_markets
-    ADD CONSTRAINT coin_market_id_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT coin_markets_pk PRIMARY KEY (id);
     

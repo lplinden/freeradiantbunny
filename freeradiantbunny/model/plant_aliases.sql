@@ -1,17 +1,22 @@
-CREATE SEQUENCE public.plant_alias_id_seq
+CREATE SEQUENCE public.plant_aliases_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.plant_alias_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.plant_aliases_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.plant_aliases (
-    id integer DEFAULT nextval('public.plant_alias_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.plant_aliases_id_seq'::regclass) NOT NULL,
     plant_id integer,
     name text
 );
 
-
 ALTER TABLE public.plant_aliases OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.plant_aliases
+    ADD CONSTRAINT plant_aliases_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.plant_aliases
+    ADD CONSTRAINT plant_aliases_plant_id_fk FOREIGN KEY (plant_id) REFERENCES public.plants(id);

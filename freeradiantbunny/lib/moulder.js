@@ -80,37 +80,37 @@ function Moulder() {
 	    
 	} else if (columnName === "sig_lvl" ||
 		   columnName === "recent" ||
-		   columnName === "ch_0" ||
-		   columnName === "ch" ||
-		   columnName === "acc_0" ||
+		   columnName === "recent_previous" ||
+		   columnName === "change_percent" ||
+		   columnName === "chg_prev_percent" ||
+		   columnName === "trigger" ||
 		   columnName === "acc" ||
-		   columnName === "acc_ch") {
+		   columnName === "acc_prev" ||
+		   columnName === "acc_chg" ||
+		   columnName === "acc_chg_note") {
 	    styles = "text-align: right; font-family: monospace; font-size: 135%;";
 	    // colorize acc_ch column
-            if (columnName === "acc_ch") {
-		var start = value.length;
-		// 5 because 5 characters
-		var position = start - 5;
-		// g gas short for stepping gas
-		// o gas short for brakes to gas
-		// rakes short for less breaks
-		if (value.substring(position) == "g gas") {
+            if (columnName === "acc_chg_note") {
+		styles = "font-size: 135%;";
+		if (value == "stepping gas") {
 		    // light-green
 		    styles += "background-color: #64e390;";
-    		} else if (value.substring(position) == "o gas") {
+    		} else if (value == "brakes to gas") {
 		    // very light pale green
 		    styles += "background-color: #eef6c5;";
-		} else if (value.substring(position) == "rakes") {
+		} else if (value == "less brakes") {
 		    // yellow with some red
 		    styles += "background-color: #f6d4c5;";
 		}
 		// debug
 		//value = position + " " + value.substring(position);
-	    }
-	    // color negative values so they appear on a red background
-	    if (value < 0) {
-		// red
-		styles += "background-color: #CD5555;";
+	    } else {
+		// color negative values so they appear on a red background
+		styles = "text-align: right; font-family: monospace; font-size: 145%;";
+		if (value < 0) {
+		    // red
+		    styles += "background-color: #CD5555;";
+		}
 	    }
 	    return this.getStyledData("", value, value, styles);
 

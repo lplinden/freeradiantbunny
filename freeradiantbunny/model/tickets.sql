@@ -1,21 +1,27 @@
-CREATE SEQUENCE public.ticket_id_seq
+CREATE SEQUENCE public.tickets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    MAXVALUE 999999
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.ticket_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.tickets_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.tickets (
-    id integer DEFAULT nextval('public.ticket_id_seq'::regclass) NOT NULL,
-    name text,
-    sort text,
-    status text DEFAULT 'open'::text,
-    process_id integer NOT NULL,
+    id integer DEFAULT nextval('public.tickets_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
     img_url text,
+    sort text,
+    status text DEFAULT 'open'::text,
+    process_id integer,
     action_to_take text
 );
 
 ALTER TABLE public.tickets OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.tickets
+    ADD CONSTRAINT tickets_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.tickets
+    ADD CONSTRAINT tickets_process_id_fk FOREIGN KEY (process_id) REFERENCES public.processes(id);

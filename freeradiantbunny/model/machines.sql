@@ -1,36 +1,36 @@
-CREATE SEQUENCE public.machine_id_seq
+CREATE SEQUENCE public.machines_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     MAXVALUE 99999999
-    CACHE 29;
+    CACHE 1;
 
-
-ALTER TABLE public.machine_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.machines_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.machines (
-    id integer DEFAULT nextval('public.machine_id_seq'::regclass) NOT NULL,
-    name text,
+    id integer DEFAULT nextval('public.machines_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
-    cpu text,
-    filesystems text,
-    sort text,
-    status text,
-    user_name text,
-    ip_address text,
     img_url text,
+    status text,
+    sort text,
+    username text,
+    filesystems text,
+    cpu text,
+    ip_address text,
     location text,
     ram text,
     model text,
+    backups text,
+    log text,
     os text,
     details text,
     networks text,
-    backups text,
-    output_info text
+    output_info text,
+    ssl_certificate character varying(1)
 );
-
 
 ALTER TABLE public.machines OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.machines
-    ADD CONSTRAINT machine_id_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT machines_pk PRIMARY KEY (id);

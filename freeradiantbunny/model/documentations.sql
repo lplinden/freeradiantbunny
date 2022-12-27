@@ -1,29 +1,26 @@
-CREATE SEQUENCE public.documentation_id_seq
+CREATE SEQUENCE public.documentations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     MAXVALUE 99999999
     CACHE 1;
 
-
-ALTER TABLE public.documentation_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.documentations_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.documentations (
-    id integer DEFAULT nextval('public.documentation_id_seq'::regclass) NOT NULL,
-    name text,
+    id integer DEFAULT nextval('public.documentations_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
-    sort text,
+    img_url text,
     status text,
-    user_name text,
+    sort text,
+    username text,
     categorization text,
     table_name text,
-    img_url text,
     how_to_measure text
 );
-
 
 ALTER TABLE public.documentations OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.documentations
-    ADD CONSTRAINT documentations_id_pkey PRIMARY KEY (id);
-    
+    ADD CONSTRAINT documentations_pk PRIMARY KEY (id);

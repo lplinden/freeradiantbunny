@@ -1,19 +1,22 @@
-CREATE SEQUENCE public.coin_id_seq
-    START WITH 205
+CREATE SEQUENCE public.coins_id_seq
+    START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.coin_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.coins_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.coins (
-    id integer DEFAULT nextval('public.coin_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.coins_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
+    description text,
+    img_url text,
+    status text,
+    sort text,
     ticker text NOT NULL,
-    name text,
     volume text,
     watch text,
-    sort text,
     stablecoin text,
     ath text,
     type text,
@@ -21,9 +24,6 @@ CREATE TABLE public.coins (
     platform text,
     url text,
     frb text,
-    img_url text,
-    description text,
-    status text,
     stage text,
     signal_level text,
     uuid text,
@@ -40,4 +40,7 @@ CREATE TABLE public.coins (
 ALTER TABLE public.coins OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.coins
-    ADD CONSTRAINT coin_id_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT coins_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.coins ADD CONSTRAINT coins_ticker_unique
+UNIQUE (ticker);

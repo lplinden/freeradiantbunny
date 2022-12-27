@@ -1,13 +1,13 @@
 CREATE TABLE public.zachmans (
     id integer NOT NULL,
-    name text,
+    name text NOT NULL,
     description text,
-    sort text,
+    img_url text,
     status text,
-    img_url text
+    sort text
 );
 
 ALTER TABLE public.zachmans OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.zachmans
-    ADD CONSTRAINT zachmans_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT zachmans_pk PRIMARY KEY (id);

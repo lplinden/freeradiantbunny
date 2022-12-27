@@ -25,7 +25,7 @@ function Coins() {
         if (idOrNoId) {
             sql = "select z.sort, z.id, z.img_url as img, z.ticker, z.name, z.type, z.platform, z.frb, z.ath, z.volume, z.watch, z.risk, z.stablecoin, z.frb, z.description, z.img_url as img, z.url, z.stage, z.signal_level, z.notes from coins z WHERE z.id = " + idOrNoId + ";";
         } else {
-            orderBy = "ORDER BY z.status, z.watch DESC, z.notes, z.sort DESC, z.stage, z.ticker";
+            orderBy = "ORDER BY z.sort DESC, z.ticker";
             if (paramSort === "id") {
                 orderBy = "ORDER BY z.id";
 	    }
@@ -45,16 +45,19 @@ function Coins() {
 		orderBy = "ORDER BY z.signal_level, z.id";
 	    }
 	    if (paramSort === "change") {
-		orderBy = "ORDER BY cast(z.change as DOUBLE PRECISION) DESC, z.ticker";
+		orderBy = "ORDER BY cast(z.acceleration as DOUBLE PRECISION) DESC, z.ticker";
 	    }
 	    if (paramSort === "notes") {
 		orderBy = "ORDER BY z.notes, z.sort DESC, z.ticker";
 	    }
             debug("coins orderBy =", orderBy);
-	    if (paramSort === "notes" ||
-		paramSort === "change") {
+	    if (paramSort === "change") {
 		// sort=notes gets special sql
-		sql = "select z.id, z.recent_rank as rank, z.notes, z.stage, z.sort, array(select count(cm.coin_id) as exchange_count from coin_markets cm where cm.coin_id = z.id) as ex_ct, z.signal_level as sig_lvl, z.recent as recent, z.change_previous as ch_0, z.change as ch, z.acceleration_previous as acc_0, z.acceleration as acc, acceleration_change as acc_ch, z.img_url as img, z.ticker, z.name, z.change_all from coins z where watch='true' and status='2022' " + orderBy + ";";
+		// temp sql statement to get something output
+		sql = "select z.id, z.img_url as img, concat('<a href=\"', z.url, '\">', z.ticker, '</a>') as ticker, z.type, z.platform, z.frb, z.signal_level as sig_lvl, z.recent_previous, z.recent, z.trigger, z.trigger_state, z.change_previous as chg_prev_percent, z.change as change_percent, z.acceleration_previous as acc_prev, z.acceleration as acc, z.acceleration_change as acc_chg, z.acceleration_change_note as acc_chg_note, z.change_all, z.updated from coins z where z.watch ='true' " + orderBy + ";";
+
+		// somethings was undefine, so replaced with simple
+		//sql = "select z.id, z.recent_rank as rank, z.notes, z.stage, z.sort, array(select count(cm.coin_id) as exchange_count from coin_markets cm where cm.coin_id = z.id) as ex_ct, z.signal_level as sig_lvl, z.recent as recent, z.change_previous as ch_0, z.change as ch, z.acceleration_previous as acc_0, z.acceleration as acc, acceleration_change as acc_ch, z.img_url as img, z.ticker, z.name, z.change_all from coins z where watch='true' and status='2022' " + orderBy + ";";
 	    } else {
 		// backup sql
 		// sql = "select z.id, z.ticker, concat('<a href=\"', z.url, '\">', z.name, '</a>') as name, z.type, z.platform, z.frb, z.watch, z.ath, z.risk, z.volume, z.stablecoin as stable, z.sort from coins z " + orderBy + ";";

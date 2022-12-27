@@ -53,7 +53,7 @@ function Webpages() {
 		// shows the statuscode that uses socket.io to test 200 or 404
 		sql = "select z.status, z.sort, z.id, z.domain_tli as tli, z.img_url as img, z.name, concat('<a href=\"https://', d.domain_name, z.path, '\">', z.path, '</a>') as pathhyperlink, concat('https://', d.domain_name, z.path) as statuscode, concat('https://', d.domain_name, z.path) as validhtml from webpages z, domains d, webpage_tags wt, tags t where wt.webpage_id = z.id AND wt.tag_id = t.id AND d.tli = z.domain_tli GROUP BY z.status, z.sort, z.id, z.domain_tli, z.img_url, z.name, d.domain_name, z.path " + orderBy + ";";
 	    } else {
-		sql = "select z.status, z.sort, z.id, z.domain_tli as tli, z.img_url as img, concat('<a href=\"https://', d.domain_name, z.path, '\">', z.path, '</a>') as pathhyperlink, z.quality as q, z.name from webpages z, domains d where d.tli = z.domain_tli  " + orderBy + ";";
+		sql = "select z.status, z.sort, z.id, concat('<a href=\"http', d.ssl_cert, '://', d.domain_name, '\">', d.domain_name, '</a>') as tli, z.img_url as img, concat('<a href=\"https://', d.domain_name, z.path, '\">', 'https://', d.domain_name, z.path, '</a>') as pathhyperlink, z.quality as q, z.name as title from webpages z, domains d where d.tli = z.domain_tli  " + orderBy + ";";
 	    }
         }
         return sql;

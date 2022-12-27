@@ -1,16 +1,16 @@
-CREATE SEQUENCE public.trade_ticket_id_seq
+CREATE SEQUENCE public.trade_tickets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    MAXVALUE 999999
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.trade_ticket_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.trade_tickets_id_seq OWNER TO freerad2_special;
 
 CREATE TYPE trade_state AS ENUM ('planned','ordered','traded','closed','audited');
 
 CREATE TABLE public.trade_tickets (
-    id integer DEFAULT nextval('public.trade_ticket_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.trade_tickets_id_seq'::regclass) NOT NULL,
     name text,
     description text,
     sort text,
@@ -45,4 +45,4 @@ CREATE TABLE public.trade_tickets (
 ALTER TABLE public.trade_tickets OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.trade_tickets
-    ADD CONSTRAINT trade_ticket_id_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT trade_tickets_pk PRIMARY KEY (id);

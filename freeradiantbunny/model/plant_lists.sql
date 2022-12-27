@@ -1,25 +1,22 @@
-CREATE SEQUENCE public.plant_list_id_seq
+CREATE SEQUENCE public.plant_lists_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     MAXVALUE 99999999
     CACHE 1;
 
-
-ALTER TABLE public.plant_list_id_seq OWNER TO freerad2_special;
-
---
--- Name: plant_lists; Type: TABLE; Schema: public; Owner: freerad2_special
---
+ALTER SEQUENCE public.plant_lists_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.plant_lists (
-    id integer DEFAULT nextval('public.plant_list_id_seq'::regclass) NOT NULL,
-    name text,
-    sort text,
+    id integer DEFAULT nextval('public.plant_lists_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
+    img_url text,
     status text,
-    img_url text
+    sort text
 );
 
-
 ALTER TABLE public.plant_lists OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.plant_lists
+    ADD CONSTRAINT plant_lists_pk PRIMARY KEY (id);

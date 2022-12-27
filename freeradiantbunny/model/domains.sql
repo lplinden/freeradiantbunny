@@ -1,39 +1,36 @@
-CREATE SEQUENCE public.domain_id_seq
+CREATE SEQUENCE public.domains_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
+    MAXVALUE 99999999
     CACHE 1;
 
-
-ALTER TABLE public.domain_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.domains_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.domains (
-    tli character varying(3) NOT NULL,
-    domain_name character varying(100) NOT NULL,
-    tagline text,
+    id integer DEFAULT nextval('public.domains_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
+    description text,
     img_url text,
-    sort character varying(12),
+    status text,
+    sort text,
+    tli text NOT NULL,
+    domain_name text NOT NULL,
+    tagline text,
     registrar text,
     hosting text,
-    status text,
     crm text,
-    name text,
-    user_name text,
+    username text,
     backups text,
     log text,
-    design_id integer,
-    description text,
-    id integer DEFAULT nextval('public.domain_id_seq'::regclass) NOT NULL,
-    ssl_cert character(1),
+    ssl_cert character varying(1),
     inquiring_system text
 );
-
 
 ALTER TABLE public.domains OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.domains
-    ADD CONSTRAINT domain_tli_unique UNIQUE (tli);
+    ADD CONSTRAINT domains_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.domains
-    ADD CONSTRAINT domain_id_pk PRIMARY KEY (id);
+    ADD CONSTRAINT domains_tli_unique UNIQUE (tli);

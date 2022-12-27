@@ -1,14 +1,14 @@
-CREATE SEQUENCE public.zipzap_id_seq
+CREATE SEQUENCE public.zipzaps_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    MAXVALUE 999999
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.zipzap_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.zipzaps_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.zipzaps (
-    id integer DEFAULT nextval('public.zipzap_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.zipzaps_id_seq'::regclass) NOT NULL,
     name text,
     sort text,
     details text,
@@ -18,4 +18,4 @@ CREATE TABLE public.zipzaps (
 ALTER TABLE public.zipzaps OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.zipzaps
-    ADD CONSTRAINT zipzap_id_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT zipzaps_pk PRIMARY KEY (id);

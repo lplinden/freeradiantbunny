@@ -1,18 +1,19 @@
-CREATE SEQUENCE public.marketdata_id_seq
-    START WITH 24
+CREATE SEQUENCE public.marketdatas_id_seq
+    START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    NO MAXVALUE
+    MAXVALUE 99999999
     CACHE 1;
 
-ALTER TABLE public.marketdata_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.marketdatas_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.marketdatas (
-    id integer DEFAULT nextval('public.marketdata_id_seq'::regclass) NOT NULL,
-    name text,
-    sort character varying(12),
-    status text,
+    id integer DEFAULT nextval('public.marketdatas_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     description text,
+    img_url text,
+    status text,
+    sort text,
     circulating_supply text,
     ma10 text,
     ma30 text,
@@ -29,3 +30,6 @@ CREATE TABLE public.marketdatas (
 );
 
 ALTER TABLE public.marketdatas OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.marketdatas
+    ADD CONSTRAINT marketdatas_pk PRIMARY KEY (id);

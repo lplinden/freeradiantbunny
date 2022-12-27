@@ -1,15 +1,14 @@
-CREATE SEQUENCE public.field_test_id_seq
+CREATE SEQUENCE public.field_tests_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
-    MAXVALUE 999999
+    MAXVALUE 99999999
     CACHE 1;
 
-
-ALTER TABLE public.field_test_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.field_tests_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.field_tests (
-    id integer DEFAULT nextval('public.field_test_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.field_tests_id_seq'::regclass) NOT NULL,
     date text,
     farmer text,
     garment text,
@@ -17,9 +16,7 @@ CREATE TABLE public.field_tests (
     field_report text
 );
 
-
 ALTER TABLE public.field_tests OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.field_tests
-    ADD CONSTRAINT field_test_id_pkey PRIMARY KEY (id);
-    
+    ADD CONSTRAINT field_tests_pk PRIMARY KEY (id);

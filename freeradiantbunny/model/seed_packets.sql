@@ -1,16 +1,14 @@
-CREATE SEQUENCE public.seed_packet_id_seq
+CREATE SEQUENCE public.seed_packets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     MAXVALUE 99999999
     CACHE 1;
 
-
-ALTER TABLE public.seed_packet_id_seq OWNER TO freerad2_special;
-
+ALTER SEQUENCE public.seed_packets_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.seed_packets (
-    id integer DEFAULT nextval('public.seed_packet_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.seed_packets_id_seq'::regclass) NOT NULL,
     variety_id integer,
     supplier_id integer,
     packed_for_year text,
@@ -24,5 +22,7 @@ CREATE TABLE public.seed_packets (
     url text
 );
 
-
 ALTER TABLE public.seed_packets OWNER TO freerad2_special;
+
+ALTER TABLE ONLY public.seed_packets
+    ADD CONSTRAINT seed_packets_pk PRIMARY KEY (id);
