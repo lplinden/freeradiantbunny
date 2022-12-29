@@ -1,6 +1,6 @@
 /**
  * Module Subsystems.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,11 +9,19 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Subsystems() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("subsystems instantiated", instanceCount);
     this.name = "subsystems";
+    this.schema = ['id', 
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
         debug("subsystems idOrNoId =", idOrNoId);
 	debug("subsystems classNameFilter =", classNameFilter);
@@ -23,9 +31,9 @@ function Subsystems() {
         var sql;
         var orderBy;
         if (idOrNoId) {
-            sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.description from subsystems where z.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
         } else {
-            orderBy = "ORDER BY z.sort DESC, z.name, z.id";
+            orderBy = "ORDER BY z.sort DESC, z.name";
             debug("subsystems orderBy =", orderBy);
 	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from subsystems z " + orderBy + ";";
         }

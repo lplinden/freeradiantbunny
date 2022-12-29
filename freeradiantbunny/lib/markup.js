@@ -264,9 +264,12 @@ function Markup() {
                             idArray.unshift(theId);
                             debug("markup idArray.theId =", theId);
 			} else {
-                            var theId = aDataSet[z].id.raw;
-                            idArray.unshift(theId);
-                            debug("markup idArray.theId =", theId);
+			    // worked ok before
+			    var theId = aDataSet[z].id.raw;
+			    // temporary replace of above
+			    //var theId = aDataSet[z].id;
+			    idArray.unshift(theId);
+			    debug("markup idArray.theId =", theId);
 			}
                     }
                 }

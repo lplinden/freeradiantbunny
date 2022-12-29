@@ -1,6 +1,6 @@
 /**
  * Module Zachmans.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,11 +9,19 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Zachmans() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("zachmans instantiated", instanceCount);
     this.name = "zachmans";
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
         debug("zachmans idOrNoId =", idOrNoId);
 	debug("zachmans classNameFilter =", classNameFilter);	
@@ -23,7 +31,7 @@ function Zachmans() {
         var sql;
         var orderBy;
         if (idOrNoId) {
-            sql = "select z.id, z.name, z.status, z.sort, z.img_url, z.description, count(c.id) as classes_associated from zachmans z, classes c where z.id = c.zachman_id AND z.id = " + idOrNoId + " GROUP BY z.id;";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
         } else {
             orderBy = "ORDER BY z.id";
             if (paramSort === "sort") {

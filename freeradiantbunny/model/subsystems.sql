@@ -13,16 +13,10 @@ CREATE TABLE public.subsystems (
     description text,
     img_url text,
     status text,
-    sort text,
-    permaculture_topic_id integer,
-    alias text,
-    url text
+    sort text
 );
 
 ALTER TABLE public.subsystems OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.subsystems
     ADD CONSTRAINT subsystems_pk PRIMARY KEY (id);
-
-ALTER TABLE ONLY public.subsystems
-    ADD CONSTRAINT subsystems_permaculture_topic_id_fk FOREIGN KEY (permaculture_topic_id) REFERENCES public.permaculture_topics(id);

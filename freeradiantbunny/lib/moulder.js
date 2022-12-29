@@ -263,6 +263,18 @@ function Moulder() {
 		    return this.getStyledData("", value, value, styles);
 		}
 	    }
+	} else if (columnName === "dev") {
+	    if (className === "classes") {
+		if (value === "2.0.3") {
+		    // signal on
+		    styles = "text-align: center; background-color: #D3E344;";
+		    return this.getStyledData("", value, value, styles);
+		} else {
+		    // grey for nuetral
+		    styles = "text-align: center; background-color: #CCCCCC;";
+		    return this.getStyledData("", value, value, styles);
+		}
+	    }
         } else if (columnName === "count") {
 	    if (value) {
 		var length_columns = value.length - 2;
@@ -341,6 +353,7 @@ function Moulder() {
 			className === "webpages" |
 			className === "datastores" ||
 			className === "designs" ||
+			className === "subsystems" ||
 			className === "domains" ||
 			className === "databases" ||
 			className === "maxonomies" ||
@@ -376,6 +389,10 @@ function Moulder() {
 			if (value == "2022") {
 			    // orange on green
 			    styles = "color: orange; background-color: #009933; text-align: center;";
+			}
+			if (value == "2023") {
+			    // orange on blue
+			    styles = "color: orange; background-color: blue; text-align: center;";
 			}
 			return this.getStyledData("", value, value, styles);
 		    } else {
@@ -710,7 +727,11 @@ function Moulder() {
             // save img_url field as img (see sql)
             // note that two values are concatenated below so showing more than one view withinn a view
             var chardata = this.getImgUrlAsImageElement(baseUrl, className, value, id) + "<br />" + value;
-            return this.getStyledData("", chardata);
+	    // older (not sure why it has only 2 parameters
+            //return this.getStyledData("", chardata);
+	    // newer
+	    styles = "font-size: 70%; font-family: monospace;"
+	    return this.getStyledData("", chardata, value, styles);
         } else if (columnName === "search") {
             return this.getStyledData("", value, value, styles);
 	    

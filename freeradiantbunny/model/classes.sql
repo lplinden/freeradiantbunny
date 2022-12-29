@@ -10,10 +10,10 @@ CREATE TABLE public.classes (
     notes text,
     dev text,
     lookup text,
+    increment_id_flag boolean,
     scrubber_flag text,
     fk_constraints text,
-    specialized_fields text,
-    codebase text
+    specialized_fields text
 );
 
 ALTER TABLE public.classes OWNER TO freerad2_special;

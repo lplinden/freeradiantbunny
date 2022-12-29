@@ -1,6 +1,6 @@
 /**
  * Module Classes.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,11 +9,31 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Classes() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("classes instantiated", instanceCount);
     this.name = "classes";
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort',
+		   'scrubber_flag',
+		   'increment_id_flag',
+		   'specialized_fields',
+		   'fk_constraints',
+		   'privileged_owner',
+		   'make_index_flag',
+		   'make_unique',
+		   'zachman_id',
+		   'subsystem_id',
+		   'dev',
+		   'lookup',
+		   'notes'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
         debug("classes idOrNoId", idOrNoId);
         debug("classes classNameFilter =", classNameFilter);
@@ -21,12 +41,10 @@ function Classes() {
 	debug("classes specialFlag =", specialFlag);
         debug("classes queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-            var id = idOrNoId;
-            sql = "select a.id, a.name, a.status, a.sort, a.img_url, a.description, a.subsystem_id, a.notes, a.zachman_id, a.dev, a.lookup from classes a where a.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
         } else {
-            orderBy = "ORDER BY a.sort DESC, a.dev, a.subsystem_id, a.name";
+            var orderBy = "ORDER BY a.sort DESC, a.name";
             if (paramSort === "sort") {
                 orderBy = "ORDER BY a.sort DESC, a.name";
             } else if (paramSort === "id") {
@@ -46,7 +64,11 @@ function Classes() {
             }
             debug("classes orderBy =", orderBy);
             // many
-            sql = "select a.status, a.sort, array(select z.name from zachmans z where a.zachman_id = z.id) as zachman, array(select s.name from subsystems s where a.subsystem_id = s.id) as subsystem, a.id, a.img_url as img, a.name as name, a.dev as dev, a.lookup as lookup from classes a " + orderBy;
+	    // temp
+            sql = "select a.status, a.sort, a.id, a.name, array(select z.name from zachmans z where a.zachman_id = z.id) as zachman, array(select s.name from subsystems s where a.subsystem_id = s.id) as subsystem, a.dev from classes a " + orderBy;
+	    // has select within a select, so refactor
+	    //sql = "select a.status, a.sort, array(select z.name from zachmans z where a.zachman_id = z.id) as zachman, array(select s.name from subsystems s where a.subsystem_id = s.id) as subsystem, a.id, a.img_url as img, a.name as name, a.dev as dev, a.lookup as lookup from classes a " + orderBy;
+	    
         }
         return sql;
     };

@@ -108,15 +108,21 @@ function Database() {
             var databaseInfo = config.getDatabaseInfo();
             const pool = new Pool(databaseInfo);
             await pool.query(sql, (err, result) => {
-                result.rows.forEach(row=>{
-                    for(var columnName in row) {
-                        debug("database queryDatabaseSimple columnName =", columnName);
-                        if (columnName == "name") {
-                            debug("database queryDatabaseSimple value =", row[columnName]);
-                            resolve(row[columnName]);
-                        }
-                    }
-                });
+		// check if there are rows
+		if (result.rows) {
+                    result.rows.forEach(row=>{
+			for(var columnName in row) {
+                            debug("database queryDatabaseSimple columnName =", columnName);
+                            if (columnName == "name") {
+				debug("database queryDatabaseSimple value =", row[columnName]);
+				resolve(row[columnName]);
+                            }
+			}
+                    });
+		} else {
+		    debug('database.js database result.rows variable is mnot defined.');
+		    // todo send a message to user so that the whole webpage does not fail
+		};
                 pool.end();
             });
         });
