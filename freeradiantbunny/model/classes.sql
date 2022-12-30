@@ -22,7 +22,7 @@ ALTER TABLE ONLY public.classes
     ADD CONSTRAINT classes_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.classes
-    ADD CONSTRAINT classes_zachman_id_fk FOREIGN KEY (zachman_id) REFERENCES public.zachmans(id);
+    ADD CONSTRAINT classes_zachmans_id_fk FOREIGN KEY (zachman_id) REFERENCES public.zachmans(id);
 
 ALTER TABLE ONLY public.classes
-    ADD CONSTRAINT classes_subsystem_id_fk FOREIGN KEY (subsystem_id) REFERENCES public.subsytems(id);
+    ADD CONSTRAINT classes_subsystems_id_fk FOREIGN KEY (subsystem_id) REFERENCES public.subsytems(id);

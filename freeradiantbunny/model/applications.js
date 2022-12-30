@@ -1,6 +1,6 @@
 /**
  * Module Applications.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,11 +9,22 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Applications() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("applications instantiated", instanceCount);
     this.name = "applications";
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort',
+		   'url',
+		   'source_code_url',
+		   'documentation_url'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
         debug("applications idOrNoId =", idOrNoId);
 	debug("applications classNameFilter =", classNameFilter);
@@ -23,9 +34,7 @@ function Applications() {
         var sql;
         var orderBy;
         if (idOrNoId) {
-	    orderBy = "order by z.id";
-	    debug("applications orderBy =", orderBy);
-	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name as name, z.description, z.source_code_url, z.development, z.url from applications z where z.id = cast('" + idOrNoId + "' as integer);";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
         } else {
             orderBy = "order by z.sort DESC, z.status, z.name, z.id";
             debug("applications orderBy =", orderBy);

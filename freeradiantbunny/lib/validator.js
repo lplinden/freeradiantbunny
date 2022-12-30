@@ -64,6 +64,7 @@ function Validator() {
 	    "class_tags",
 	    "coin_markets",
 	    "coins",
+	    "columns",
 	    "datastores",
 	    "designs",
 	    "deposits",

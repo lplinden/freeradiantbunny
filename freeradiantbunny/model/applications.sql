@@ -16,8 +16,7 @@ CREATE TABLE public.applications (
     sort text,
     url text,
     source_code_url text,
-    development text,
-    publish text
+    documentation_url text
 );
 
 ALTER TABLE public.applications OWNER TO freerad2_special;

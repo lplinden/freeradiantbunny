@@ -252,22 +252,43 @@ function Moulder() {
 		}
 	    }
 	} else if (columnName === "lookup") {
-	    if (className === "classes") {
-		if (value === "yes") {
-		    // signal on
-		    styles = "text-align: center; background-color: #D3E3F3;";
-		    return this.getStyledData("", value, value, styles);
-		} else {
-		    // grey for nuetral
-		    styles = "text-align: center; background-color: #CCCCCC;";
-		    return this.getStyledData("", value, value, styles);
-		}
+	    if (value === "true" || value === "t") {
+		// signal on
+		styles = "text-align: center; background-color: #CCFFCE;";
+		return this.getStyledData("", value, value, styles);
+	    } else {
+		// grey for nuetral
+		styles = "text-align: center; background-color: #CCCCCC;";
+		return this.getStyledData("", value, value, styles);
+	    }
+	} else if (columnName === "scrubber_flag") {
+	    if (value === true) {
+		// signal on
+		styles = "text-align: center; background-color: #CCFFCE;";
+		return this.getStyledData("", value, value, styles);
+	    } else {
+		// grey for nuetral
+		styles = "text-align: center; background-color: #CCCCCC;";
+		return this.getStyledData("", value, value, styles);
+	    }	} else if (columnName === "increment_id_flag") {
+	    if (value === true) {
+		// signal on
+		styles = "text-align: center; background-color: #CCFFCE;";
+		return this.getStyledData("", value, value, styles);
+	    } else {
+		// grey for nuetral
+		styles = "text-align: center; background-color: #CCCCCC;";
+		return this.getStyledData("", value, value, styles);
 	    }
 	} else if (columnName === "dev") {
 	    if (className === "classes") {
 		if (value === "2.0.3") {
 		    // signal on
 		    styles = "text-align: center; background-color: #D3E344;";
+		    return this.getStyledData("", value, value, styles);
+		} else if (value === "2.0.2") {
+		    // signal on
+		    styles = "text-align: center; background-color: #E5E3D1;";
 		    return this.getStyledData("", value, value, styles);
 		} else {
 		    // grey for nuetral
@@ -348,56 +369,19 @@ function Moulder() {
         } else if (columnName === "status") {
 	    if (value != "0") {
 		if (value == "2021" || value == "2022") {
-		    // check that this value is in the correct connext
-		    if (className === "classes" ||
-			className === "webpages" |
-			className === "datastores" ||
-			className === "designs" ||
-			className === "subsystems" ||
-			className === "domains" ||
-			className === "databases" ||
-			className === "maxonomies" ||
-			className === "markets" ||
-			className === "projects" ||
-			className === "goal_statements" ||
-			className === "business_plan_texts" ||
-			className === "processes" ||
-			className === "process_flows" ||
-			className === "budgets" ||
-			className === "indiegoals" ||
-			className === "scene_elements" ||
-			className === "applications" ||
-			className === "maxonomies" ||
-			className === "namespaces" ||
-			className === "tags" ||
-			className === "tools" ||
-			className === "zachmans" ||
-			className === "lands" ||
-			className === "machines" ||
-			className === "budgets" ||
-			className === "accounts" ||
-			className === "albums" ||
-			className === "songs" ||
-			className === "coins" ||
-			className === "images" ||
-			className === "rules" ||
-			className === "suppliers") {
-			if (value == "2021") {
-			    // yellow on green
-			    styles = "color: yellow; background-color: #009933; text-align: center;";
-			}
-			if (value == "2022") {
-			    // orange on green
-			    styles = "color: orange; background-color: #009933; text-align: center;";
-			}
-			if (value == "2023") {
-			    // orange on blue
-			    styles = "color: orange; background-color: blue; text-align: center;";
-			}
-			return this.getStyledData("", value, value, styles);
-		    } else {
-			// ignore
+		    if (value == "2021") {
+			// yellow on green
+			styles = "color: yellow; background-color: #009933; text-align: center;";
 		    }
+		    if (value == "2022") {
+			// orange on green
+			styles = "color: orange; background-color: #009933; text-align: center;";
+		    }
+		    if (value == "2023") {
+			// orange on blue
+			styles = "color: orange; background-color: blue; text-align: center;";
+		    }
+		    return this.getStyledData("", value, value, styles);
 		} 
 		if (className === "moneymaker_measurement_instances") {
 		    if (value == "config" ||
@@ -669,7 +653,7 @@ function Moulder() {
             //    valueAsLink = this.makeStandOut(valueAsLink);
 	    //}
             var styledData = this.getStyledData("", valueAsLink);
-            debug("moulder styledData =", styledData);
+            //debug("moulder styledData =", styledData);
             return styledData;
 
         } else if (columnName === "front_cover") {
@@ -679,7 +663,7 @@ function Moulder() {
 	    var chardata = this.getImgUrlAsImageElement(baseUrl, className, filteredValue, id, size);
 	    return this.getStyledData("", chardata);
         } else if (columnName === "img" || columnName === "image") {
-            debug("moulder columnName =", columnName);
+            //debug("moulder columnName =", columnName);
 	    // if baseUrl is offline, try localhost_baseurl
 	    var filteredValue = this.filterToLocalBaseUrlIfNotOnline(value, localBaseUrl);
 	    // special filter
@@ -695,7 +679,7 @@ function Moulder() {
                 className === "scene_elements" ||
                 className === "classes"
 	       ) {
-                debug("moulder className =", className);
+                //debug("moulder className =", className);
                 var chardata = this.getImgUrlAsImageElementToSingle(baseUrl, className, filteredValue, aId);
                 return this.getStyledData("", chardata);
             } else {
@@ -711,15 +695,14 @@ function Moulder() {
                     return this.getStyledData("", chardata);
 		}
             }
-
         } else if (columnName === "aimg") {
-            debug("moulder columnName =", columnName);
-            debug("moulder value =", value);
+            //debug("moulder columnName =", columnName);
+            //debug("moulder value =", value);
             // the sql does it all (both a element and img element)
             var chardata = value;
 	    var raw = "";
 	    var styles = "";
-	    debug("moulder styles =", styles);
+	    //debug("moulder styles =", styles);
 	    return this.getStyledData("", chardata, raw, styles);
         } else if (columnName === "img_url") {
             // the field is for meta-purposes in the frb single data context
@@ -754,16 +737,16 @@ function Moulder() {
 
             // shorten field name for display purposes
             // save img_url field as img (see sql)
-            debug("moulder extends_class =", extends_class_id);
+            //debug("moulder extends_class =", extends_class_id);
 
             var extendsClass = this.getExtendsClassStyle(extends_class_id);
-            debug("moulder extendsClassStyle =", extendsClassStyle);
+            //debug("moulder extendsClassStyle =", extendsClassStyle);
 
             var valueAsLink = this.getAsLink(value, baseUrl, className, extends_class_id);
-            debug("moulder valueAsLink =", valueAsLink);
+            //debug("moulder valueAsLink =", valueAsLink);
 	    
             var styledData = this.getStyledData(extendsClass, valueAsLink);
-            debug("moulder styledData =", styledData);
+            //debug("moulder styledData =", styledData);
 	    
             return styledData;
 
@@ -869,8 +852,8 @@ function Moulder() {
     }
     this.getImgUrlAsImageElementToSingle = function (baseUrl, className, imgUrl, id) {
         // need to implement alt attribute and title attribute
-        debug("moulder getImgUrlAsImageElementToSingle()");
-	debug("moulder imgUrl =", imgUrl);
+        //debug("moulder getImgUrlAsImageElementToSingle()");
+	//debug("moulder imgUrl =", imgUrl);
         return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-img\" alt=\"\" title=\"\" style=\"width: 33px; height: 24px;\" /></a>";
     }
     this.getSortStyle = function(sort) {
@@ -911,15 +894,15 @@ function Moulder() {
         if (sort !== null) {
             sortLetter = sort.substr(0, 1);
         }
-	debug("moulder sortLetter =", sortLetter);
+	//debug("moulder sortLetter =", sortLetter);
         if (sortLetter === "Y") {
-            debug("moulder timekeeper =", timekeeper);
+            //debug("moulder timekeeper =", timekeeper);
             // color according to the timespan
             var date = sort.substr(2);
-            debug("moulder date =", date);
+            //debug("moulder date =", date);
 
             var daysElapsed = timekeeper.getDaysElapsed(date);
-            debug("moulder daysElapsed =", daysElapsed);
+            //debug("moulder daysElapsed =", daysElapsed);
 
             var timespans = [10, 90, 180, 200, 365];
             var color;
@@ -980,21 +963,21 @@ function Moulder() {
         return "";
     }
     this.getStyledData = function (theClass, chardata, raw = "", styles = "") {
-        debug("moulder getStyledData()");
+        //debug("moulder getStyledData()");
         var styledData = {
             class: theClass,
             style: styles,
             chardata: chardata,
             raw: raw
         }
-        debug("moulder styledData =", styledData);
+        //debug("moulder styledData =", styledData);
         return styledData;
     }
     this.getClassesListGivenZachmanId = function (zachman_id) {
         var classesList = [];
         // consult database to get list of classes matching this zachmand_id
         // foreign key
-        debug("moulder foreign key class list with zachman_id =", zachman_id);
+        //debug("moulder foreign key class list with zachman_id =", zachman_id);
         // Top Ten Promise() function
         // deal with a Promise() type
         //            try {
