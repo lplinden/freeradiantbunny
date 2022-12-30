@@ -1,6 +1,6 @@
 /**
  * Module SceneElements.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,11 +9,26 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function SceneElements() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("scene_elements instantiated", instanceCount);
     this.name = "scene_elements";
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort',
+		   'database_string',
+		   'class_name_string',
+		   'class_primary_key_string',
+		   'yield',
+		   'publish',
+		   'process_id',
+		   'account_id'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
 	debug("scene_elements idOrNoId =", idOrNoId);
 	debug("scene_elements classNameFilter =", classNameFilter);
@@ -21,10 +36,9 @@ function SceneElements() {
 	debug("scene_elements specialFlag =", specialFlag);
 	debug("scene_elements queryTerms =", queryTerms);
 	var sql;
-	var orderBy ="ORDER BY se.process_id, se.class_name_string, se.sort DESC, se.class_primary_key_string, se.id";
 	if (idOrNoId) {
 	    if (classNameFilter) {
-  		if (classNameFilter == "projects") {
+		var orderBy ="ORDER BY se.process_id, se.class_name_string, se.sort DESC, se.class_primary_key_string, se.id";  		if (classNameFilter == "projects") {
 		    orderBy ="ORDER BY se.account_id, se.supplier_id, se.class_name_string, se.class_primary_key_string, se.id";
 		    // id refers to project_id
 		    sql = "select se.status, se.sort, se.id, se.img_url as image, se.name, se.description, concat('<a href=\"', '../../', se.class_name_string, '\">', se.class_name_string, '</a>') as class_name_string, concat('<a href=\"../../accounts/', se.account_id, '\">', se.account_id, '</a>') as account_id, se.supplier_id as supplier_id from scene_elements se, processes pr, business_plan_texts bpt, goal_statements gs where se.process_id = pr.id AND pr.business_plan_text_id = bpt.id AND bpt.goal_statement_id = gs.id AND gs.project_id = " + idOrNoId + " and se.publish = 'true' and pr.publish = 'true'" + orderBy + ";";
@@ -34,13 +48,15 @@ function SceneElements() {
 		    sql = "select se.class_name_string as class_name_string, se.status, se.sort, se.id, se.img_url as image, se.name, se.description from scene_elements se, processes pr where se.process_id = pr.id AND pr.id = " + idOrNoId + " and se.publish = 'true' and pr.publish = 'true'" + orderBy + ";";
 		}
 	    } else {
-		sql = "select array(select concat('<a href=\"../processes/', pr.id, '\">', pr.name, '</a>') from processes pr where pr.id = se.process_id) as process_id, se.status, se.sort, se.id, se.img_url as image, se.name, se.description, se.yield, concat('<a href=\"../', se.class_name_string, '/', se.class_primary_key_string, '\">', se.class_name_string, '/', se.class_primary_key_string, '</a>') as class_primary_key_string from scene_elements se where se.id = " + idOrNoId + " and se.publish = 'true';";
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+		// refactor
+		//sql = "select array(select concat('<a href=\"../processes/', pr.id, '\">', pr.name, '</a>') from processes pr where pr.id = se.process_id) as process_id, se.status, se.sort, se.id, se.img_url as image, se.name, se.description, se.yield, concat('<a href=\"../', se.class_name_string, '/', se.class_primary_key_string, '\">', se.class_name_string, '/', se.class_primary_key_string, '</a>') as class_primary_key_string from scene_elements se where se.id = " + idOrNoId + " and se.publish = 'true';";
 	    }
 	} else {
 	    // old
 	    // orderBy ="ORDER BY z.class_name_string, z.class_primary_key_string, z.sort DESC, z.name, z.id";
 	    // new
-	    orderBy ="ORDER BY z.status DESC, z.process_id, z.class_name_string, z.id";
+	    var orderBy ="ORDER BY z.status DESC, z.process_id, z.class_name_string, z.id";
             if (paramSort === "class_primary_key_string") {
 		orderBy ="ORDER BY z.class_name_string, process_id, z.sort DESC, z.class_primary_key_string, z.id";
 	    }

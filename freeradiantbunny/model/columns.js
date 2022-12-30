@@ -29,11 +29,10 @@ function Columns() {
         debug("columns specialFlag =", specialFlag);
         debug("columns queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
         } else {
-            orderBy = "order by z.sort DESC, z.status, z.name, z.id";
+            var orderBy = "order by z.sort DESC, z.status, z.name, z.id";
             debug("columns orderBy =", orderBy);
             sql = "select z.status, z.sort, z.id, z.img_url as img, z.name as name, z.description from columns z " + orderBy;
         }

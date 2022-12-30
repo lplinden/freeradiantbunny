@@ -29,11 +29,10 @@ function Zachmans() {
         debug("zachmans specialFlag =", specialFlag);
         debug("zachmans queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
         } else {
-            orderBy = "ORDER BY z.id";
+            var orderBy = "ORDER BY z.id";
             if (paramSort === "sort") {
                 orderBy = "ORDER BY z.sort DESC, z.name";
             } else if (paramSort === "id") {

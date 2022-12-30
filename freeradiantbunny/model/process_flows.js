@@ -1,6 +1,6 @@
 /**
  * Module ProcessFlows.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,11 +9,22 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function ProcessFlows() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("process_flows instantiated", instanceCount);
     this.name = "process_flows";
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort',
+		   'parent_process_id',
+		   'child_process_id',
+		   'publish'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
 	debug("process_flows idOrNoId =", idOrNoId);
 	debug("process_flows classNameFilter =", classNameFilter);
@@ -21,7 +32,6 @@ function ProcessFlows() {
 	debug("process_flows specialFlag =", specialFlag);
 	debug("process_flows queryTerms =", queryTerms);
 	var sql;
-	var orderBy;
 	if (idOrNoId) {
 	    if (classNameFilter) {
 		// id refers to process_id
@@ -34,10 +44,12 @@ function ProcessFlows() {
 		// todo and that assumption may fail, so fix this soon please
 		sql = "select z.status, z.sort, z.id, z.name, p.name, c.name from process_flows z, processes p, processes c where z.id = " + idOrNoId + " and z.parent_process_id = z.parent_process_id AND z.child_process_id = c.id AND z.publish = 'true';";
 	    } else {
-		sql = "select z.status, z.sort, z.id, z.name, p.name as parent_process, c.name as child_process from process_flows z, processes p, processes c where z.id = " + idOrNoId + " and z.parent_process_id = p.id AND z.child_process_id = c.id AND z.publish = 'true';";
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+		// refactor
+		//sql = "select z.status, z.sort, z.id, z.name, p.name as parent_process, c.name as child_process from process_flows z, processes p, processes c where z.id = " + idOrNoId + " and z.parent_process_id = p.id AND z.child_process_id = c.id AND z.publish = 'true';";
 	    }
 	} else {
-	    orderBy ="ORDER BY z.parent_process_id, z.child_process_id, z.sort DESC, z.name, z.id";
+	    var orderBy ="ORDER BY z.parent_process_id, z.child_process_id, z.sort DESC, z.name, z.id";
 	    debug("process_flows orderBy =", orderBy);
 	    sql = "select z.status, z.sort, z.id, z.name, z.parent_process_id, z.child_process_id from process_flows z where z.publish ='true' " + orderBy + ";";
 	}

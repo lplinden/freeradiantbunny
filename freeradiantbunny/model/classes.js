@@ -44,7 +44,7 @@ function Classes() {
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
         } else {
-            var orderBy = "ORDER BY a.sort DESC, a.name";
+            var orderBy = "ORDER BY a.sort DESC, a.subsystem_id, a.zachman_id, a.name";
             if (paramSort === "sort") {
                 orderBy = "ORDER BY a.sort DESC, a.name";
             } else if (paramSort === "id") {
@@ -65,10 +65,7 @@ function Classes() {
             debug("classes orderBy =", orderBy);
             // many
 	    // temp
-            sql = "select a.status, a.sort, a.id, a.name, array(select z.name from zachmans z where a.zachman_id = z.id) as zachman, array(select s.name from subsystems s where a.subsystem_id = s.id) as subsystem, a.dev from classes a " + orderBy;
-	    // has select within a select, so refactor
-	    //sql = "select a.status, a.sort, array(select z.name from zachmans z where a.zachman_id = z.id) as zachman, array(select s.name from subsystems s where a.subsystem_id = s.id) as subsystem, a.id, a.img_url as img, a.name as name, a.dev as dev, a.lookup as lookup from classes a " + orderBy;
-	    
+            sql = "select a.status, a.sort, a.id, a.name, array(select concat('<a href=\"../subsystems/', s.id, '\" style=\"text-decoration: none;\">', s.name, '</a>') from subsystems s where a.subsystem_id = s.id) as subsystem, array(select concat('<a href=\"../zachmans/', z.id, '\" style=\"text-decoration: none;\">', z.name, '</a>') from zachmans z where a.zachman_id = z.id) as zachman, a.dev from classes a " + orderBy;
         }
         return sql;
     };

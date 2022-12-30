@@ -18,8 +18,17 @@ function Sqlgenerator() {
 	var length = columnName.length;
 	var indexEnd = length - 3;
 	var foreignTableName = columnName.slice(0, indexEnd);
+	// change name of table if special constraint name
+	if (foreignTableName == "parent_process" ||
+	    foreignTableName == "child_process") {
+	    foreignTableName = "process";
+	}
 	// make plural
-	foreignTableName += "s";
+	if (foreignTableName == "process") {
+	    foreignTableName += "es";
+	} else {
+	    foreignTableName += "s";
+	}
 	return foreignTableName;
     };
     this.getHyperlinkSql = function (foreignKeyTableName, prefixedColumn) {

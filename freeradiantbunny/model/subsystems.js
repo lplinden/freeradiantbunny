@@ -29,11 +29,10 @@ function Subsystems() {
         debug("subsystems specialFlag =", specialFlag);
         debug("subsystems queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
         } else {
-            orderBy = "ORDER BY z.sort DESC, z.name";
+            var orderBy = "ORDER BY z.sort DESC, z.name";
             debug("subsystems orderBy =", orderBy);
 	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from subsystems z " + orderBy + ";";
         }
