@@ -102,6 +102,7 @@ function Validator() {
 	    "scene_elements",
 	    "searches",
 	    "songs",
+	    "stacks",
 	    "stages",
 	    "subsystems",
 	    "suppliers",

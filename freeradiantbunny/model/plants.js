@@ -21,7 +21,6 @@ function Plants() {
         debug("plants specialFlag =", specialFlag);
         debug("plants queryTerms =", queryTerms);
         var sql;
-        var orderBy;
 	if (typeof idOrNoId !== 'undefined' && idOrNoId !== "") {
 	    // note that in sql the array enables subquery to string
 	    // backup sql because it is so fine
@@ -32,7 +31,7 @@ function Plants() {
 	    sql = "select u.id, concat('<i>', u.botanical_name, '</i>') as botanical_name, u.name, pf.name as plant_family, u.description, array(select concat('<a href=../plant_attributes/plants/', u.id, '>', pa.id, '</a>') from plant_attributes pa where pa.plant_id = u.id AND u.id = " + idOrNoId + ") as plant_attributes, '' as plant_histories, array(select pal.name from plant_aliases pal WHERE pal.plant_id = u.id) as plant_aliases, '' as hyperlink_plants, array(select concat('<a href=../varieties/', v.id, '>', v.name, '</a>') from varieties v where v.plant_id = u.id AND u.id = " + idOrNoId + ") as varieties_count, array(select concat('<a href=\"', pi.img_url, '\"><img src=\"', pi.img_url, '\" width=\"200\"/ alt=\"{{PD-US}}\" ><a/>') from plant_images pi where pi.plant_id = u.id) as plant_image from plants u, plant_families pf where u.plant_family_id = pf.id AND u.id = " + idOrNoId + ";";
 
         } else {
-            orderBy = "ORDER BY u.botanical_name, u.name";
+            var orderBy = "ORDER BY u.name, u.id";
             if (paramSort === "id") {
                 orderBy = "ORDER BY u.id";
 	    }
