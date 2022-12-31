@@ -29,6 +29,7 @@ function Processes() {
 		   'yield',
 		   'publish',
 		   'business_plan_text_id'];
+    this.inboundForeignKeyTables = ['scene_elements'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
 	debug("processes idOrNoId =",idOrNoId);
 	debug("processes classNameFilter =", classNameFilter);

@@ -24,6 +24,7 @@ function GoalStatements() {
 		   'sort',
 		   'project_id',
 		   'publish'];
+    this.inboundForeignKeyTables = ['business_plan_texts'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
 	debug("goal_statements idOrNoId =", idOrNoId);
 	debug("goal_statements classNameFilter =", classNameFilter);
@@ -37,7 +38,7 @@ function GoalStatements() {
 		// bug in the sql below the ../../ assumes the classNameFilter context (make more dynamic)
 		sql = "select gs.status, gs.sort, gs.id, gs.img_url as image, gs.name, array(select concat('<br /><a href=\"../../business_plan_texts/', bpt.id, '\">', bpt.name, '</a>') from business_plan_texts bpt where gs.id = bpt.goal_statement_id and gs.publish = 'true') as business_plan_texts from goal_statements gs, projects p where p.id = " + idOrNoId + " AND p.id = gs.project_id AND gs.publish = 'true';";
 	    } else {
-		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables);
 		// refactor
 		//sql = "select array(select concat('<a href=\"../projects/', p.id, '\">', p.name, '</a>') from projects p where p.id = gs.project_id) as project_id, gs.status, gs.sort, gs.id, gs.img_url as image, gs.name, gs.description, array(select concat('<br /><a href=\"../business_plan_texts/', bpt.id, '\">', bpt.name, '</a>') from business_plan_texts bpt, goal_statements gs where gs.id = bpt.goal_statement_id AND gs.id = " + idOrNoId + " and gs.publish = 'true') as business_plan_texts from goal_statements gs where gs.id = " + idOrNoId + " and gs.publish = 'true';";
 	    }

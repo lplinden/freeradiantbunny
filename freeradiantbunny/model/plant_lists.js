@@ -1,6 +1,6 @@
 /**
  * Module PlantLists.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,11 +9,19 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function PlantLists() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("plant_lists instantiated", instanceCount);
     this.name = "plant_lists";
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];    
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
 	debug("plant_lists idOrNoId =", idOrNoId);
 	debug("plant_lists classNameFilter =", classNameFilter);
@@ -21,11 +29,12 @@ function PlantLists() {
         debug("plant_lists specialFlag =", specialFlag);
         debug("plant_lists queryTerms =", queryTerms);
         var sql;
-        var orderBy;
 	if (typeof idOrNoId !== 'undefined' && idOrNoId !== "") {
-            sql = "select u.id, u.name, concat('<a href=\"../plant_list_plants/plant_lists/', u.id, '\">', count(plp.id), '</a>') as plants_count from plant_lists u, plant_list_plants plp WHERE u.id = plp.plant_list_id AND status = '2020' AND u.id = " + idOrNoId + " GROUP BY u.id, u.name;";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+	    // refactor
+            //sql = "select u.id, u.name, concat('<a href=\"../plant_list_plants/plant_lists/', u.id, '\">', count(plp.id), '</a>') as plants_count from plant_lists u, plant_list_plants plp WHERE u.id = plp.plant_list_id AND status = '2020' AND u.id = " + idOrNoId + " GROUP BY u.id, u.name;";
         } else {
-            orderBy = "ORDER BY u.name";
+            var orderBy = "ORDER BY u.name";
             debug("plant_lists orderBy =", orderBy);
 	    // old because the sql did not return all rows
             // sql = "select u.id, u.name, concat('<a href=\"../plant_list_plants/plant_lists/', u.id , '\">', count(plp.id), '</a>') as plant_count from plant_lists u, plant_list_plants plp WHERE u.id = plp.plant_list_id AND status = '2020' GROUP BY u.id, u.name " + orderBy;

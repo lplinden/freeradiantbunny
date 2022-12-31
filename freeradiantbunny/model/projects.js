@@ -23,6 +23,7 @@ function Projects() {
 		   'status',
 		   'sort',
 		   'publish'];
+    this.inboundForeignKeyTables = ['goal_statements'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
 	debug("projects idOrNoId =", idOrNoId);
 	debug("projects classNameFilter =", classNameFilter);
@@ -31,7 +32,7 @@ function Projects() {
 	debug("projects queryTerms =", queryTerms);
 	var sql;
 	if (idOrNoId) {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables);
 	    // refactor
 	    //sql = "select p.status, p.sort, p.id, p.img_url as image, p.name, p.description, array(select concat('<br /><a href=\"../goal_statements/', gs.id, '\">', gs.name, '</a>') from goal_statements gs, projects p where p.id = gs.project_id AND p.id = " + idOrNoId + " and p.publish = 'true') as goal_statements from projects p where p.id = " + idOrNoId + " and p.publish = 'true';";
 	} else {

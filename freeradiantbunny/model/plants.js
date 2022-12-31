@@ -1,6 +1,6 @@
 /**
  * Module Plants.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,11 +9,21 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Plants() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("plants instantiated", instanceCount);
     this.name = "plants";
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort',
+		   'botanical_name',
+		   'plant_family_id'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
         debug("plants idOrNoId =", idOrNoId);
 	debug("plants classNameFilter =", classNameFilter);
@@ -22,14 +32,15 @@ function Plants() {
         debug("plants queryTerms =", queryTerms);
         var sql;
 	if (typeof idOrNoId !== 'undefined' && idOrNoId !== "") {
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
 	    // note that in sql the array enables subquery to string
 	    // backup sql because it is so fine
 	    //sql = "select u.id, concat('<i>', u.botanical_name, '</i>') as botanical_name, u.name, pc.name as plant_category, pf.name as plant_family, u.description, '' as plant_attributes, '' as plant_histories, '' as plant_aliases, '' as hyperlink_plants, array(select concat('<a href=../varieties/', v.id, '>', v.name, '</a>') from varieties v where v.plant_id = u.id AND u.id = " + idOrNoId + ") as varieties_count from plants u, plant_categories pc, plant_families pf where u.plant_category_id = pc.id AND u.plant_family_id = pf.id AND u.id = " + idOrNoId + ";";
 	    // experimental sql
 	    //sql = "select u.id, concat('<i>', u.botanical_name, '</i>') as botanical_name, u.name, pc.name as plant_category, pf.name as plant_family, u.description, array(select concat('<a href=../plant_attributes/plants/', u.id, '>', pa.id, '</a>') from plant_attributes pa where pa.plant_id = u.id AND u.id = " + idOrNoId + ") as plant_attributes, '' as plant_histories, '' as plant_aliases, '' as hyperlink_plants, array(select concat('<a href=../varieties/', v.id, '>', v.name, '</a>') from varieties v where v.plant_id = u.id AND u.id = " + idOrNoId + ") as varieties_count from plants u, plant_categories pc, plant_families pf where u.plant_category_id = pc.id AND u.plant_family_id = pf.id AND u.id = " + idOrNoId + ";";
 	    // removed plant_category column
-	    sql = "select u.id, concat('<i>', u.botanical_name, '</i>') as botanical_name, u.name, pf.name as plant_family, u.description, array(select concat('<a href=../plant_attributes/plants/', u.id, '>', pa.id, '</a>') from plant_attributes pa where pa.plant_id = u.id AND u.id = " + idOrNoId + ") as plant_attributes, '' as plant_histories, array(select pal.name from plant_aliases pal WHERE pal.plant_id = u.id) as plant_aliases, '' as hyperlink_plants, array(select concat('<a href=../varieties/', v.id, '>', v.name, '</a>') from varieties v where v.plant_id = u.id AND u.id = " + idOrNoId + ") as varieties_count, array(select concat('<a href=\"', pi.img_url, '\"><img src=\"', pi.img_url, '\" width=\"200\"/ alt=\"{{PD-US}}\" ><a/>') from plant_images pi where pi.plant_id = u.id) as plant_image from plants u, plant_families pf where u.plant_family_id = pf.id AND u.id = " + idOrNoId + ";";
-
+	    // refactor (this was the last known good)
+	    //sql = "select u.id, concat('<i>', u.botanical_name, '</i>') as botanical_name, u.name, pf.name as plant_family, u.description, array(select concat('<a href=../plant_attributes/plants/', u.id, '>', pa.id, '</a>') from plant_attributes pa where pa.plant_id = u.id AND u.id = " + idOrNoId + ") as plant_attributes, '' as plant_histories, array(select pal.name from plant_aliases pal WHERE pal.plant_id = u.id) as plant_aliases, '' as hyperlink_plants, array(select concat('<a href=../varieties/', v.id, '>', v.name, '</a>') from varieties v where v.plant_id = u.id AND u.id = " + idOrNoId + ") as varieties_count, array(select concat('<a href=\"', pi.img_url, '\"><img src=\"', pi.img_url, '\" width=\"200\"/ alt=\"{{PD-US}}\" ><a/>') from plant_images pi where pi.plant_id = u.id) as plant_image from plants u, plant_families pf where u.plant_family_id = pf.id AND u.id = " + idOrNoId + ";";
         } else {
             var orderBy = "ORDER BY u.name, u.id";
             if (paramSort === "id") {

@@ -116,6 +116,7 @@ function Validator() {
 	    "webpage_maxonomies",
 	    "webpage_tags",
 	    "webpages",
+	    "yields",
 	    "zachmans",
 	];
         if (validClassNames.includes(userString)) {

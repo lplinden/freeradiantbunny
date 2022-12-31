@@ -22,6 +22,7 @@ function Zachmans() {
 		   'img_url',
 		   'status',
 		   'sort'];
+    this.inboundForeignKeyTables = ['classes'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
         debug("zachmans idOrNoId =", idOrNoId);
 	debug("zachmans classNameFilter =", classNameFilter);	

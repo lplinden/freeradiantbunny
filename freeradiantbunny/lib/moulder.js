@@ -365,7 +365,10 @@ function Moulder() {
 		    }
 		}
 	    }
-		
+	} else if (columnName.slice(0, 10) == "associated") {
+	    // colorize light-blue
+	    styles = "background-color: #83c0f2;";
+	    return this.getStyledData("", value, value, styles);
         } else if (columnName === "status") {
 	    if (value != "0") {
 		if (value == "2021" || value == "2022") {

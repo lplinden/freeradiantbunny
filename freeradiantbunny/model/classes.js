@@ -42,7 +42,7 @@ function Classes() {
         debug("classes queryTerms =", queryTerms);
         var sql;
         if (idOrNoId) {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables);
         } else {
             var orderBy = "ORDER BY a.sort DESC, a.subsystem_id, a.zachman_id, a.name";
             if (paramSort === "sort") {
@@ -65,7 +65,7 @@ function Classes() {
             debug("classes orderBy =", orderBy);
             // many
 	    // temp
-            sql = "select a.status, a.sort, a.id, a.name, array(select concat('<a href=\"../subsystems/', s.id, '\" style=\"text-decoration: none;\">', s.name, '</a>') from subsystems s where a.subsystem_id = s.id) as subsystem, array(select concat('<a href=\"../zachmans/', z.id, '\" style=\"text-decoration: none;\">', z.name, '</a>') from zachmans z where a.zachman_id = z.id) as zachman, a.dev from classes a " + orderBy;
+            sql = "select a.status, a.sort, a.id, a.name, array(select concat('<a href=\"../subsystems/', s.id, '\" style=\"text-decoration: none;\">', s.name, '</a>') from subsystems s where a.subsystem_id = s.id) as subsystem, array(select concat('<a href=\"../zachmans/', z.id, '\" style=\"text-decoration: none;\">', z.name, '</a>') from zachmans z where a.zachman_id = z.id) as zachman, a.dev, a.fk_constraints from classes a " + orderBy;
         }
         return sql;
     };

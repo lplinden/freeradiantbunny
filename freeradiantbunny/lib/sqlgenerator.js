@@ -26,6 +26,8 @@ function Sqlgenerator() {
 	// make plural
 	if (foreignTableName == "process") {
 	    foreignTableName += "es";
+	} else if (foreignTableName == "plant_family") {
+	    foreignTableName = "plant_families";
 	} else {
 	    foreignTableName += "s";
 	}
@@ -44,7 +46,7 @@ function Sqlgenerator() {
 	hyperlinkSql += ", '</a>')";
 	return hyperlinkSql;
     };
-    this.getColumnNames = function (tablePrefix, schema) {
+    this.getColumnNames = function (tablePrefix, tableNameSingular, schema, inboundForeignKeyTables) {
 	// note: schema = columnKeys
 	var columnNames = "";
 	for (let i = 0; i < schema.length; i++) {
@@ -69,12 +71,29 @@ function Sqlgenerator() {
 		columnNames += ", ";
 	    }
 	}
+	// add columns to query if this table has inbound foreign keys
+	if (typeof inboundForeignKeyTables !== 'undefined' && inboundForeignKeyTables.length > 0) {
+	    for (let k = 0; k < inboundForeignKeyTables.length; k++) {
+		// add comma
+		columnNames += ", ";
+                var fkTable = inboundForeignKeyTables[k];
+		// temp
+		var subquery = "array(select concat('&nbsp;<a href=\"../" + fkTable + "/', fk.id, '\">', fk.name, '</a>') from " + fkTable + " fk where fk." + tableNameSingular + "_id = " + tablePrefix + ".id)";
+		columnNames += subquery + " as " + "\"associated " + fkTable + "\"";
+	    }
+	}
 	return columnNames;
     };
-    this.getStandardSingle = function (tableName, schema, id) {
+    this.getStandardSingle = function (tableName, schema, id, inboundForeignKeyTables) {
         // create sql
 	var tablePrefix = "a";
-        var sql = "SELECT " + this.getColumnNames(tablePrefix, schema) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE a.id = " + id + ";";
+	var tableNameSingular;
+	if (tableName == "processes") {
+	    tableNameSingular = tableName.slice(0, -2);
+	} else {
+	    tableNameSingular = tableName.slice(0, -1);
+	}
+        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableNameSingular, schema, inboundForeignKeyTables) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE a.id = " + id + ";";
         return sql;
     };
 }
@@ -82,4 +101,3 @@ function Sqlgenerator() {
 module.exports = new Sqlgenerator();
 
 // end
-
