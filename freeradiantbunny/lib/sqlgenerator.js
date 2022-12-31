@@ -46,7 +46,9 @@ function Sqlgenerator() {
 	hyperlinkSql += ", '</a>')";
 	return hyperlinkSql;
     };
-    this.getColumnNames = function (tablePrefix, tableNameSingular, schema, inboundForeignKeyTables) {
+    this.getColumnNames = function (tablePrefix, tableNameSingular, schema, inboundForeignKeyTables, paramUpkIsValid) {
+	// debug only
+	debug("sqlgenerator paramUpkIsValid =", paramUpkIsValid);
 	// note: schema = columnKeys
 	var columnNames = "";
 	for (let i = 0; i < schema.length; i++) {
@@ -78,13 +80,13 @@ function Sqlgenerator() {
 		columnNames += ", ";
                 var fkTable = inboundForeignKeyTables[k];
 		// temp
-		var subquery = "array(select concat('&nbsp;<a href=\"../" + fkTable + "/', fk.id, '\">', fk.name, '</a>') from " + fkTable + " fk where fk." + tableNameSingular + "_id = " + tablePrefix + ".id)";
+		var subquery = "array(select concat('&nbsp;<a href=\"../" + fkTable + "/', fk.id, '?" + paramUpkIsValid + "\">', fk.name, '</a>') from " + fkTable + " fk where fk." + tableNameSingular + "_id = " + tablePrefix + ".id)";
 		columnNames += subquery + " as " + "\"associated " + fkTable + "\"";
 	    }
 	}
 	return columnNames;
     };
-    this.getStandardSingle = function (tableName, schema, id, inboundForeignKeyTables) {
+    this.getStandardSingle = function (tableName, schema, id, inboundForeignKeyTables, paramUpkIsValid) {
         // create sql
 	var tablePrefix = "a";
 	var tableNameSingular;
@@ -93,7 +95,7 @@ function Sqlgenerator() {
 	} else {
 	    tableNameSingular = tableName.slice(0, -1);
 	}
-        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableNameSingular, schema, inboundForeignKeyTables) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE a.id = " + id + ";";
+        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableNameSingular, schema, inboundForeignKeyTables, paramUpkIsValid) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE a.id = " + id + ";";
         return sql;
     };
 }

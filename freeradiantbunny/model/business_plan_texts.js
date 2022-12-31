@@ -26,7 +26,7 @@ function BusinessPlanTexts() {
 		   'goal_statement_id',
 		   'publish'];
     this.inboundForeignKeyTables = ['processes'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("business_plan_texts idOrNoId =", idOrNoId);
 	debug("business_plan_texts classNameFilter =", classNameFilter);	
 	debug("business_plan_texts paramSort =", paramSort);
@@ -43,7 +43,7 @@ function BusinessPlanTexts() {
 		    sql = "select bpt.status, bpt.sort, bpt.id, bpt.img_url as image, bpt.name from business_plan_texts bpt, goal_statements gs where bpt.goal_statement_id = gs.id AND gs.id = " + idOrNoId + " AND bpt.publish = 'true';";
 		}
 	    } else {
-		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables);
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
 		// refactor
 		//sql = "select array(select concat('<a href=\"../goal_statements/', gs.id, '\">', gs.name, '</a>') from goal_statements gs where gs.id = bpt.goal_statement_id) as goal_statement_id, bpt.status, bpt.sort, bpt.id, bpt.img_url as image, bpt.name, bpt.description, array(select concat('<a href=\"../processes/business_plan_texts/', bpt.id, '\">', count(pr.id), '</a>') from processes pr where bpt.id = pr.business_plan_text_id AND bpt.id = " + idOrNoId + " and pr.publish = 'true') as processes_count, array(select concat('<br /><a href=\"../processes/', pr.id, '\">', pr.name, '</a>') from processes pr where bpt.id = pr.business_plan_text_id AND bpt.id = " + idOrNoId + " and pr.publish = 'true') as processes from business_plan_texts bpt where bpt.id = " + idOrNoId + " AND bpt.publish = 'true';";
 	    }

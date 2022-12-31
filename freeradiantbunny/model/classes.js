@@ -34,7 +34,7 @@ function Classes() {
 		   'dev',
 		   'lookup',
 		   'notes'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("classes idOrNoId", idOrNoId);
         debug("classes classNameFilter =", classNameFilter);
 	debug("classes paramSort=", paramSort);
@@ -42,7 +42,7 @@ function Classes() {
         debug("classes queryTerms =", queryTerms);
         var sql;
         if (idOrNoId) {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
             var orderBy = "ORDER BY a.sort DESC, a.subsystem_id, a.zachman_id, a.name";
             if (paramSort === "sort") {

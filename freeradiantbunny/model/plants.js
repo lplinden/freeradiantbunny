@@ -24,7 +24,7 @@ function Plants() {
 		   'sort',
 		   'botanical_name',
 		   'plant_family_id'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plants idOrNoId =", idOrNoId);
 	debug("plants classNameFilter =", classNameFilter);
         debug("plants paramSort =", paramSort);
@@ -32,7 +32,7 @@ function Plants() {
         debug("plants queryTerms =", queryTerms);
         var sql;
 	if (typeof idOrNoId !== 'undefined' && idOrNoId !== "") {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
 	    // note that in sql the array enables subquery to string
 	    // backup sql because it is so fine
 	    //sql = "select u.id, concat('<i>', u.botanical_name, '</i>') as botanical_name, u.name, pc.name as plant_category, pf.name as plant_family, u.description, '' as plant_attributes, '' as plant_histories, '' as plant_aliases, '' as hyperlink_plants, array(select concat('<a href=../varieties/', v.id, '>', v.name, '</a>') from varieties v where v.plant_id = u.id AND u.id = " + idOrNoId + ") as varieties_count from plants u, plant_categories pc, plant_families pf where u.plant_category_id = pc.id AND u.plant_family_id = pf.id AND u.id = " + idOrNoId + ";";

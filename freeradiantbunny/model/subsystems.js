@@ -23,7 +23,7 @@ function Subsystems() {
 		   'status',
 		   'sort'];
     this.inboundForeignKeyTables = ['classes'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("subsystems idOrNoId =", idOrNoId);
 	debug("subsystems classNameFilter =", classNameFilter);
         debug("subsystems paramSort =", paramSort);
@@ -31,7 +31,7 @@ function Subsystems() {
         debug("subsystems queryTerms =", queryTerms);
         var sql;
         if (idOrNoId) {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
         } else {
             var orderBy = "ORDER BY z.sort DESC, z.name";
             debug("subsystems orderBy =", orderBy);

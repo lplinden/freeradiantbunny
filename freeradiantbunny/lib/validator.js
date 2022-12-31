@@ -195,16 +195,16 @@ function Validator() {
             return "";
         }
         return userString;
-    }
+    };
     this.isValidUserPassKey = function (userString, config) {
         if (userString == null) {
-            return false;
+            return '';
         }
 	if (config.isValidUserPassKey(userString)) {
-            return true;
+            return "upk=" + userString;
         }
-        return false;
-    }
+        return '';
+    };
     // used by server
     this.validateId = function (userString) {
         // id should be a positive integer
@@ -213,7 +213,7 @@ function Validator() {
             return userString;
         } 
         return "";
-    }
+    };
     this.OFFLINE_sanitize_user_input_as_keyword = function (user_input) {
         var x = "";
         user_input = strip_tags(user_input);
@@ -226,7 +226,7 @@ function Validator() {
             }
         }
         return x;
-    }
+    };
     this.OFFLINE_is_username_type = function (user_input) {
         var x = "";
         if (ctype_alpha(user_input)) {
@@ -236,7 +236,7 @@ function Validator() {
             }
         }
         return x;
-    }
+    };
     this.OFFLINE_sanitize_user_input_as_html = function (user_input) {
         // todo fix this function so that it is not offline
         var x = "";
@@ -250,7 +250,7 @@ function Validator() {
         x = user_input;
         //}
         return x;
-    }
+    };
     this.OFFLINE_is_short_alphanumeric = function (user_input) {
         var x = "";
         // note: the following is like a double-negative
@@ -261,7 +261,7 @@ function Validator() {
             }
         }
         return x;
-    }
+    };
     this.OFFLINE_sanitize_input_as_integer = function (user_input) {
         var x = ''; // default
         if (is_numeric(user_input)) {
@@ -270,7 +270,7 @@ function Validator() {
             this.get_db_dash().print_error("FRB error: not an integer.");
         }
         return x;
-    }
+    };
     this.OFFLINE_is_tli = function (user_input) {
         // note variable name is set
         variable_name = "tli";
@@ -287,7 +287,7 @@ function Validator() {
 	// todo refactor the following line
         //markup += this.outputError("FRB error: parameter <strong>" + variable_name + "</strong> is not a valid three letter identifier.");
         return 0;
-    }
+    };
     this.validateSort = function (userInput) {
         markup = "";
         var validSorts = [
@@ -330,7 +330,7 @@ function Validator() {
         markup += default_sort;
 
         return markup;
-    }
+    };
     this.validateCommand = function (userInput) {
         markup = "";
         var validCommands = [
@@ -347,7 +347,7 @@ function Validator() {
         markup += this.outputError("FRB error: command parameter is not valid.");
 
         return markup;
-    }
+    };
     this.validateView = function (userInput) {
         markup = "";
         var validViews = [
@@ -364,7 +364,7 @@ function Validator() {
         }
         markup += this.outputError("FRB error: view parameter is not valid.");
         return markup;
-    }
+    };
     this.OFFLINE_validate_as_domain_tli = function (user_input, variable_name) {
         markup = "";
         length = strlen(user_input);
@@ -374,7 +374,7 @@ function Validator() {
             markup += this.outputError("FRB error: domain_tli <strong>" + variable_name + "</strong> is not valid.");
         }
         return markup;
-    }
+    };
     this.OFFLINE_sanitize_linkmaster_input = function (user_input) {
         var x = "";
         user_input = strip_tags(user_input);
@@ -388,7 +388,7 @@ function Validator() {
             x = user_input;
         }
         return x;
-    }
+    };
     this.outputError = function (message, debug = "") {
         markup = "";
         // todo note there is a duplicate of this function in databasedashboard
@@ -398,7 +398,7 @@ function Validator() {
         }
         markup += "<p class=\"error\">" + message + "</p>\n";
         return markup;
-    }
+    };
     this.OFFLINE_validate_form_field = function (given_parameter, given_validation_type = "") {
         error_message = "";
         //print "debug validator validating " + given_validation_type + " " + _POST[given_parameter] + "<br />";
@@ -473,7 +473,7 @@ function Validator() {
             error_message = "FRB error: validating-type is not known. given_validation_type";
         }
         return error_message;
-    }
+    };
     this.OFFLINE_extract_class_name = function (config) {
         // bail
         // if the user inputs something that is not valid, the system bails
@@ -519,7 +519,7 @@ function Validator() {
                 return 0;
             }
         }
-    }
+    };
     this.OFFLINE_output_freeradiantbunny = function (config, class_name) {
         // debug
         if (config.get_debug()) {

@@ -25,7 +25,7 @@ function Moulder() {
     var supplier_id;
     var theId
     var seed_packet_id;
-    this.get = function(columnName, value, className, id, baseUrl, localBaseUrl, extends_class_id, idOrNotId, pageName, aId) {
+    this.get = function(columnName, value, className, id, baseUrl, localBaseUrl, extends_class_id, idOrNotId, pageName, aId, paramUpkIsValid) {
         debug("moulder given className =", className);
         debug("moulder given columnName =", columnName);
         var styles = "";
@@ -57,17 +57,17 @@ function Moulder() {
 		var chardata = value;
 		return this.getStyledData("", chardata, value, styles);
 	    }
-            var chardata = this.getIdAsUrl(baseUrl, className, value, value);
+            var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid);
             return this.getStyledData("", chardata, value, styles);
         } else if (columnName === "id_url") {
-            var chardata = this.getIdAsUrl(baseUrl, className, value, value);
+            var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid);
             return this.getStyledData("", chardata, value, styles);
         } else if (columnName === "statuscode") {
-            var chardata = this.getIdAsUrl(baseUrl, className, value, value);
+            var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid);
             return this.getStyledData("", chardata, value, styles);
 	    
         } else if (columnName === "validhtml") {
-            var chardata = this.getIdAsUrl(baseUrl, className, value, value)
+            var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid)
             return this.getStyledData("", chardata, value, styles);
 
         } else if (columnName === "tli") {
@@ -120,7 +120,7 @@ function Moulder() {
 	    
         } else if (columnName === "variety_id") {
 	    var  anotherClassName = "varieties";
-            var chardata = this.getIdAsUrl(baseUrl, anotherClassName, value, value)
+            var chardata = this.getIdAsUrl(baseUrl, anotherClassName, value, value, paramUpkIsValid)
             return this.getStyledData("", chardata, value, styles);
 
         } else if (columnName === "plants_count") {
@@ -128,11 +128,11 @@ function Moulder() {
 	    if (className == "plant_lists") {
 		var anotherClassName = "plant_list_plants/plant_lists";
 		id = plant_list_id;
-		var chardata = this.getIdAsUrl(baseUrl, anotherClassName, id, value)
+		var chardata = this.getIdAsUrl(baseUrl, anotherClassName, id, value, paramUpkIsValid)
 	    } else {
 		var anotherClassName = "plant_lists";
 		id = plant_list_id;
-		var chardata = this.getIdAsUrl(baseUrl, anotherClassName, id, value);
+		var chardata = this.getIdAsUrl(baseUrl, anotherClassName, id, value, paramUpkIsValid);
 	    }
             return this.getStyledData("", chardata, value, styles);
 
@@ -141,7 +141,7 @@ function Moulder() {
 		// skip
 	    } else {
 		var  anotherClassName = "suppliers";
-		var chardata = this.getIdAsUrl(baseUrl, anotherClassName, value, value)
+		var chardata = this.getIdAsUrl(baseUrl, anotherClassName, value, value, paramUpkIsValid)
 		return this.getStyledData("", chardata, value, styles);
 	    }
 
@@ -154,7 +154,7 @@ function Moulder() {
 		var anotherClassName = "plant_list_plants";
 		className = anotherClassName;
 	    }
-            var chardata = this.getIdAsUrl(baseUrl, className, value, value)
+            var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid)
             return this.getStyledData("", chardata, value, styles);
 	    	    
         } else if (columnName === "soil_area_id") {
@@ -162,7 +162,7 @@ function Moulder() {
 	    if (className == "plant_events") {
 		var anotherClassName = "soil_areas";
 		className = anotherClassName;
-		var chardata = this.getIdAsUrl(baseUrl, className, value, value)
+		var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid)
 		return this.getStyledData("", chardata, value, styles);
 	    }
 	    
@@ -171,7 +171,7 @@ function Moulder() {
 	    if (className == "plant_events") {
 		var anotherClassName = "plant_histories";
 		className = anotherClassName;
-		var chardata = this.getIdAsUrl(baseUrl, className, value, value)
+		var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid)
 		return this.getStyledData("", chardata, value, styles);
 	    }
 	    
@@ -183,7 +183,7 @@ function Moulder() {
         } else if (columnName === "plant_id") {
 	    plant_id = value;
 	    var anotherClassName = "plants";
-            var chardata = this.getIdAsUrl(baseUrl, anotherClassName, value, value)
+            var chardata = this.getIdAsUrl(baseUrl, anotherClassName, value, value, paramUpkIsValid)
             return this.getStyledData("", chardata, value, styles);
 	    
         } else if (columnName === "url" ||
@@ -215,7 +215,7 @@ function Moulder() {
 	            chardata = value;
 		    // should be plant_list_plant_id
 		    id = plant_list_plant_id;
-		    var chardata = this.getIdAsUrl(baseUrl, className, id, chardata)
+		    var chardata = this.getIdAsUrl(baseUrl, className, id, chardata, paramUpkIsValid)
 		    return this.getStyledData("", chardata, value, styles);
 		} else if (className === "seed_packets") {
 
@@ -224,7 +224,7 @@ function Moulder() {
 	            chardata = value;
 		    // should be seed_packet_id
 		    id = seed_packet_id;
-		    var chardata = this.getIdAsUrl(baseUrl, className, id, chardata)
+		    var chardata = this.getIdAsUrl(baseUrl, className, id, chardata, paramUpkIsValid)
 		    return this.getStyledData("", chardata, value, styles);
 		}
 	    } else {
@@ -476,7 +476,7 @@ function Moulder() {
 	        chardata = value;
 		// should be bed_id
 		id = bed_id;
-		var chardata = this.getIdAsUrl(baseUrl, className, id, chardata)
+		var chardata = this.getIdAsUrl(baseUrl, className, id, chardata, paramUpkIsValid)
 		return this.getStyledData("", chardata, value, styles);
 	    }
 
@@ -487,7 +487,7 @@ function Moulder() {
 	        chardata = value;
 		// should be land_id
 		id = land_id;
-		var chardata = this.getIdAsUrl(baseUrl, className, id, chardata)
+		var chardata = this.getIdAsUrl(baseUrl, className, id, chardata, paramUpkIsValid)
 		return this.getStyledData("", chardata, value, styles);
 	    }
 
@@ -499,7 +499,7 @@ function Moulder() {
 	            chardata = value;
 		    // should be plant_history_id
 		    id = supplier_id;
-		    var chardata_as_url = this.getIdAsUrl(baseUrl, classNameForUrl, id, chardata)
+		    var chardata_as_url = this.getIdAsUrl(baseUrl, classNameForUrl, id, chardata, paramUpkIsValid)
 		    // green
                     styles = "background-color: #CCFFCC;"
 		    return this.getStyledData("", chardata_as_url, value, styles);
@@ -518,7 +518,7 @@ function Moulder() {
 	            chardata = value;
 		    // should be plant_history_id
 		    id = plant_history_id;
-		    var chardata_as_url = this.getIdAsUrl(baseUrl, classNameForUrl, id, chardata)
+		    var chardata_as_url = this.getIdAsUrl(baseUrl, classNameForUrl, id, chardata, paramUpkIsValid)
 		    // green
                     styles = "background-color: #CCFFCC;"
 
@@ -539,7 +539,7 @@ function Moulder() {
 	        chardata = value;
 		// should be plant_history_id
 		id = plant_history_id;
-		var chardata_as_url = this.getIdAsUrl(baseUrl, classNameForUrl, id, chardata)
+		var chardata_as_url = this.getIdAsUrl(baseUrl, classNameForUrl, id, chardata, paramUpkIsValid)
 		// green
                 styles = "background-color: #CCFFCC;"
 		if (className === "plant_list_plants") {
@@ -558,7 +558,7 @@ function Moulder() {
 	    }
 	    
         } else if (columnName === "linkcheck") {
-            var chardata = this.getIdAsUrl(baseUrl, className, value, value)
+            var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid)
             return this.getStyledData("", chardata, value, styles);
 	    
         } else if (columnName === "password") {
@@ -567,12 +567,12 @@ function Moulder() {
         } else if (columnName === "zachmans") {
             var anotherClassName = "zachmans";
             var zachman_id = this.getZachmanIdGivenZachmanName(value);
-            var chardata = this.getIdAsUrl(baseUrl, anotherClassName, zachman_id, value);
+            var chardata = this.getIdAsUrl(baseUrl, anotherClassName, zachman_id, value, paramUpkIsValid);
             return this.getStyledData("", chardata);
 
         } else if (columnName === "seed_packet_id") {
             var anotherClassName = "seed_packets";
-            var chardata = this.getIdAsUrl(baseUrl, anotherClassName, value, value);
+            var chardata = this.getIdAsUrl(baseUrl, anotherClassName, value, value, paramUpkIsValid);
             return this.getStyledData("", chardata);
 
         } else if (columnName === "classes_associated") {
@@ -828,8 +828,12 @@ function Moulder() {
             break;
         }
     }
-    this.getIdAsUrl = function (baseUrl, className, id, chardata) {
-        return "<a href=\"" + baseUrl + className + "/" + id + "\">" + chardata + "</a>";
+    this.getIdAsUrl = function (baseUrl, className, id, chardata, paramUpkIsValid) {
+	var paramString = "";
+	if (paramUpkIsValid) {
+	    paramString = "?" + paramUpkIsValid;
+	}
+        return "<a href=\"" + baseUrl + className + "/" + id + paramString + "\">" + chardata + "</a>";
         //return "<a href=\"" + id + "\">" + id + "</a>";
     }
     this.getAsUrl = function (chardata) {

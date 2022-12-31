@@ -25,7 +25,7 @@ function Accounts() {
 		   'publish',
 		   'flow'];
     this.inboundForeignKeyTables = ['scene_elements'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("accounts idOrNoId =", idOrNoId);
 	debug("accounts classNameFilter =", classNameFilter);
 	debug("accounts paramSort =", paramSort);
@@ -44,7 +44,7 @@ function Accounts() {
 		    //sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from accounts z where publish ='true';";
 		//}
 	    //} else {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
 		// refactor
 		// has dropped fields
 		//sql = "select a.status, a.sort, a.id, a.img_url, a.name, a.description, a.database_string, a.class_name_string as class_name_string, concat('<a href=\"../', a.class_name_string, '/', a.class_primary_key_string,'\">', a.class_primary_key_string, '</a>') as class_primary_key_string from accounts a where a.id = " + idOrNoId + " and a.publish = 'true';";

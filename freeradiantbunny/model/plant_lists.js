@@ -22,7 +22,7 @@ function PlantLists() {
 		   'img_url',
 		   'status',
 		   'sort'];    
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("plant_lists idOrNoId =", idOrNoId);
 	debug("plant_lists classNameFilter =", classNameFilter);
         debug("plant_lists paramSort =", paramSort);
@@ -30,7 +30,7 @@ function PlantLists() {
         debug("plant_lists queryTerms =", queryTerms);
         var sql;
 	if (typeof idOrNoId !== 'undefined' && idOrNoId !== "") {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
 	    // refactor
             //sql = "select u.id, u.name, concat('<a href=\"../plant_list_plants/plant_lists/', u.id, '\">', count(plp.id), '</a>') as plants_count from plant_lists u, plant_list_plants plp WHERE u.id = plp.plant_list_id AND status = '2020' AND u.id = " + idOrNoId + " GROUP BY u.id, u.name;";
         } else {

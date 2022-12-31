@@ -25,7 +25,7 @@ function ProcessFlows() {
 		   'parent_process_id',
 		   'child_process_id',
 		   'publish'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("process_flows idOrNoId =", idOrNoId);
 	debug("process_flows classNameFilter =", classNameFilter);
 	debug("process_flows paramSort =", paramSort);
@@ -44,7 +44,7 @@ function ProcessFlows() {
 		// todo and that assumption may fail, so fix this soon please
 		sql = "select z.status, z.sort, z.id, z.name, p.name, c.name from process_flows z, processes p, processes c where z.id = " + idOrNoId + " and z.parent_process_id = z.parent_process_id AND z.child_process_id = c.id AND z.publish = 'true';";
 	    } else {
-		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables);
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
 		// refactor
 		//sql = "select z.status, z.sort, z.id, z.name, p.name as parent_process, c.name as child_process from process_flows z, processes p, processes c where z.id = " + idOrNoId + " and z.parent_process_id = p.id AND z.child_process_id = c.id AND z.publish = 'true';";
 	    }

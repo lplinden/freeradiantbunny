@@ -23,7 +23,7 @@ function Zachmans() {
 		   'status',
 		   'sort'];
     this.inboundForeignKeyTables = ['classes'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("zachmans idOrNoId =", idOrNoId);
 	debug("zachmans classNameFilter =", classNameFilter);	
         debug("zachmans paramSort =", paramSort);
@@ -31,7 +31,7 @@ function Zachmans() {
         debug("zachmans queryTerms =", queryTerms);
         var sql;
         if (idOrNoId) {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
         } else {
             var orderBy = "ORDER BY z.id";
             if (paramSort === "sort") {

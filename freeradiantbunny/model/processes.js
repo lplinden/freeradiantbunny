@@ -30,7 +30,7 @@ function Processes() {
 		   'publish',
 		   'business_plan_text_id'];
     this.inboundForeignKeyTables = ['scene_elements'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("processes idOrNoId =",idOrNoId);
 	debug("processes classNameFilter =", classNameFilter);
 	debug("processes paramSort =", paramSort);
@@ -50,7 +50,7 @@ function Processes() {
 		    sql = "select pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, array(select concat('<a href=\"../../scene_elements/processes/', pr.id , '\">', count(se.id), '</a>') from scene_elements se where pr.id = se.process_id AND bpt.id = pr.business_plan_text_id AND bpt.id = " + idOrNoId + " AND se.publish = 'true') as scene_elements_count from processes pr, business_plan_texts bpt  where bpt.id = pr.business_plan_text_id AND bpt.id = " + idOrNoId + " and pr.publish = 'true'";
 		}
 	    } else {
-		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
 		// refactor
 		//sql = "select array(select concat('<a href=\"../business_plan_texts/', bpt.id, '\">', bpt.name, '</a>') from business_plan_texts bpt where bpt.id = pr.business_plan_text_id) as business_plan_text_id, pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, pr.description, array(select concat('<br /><a href=\"../scene_elements/', se.id, '\">', se.name, '</a>') from scene_elements se, processes pr where pr.id = se.process_id AND pr.id = " + idOrNoId + " AND pr.publish = 'true') as scene_elements from processes pr where pr.id = " + idOrNoId + " and pr.publish = 'true';";
 	    }

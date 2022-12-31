@@ -24,7 +24,7 @@ function Stacks() {
 		   'sort',
 		   'application_id',
 		   'priority'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("stacks idOrNoId =", idOrNoId);
 	debug("stacks classNameFilter =", classNameFilter);
 	debug("stacks paramSort =", paramSort);
@@ -32,7 +32,7 @@ function Stacks() {
 	debug("stacks queryTerms =", queryTerms);
 	var sql;
 	if (idOrNoId) {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
 	} else {
 	    var orderBy ="ORDER BY z.name, z.priority";
 	    debug("stacks orderBy =", orderBy);

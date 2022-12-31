@@ -13,7 +13,7 @@ var instanceCount = 0;
 var columnCount = 0;
 var columnNum = 1;
 
-var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pageName) {
+var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pageName, paramUpkIsValid) {
     debug("markup convertDataSet()");
     var aDataSet = [];
     var moulder = require('./moulder.js');
@@ -76,7 +76,7 @@ var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pa
 	    debug("markup aId =", aId);
 	    var dataToUse = row[columnNameAsLinkOrNot];
 	    // store in array
-            aRow[columnNameAsLinkOrNot] = moulder.get(columnName, dataToUse, className, id, baseUrl, localBaseUrl, extends_class_id, id, pageName, aId);
+            aRow[columnNameAsLinkOrNot] = moulder.get(columnName, dataToUse, className, id, baseUrl, localBaseUrl, extends_class_id, id, pageName, aId, paramUpkIsValid);
             debug("markup database aRow =", aRow[columnNameAsLinkOrNot]);
         }
         aDataSet.push(aRow);
@@ -95,11 +95,12 @@ function Markup() {
     };
     var myTags = this.associate('tags');
     var myEntitiesObj = this.associate('entities');
-    this.getPage = function (res, suitcase, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, pageName, classNameFilterNamePromise, special) {
+    this.getPage = function (res, suitcase, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, pageName, classNameFilterNamePromise, special, paramUpkIsValid) {
         debug("markup getPage()");
         debug("markup className =", className);
         debug("markup pageName =", pageName);
         debug("markup paramView =", paramView);
+
         var freeradiantbunny = require("freeradiantbunny");
         var config = freeradiantbunny.getConfig();
         var baseUrl = config.getBaseUrl();
@@ -237,7 +238,7 @@ function Markup() {
 	    // test if empty
 	    debug("markup Promise.all results[0] =", results[0]);
 	    debug("markup Promise.all results[1] =", results[1]);
-            var aDataSet = convertDataSet(dataSet, className, id, baseUrl, localBaseUrl, pageName);
+            var aDataSet = convertDataSet(dataSet, className, id, baseUrl, localBaseUrl, pageName, paramUpkIsValid);
             // process the data some before sending to template
             // sort field assumes that the id field is before it in sql query
             // the dataSet variable is created

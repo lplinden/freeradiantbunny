@@ -22,7 +22,7 @@ function Columns() {
 		   'img_url',
 		   'status',
 		   'sort'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("columns idOrNoId =", idOrNoId);
 	debug("columns classNameFilter =", classNameFilter);
         debug("columns paramSort =", paramSort);
@@ -30,7 +30,7 @@ function Columns() {
         debug("columns queryTerms =", queryTerms);
         var sql;
         if (idOrNoId) {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
         } else {
             var orderBy = "order by z.sort DESC, z.status, z.name, z.id";
             debug("columns orderBy =", orderBy);

@@ -30,7 +30,7 @@ function SceneElements() {
 		   'process_id',
 		   'account_id'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("scene_elements idOrNoId =", idOrNoId);
 	debug("scene_elements classNameFilter =", classNameFilter);
 	debug("scene_elements paramSort =", paramSort);
@@ -49,7 +49,7 @@ function SceneElements() {
 		    sql = "select se.class_name_string as class_name_string, se.status, se.sort, se.id, se.img_url as image, se.name, se.description from scene_elements se, processes pr where se.process_id = pr.id AND pr.id = " + idOrNoId + " and se.publish = 'true' and pr.publish = 'true'" + orderBy + ";";
 		}
 	    } else {
-		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables);
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
 		// refactor
 		//sql = "select array(select concat('<a href=\"../processes/', pr.id, '\">', pr.name, '</a>') from processes pr where pr.id = se.process_id) as process_id, se.status, se.sort, se.id, se.img_url as image, se.name, se.description, se.yield, concat('<a href=\"../', se.class_name_string, '/', se.class_primary_key_string, '\">', se.class_name_string, '/', se.class_primary_key_string, '</a>') as class_primary_key_string from scene_elements se where se.id = " + idOrNoId + " and se.publish = 'true';";
 	    }

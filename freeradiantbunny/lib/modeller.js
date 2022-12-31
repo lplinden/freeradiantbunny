@@ -18,14 +18,13 @@ function Modeller() {
     instanceCount = instanceCount + 1;
     debug("modeller instantiated", instanceCount);
     // used by controller
-    this.getDataSetPromise = function (className, classNameFilter, id, paramSort, specialFlag, queryTerms) {
+    this.getDataSetPromise = function (className, classNameFilter, id, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("modeller getDataSetPromise()");
         debug("modeller className =", className);
         debug("modeller classNameFilter =", classNameFilter);
         debug("modeller id =", id);
         debug("modeller specialFlag =", specialFlag);
         debug("modeller queryTerms =", queryTerms);
-
         // get baseUrl
         var freeradiantbunny = require("freeradiantbunny");
         var config = freeradiantbunny.getConfig();
@@ -50,7 +49,7 @@ function Modeller() {
         currentMenuSelections.sort = paramSort;
         // solve for sql
         try {
-            var sql = sqlmaker.getSql(idOrNoId, paramSort, className, classNameFilter, specialFlag, queryTerms);
+            var sql = sqlmaker.getSql(idOrNoId, paramSort, paramUpkIsValid, className, classNameFilter, specialFlag, queryTerms);
             // returns a promise of a dataSet
             return database.queryDatabase(sql, className, baseUrl, currentMenuSelections, suitcase);
         } catch (error) {

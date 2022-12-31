@@ -15,7 +15,8 @@ function Viewer() {
     instanceCount = instanceCount + 1;
     debug("viewer instantiated", instanceCount);
     // used by controller
-    this.getOutput = function (res, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, classNameFilterNamePromise, paramUpkIsValid, validator) {
+    // older version (appears to have unused parameters)
+    this.getOutput = function (res, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, classNameFilterNamePromise, paramUpkIsValid) {
         debug("viewer className =", className);
 	debug("viewer paramView =", paramView);
         var markup = require('./markup.js');
@@ -24,7 +25,7 @@ function Viewer() {
         if (paramView  === undefined || paramView === "html" || paramView === "json" || paramView === "stream" || paramView === "default") {
             debug("viewer getPage()");
 	    var special = false;
-	    markup.getPage(res, this.suitcase, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, pageName, classNameFilterNamePromise, special);
+	    markup.getPage(res, this.suitcase, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, pageName, classNameFilterNamePromise, special, paramUpkIsValid);
         } else {
             var why = "viewer: view is not known \"" + paramView + "\"";
             throw why;
@@ -39,7 +40,7 @@ function Viewer() {
 	var classNameFilterNamePromise = "";
         var markup = require('./markup.js');
 	var special = true;
-        markup.getPage(res, this.suitcase, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, pageName, classNameFilterNamePromise, special);
+        markup.getPage(res, this.suitcase, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, pageName, classNameFilterNamePromise, special, paramUpkIsValid);
     };
     // used by controller
     this.getOutputEdit = function (res, dataSetPromise, className, id) {

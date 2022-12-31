@@ -25,7 +25,7 @@ function Applications() {
 		   'url',
 		   'source_code_url',
 		   'documentation_url'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("applications idOrNoId =", idOrNoId);
 	debug("applications classNameFilter =", classNameFilter);
         debug("applications paramSort =", paramSort);
@@ -33,7 +33,7 @@ function Applications() {
         debug("applications queryTerms =", queryTerms);
         var sql;
         if (idOrNoId) {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
         } else {
             var orderBy = "order by z.sort DESC, z.status, z.name, z.id";
             debug("applications orderBy =", orderBy);

@@ -32,7 +32,9 @@ function Controller() {
         var editTerms = [];
 	// deal with paramView
         if (reqQuery.view) {
-            paramView = validator.validateView(reqQuery.view);
+            var freeradiantbunny = require("freeradiantbunny");
+            var validator = freeradiantbunny.getValidator();
+	    paramView = validator.validateView(reqQuery.view);
             debug("controller paramView =", paramView);
         }
         // see if db edits in order to do db changes
@@ -45,10 +47,16 @@ function Controller() {
             var associativeFieldValue = editTerms.permaculture_topic_id;
             modeller.updateTableHyperlinkAssociativePromise(tableName, associativeField, hyperlink_id, associativeFieldValue);
         }
+	// validate UserPassKey
+	var paramUpkIsValid = false;
+        if (reqQuery.upk) {
+	    var config = freeradiantbunny.getConfig();
+            paramUpkIsValid = validator.isValidUserPassKey(reqQuery.upk, config);
+        }
         // get data
         var dataSetPromise;
         try {
-            dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, specialFlag, queryTerms);
+            dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, paramUpkIsValid, specialFlag, queryTerms);
         } catch (error) {
             var why = "controller failed getting dataSetPromise from modeller; " + error;
             var freeradiantbunny = require("freeradiantbunny");
@@ -62,6 +70,17 @@ function Controller() {
             // markup dataSet
             viewer.getOutputEdit(res, dataSetPromise, className, id);
         } else {
+	    // check for Upk-protected pages
+	    // if className is blocked, then Upk must be valid
+	    if (validator.isBlockedClassName(className)) {
+		// className blocked
+		if (! paramUpkIsValid) {
+		    // Upk failed
+		    // todo send standard message
+		    var why = "Thank You.";
+		    freeradiantbunny.send200(res, why);
+		}
+	    }
             viewer.getOutputSpecial(res, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, pageName);
         }
     };
@@ -80,7 +99,6 @@ function Controller() {
         var paramSort;
         var paramCommand;
         var paramMakeSortToday;
-        var paramUpkIsValid;
         if (reqQuery.view) {
             paramView = validator.validateView(reqQuery.view);
             debug("controller paramView =", paramView);
@@ -97,11 +115,10 @@ function Controller() {
             paramMakeSortToday = validator.validateId(reqQuery.makesorttoday);
             debug("controller paramMakeSortToday =", paramMakeSortToday);
         }
+	var paramUpkIsValid = false;
         if (reqQuery.upk) {
 	    var config = freeradiantbunny.getConfig();
             paramUpkIsValid = validator.isValidUserPassKey(reqQuery.upk, config);
-	    // do not log this value even for debugging purposes
-            debug("controller paramUpkIsValid =", paramUpkIsValid);
         }
         // aside pre start
         // before the action, deal with user requests (if any)
@@ -146,14 +163,14 @@ function Controller() {
             // this displays a page with forms that allows the editing of the data
             debug("controller paramCommand =", paramCommand);
             // get data
-            dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, specialFlag, queryTerms);
+            dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, paramUpkIsValid, specialFlag, queryTerms);
             // markup data
             viewer.getOutputEdit(res, dataSetPromise, className, id);
         } else {
             // get data
             debug("controller get data");
             try {
-                dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, specialFlag, queryTerms);
+                dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, paramUpkIsValid, specialFlag, queryTerms);
             } catch (error) {
                 var why = "controller failed getting dataSetPromise from modeller; " + error;
 		debug("controller catch error why =", why);
@@ -172,7 +189,7 @@ function Controller() {
 		}
 	    }
             // markup data
-	    viewer.getOutput(res, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, classNameFilterNamePromise);
+	    viewer.getOutput(res, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, classNameFilterNamePromise, paramUpkIsValid);
         }
 	// aside post
         // after the action, deal with user requests (if any)
