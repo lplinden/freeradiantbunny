@@ -1,6 +1,6 @@
 /**
  * Module Units.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,24 +9,30 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Units() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("units instantiated", instanceCount);
     this.name = "units";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsVAlid, specialFlag, queryTerms) {
         debug("units idOrNoId =", idOrNoId);
 	debug("units classNameFilter =", classNameFilter);
         debug("units paramSort =", paramSort);
         debug("units specialFlag =", specialFlag);
         debug("units queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-	    // simple sql
-            sql = "select z.id, z.name from units z where z.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables,  paramUpkIsValid);
         } else {
-            orderBy = "ORDER BY z.name, z.id";
+            var orderBy = "ORDER BY z.name, z.id";
             debug("units orderBy =", orderBy);
 	    sql = "select z.id, z.name from units z " + orderBy + ";";
         }

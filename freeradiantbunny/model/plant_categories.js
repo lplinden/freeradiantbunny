@@ -1,6 +1,6 @@
 /**
  * Module PlantCategories.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -16,6 +16,12 @@ function PlantCategories() {
     instanceCount = instanceCount + 1;
     debug("plant_categories instantiated", instanceCount);
     this.name = "plant_categories";
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_categories idOrNoId =", idOrNoId);
 	debug("plant_categories classNameFilter =", classNameFilter);
@@ -23,11 +29,10 @@ function PlantCategories() {
         debug("plant_categories specialFlag =", specialFlag);
         debug("plant_categories queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
         } else {
-            orderBy = "ORDER BY u.name";
+            var orderBy = "ORDER BY u.name";
             debug("plant_categories orderBy =", orderBy);
             sql = "select u.id, u.name from plant_categories u " + orderBy;
         }

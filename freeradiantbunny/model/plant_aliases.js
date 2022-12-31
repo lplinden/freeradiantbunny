@@ -1,6 +1,6 @@
 /**
  * Module PlantAliases.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -16,6 +16,9 @@ function PlantAliases() {
     instanceCount = instanceCount + 1;
     debug("plant_aliases instantiated", instanceCount);
     this.name = "plant_aliases";
+    this.schema = ['id',
+		   'plant_id',
+		   'name'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_aliases idOrNoId =", idOrNoId);
 	debug("plant_aliases classNameFilter =", classNameFilter);

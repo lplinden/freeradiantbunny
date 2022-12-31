@@ -1,6 +1,6 @@
 /**
  * Module PlantAttributes.
- * version 2.0
+ * version 2.0.3
  *
  * @public
  */
@@ -16,14 +16,17 @@ function PlantAttributes() {
     instanceCount = instanceCount + 1;
     debug("plant_attributes instantiated", instanceCount);
     this.name = "plant_attributes";
+    this.schema = ['id',
+		   'plant_id',
+		   'attribute_name',
+		   'attribute_value'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_attributes classNameFilter =", classNameFilter);
         debug("plant_attributes paramSort =", paramSort);
         debug("plant_attributes specialFlag =", specialFlag);
         debug("plant_attributes queryTerms =", queryTerms);
         var sql;
-        var orderBy;
-        orderBy = "ORDER BY a.sort DESC, a.name";
+        var orderBy = "ORDER BY a.sort DESC, a.name";
         if (paramSort == "attribute_name") {
             orderBy = "ORDER BY pa.attribute_name, pa.plant_id";
 	} else {

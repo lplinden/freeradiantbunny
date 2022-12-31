@@ -1,6 +1,8 @@
 /**
  * Module PlantUnits.
- * version 2.0.2
+ * version 2.0.3
+
+
  *
  * @public
  */
@@ -16,6 +18,9 @@ function PlantUnits() {
     instanceCount = instanceCount + 1;
     debug("plant_units instantiated", instanceCount);
     this.name = "plant_units";
+    this.schema = ['id',
+		   'plant_id',
+		   'unit_id'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_units idOrNoId =", idOrNoId);
 	debug("plant_units classNameFilter =", classNameFilter);

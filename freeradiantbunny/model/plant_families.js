@@ -1,6 +1,6 @@
 /**
  * Module PlantFamilies.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -14,6 +14,8 @@ function PlantFamilies() {
     instanceCount = instanceCount + 1;
     debug("plant_families instantiated", instanceCount);
     this.name = "plant_families";
+    this.schema = ['id',
+		   'name'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
         debug("plant_families idOrNoId =", idOrNoId);
 	debug("plant_families classNameFilter =", classNameFilter);
