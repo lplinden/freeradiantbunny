@@ -14,7 +14,7 @@ CREATE TABLE public.business_plan_texts (
     img_url text,
     status text,
     sort text,
-    goal_statement_id integer,
+    goal_statements_id integer,
     publish text,
     order_by text
 );
@@ -25,4 +25,4 @@ ALTER TABLE ONLY public.business_plan_texts
     ADD CONSTRAINT business_plan_texts_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.business_plan_texts
-    ADD CONSTRAINT business_plan_texts_goal_statement_id_fk FOREIGN KEY (goal_statement_id) REFERENCES public.goal_statements(id);
+    ADD CONSTRAINT business_plan_texts_goal_statements_id_fk FOREIGN KEY (goal_statements_id) REFERENCES public.goal_statements(id);

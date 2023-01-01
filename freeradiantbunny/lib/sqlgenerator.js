@@ -21,15 +21,7 @@ function Sqlgenerator() {
 	// change name of table if special constraint name
 	if (foreignTableName == "parent_process" ||
 	    foreignTableName == "child_process") {
-	    foreignTableName = "process";
-	}
-	// make plural
-	if (foreignTableName == "process") {
-	    foreignTableName += "es";
-	} else if (foreignTableName == "plant_family") {
-	    foreignTableName = "plant_families";
-	} else {
-	    foreignTableName += "s";
+	    foreignTableName == "process";
 	}
 	return foreignTableName;
     };
@@ -46,7 +38,7 @@ function Sqlgenerator() {
 	hyperlinkSql += ", '</a>')";
 	return hyperlinkSql;
     };
-    this.getColumnNames = function (tablePrefix, tableNameSingular, schema, inboundForeignKeyTables, paramUpkIsValid) {
+    this.getColumnNames = function (tablePrefix, tableName, schema, inboundForeignKeyTables, paramUpkIsValid) {
 	// debug only
 	debug("sqlgenerator paramUpkIsValid =", paramUpkIsValid);
 	// note: schema = columnKeys
@@ -80,7 +72,7 @@ function Sqlgenerator() {
 		columnNames += ", ";
                 var fkTable = inboundForeignKeyTables[k];
 		// temp
-		var subquery = "array(select concat('&nbsp;<a href=\"../" + fkTable + "/', fk.id, '?" + paramUpkIsValid + "\">', fk.name, '</a>') from " + fkTable + " fk where fk." + tableNameSingular + "_id = " + tablePrefix + ".id)";
+		var subquery = "array(select concat('<a href=\"../" + fkTable + "/', fk.id, '?" + paramUpkIsValid + "\">', fk.name, '</a>') from " + fkTable + " fk where fk." + tableName + "_id = " + tablePrefix + ".id)";
 		columnNames += subquery + " as " + "\"associated " + fkTable + "\"";
 	    }
 	}
@@ -89,13 +81,7 @@ function Sqlgenerator() {
     this.getStandardSingle = function (tableName, schema, id, inboundForeignKeyTables, paramUpkIsValid) {
         // create sql
 	var tablePrefix = "a";
-	var tableNameSingular;
-	if (tableName == "processes") {
-	    tableNameSingular = tableName.slice(0, -2);
-	} else {
-	    tableNameSingular = tableName.slice(0, -1);
-	}
-        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableNameSingular, schema, inboundForeignKeyTables, paramUpkIsValid) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE a.id = " + id + ";";
+        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableName, schema, inboundForeignKeyTables, paramUpkIsValid) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE a.id = " + id + ";";
         return sql;
     };
 }

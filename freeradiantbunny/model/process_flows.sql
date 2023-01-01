@@ -14,8 +14,8 @@ CREATE TABLE public.process_flows (
     img_url text,
     status text,
     sort text,
-    parent_process_id integer NOT NULL,
-    child_process_id integer NOT NULL,	
+    parent_processes_id integer NOT NULL,
+    child_processes_id integer NOT NULL,	
     publish text
 );
 
@@ -23,3 +23,9 @@ ALTER TABLE public.process_flows OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.process_flows
     ADD CONSTRAINT process_flows_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.process_flows
+    ADD CONSTRAINT process_flows_parent_processes_id_fk FOREIGN KEY (parent_processes_id) REFERENCES public.processes(id);
+
+ALTER TABLE ONLY public.process_flows
+    ADD CONSTRAINT process_flows_child_processes_id_fk FOREIGN KEY (child_processes_id) REFERENCES public.processes(id);

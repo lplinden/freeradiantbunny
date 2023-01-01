@@ -27,8 +27,8 @@ function SceneElements() {
 		   'class_primary_key_string',
 		   'yield',
 		   'publish',
-		   'process_id',
-		   'account_id'];
+		   'processes_id',
+		   'accounts_id'];
     this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("scene_elements idOrNoId =", idOrNoId);
@@ -39,32 +39,32 @@ function SceneElements() {
 	var sql;
 	if (idOrNoId) {
 	    if (classNameFilter) {
-		var orderBy ="ORDER BY se.process_id, se.class_name_string, se.sort DESC, se.class_primary_key_string, se.id";  		if (classNameFilter == "projects") {
-		    orderBy ="ORDER BY se.account_id, se.supplier_id, se.class_name_string, se.class_primary_key_string, se.id";
+		var orderBy ="ORDER BY se.processes_id, se.class_name_string, se.sort DESC, se.class_primary_key_string, se.id";  		if (classNameFilter == "projects") {
+		    orderBy ="ORDER BY se.accounts_id, se.suppliers_id, se.class_name_string, se.class_primary_key_string, se.id";
 		    // id refers to project_id
-		    sql = "select se.status, se.sort, se.id, se.img_url as image, se.name, se.description, concat('<a href=\"', '../../', se.class_name_string, '\">', se.class_name_string, '</a>') as class_name_string, concat('<a href=\"../../accounts/', se.account_id, '\">', se.account_id, '</a>') as account_id, se.supplier_id as supplier_id from scene_elements se, processes pr, business_plan_texts bpt, goal_statements gs where se.process_id = pr.id AND pr.business_plan_text_id = bpt.id AND bpt.goal_statement_id = gs.id AND gs.project_id = " + idOrNoId + " and se.publish = 'true' and pr.publish = 'true'" + orderBy + ";";
+		    sql = "select se.status, se.sort, se.id, se.img_url as image, se.name, se.description, concat('<a href=\"', '../../', se.class_name_string, '\">', se.class_name_string, '</a>') as class_name_string, concat('<a href=\"../../accounts/', se.accounts_id, '\">', se.accounts_id, '</a>') as accounts_id, se.suppliers_id as suppliers_id from scene_elements se, processes pr, business_plan_texts bpt, goal_statements gs where se.processes_id = pr.id AND pr.business_plan_texts_id = bpt.id AND bpt.goal_statements_id = gs.id AND gs.projects_id = " + idOrNoId + " and se.publish = 'true' and pr.publish = 'true'" + orderBy + ";";
 		} else {
 		    orderBy ="ORDER BY se.sort DESC, se.class_name_string, se.class_primary_key_string, se.id";
-		    // id refers to process_id
-		    sql = "select se.class_name_string as class_name_string, se.status, se.sort, se.id, se.img_url as image, se.name, se.description from scene_elements se, processes pr where se.process_id = pr.id AND pr.id = " + idOrNoId + " and se.publish = 'true' and pr.publish = 'true'" + orderBy + ";";
+		    // id refers to processes_id
+		    sql = "select se.class_name_string as class_name_string, se.status, se.sort, se.id, se.img_url as image, se.name, se.description from scene_elements se, processes pr where se.processes_id = pr.id AND pr.id = " + idOrNoId + " and se.publish = 'true' and pr.publish = 'true'" + orderBy + ";";
 		}
 	    } else {
 		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
 		// refactor
-		//sql = "select array(select concat('<a href=\"../processes/', pr.id, '\">', pr.name, '</a>') from processes pr where pr.id = se.process_id) as process_id, se.status, se.sort, se.id, se.img_url as image, se.name, se.description, se.yield, concat('<a href=\"../', se.class_name_string, '/', se.class_primary_key_string, '\">', se.class_name_string, '/', se.class_primary_key_string, '</a>') as class_primary_key_string from scene_elements se where se.id = " + idOrNoId + " and se.publish = 'true';";
+		//sql = "select array(select concat('<a href=\"../processes/', pr.id, '\">', pr.name, '</a>') from processes pr where pr.id = se.processes_id) as processes_id, se.status, se.sort, se.id, se.img_url as image, se.name, se.description, se.yield, concat('<a href=\"../', se.class_name_string, '/', se.class_primary_key_string, '\">', se.class_name_string, '/', se.class_primary_key_string, '</a>') as class_primary_key_string from scene_elements se where se.id = " + idOrNoId + " and se.publish = 'true';";
 	    }
 	} else {
 	    // old
 	    // orderBy ="ORDER BY z.class_name_string, z.class_primary_key_string, z.sort DESC, z.name, z.id";
 	    // new
-	    var orderBy ="ORDER BY z.status DESC, z.process_id, z.class_name_string, z.id";
+	    var orderBy ="ORDER BY z.status DESC, z.processes_id, z.class_name_string, z.id";
             if (paramSort === "class_primary_key_string") {
-		orderBy ="ORDER BY z.class_name_string, process_id, z.sort DESC, z.class_primary_key_string, z.id";
+		orderBy ="ORDER BY z.class_name_string, processes_id, z.sort DESC, z.class_primary_key_string, z.id";
 	    }
 	    debug("scene_elements orderBy =", orderBy);
 	    // this has a special field to keep things on another level of private
 	    // data is in the database but given if the field is null then it cannot be selected
-	    sql = "select z.status, array(select pr.name from processes pr where pr.id = z.process_id) as process_id, z.id, z.img_url as image, concat('<a href=\"../', z.class_name_string, '/', z.class_primary_key_string, '\">', z.class_name_string, '/', z.class_primary_key_string, '</a>') as class_primary_key_string, z.sort, z.name, concat('<a href=\"../accounts/', account_id, '\">', account_id, '</a>') as account_id, a.name as account_name from scene_elements z, accounts a where z.account_id = a.id AND z.publish ='true' " + orderBy + ";";
+	    sql = "select z.status, array(select pr.name from processes pr where pr.id = z.processes_id) as processes_id, z.id, z.img_url as image, concat('<a href=\"../', z.class_name_string, '/', z.class_primary_key_string, '\">', z.class_name_string, '/', z.class_primary_key_string, '</a>') as class_primary_key_string, z.sort, z.name, concat('<a href=\"../accounts/', accounts_id, '\">', accounts_id, '</a>') as accounts_id, a.name as account_name from scene_elements z, accounts a where z.accounts_id = a.id AND z.publish ='true' " + orderBy + ";";
 	}
 	return sql;
     };

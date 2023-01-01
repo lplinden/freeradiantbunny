@@ -23,7 +23,7 @@ function BusinessPlanTexts() {
 		   'status',
 		   'sort',
 		   'order_by',
-		   'goal_statement_id',
+		   'goal_statements_id',
 		   'publish'];
     this.inboundForeignKeyTables = ['processes'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
@@ -45,17 +45,17 @@ function BusinessPlanTexts() {
 	    } else {
 		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
 		// refactor
-		//sql = "select array(select concat('<a href=\"../goal_statements/', gs.id, '\">', gs.name, '</a>') from goal_statements gs where gs.id = bpt.goal_statement_id) as goal_statement_id, bpt.status, bpt.sort, bpt.id, bpt.img_url as image, bpt.name, bpt.description, array(select concat('<a href=\"../processes/business_plan_texts/', bpt.id, '\">', count(pr.id), '</a>') from processes pr where bpt.id = pr.business_plan_text_id AND bpt.id = " + idOrNoId + " and pr.publish = 'true') as processes_count, array(select concat('<br /><a href=\"../processes/', pr.id, '\">', pr.name, '</a>') from processes pr where bpt.id = pr.business_plan_text_id AND bpt.id = " + idOrNoId + " and pr.publish = 'true') as processes from business_plan_texts bpt where bpt.id = " + idOrNoId + " AND bpt.publish = 'true';";
+		//sql = "select array(select concat('<a href=\"../goal_statements/', gs.id, '\">', gs.name, '</a>') from goal_statements gs where gs.id = bpt.goal_statements_id) as goal_statements_id, bpt.status, bpt.sort, bpt.id, bpt.img_url as image, bpt.name, bpt.description, array(select concat('<a href=\"../processes/business_plan_texts/', bpt.id, '\">', count(pr.id), '</a>') from processes pr where bpt.id = pr.business_plan_texts_id AND bpt.id = " + idOrNoId + " and pr.publish = 'true') as processes_count, array(select concat('<br /><a href=\"../processes/', pr.id, '\">', pr.name, '</a>') from processes pr where bpt.id = pr.business_plan_texts_id AND bpt.id = " + idOrNoId + " and pr.publish = 'true') as processes from business_plan_texts bpt where bpt.id = " + idOrNoId + " AND bpt.publish = 'true';";
 	    }
 	} else {
 	    // old way (standard way. what you would expect.)
-	    //var orderBy ="ORDER BY z.sort DESC, z.goal_statement_id, z.name, z.id";
+	    //var orderBy ="ORDER BY z.sort DESC, z.goal_statements_id, z.name, z.id";
 	    // new way (user-defined in table field oder_by7
 	    var orderBy ="ORDER BY z.order_by";
 	    debug("business_plan_texts orderBy =", orderBy);
 	    // this has a special field to keep things on another level of private
 	    // data is in the database but given if the field is null then it cannot be selected
-	    sql = "select z.status, z.sort, array(select concat('<a href=\"../goal_statements/', gs.id, '\">', gs.name, '</a>') from goal_statements gs where z.goal_statement_id = gs.id) as goal_statement, z.id, z.img_url as image, z.name, array(select concat('<a href=\"../processes/business_plan_texts/', z.id, '\">', count(pr.id), '</a>') from processes pr where z.id = pr.business_plan_text_id) as processes_count from business_plan_texts z where publish ='true' " + orderBy + ";";
+	    sql = "select z.status, z.sort, array(select concat('<a href=\"../goal_statements/', gs.id, '\">', gs.name, '</a>') from goal_statements gs where z.goal_statements_id = gs.id) as goal_statement, z.id, z.img_url as image, z.name, array(select concat('<a href=\"../processes/business_plan_texts/', z.id, '\">', count(pr.id), '</a>') from processes pr where z.id = pr.business_plan_texts_id) as processes_count from business_plan_texts z where publish ='true' " + orderBy + ";";
 	}
 	return sql;
     };

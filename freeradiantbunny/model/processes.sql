@@ -14,7 +14,7 @@ CREATE TABLE public.processes (
     img_url text,
     status text,
     sort text,
-    business_plan_text_id integer,
+    business_plan_texts_id integer,
     priority text,
     time_rules text,
     responsibility text,
@@ -28,6 +28,6 @@ ALTER TABLE ONLY public.processes
     ADD CONSTRAINT processes_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.processes
-    ADD CONSTRAINT processes_business_plan_text_id_fk FOREIGN KEY (business_plan_text_id) REFERENCES public.business_plan_texts(id);
+    ADD CONSTRAINT processes_business_plan_texts_id_fk FOREIGN KEY (business_plan_texts_id) REFERENCES public.business_plan_texts(id);
 
 CREATE INDEX processes_index_id ON public.processes USING btree (id);

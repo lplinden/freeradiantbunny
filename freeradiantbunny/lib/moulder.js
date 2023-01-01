@@ -371,7 +371,7 @@ function Moulder() {
 	    return this.getStyledData("", value, value, styles);
         } else if (columnName === "status") {
 	    if (value != "0") {
-		if (value == "2021" || value == "2022") {
+		if (value == "2021" || value == "2022" || value == "2023") {
 		    if (value == "2021") {
 			// yellow on green
 			styles = "color: yellow; background-color: #009933; text-align: center;";

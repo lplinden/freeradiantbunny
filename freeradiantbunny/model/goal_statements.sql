@@ -14,7 +14,7 @@ CREATE TABLE public.goal_statements (
     img_url text,
     status text,
     sort text,
-    project_id integer,
+    projects_id integer,
     publish text
 );
 
@@ -24,4 +24,4 @@ ALTER TABLE ONLY public.goal_statements
     ADD CONSTRAINT goal_statements_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.goal_statements
-    ADD CONSTRAINT goal_statements_project_id_fk FOREIGN KEY (project_id) REFERENCES public.projects(id);
+    ADD CONSTRAINT goal_statements_projects_id_fk FOREIGN KEY (projects_id) REFERENCES public.projects(id);
