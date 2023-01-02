@@ -34,6 +34,7 @@ function Classes() {
 		   'dev',
 		   'lookup',
 		   'notes'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("classes idOrNoId", idOrNoId);
         debug("classes classNameFilter =", classNameFilter);

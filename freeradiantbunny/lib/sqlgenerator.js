@@ -58,14 +58,21 @@ function Sqlgenerator() {
 	    for (let k = 0; k < inboundForeignKeyTables.length; k++) {
 		// add comma
 		columnNames += ", ";
-		var inboundFkTableName = this.getTableNameFromFKConstraint(inboundForeignKeyTables[k]);
+		var inboundFkTableName = inboundForeignKeyTables[k];
 		var suffix;
 		if (inboundFkTableName == "webpages" && tableName == "domains") {
 		    suffix = "tli";
 		} else {
 		    suffix = "id";
 		}
-		var subquery = "array(select concat('<a href=\"../" + inboundFkTableName + "/', fk.id, '?" + paramUpkIsValid + "\">', fk.name, '</a>') from " + inboundFkTableName + " fk where fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + ")";
+		// make boolean a string (so that "false" does not appear"
+		var paramUpkIsValidString = "";
+		if (paramUpkIsValid) {
+		    paramUpkIsValidString = paramUpkIsValid;
+		} else {
+		    paramUpkIsValidString = "";
+		}
+		var subquery = "array(select concat('<a href=\"../" + inboundFkTableName + "/', fk.id, '?" + paramUpkIsValidString + "\">', fk.name, '</a>') from " + inboundFkTableName + " fk where fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + ")";
 		columnNames += subquery + " as " + "\"associated " + inboundFkTableName + "\"";
 	    }
 	}

@@ -31,7 +31,7 @@ function Subsystems() {
         debug("subsystems queryTerms =", queryTerms);
         var sql;
         if (idOrNoId) {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
             var orderBy = "ORDER BY z.sort DESC, z.name";
             debug("subsystems orderBy =", orderBy);

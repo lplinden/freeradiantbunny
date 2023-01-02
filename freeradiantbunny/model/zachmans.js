@@ -31,7 +31,7 @@ function Zachmans() {
         debug("zachmans queryTerms =", queryTerms);
         var sql;
         if (idOrNoId) {
-	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
             var orderBy = "ORDER BY z.id";
             if (paramSort === "sort") {
