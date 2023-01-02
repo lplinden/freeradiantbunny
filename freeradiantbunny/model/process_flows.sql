@@ -9,14 +9,13 @@ ALTER SEQUENCE public.process_flows_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.process_flows (
     id integer DEFAULT nextval('public.process_flows_id_seq'::regclass) NOT NULL,
-    name text,	
+    name text NOT NULL,
     description text,
     img_url text,
     status text,
     sort text,
-    parent_processes_id integer NOT NULL,
-    child_processes_id integer NOT NULL,	
-    publish text
+    parent_processes_id integer,
+    child_processes_id integer
 );
 
 ALTER TABLE public.process_flows OWNER TO freerad2_special;

@@ -9,11 +9,11 @@ ALTER SEQUENCE public.yields_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.yields (
     id integer DEFAULT nextval('public.yields_id_seq'::regclass) NOT NULL,
-    plant_id integer,
+    plants_id integer,
+    numerator_units_id integer,
+    denominator_units_id integer,
     estimated_yield text,
-    numerator_unit_id integer,
     source text,
-    denominator_unit_id integer,
     range text
 );
 
@@ -23,4 +23,10 @@ ALTER TABLE ONLY public.yields
     ADD CONSTRAINT yields_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.yields
-    ADD CONSTRAINT yields_plant_id_fk FOREIGN KEY (plant_id) REFERENCES public.plants(id);
+    ADD CONSTRAINT yields_plants_id_fk FOREIGN KEY (plants_id) REFERENCES public.plants(id);
+
+ALTER TABLE ONLY public.yields
+    ADD CONSTRAINT yields_numerator_units_id_fk FOREIGN KEY (numerator_units_id) REFERENCES public.units(id);
+
+ALTER TABLE ONLY public.yields
+    ADD CONSTRAINT yields_denominator_units_id_fk FOREIGN KEY (denominator_units_id) REFERENCES public.units(id);

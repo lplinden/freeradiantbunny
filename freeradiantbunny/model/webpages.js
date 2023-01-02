@@ -1,6 +1,6 @@
 /**
  * Module Webpages.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,33 +9,46 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Webpages() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("webpages instantiated", instanceCount);
     this.name = "webpages";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['status',
+		   'sort',
+		   'id',
+		   'domains_tli',
+		   'name',
+		   'description',
+		   'img_url',
+		   'path',
+		   'quality'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("webpages idOrNoId =", idOrNoId);
         debug("webpages classNameFilter =", classNameFilter);
         debug("webpages paramSort =", paramSort);
         debug("webpages specialFlag =", specialFlag);
         debug("webpages queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
 	    if (classNameFilter) {
 		// use this sql statement to not show linkcheck
 		// useful order, set up a parameter that can call it
 		//orderBy = "ORDER BY z.path, z.sort DESC";
 		// standard order
-		orderBy = "ORDER BY z.sort DESC, z.name";
+		var orderBy = "ORDER BY z.sort DESC, z.name";
 		// idOrNoId refers to domains table
 		sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, concat('<a href=\"http', d.ssl_cert, '://', d.domain_name, z.path, '\">', z.path, '</a>') as pathyperlink, array(select concat('<a href=../../maxonomies/', m.id, '>', m.name, '</a>') from maxonomies m, webpage_maxonomies wm, webpages w, domains d where wm.maxonomy_id = m.id AND w.id = wm.webpage_id AND z.id = w.id AND w.domain_tli = d.tli AND d.id = " + idOrNoId + ") as maxonomies, array(select concat('<a href=../../tags/', t.id, '>', t.name, '</a>') from tags t, webpage_tags wt, webpages w, domains d where t.id = wt.tag_id AND wt.webpage_id = w.id AND w.domain_tli = d.tli AND d.id = " + idOrNoId + " AND z.id = w.id) as tags from webpages z, domains d where d.tli = z.domain_tli AND d.id = " + idOrNoId + " " + orderBy + ";";
 	    } else {
-		sql = "select z.id, concat('<a href=\"../domains/', d.id, '\">', d.tli,'</a>') as domain_tli, z.status, z.sort, z.img_url as img, z.name, z.path, concat('<a href=\"https://', d.domain_name, z.path, '\">', z.path, '</a>') as pathhyperlink, z.description from webpages z, domains d where d.tli = z.domain_tli AND z.id = " + idOrNoId + ";";
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables,  paramUpkIsValid);
+		// refactor
+		//sql = "select z.id, concat('<a href=\"../domains/', d.id, '\">', d.tli,'</a>') as domain_tli, z.status, z.sort, z.img_url as img, z.name, z.path, concat('<a href=\"https://', d.domain_name, z.path, '\">', z.path, '</a>') as pathhyperlink, z.description from webpages z, domains d where d.tli = z.domain_tli AND z.id = " + idOrNoId + ";";
 	    }
         } else {
-            orderBy = "ORDER BY z.sort DESC, z.domain_tli, z.name";
+            var orderBy = "ORDER BY z.sort DESC, z.domain_tli, z.name";
             if (paramSort === "random") {
 		orderBy = "ORDER BY id=random()";
 	    }

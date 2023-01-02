@@ -16,8 +16,8 @@ function PlantListPlants() {
     debug("plant_list_plants instantiated", instanceCount);
     this.name = "plant_list_plants";
     this.schema = ['id',
-		   'plant_id',
-		   'plant_list_id'];
+		   'plants_id',
+		   'plant_lists_id'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_list_plants idOrNoId =", idOrNoId);
 	debug("plant_list_plants classNameFilter =", classNameFilter);
@@ -31,30 +31,30 @@ function PlantListPlants() {
 		// orderBy = "ORDER BY pf.name, p.botanical_name";
 		var orderBy = "ORDER BY p.name, p.id";
 		// archive of the sql
-                // sql = "select plp.id as plant_list_plant_id, p.id as plant_id, pf.name as plant_family_name, p.botanical_name as botanical_name, p.name as name, (select count(id) from plant_histories where plant_histories.plant_list_plant_id = plp.id) as plant_histories_count from plant_list_plants plp, plant_lists pl, plants p, plant_families pf where pf.id = p.plant_family_id AND plp.plant_id = p.id AND plp.plant_list_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
+                // sql = "select plp.id as plant_list_plants_id, p.id as plants_id, pf.name as plant_family_name, p.botanical_name as botanical_name, p.name as name, (select count(id) from plant_histories where plant_histories.plant_list_plants_id = plp.id) as plant_histories_count from plant_list_plants plp, plant_lists pl, plants p, plant_families pf where pf.id = p.plant_families_id AND plp.plants_id = p.id AND plp.plant_lists_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
 		// sql of the amazing kindness
-                // sql = "select plp.id as plant_list_plant_id, p.id as plant_id, pf.name as plant_family_name, p.botanical_name as botanical_name, p.name as name, (select count(id) from plant_histories where plant_histories.plant_list_plant_id = plp.id) as plant_histories_count, '' as seed_packets_count, '' as plant_events_count from plant_list_plants plp, plant_lists pl, plants p, plant_families pf where pf.id = p.plant_family_id AND plp.plant_id = p.id AND plp.plant_list_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
+                // sql = "select plp.id as plant_list_plants_id, p.id as plants_id, pf.name as plant_family_name, p.botanical_name as botanical_name, p.name as name, (select count(id) from plant_histories where plant_histories.plant_list_plants_id = plp.id) as plant_histories_count, '' as seed_packets_count, '' as plant_events_count from plant_list_plants plp, plant_lists pl, plants p, plant_families pf where pf.id = p.plant_families_id AND plp.plants_id = p.id AND plp.plant_lists_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
 		// working backup sql
-                // sql = "select plp.id as plant_list_plant_id, p.id as plant_id, pf.name as plant_family_name, p.botanical_name as botanical_name, p.name as name, (select count(id) from plant_histories where plant_histories.plant_list_plant_id = plp.id) as plant_histories_count, count(ph.seed_packet_id) as seed_packets_count from plant_list_plants plp, plant_lists pl, plants p, plant_families pf, plant_histories ph WHERE pf.id = p.plant_family_id AND plp.plant_id = p.id AND ph.plant_list_plant_id = plp.id AND plp.plant_list_id = pl.id AND pl.id = " + idOrNoId + " GROUP BY plp.id, p.id, pf.name " + orderBy + ";";
+                // sql = "select plp.id as plant_list_plants_id, p.id as plants_id, pf.name as plant_family_name, p.botanical_name as botanical_name, p.name as name, (select count(id) from plant_histories where plant_histories.plant_list_plants_id = plp.id) as plant_histories_count, count(ph.seed_packets_id) as seed_packets_count from plant_list_plants plp, plant_lists pl, plants p, plant_families pf, plant_histories ph WHERE pf.id = p.plant_families_id AND plp.plants_id = p.id AND ph.plant_list_plants_id = plp.id AND plp.plant_lists_id = pl.id AND pl.id = " + idOrNoId + " GROUP BY plp.id, p.id, pf.name " + orderBy + ";";
 		// experimental
-		// too complicated sql: array(select count(plant_histories.id) from plant_histories left join plant_list_plants on plant_histories.plant_list_plant_id = plp.id)
+		// too complicated sql: array(select count(plant_histories.id) from plant_histories left join plant_list_plants on plant_histories.plant_list_plants_id = plp.id)
 		// temp version with 3 columns removed
 		if (0) {
 		    var orderBy = "ORDER BY pf.name, p.name, p.id";
-                    sql = "select plp.id as plant_list_plant_id, pf.name as plant_family, p.id as plant_id, p.name as name, p.botanical_name as botanical_name from plants p, plant_list_plants plp, plant_lists pl, plant_families pf WHERE pf.id = p.plant_family_id AND p.id = plp.plant_id AND plp.plant_list_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
+                    sql = "select plp.id as plant_list_plants_id, pf.name as plant_family, p.id as plants_id, p.name as name, p.botanical_name as botanical_name from plants p, plant_list_plants plp, plant_lists pl, plant_families pf WHERE pf.id = p.plant_families_id AND p.id = plp.plants_id AND plp.plant_lists_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
 		}
 				// perfect online
 		// (just the next is for transfer to another site)
-                sql = "select plp.id as plant_list_plant_id, p.id as plant_id, pf.name as plant_family_name, p.botanical_name as botanical_name, p.name as name, array(select count(ph.id) from plant_histories ph, plant_list_plants plp2 where ph.plant_list_plant_id = plp2.id AND plp2.id = plp.id) as plant_histories_count, array(select count(sp.id) from seed_packets sp, plant_histories ph, plant_list_plants plp2 where sp.id = ph.seed_packet_id AND ph.plant_list_plant_id = plp2.id AND plp2.id = plp.id) as seed_packets_count from plant_list_plants plp, plant_lists pl, plants p, plant_families pf WHERE pf.id = p.plant_family_id AND plp.plant_id = p.id AND plp.plant_list_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
+                sql = "select plp.id as plant_list_plants_id, p.id as plants_id, pf.name as plant_family_name, p.botanical_name as botanical_name, p.name as name, array(select count(ph.id) from plant_histories ph, plant_list_plants plp2 where ph.plant_list_plants_id = plp2.id AND plp2.id = plp.id) as plant_histories_count, array(select count(sp.id) from seed_packets sp, plant_histories ph, plant_list_plants plp2 where sp.id = ph.seed_packets_id AND ph.plant_list_plants_id = plp2.id AND plp2.id = plp.id) as seed_packets_count from plant_list_plants plp, plant_lists pl, plants p, plant_families pf WHERE pf.id = p.plant_families_id AND plp.plants_id = p.id AND plp.plant_lists_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
             } else {
 		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables,  paramUpkIsValid);		
 		// refactor
-                //sql = "select plp.id as plant_list_plant_id, pl.id as plant_list_id, pl.name as plant_list_name, p.id as plant_id, p.botanical_name as botanical_name, p.name as name, '' as plant_histories_count from plant_list_plants plp, plant_lists pl, plants p where plp.plant_id = p.id AND plp.plant_list_id = pl.id AND plp.id = " + idOrNoId + ";";
+                //sql = "select plp.id as plant_list_plants_id, pl.id as plant_lists_id, pl.name as plant_list_name, p.id as plants_id, p.botanical_name as botanical_name, p.name as name, '' as plant_histories_count from plant_list_plants plp, plant_lists pl, plants p where plp.plants_id = p.id AND plp.plant_lists_id = pl.id AND plp.id = " + idOrNoId + ";";
             }
         } else {
             var orderBy = "ORDER BY p.id";
             debug("plant_list_plants orderBy =", orderBy);
-            sql = "select plp.id as plant_list_plant_id, pl.id as plant_list_id, p.id as plant_id, p.botanical_name as botanical_name, p.name as name from plant_list_plants plp, plants p, plant_lists pl where plp.plant_id = p.id AND plp.plant_list_id = pl.id " + orderBy;
+            sql = "select plp.id as plant_list_plants_id, pl.id as plant_lists_id, p.id as plants_id, p.botanical_name as botanical_name, p.name as name from plant_list_plants plp, plants p, plant_lists pl where plp.plants_id = p.id AND plp.plant_lists_id = pl.id " + orderBy;
         }
         return sql;
     };

@@ -103,6 +103,7 @@ function Validator() {
 	    "rules",
 	    "scene_elements",
 	    "searches",
+	    "seed_packets",
 	    "songs",
 	    "stacks",
 	    "stages",
@@ -118,6 +119,7 @@ function Validator() {
 	    "webpage_maxonomies",
 	    "webpage_tags",
 	    "webpages",
+	    "varieties",
 	    "yields",
 	    "zachmans",
 	];

@@ -14,7 +14,7 @@ CREATE TABLE public.plants (
     img_url text,
     status text,
     sort text,
-    plant_family_id integer,
+    plant_families_id integer,
     botanical_name text
 );
 
@@ -24,4 +24,4 @@ ALTER TABLE ONLY public.plants
     ADD CONSTRAINT plants_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.plants
-    ADD CONSTRAINT plants_plant_family_id_fk FOREIGN KEY (plant_family_id) REFERENCES public.plant_families(id);
+    ADD CONSTRAINT plants_plant_families_id_fk FOREIGN KEY (plant_families_id) REFERENCES public.plant_families(id);

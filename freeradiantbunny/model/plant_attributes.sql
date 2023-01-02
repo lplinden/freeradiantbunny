@@ -9,7 +9,7 @@ ALTER SEQUENCE public.plant_attributes_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.plant_attributes (
     id integer DEFAULT nextval('public.plant_attributes_id_seq'::regclass) NOT NULL,
-    plant_id integer,
+    plants_id integer,
     attribute_name text,
     attribute_value text
 );
@@ -20,4 +20,4 @@ ALTER TABLE ONLY public.plant_attributes
     ADD CONSTRAINT plant_attributes_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.plant_attributes
-    ADD CONSTRAINT plant_attributes_plant_id_fk FOREIGN KEY (plant_id) REFERENCES public.plants(id);
+    ADD CONSTRAINT plant_attributes_plants_id_fk FOREIGN KEY (plants_id) REFERENCES public.plants(id);

@@ -22,7 +22,7 @@ function Units() {
 		   'img_url',
 		   'status',
 		   'sort'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsVAlid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("units idOrNoId =", idOrNoId);
 	debug("units classNameFilter =", classNameFilter);
         debug("units paramSort =", paramSort);

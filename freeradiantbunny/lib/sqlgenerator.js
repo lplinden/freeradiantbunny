@@ -13,49 +13,37 @@ function Sqlgenerator() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("classes instantiated", instanceCount);
-    this.getTableNameFromFKConstraint = function (columnName) {
-	// remove "_id" from end of string
-	var length = columnName.length;
-	var indexEnd = length - 3;
-	var foreignTableName = columnName.slice(0, indexEnd);
-	// change name of table if special constraint name
-	if (foreignTableName == "parent_process" ||
-	    foreignTableName == "child_process") {
-	    foreignTableName == "process";
-	}
-	return foreignTableName;
-    };
-    this.getHyperlinkSql = function (foreignKeyTableName, prefixedColumn) {
-	var hyperlinkSql= "";
-	hyperlinkSql += "concat('<a href=\"../";
-	hyperlinkSql += foreignKeyTableName;
-	hyperlinkSql += "/', ";
-	hyperlinkSql += prefixedColumn;
-	hyperlinkSql += ", '\">";
-	hyperlinkSql += foreignKeyTableName;
-	hyperlinkSql += "/', ";
-	hyperlinkSql += prefixedColumn;
-	hyperlinkSql += ", '</a>')";
-	return hyperlinkSql;
+    this.getStandardSingle = function (tableName, schema, id, inboundForeignKeyTables, paramUpkIsValid) {
+        // create sql
+	var tablePrefix = "a";
+        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableName, schema, inboundForeignKeyTables, paramUpkIsValid) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE a.id = " + id + ";";
+        return sql;
     };
     this.getColumnNames = function (tablePrefix, tableName, schema, inboundForeignKeyTables, paramUpkIsValid) {
 	// debug only
-	debug("sqlgenerator paramUpkIsValid =", paramUpkIsValid);
+	//debug("sqlgenerator paramUpkIsValid =", paramUpkIsValid);
 	// note: schema = columnKeys
 	var columnNames = "";
 	for (let i = 0; i < schema.length; i++) {
 	    var columnName = schema[i];
+	    var fkTableName = this.getTableNameFromFKConstraint(columnName);
 	    var prefixedColumn = tablePrefix + "." + columnName;
 	    var lastThreeChars = columnName.slice(-3);
+	    var lastFourChars = columnName.slice(-4);
 	    if (lastThreeChars == "_id") {
 		// make fk_contraints into hyperlinks
-		var foreignKeyTableName = this.getTableNameFromFKConstraint(columnName);
-		var hyperlinkSql = this.getHyperlinkSql(foreignKeyTableName, prefixedColumn);
+		var hyperlinkSql = this.getHyperlinkSql(fkTableName, prefixedColumn);
 		columnNames += hyperlinkSql;
 		columnNames += " as ";
 		columnNames += columnName;
 		// older version
 		//columnNames += tablePrefix + "." + columnKeys[i];
+	    } else if (lastFourChars == "_tli") {
+		// make fk_contraints into hyperlinks
+		var hyperlinkSql = this.getHyperlinkSql(fkTableName, prefixedColumn);
+		columnNames += hyperlinkSql;
+		columnNames += " as ";
+		columnNames += columnName;
 	    } else {
 		columnNames += prefixedColumn;
 	    }
@@ -70,19 +58,55 @@ function Sqlgenerator() {
 	    for (let k = 0; k < inboundForeignKeyTables.length; k++) {
 		// add comma
 		columnNames += ", ";
-                var fkTable = inboundForeignKeyTables[k];
-		// temp
-		var subquery = "array(select concat('<a href=\"../" + fkTable + "/', fk.id, '?" + paramUpkIsValid + "\">', fk.name, '</a>') from " + fkTable + " fk where fk." + tableName + "_id = " + tablePrefix + ".id)";
-		columnNames += subquery + " as " + "\"associated " + fkTable + "\"";
+		var inboundFkTableName = this.getTableNameFromFKConstraint(inboundForeignKeyTables[k]);
+		var suffix;
+		if (inboundFkTableName == "webpages" && tableName == "domains") {
+		    suffix = "tli";
+		} else {
+		    suffix = "id";
+		}
+		var subquery = "array(select concat('<a href=\"../" + inboundFkTableName + "/', fk.id, '?" + paramUpkIsValid + "\">', fk.name, '</a>') from " + inboundFkTableName + " fk where fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + ")";
+		columnNames += subquery + " as " + "\"associated " + inboundFkTableName + "\"";
 	    }
 	}
 	return columnNames;
     };
-    this.getStandardSingle = function (tableName, schema, id, inboundForeignKeyTables, paramUpkIsValid) {
-        // create sql
-	var tablePrefix = "a";
-        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableName, schema, inboundForeignKeyTables, paramUpkIsValid) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE a.id = " + id + ";";
-        return sql;
+    this.getTableNameFromFKConstraint = function (columnName) {
+	var foreignTableName;
+	if (columnName.slice(-3) == "_id") {
+	    // remove "_id" from end of string
+	    var length = columnName.length;
+	    var indexEnd = length - 3;
+	    foreignTableName = columnName.slice(0, indexEnd);
+	    // change name of table if special constraint name
+	    if (foreignTableName == "parent_processes" ||
+		foreignTableName == "child_processes") {
+		foreignTableName == "processes";
+	    }
+	    if (foreignTableName == "denominator_units" ||
+		foreignTableName == "numerator_units") {
+		foreignTableName == "units";
+	    }
+	} else if (columnName.slice(-4) == "_tli") {
+	    // remove "_tli" from end of string
+	    var length = columnName.length;
+	    var indexEnd = length - 4;
+	    foreignTableName = columnName.slice(0, indexEnd);
+	}
+	return foreignTableName;
+    };
+    this.getHyperlinkSql = function (fkTableName, prefixedColumn) {
+	var hyperlinkSql= "";
+	hyperlinkSql += "concat('<a href=\"../";
+	hyperlinkSql += fkTableName;
+	hyperlinkSql += "/', ";
+	hyperlinkSql += prefixedColumn;
+	hyperlinkSql += ", '\">";
+	hyperlinkSql += fkTableName;
+	hyperlinkSql += "/', ";
+	hyperlinkSql += prefixedColumn;
+	hyperlinkSql += ", '</a>')";
+	return hyperlinkSql;
     };
 }
 

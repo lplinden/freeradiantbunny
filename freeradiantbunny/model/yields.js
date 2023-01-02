@@ -17,11 +17,11 @@ function Yields() {
     debug("yields instantiated", instanceCount);
     this.name = "yields";
     this.schema = ['id',
-		   'plant_id',
+		   'plant2_id',
 		   'estimated_yield',
-		   'numerator_unit_id',
+		   'numerator_unit2_id',
 		   'source',
-		   'denominator_unit_id',
+		   'denominator_unit2_id',
 		   'range'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("yields idOrNoId =", idOrNoId);
@@ -35,7 +35,7 @@ function Yields() {
         } else {
             var orderBy = "ORDER BY u.id";
 	    debug("yields orderBy =", orderBy);
-            sql = "SELECT u.id, u.plant_id, u.estimated_yield FROM yields u " + orderBy;
+            sql = "SELECT u.id, u.plants_id, u.estimated_yield FROM yields u " + orderBy;
         }
         return sql;
     };

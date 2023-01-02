@@ -14,7 +14,7 @@ CREATE TABLE public.stacks (
     img_url text,
     status text,
     sort text,
-    application_id integer,
+    applications_id integer,
     priority text
 );
 
@@ -24,4 +24,4 @@ ALTER TABLE ONLY public.stacks
     ADD CONSTRAINT stacks_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.stacks
-    ADD CONSTRAINT stacks_application_id_fk FOREIGN KEY (application_id) REFERENCES public.applications(id);
+    ADD CONSTRAINT stacks_applications_id_fk FOREIGN KEY (applications_id) REFERENCES public.applications(id);

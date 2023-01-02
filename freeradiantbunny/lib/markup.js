@@ -266,7 +266,10 @@ function Markup() {
                             debug("markup idArray.theId =", theId);
 			} else {
 			    // worked ok before
-			    var theId = aDataSet[z].id.raw;
+			    var theId = "";
+			    if (typeof aDataSet[z].id !== 'undefined') {
+				theId = aDataSet[z].id.raw;
+			    }
 			    // temporary replace of above
 			    //var theId = aDataSet[z].id;
 			    idArray.unshift(theId);

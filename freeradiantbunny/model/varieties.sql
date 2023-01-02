@@ -14,7 +14,7 @@ CREATE TABLE public.varieties (
     img_url text,
     status text,
     sort text,
-    plant_id integer
+    plants_id integer
 );
 
 ALTER TABLE public.varieties OWNER TO freerad2_special;
@@ -22,5 +22,5 @@ ALTER TABLE public.varieties OWNER TO freerad2_special;
 ALTER TABLE ONLY public.varieties
     ADD CONSTRAINT varieties_pk PRIMARY KEY (id);
 
-ALTER TABLE ONLY public.varities
-    ADD CONSTRAINT varities_plant_id_fk FOREIGN KEY (plant_id) REFERENCES public.plants(id)
+ALTER TABLE ONLY public.varieties
+    ADD CONSTRAINT varieties_plants_id_fk FOREIGN KEY (plants_id) REFERENCES public.plants(id);

@@ -17,7 +17,7 @@ function PlantAttributes() {
     debug("plant_attributes instantiated", instanceCount);
     this.name = "plant_attributes";
     this.schema = ['id',
-		   'plant_id',
+		   'plants_id',
 		   'attribute_name',
 		   'attribute_value'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
@@ -28,21 +28,21 @@ function PlantAttributes() {
         var sql;
         var orderBy = "ORDER BY a.sort DESC, a.name";
         if (paramSort == "attribute_name") {
-            orderBy = "ORDER BY pa.attribute_name, pa.plant_id";
+            orderBy = "ORDER BY pa.attribute_name, pa.plants_id";
 	} else {
-	    orderBy = "ORDER BY pa.plant_id, pa.attribute_name";
+	    orderBy = "ORDER BY pa.plants_id, pa.attribute_name";
 	}
 	if (typeof idOrNoId !== 'undefined' && idOrNoId !== "") {
 	    if (classNameFilter == "plants") {
-		sql = "select pa.id as id, pa.plant_id as plant_id, p.name as plant_name, pa.attribute_name as attribute_name, pa.attribute_value as attribute_value from plant_attributes pa, plants p where pa.plant_id = p.id AND p.id = " + idOrNoId + " " + orderBy + ";";
+		sql = "select pa.id as id, pa.plants_id as plants_id, p.name as plant_name, pa.attribute_name as attribute_name, pa.attribute_value as attribute_value from plant_attributes pa, plants p where pa.plants_id = p.id AND p.id = " + idOrNoId + " " + orderBy + ";";
 	    } else {
 		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
 		// refactor
-		//sql = "select pa.id, pa.plant_id, pa.attribute_name, pa.attribute_value from plant_attributes pa where pa.id = " + idOrNoId + ";";
+		//sql = "select pa.id, pa.plants_id, pa.attribute_name, pa.attribute_value from plant_attributes pa where pa.id = " + idOrNoId + ";";
 	    }
         } else {
             debug("plant_attributes orderBy =", orderBy);
-	    sql = "select pa.id, pa.plant_id, p.name as plant_name, pa.attribute_name as attribute_name, pa.attribute_value as attrobute_value from plant_attributes pa, plants p WHERE p.id = pa.plant_id " + orderBy + ";";
+	    sql = "select pa.id, pa.plants_id, p.name as plant_name, pa.attribute_name as attribute_name, pa.attribute_value as attrobute_value from plant_attributes pa, plants p WHERE p.id = pa.plants_id " + orderBy + ";";
         }
         return sql;
     };

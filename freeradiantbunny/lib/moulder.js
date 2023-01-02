@@ -62,7 +62,21 @@ function Moulder() {
         } else if (columnName === "id_url") {
             var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid);
             return this.getStyledData("", chardata, value, styles);
-        } else if (columnName === "statuscode") {
+        } else if (columnName.slice(0, 10) == "associated") {
+            debug("moulder given className.slice(0, 11) =", columnName.slice(0, 11));
+	    debug("moulder given value ", value);
+	    var associatedListMarkup = "<ul>";
+	    // turn the value into a html list
+	    for (let i = 0; i < value.length; i++) {
+		associatedListMarkup += "<li>";
+		associatedListMarkup += value[i];
+		associatedListMarkup += "</li>";
+	    }
+	    associatedListMarkup += "</ul>";
+	    var chardata = associatedListMarkup;
+	    return this.getStyledData("", chardata, value, styles);
+	    
+	} else if (columnName === "statuscode") {
             var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid);
             return this.getStyledData("", chardata, value, styles);
 	    

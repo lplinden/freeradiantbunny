@@ -1,6 +1,6 @@
 /**
  * Module Varieties.
- * version 2.0
+ * version 2.0.3
  *
  * @public
  */
@@ -9,29 +9,32 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Varieties() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("varieties instantiated", instanceCount);
     this.name = "varieties";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = [
+];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("varieties idOrNoId =", idOrNoId);
         debug("varieties classNameFilter =", classNameFilter);
         debug("varieties paramSort =", paramSort);
         debug("varieties specialFlag =", specialFlag);
         debug("varieties queryTerms =", queryTerms);
         var sql;
-        var orderBy;
 	if (typeof idOrNoId !== 'undefined' && idOrNoId !== "") {
 	    if (classNameFilter === 'plants') {
-		sql = "select v.id, v.plant_id, p.name as plant, v.name, v.description from varieties v, plants p where p.id = v.plant_id AND p.id = " + idOrNoId + ";";
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables,  paramUpkIsValid);
 	    } else {
-		sql = "select v.id, v.plant_id, p.name as plant, v.name, v.description, array(select concat('<a href=/seed_packets/', sp.id, '>', sp.id, '</a>') from seed_packets sp where sp.variety_id = v.id) as seed_packets from varieties v, plants p where p.id = v.plant_id AND v.id = " + idOrNoId + ";";
+		sql = "select v.id, v.plants_id, p.name as plant, v.name, v.description, array(select concat('<a href=/seed_packets/', sp.id, '>', sp.id, '</a>') from seed_packets sp where sp.varieties_id = v.id) as seed_packets from varieties v, plants p where p.id = v.plants_id AND v.id = " + idOrNoId + ";";
 	    }
         } else {
-            orderBy = "ORDER BY v.name";
+            var orderBy = "ORDER BY v.name";
             debug("varities orderBy =", orderBy);
-            sql = "select v.id, v.plant_id, p.name as plant_name, v.name, array(select concat('<a href=seed_packets/', sp.id, '>', sp.id, '</a>') from seed_packets sp where sp.variety_id = v.id) as seed_packets from varieties v, plants p WHERE p.id = v.plant_id " + orderBy + ";";
+            sql = "select v.id, v.plants_id, p.name as plant_name, v.name, array(select concat('<a href=seed_packets/', sp.id, '>', sp.id, '</a>') from seed_packets sp where sp.varieties_id = v.id) as seed_packets from varieties v, plants p WHERE p.id = v.plants_id " + orderBy + ";";
         }
         return sql;
     };

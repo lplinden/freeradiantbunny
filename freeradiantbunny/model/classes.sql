@@ -5,13 +5,13 @@ CREATE TABLE public.classes (
     img_url text,
     status text,
     sort text,
-    zachman_id integer,
-    subsystem_id integer,
+    subsystems_id integer,
+    zachmans_id integer,
     notes text,
     dev text,
     lookup text,
+    scrubber_flag boolean,
     increment_id_flag boolean,
-    scrubber_flag text,
     fk_constraints text,
     specialized_fields text
 );
@@ -22,7 +22,7 @@ ALTER TABLE ONLY public.classes
     ADD CONSTRAINT classes_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.classes
-    ADD CONSTRAINT classes_zachmans_id_fk FOREIGN KEY (zachman_id) REFERENCES public.zachmans(id);
+    ADD CONSTRAINT classes_subsystems_id_fk FOREIGN KEY (subsystems_id) REFERENCES public.subsystems(id);
 
 ALTER TABLE ONLY public.classes
-    ADD CONSTRAINT classes_subsystems_id_fk FOREIGN KEY (subsystem_id) REFERENCES public.subsytems(id);
+    ADD CONSTRAINT classes_zachmans_id_fk FOREIGN KEY (zachmans_id) REFERENCES public.zachmans(id);

@@ -29,8 +29,8 @@ function Classes() {
 		   'privileged_owner',
 		   'make_index_flag',
 		   'make_unique',
-		   'zachman_id',
-		   'subsystem_id',
+		   'zachmans_id',
+		   'subsystems_id',
 		   'dev',
 		   'lookup',
 		   'notes'];
@@ -44,7 +44,7 @@ function Classes() {
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            var orderBy = "ORDER BY a.sort DESC, a.subsystem_id, a.zachman_id, a.name";
+            var orderBy = "ORDER BY a.sort DESC, a.subsystems_id, a.zachmans_id, a.name";
             if (paramSort === "sort") {
                 orderBy = "ORDER BY a.sort DESC, a.name";
             } else if (paramSort === "id") {
@@ -52,20 +52,20 @@ function Classes() {
             } else if (paramSort === "name") {
                 orderBy = "ORDER BY a.name";
             } else if (paramSort === "status") {
-                orderBy = "ORDER BY a.status, a.subsystem_id, a.name";
-            } else if (paramSort === "subsystem_id") {
-                orderBy = "ORDER BY a.subsystem_id, a.name";
+                orderBy = "ORDER BY a.status, a.subsystems_id, a.name";
+            } else if (paramSort === "subsystems_id") {
+                orderBy = "ORDER BY a.subsystems_id, a.name";
             } else if (paramSort === "extends_class") {
                 orderBy = "ORDER BY b.id, a.name";
-            } else if (paramSort === "zachman_id") {
-                orderBy = "ORDER BY a.zachman_id";
+            } else if (paramSort === "zachmans_id") {
+                orderBy = "ORDER BY a.zachmans_id";
 	    } else if (paramSort === "lookup") {
 		orderBy = "ORDER BY a.lookup, a.name";
             }
             debug("classes orderBy =", orderBy);
             // many
 	    // temp
-            sql = "select a.status, a.sort, a.id, a.name, array(select concat('<a href=\"../subsystems/', s.id, '\" style=\"text-decoration: none;\">', s.name, '</a>') from subsystems s where a.subsystem_id = s.id) as subsystem, array(select concat('<a href=\"../zachmans/', z.id, '\" style=\"text-decoration: none;\">', z.name, '</a>') from zachmans z where a.zachman_id = z.id) as zachman, a.dev, a.fk_constraints from classes a " + orderBy;
+            sql = "select a.status, a.sort, a.id, a.name, array(select concat('<a href=\"../subsystems/', s.id, '\" style=\"text-decoration: none;\">', s.name, '</a>') from subsystems s where a.subsystems_id = s.id) as subsystem, array(select concat('<a href=\"../zachmans/', z.id, '\" style=\"text-decoration: none;\">', z.name, '</a>') from zachmans z where a.zachmans_id = z.id) as zachman, a.dev, a.fk_constraints from classes a " + orderBy;
         }
         return sql;
     };

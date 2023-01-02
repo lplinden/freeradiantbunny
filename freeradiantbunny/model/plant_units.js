@@ -19,8 +19,8 @@ function PlantUnits() {
     debug("plant_units instantiated", instanceCount);
     this.name = "plant_units";
     this.schema = ['id',
-		   'plant_id',
-		   'unit_id'];
+		   'plants_id',
+		   'units_id'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_units idOrNoId =", idOrNoId);
 	debug("plant_units classNameFilter =", classNameFilter);
@@ -33,7 +33,7 @@ function PlantUnits() {
         } else {
             var orderBy = "ORDER BY z.id";
             debug("plant_units orderBy =", orderBy);
-	    sql = "select z.id, z.plant_id, z.unit_id from plant_units z " + orderBy + ";";
+	    sql = "select z.id, z.plants_id, z.units_id from plant_units z " + orderBy + ";";
         }
         return sql;
     };

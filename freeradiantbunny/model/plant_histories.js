@@ -17,7 +17,7 @@ function PlantHistories() {
     debug("plant_histories instantiated", instanceCount);
     this.name = "plant_histories";
     this.schema = ['id',
-		   'plant_list_plant_id',
+		   'plant_list_plants_id',
 		   'seed_packet_id'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("plant_histories idOrNoId =", idOrNoId);
@@ -40,11 +40,11 @@ function PlantHistories() {
 	    } else if (classNameFilter == "plant_lists") {
 		var orderBy = "ORDER BY p.name, ph.id";
 		// backup
-		sql = "select ph.id, ph.plant_list_plant_id, p.name as plant_name, v.name, array(select count(sp.id) from seed_packets sp, plant_histories ph2 where sp.id = ph2.seed_packet_id AND ph2.id = ph.id) as seed_packet_id from plant_histories ph, plant_lists pl, plant_list_plants plp, plants p, varieties v, seed_packets sp WHERE v.id = sp.variety_id AND sp.id = ph.seed_packet_id AND p.id = plp.plant_id AND ph.plant_list_plant_id = plp.id AND plp.plant_list_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
-		// add full details of seed_packet_id
-		sql = "select ph.id, ph.plant_list_plant_id, p.name as plant_name, v.name, array(select concat('sp_id=', sp.id, ', variety_id=', sp.variety_id, ',supplier=', su.name, ', contents=', sp.contents, ', sow_instructinos=', sp.sow_instructions, ', days_to_maturity=', sp.days_to_maturity) from seed_packets sp, plant_histories ph2, suppliers su where sp.supplier_id = su.id AND sp.id = ph2.seed_packet_id AND ph2.id = ph.id) as seed_packet_details from plant_histories ph, plant_lists pl, plant_list_plants plp, plants p, varieties v, seed_packets sp WHERE v.id = sp.variety_id AND sp.id = ph.seed_packet_id AND p.id = plp.plant_id AND ph.plant_list_plant_id = plp.id AND plp.plant_list_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
+		sql = "select ph.id, ph.plant_list_plants_id, p.name as plant_name, v.name, array(select count(sp.id) from seed_packets sp, plant_histories ph2 where sp.id = ph2.seed_packets_id AND ph2.id = ph.id) as seed_packets_id from plant_histories ph, plant_lists pl, plant_list_plants plp, plants p, varieties v, seed_packets sp WHERE v.id = sp.varieties_id AND sp.id = ph.seed_packets_id AND p.id = plp.plants_id AND ph.plant_list_plants_id = plp.id AND plp.plant_lists_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
+		// add full details of seed_packets_id
+		sql = "select ph.id, ph.plant_list_plants_id, p.name as plant_name, v.name, array(select concat('sp_id=', sp.id, ', varieties_id=', sp.varieties_id, ',supplier=', su.name, ', contents=', sp.contents, ', sow_instructinos=', sp.sow_instructions, ', days_to_maturity=', sp.days_to_maturity) from seed_packets sp, plant_histories ph2, suppliers su where sp.suppliers_id = su.id AND sp.id = ph2.seed_packets_id AND ph2.id = ph.id) as seed_packet_details from plant_histories ph, plant_lists pl, plant_list_plants plp, plants p, varieties v, seed_packets sp WHERE v.id = sp.varieties_id AND sp.id = ph.seed_packets_id AND p.id = plp.plants_id AND ph.plant_list_plants_id = plp.id AND plp.plant_lists_id = pl.id AND pl.id = " + idOrNoId + " " + orderBy + ";";
 	    } else {
-		sql = "select u.id, u.plant_list_plant_id, u.seed_packet_id from plant_histories u where u.id = " + idOrNoId + ";";
+		sql = "select u.id, u.plant_list_plants_id, u.seed_packets_id from plant_histories u where u.id = " + idOrNoId + ";";
 	    }
         } else {
             var orderBy = "ORDER BY u.id";
@@ -62,7 +62,7 @@ function PlantHistories() {
 	    //var orderBy = "ORDER BY u.plant_list_plant_id, u.seed_packet_id, u.id";
             //sql = "select u.id, u.plant_list_plant_id, u.seed_packet_id, count(pe.id) as plant_events_count from plant_histories u LEFT JOIN plant_events pe on pe.plant_history_id = u.id GROUP BY u.id " + orderBy + ";";
 	    var orderBy = "ORDER BY u.id";
-            sql = "select u.id, u.plant_list_plant_id, u.seed_packet_id from plant_histories u " + orderBy + ";";
+            sql = "select u.id, u.plant_list_plants_id, u.seed_packets_id from plant_histories u " + orderBy + ";";
         }
         return sql;
     };
