@@ -22,12 +22,10 @@ function Processes() {
 		   'img_url',
 		   'status',
 		   'sort',
-		   'publish',
 		   'priority',
 		   'time_rules',
 		   'responsibility',
 		   'yield',
-		   'publish',
 		   'business_plan_texts_id'];
     this.inboundForeignKeyTables = ['scene_elements'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
@@ -45,16 +43,16 @@ function Processes() {
 		    //var orderBy ="ORDER BY pr.priority, pr.sort DESC, pr.name";
 		    // id refers to project_id
 		    // bug in the sql below the ../../ assumes the classNameFilter context (make more dynamic)
-		    //sql = "select pr.priority, pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, array(select concat('<a href=\"../../scene_elements/processes/', pr.id , '\">', count(se.id), '</a>') from scene_elements se where pr.id = se.process_id AND bpt.id = pr.business_plan_texts_id AND se.publish = 'true') as scene_elements_count from processes pr, business_plan_texts bpt, goal_statements gs where bpt.id = pr.business_plan_texts_id AND bpt.goal_statement_id = gs.id AND gs.project_id = " + idOrNoId + " and pr.publish = 'true' " + orderBy + ";";
+		    //sql = "select pr.priority, pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, array(select concat('<a href=\"../../scene_elements/processes/', pr.id , '\">', count(se.id), '</a>') from scene_elements se where pr.id = se.process_id AND bpt.id = pr.business_plan_texts_id) as scene_elements_count from processes pr, business_plan_texts bpt, goal_statements gs where bpt.id = pr.business_plan_texts_id AND bpt.goal_statement_id = gs.id AND gs.project_id = " + idOrNoId + " " + orderBy + ";";
 		//} else {
 		    // id refers to process_id
 		    // bug in the sql below the ../../ assumes the classNameFilter context (make more dynamic)
-		    //sql = "select pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, array(select concat('<a href=\"../../scene_elements/processes/', pr.id , '\">', count(se.id), '</a>') from scene_elements se where pr.id = se.process_id AND bpt.id = pr.business_plan_texts_id AND bpt.id = " + idOrNoId + " AND se.publish = 'true') as scene_elements_count from processes pr, business_plan_texts bpt  where bpt.id = pr.business_plan_texts_id AND bpt.id = " + idOrNoId + " and pr.publish = 'true'";
+		    //sql = "select pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, array(select concat('<a href=\"../../scene_elements/processes/', pr.id , '\">', count(se.id), '</a>') from scene_elements se where pr.id = se.process_id AND bpt.id = pr.business_plan_texts_id AND bpt.id = " + idOrNoId + ") as scene_elements_count from processes pr, business_plan_texts bpt  where bpt.id = pr.business_plan_texts_id AND bpt.id = " + idOrNoId + ";";
 		//}
 	    //} else {
 
 		// refactor
-		//sql = "select array(select concat('<a href=\"../business_plan_texts/', bpt.id, '\">', bpt.name, '</a>') from business_plan_texts bpt where bpt.id = pr.business_plan_texts_id) as business_plan_texts_id, pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, pr.description, array(select concat('<br /><a href=\"../scene_elements/', se.id, '\">', se.name, '</a>') from scene_elements se, processes pr where pr.id = se.process_id AND pr.id = " + idOrNoId + " AND pr.publish = 'true') as scene_elements from processes pr where pr.id = " + idOrNoId + " and pr.publish = 'true';";
+		//sql = "select array(select concat('<a href=\"../business_plan_texts/', bpt.id, '\">', bpt.name, '</a>') from business_plan_texts bpt where bpt.id = pr.business_plan_texts_id) as business_plan_texts_id, pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, pr.description, array(select concat('<br /><a href=\"../scene_elements/', se.id, '\">', se.name, '</a>') from scene_elements se, processes pr where pr.id = se.process_id AND pr.id = " + idOrNoId + ") as scene_elements from processes pr where pr.id = " + idOrNoId + ";";
 	    //}
 	} else {
 	    // old way (standard way. what you would expect)
@@ -62,7 +60,7 @@ function Processes() {
 	    // new way this allows user to specify using table field priority
 	    var orderBy ="ORDER BY z.priority";
 	    debug("processes orderBy =", orderBy);
-	    sql = "select z.priority, z.status, z.sort, array(select gs.name from goal_statements gs, business_plan_texts bpt where gs.id = bpt.goal_statement_id AND bpt.id = z.business_plan_texts_id) as goal_statements, array(select bpt.name from business_plan_texts bpt where bpt.id = z.business_plan_texts_id) as business_plan_texts, z.id, z.img_url as image, z.name, array(select concat('<a href=\"../scene_elements/processes/', z.id , '\">', count(se.id), '</a>') from scene_elements se where se.process_id = z.id AND z.publish = 'true') as se_count from processes z where z.publish ='true' " + orderBy + ";";
+	    sql = "select z.priority, z.status, z.sort, array(select gs.name from goal_statements gs, business_plan_texts bpt where gs.id = bpt.goal_statement_id AND bpt.id = z.business_plan_texts_id) as goal_statements, array(select bpt.name from business_plan_texts bpt where bpt.id = z.business_plan_texts_id) as business_plan_texts, z.id, z.img_url as image, z.name, array(select concat('<a href=\"../scene_elements/processes/', z.id , '\">', count(se.id), '</a>') from scene_elements se where se.process_id = z.id) as se_count from processes z " + orderBy + ";";
 	}
 	return sql;
     };

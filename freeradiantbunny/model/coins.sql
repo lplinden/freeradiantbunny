@@ -14,7 +14,7 @@ CREATE TABLE public.coins (
     img_url text,
     status text,
     sort text,
-    ticker text NOT NULL,
+    symbol character varying(10) NOT NULL,
     volume text,
     watch text,
     stablecoin text,
@@ -42,5 +42,5 @@ ALTER TABLE public.coins OWNER TO freerad2_special;
 ALTER TABLE ONLY public.coins
     ADD CONSTRAINT coins_pk PRIMARY KEY (id);
 
-ALTER TABLE ONLY public.coins ADD CONSTRAINT coins_ticker_unique
-UNIQUE (ticker);
+ALTER TABLE ONLY public.coins
+    ADD CONSTRAINT coins_symbol_unique UNIQUE (symbol);

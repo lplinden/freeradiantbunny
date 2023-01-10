@@ -15,7 +15,6 @@ CREATE TABLE public.business_plan_texts (
     status text,
     sort text,
     goal_statements_id integer,
-    publish text,
     order_by text
 );
 

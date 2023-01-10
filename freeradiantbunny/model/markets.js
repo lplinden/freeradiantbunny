@@ -14,6 +14,9 @@ function Markets() {
     instanceCount = instanceCount + 1;
     debug("markets instantiated", instanceCount);
     this.name = "markets";
+    this.schema = ['id',
+		  'name'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
         debug("markets idOrNoId =", idOrNoId);	
         debug("markets classNameFilter =", classNameFilter);

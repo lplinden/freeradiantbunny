@@ -18,6 +18,7 @@ function Varieties() {
     this.name = "varieties";
     this.schema = [
 ];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("varieties idOrNoId =", idOrNoId);
         debug("varieties classNameFilter =", classNameFilter);

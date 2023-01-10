@@ -9,8 +9,8 @@ ALTER SEQUENCE public.permaculture_topic_tags_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.permaculture_topic_tags (
     id integer DEFAULT nextval('public.permaculture_topic_tags_id_seq'::regclass) NOT NULL,
-    permaculture_topic_id integer,
-    tag_id integer
+    permaculture_topics_id integer,
+    tags_id integer
 );
 
 ALTER TABLE public.permaculture_topic_tags OWNER TO freerad2_special;
@@ -19,7 +19,7 @@ ALTER TABLE ONLY public.permaculture_topic_tags
     ADD CONSTRAINT permaculture_topic_tags_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.permaculture_topic_tags
-    ADD CONSTRAINT permaculture_topic_tags_permaculture_topic_id_fk FOREIGN KEY (permaculture_topic_id) REFERENCES public.permaculture_topics(id);
+    ADD CONSTRAINT permaculture_topic_tags_permaculture_topics_id_fk FOREIGN KEY (permaculture_topics_id) REFERENCES public.permaculture_topics(id);
 
 ALTER TABLE ONLY public.permaculture_topic_tags
-    ADD CONSTRAINT permaculture_topic_tags_tag_id_fk FOREIGN KEY (tag_id) REFERENCES public.tags(id);
+    ADD CONSTRAINT permaculture_topic_tags_tags_id_fk FOREIGN KEY (tags_id) REFERENCES public.tags(id);

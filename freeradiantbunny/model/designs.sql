@@ -14,8 +14,7 @@ CREATE TABLE public.designs (
     img_url text,
     status text,
     sort text,
-    domain_tli character varying(3) NOT NULL,
-    publish text
+    domain_tli character varying(3) NOT NULL
 );
 
 ALTER TABLE public.designs OWNER TO freerad2_special;

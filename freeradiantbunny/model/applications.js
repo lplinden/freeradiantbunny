@@ -25,6 +25,7 @@ function Applications() {
 		   'url',
 		   'source_code_url',
 		   'documentation_url'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("applications idOrNoId =", idOrNoId);
 	debug("applications classNameFilter =", classNameFilter);

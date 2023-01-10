@@ -23,6 +23,7 @@ function Yields() {
 		   'source',
 		   'denominator_unit2_id',
 		   'range'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("yields idOrNoId =", idOrNoId);
 	debug("yields classNameFilter =", classNameFilter);

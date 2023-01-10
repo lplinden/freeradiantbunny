@@ -22,6 +22,7 @@ function Columns() {
 		   'img_url',
 		   'status',
 		   'sort'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("columns idOrNoId =", idOrNoId);
 	debug("columns classNameFilter =", classNameFilter);

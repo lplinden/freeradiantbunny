@@ -19,6 +19,7 @@ function PlantAliases() {
     this.schema = ['id',
 		   'plants_id',
 		   'name'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_aliases idOrNoId =", idOrNoId);
 	debug("plant_aliases classNameFilter =", classNameFilter);

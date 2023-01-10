@@ -15,7 +15,6 @@ CREATE TABLE public.scene_elements (
     status text,
     sort text,
     processes_id integer,
-    accounts_id integer,
     database_string text,
     class_name_string text,
     class_primary_key_string text,
@@ -30,8 +29,5 @@ ALTER TABLE ONLY public.scene_elements
 
 ALTER TABLE ONLY public.scene_elements
     ADD CONSTRAINT scene_elements_processes_id_fk FOREIGN KEY (processes_id) REFERENCES public.processes(id);
-
-ALTER TABLE ONLY public.scene_elements
-    ADD CONSTRAINT scene_elements_accounts_id_fk FOREIGN KEY (accounts_id) REFERENCES public.accounts(id);
 
 CREATE INDEX scene_elements_index_id ON public.scene_elements USING btree (id);

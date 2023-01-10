@@ -1,6 +1,6 @@
 /**
  * Module Tenperdays.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,23 +9,31 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Tenperdays() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("tenperdays instantiated", instanceCount);
     this.name = "tenperdays";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("tenperdays idOrNoId =", idOrNoId);
 	debug("tenperdays classNameFilter =", classNameFilter);
         debug("tenperdays paramSort =", paramSort);
         debug("tenperdays specialFlag =", specialFlag);
         debug("tenperdays queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-            sql = "select z.id, z.sort, z.count from tenperdays z WHERE z.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            orderBy = "ORDER BY z.sort DESC";
+            var orderBy = "ORDER BY z.sort DESC";
             debug("tenperdays orderBy =", orderBy);
 	    // used for testing
 	    //var today = '2020-12-31';

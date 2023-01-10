@@ -22,6 +22,7 @@ function PlantLists() {
 		   'img_url',
 		   'status',
 		   'sort'];    
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("plant_lists idOrNoId =", idOrNoId);
 	debug("plant_lists classNameFilter =", classNameFilter);

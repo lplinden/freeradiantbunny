@@ -16,6 +16,7 @@ function PlantFamilies() {
     this.name = "plant_families";
     this.schema = ['id',
 		   'name'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
         debug("plant_families idOrNoId =", idOrNoId);
 	debug("plant_families classNameFilter =", classNameFilter);

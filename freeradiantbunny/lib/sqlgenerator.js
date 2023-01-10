@@ -30,17 +30,12 @@ function Sqlgenerator() {
 	    var prefixedColumn = tablePrefix + "." + columnName;
 	    var lastThreeChars = columnName.slice(-3);
 	    var lastFourChars = columnName.slice(-4);
-	    if (lastThreeChars == "_id") {
+	    var lastSevenChars = columnName.slice(-7);
+	    if (lastThreeChars == "_id" ||
+		lastFourChars == "_tli" ||
+		lastSevenChars == "_symbol") {
 		// make fk_contraints into hyperlinks
-		var hyperlinkSql = this.getHyperlinkSql(fkTableName, prefixedColumn);
-		columnNames += hyperlinkSql;
-		columnNames += " as ";
-		columnNames += columnName;
-		// older version
-		//columnNames += tablePrefix + "." + columnKeys[i];
-	    } else if (lastFourChars == "_tli") {
-		// make fk_contraints into hyperlinks
-		var hyperlinkSql = this.getHyperlinkSql(fkTableName, prefixedColumn);
+		var hyperlinkSql = this.getHyperlinkSql(fkTableName, prefixedColumn, tablePrefix, columnName);
 		columnNames += hyperlinkSql;
 		columnNames += " as ";
 		columnNames += columnName;
@@ -62,20 +57,30 @@ function Sqlgenerator() {
 		var suffix;
 		if (inboundFkTableName == "webpages" && tableName == "domains") {
 		    suffix = "tli";
+		} else if (inboundFkTableName == "coin_indicators" && tableName == "coins") {
+		    suffix = "symbol";
 		} else {
 		    suffix = "id";
 		}
 		// make boolean a string (so that "false" does not appear"
 		var paramUpkIsValidString = "";
 		if (paramUpkIsValid) {
-		    paramUpkIsValidString = paramUpkIsValid;
+		    paramUpkIsValidString = "?" + paramUpkIsValid;
 		} else {
 		    paramUpkIsValidString = "";
 		}
-		var subquery = "array(select concat('<a href=\"../" + inboundFkTableName + "/', fk.id, '?" + paramUpkIsValidString + "\">', fk.name, '</a>') from " + inboundFkTableName + " fk where fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + ")";
+		var subquery = "array(SELECT CONCAT('<a href=\"../" + inboundFkTableName + "/', fk.id, '" + paramUpkIsValidString + "\">', fk.name, '</a>') FROM " + inboundFkTableName + " fk WHERE fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + " ORDER BY fk.name)";
 		columnNames += subquery + " as " + "\"associated " + inboundFkTableName + "\"";
 	    }
 	}
+	// add column to query if this table is scene_elements with a polymorphic object
+	// on hold need to replace the template below with the polymorphic object
+	// use columns: class_name_string class_primary_key_string
+	//	if (tableName eq "scene_elements") {
+//	    var subquery = "array(SELECT CONCAT('<a href=\"../" + inboundFkTableName + "/', fk.id, '" + paramUpkIsValidString + "\">', fk.name, '</a>') FROM " + inboundFkTableName + " fk WHERE fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + " ORDER BY fk.name)";//
+//	    columnNames += subquery + " as " + "\"polymorphic " + inboundFkTableName + "\"";
+//	}
+	// ok heavy ho send it forward in to the cyberspaces
 	return columnNames;
     };
     this.getTableNameFromFKConstraint = function (columnName) {
@@ -102,7 +107,7 @@ function Sqlgenerator() {
 	}
 	return foreignTableName;
     };
-    this.getHyperlinkSql = function (fkTableName, prefixedColumn) {
+    this.getHyperlinkSql = function (fkTableName, prefixedColumn, tablePrefix, columnName) {
 	var hyperlinkSql= "";
 	hyperlinkSql += "concat('<a href=\"../";
 	hyperlinkSql += fkTableName;
@@ -112,7 +117,12 @@ function Sqlgenerator() {
 	hyperlinkSql += fkTableName;
 	hyperlinkSql += "/', ";
 	hyperlinkSql += prefixedColumn;
-	hyperlinkSql += ", '</a>')";
+	hyperlinkSql += ", '</a>'";
+	// add name of object
+	//  not working so place on hold
+	//hyperlinkSql += ", array(select fkt.name from fkTableName fkt where fkt.id = " + tablePrefix + "." + columnName + ")";
+	// complete
+	hyperlinkSql += ")";
 	return hyperlinkSql;
     };
 }

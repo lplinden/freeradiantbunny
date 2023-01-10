@@ -1,6 +1,6 @@
 /**
  * Module designs.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,23 +9,31 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Designs() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("designs instantiated", instanceCount);
     this.name = "designs";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.name = "goal_statements";
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort',
+		   'domains_tli'];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("designs classNameFilter =", classNameFilter);
         debug("designs paramSort =", paramSort);
         debug("designs specialFlag =", specialFlag);
 	debug("designs queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-            var id = idOrNoId;
-            sql = "select a.id, a.name, a.status, a.sort, a.img_url, a.description from designs a where a.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            orderBy = "ORDER BY a.sort DESC, a.name";
+            var orderBy = "ORDER BY a.sort DESC, a.name";
             if (paramSort === "sort") {
                 orderBy = "ORDER BY a.sort DESC, a.name";
             } else if (paramSort === "id") {

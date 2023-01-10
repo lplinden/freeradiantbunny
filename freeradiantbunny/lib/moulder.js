@@ -62,6 +62,10 @@ function Moulder() {
         } else if (columnName === "id_url") {
             var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid);
             return this.getStyledData("", chardata, value, styles);
+	} else if (columnName === "last_updated") {
+	    styles = "white-space: nowrap;";
+	    return this.getStyledData("", value, value, styles);
+	    
         } else if (columnName.slice(0, 10) == "associated") {
             debug("moulder given className.slice(0, 11) =", columnName.slice(0, 11));
 	    debug("moulder given value ", value);
@@ -91,7 +95,35 @@ function Moulder() {
 	} else if (columnName === "ex_ct") {
 	    styles = "text-align: center;";
 	    return this.getStyledData("", value, value, styles);
-	    
+
+	} else if (columnName.slice(0,14) == "percent_change") {
+	    // columns from the coin_prices table
+	    if (value > 0) {
+		// determine shade of green
+		if (value > 20) {
+		    // 20% green (darker)
+		    styles += "text-align: right; background-color: #006600; color: yellow;";
+		} else if(value > 15) {
+		    // 40% green
+		    styles += "text-align: right; background-color: #00CC00;";
+		} else if(value > 10) {
+		    // 50% green
+		    styles += "text-align: right; background-color: #00FF00;";
+		} else if(value > 5) {
+		    // 70% green
+		    styles += "text-align: right; background-color: #66FF66;";
+		} else {
+		    // 90% green (lighter)
+		    styles += "text-align: right; background-color: #CCFFCC;";
+		}
+	    } else if (value < 0) {
+		// light red
+		styles = "text-align: right; background-color: #ff9999;";
+	    } else {
+		// grey
+		styles = "text-align: right; background-color: #efefef;";
+	    }
+	    return this.getStyledData("", value, value, styles);
 	} else if (columnName === "sig_lvl" ||
 		   columnName === "recent" ||
 		   columnName === "recent_previous" ||
@@ -363,7 +395,9 @@ function Moulder() {
 		    }
 		}
 	    }
-		
+	} else if (columnName === "price") {
+	    styles = "text-align: right; font-size: 120%;";
+	    return this.getStyledData("", value, value, styles);
         } else if (columnName === "ath") {
 	    // ath stands for all-time high of a price
 	    if (className === "coins") {
@@ -478,6 +512,23 @@ function Moulder() {
 				chardata += "...";
 			    }
 			}
+		    }
+		} else if (className == "coin_indicators") {
+		    if (columnName === "measurement") {
+			if (value == 'UPTREND-MACD-XOVER-IS-DOWN-TO-UP') {
+			    styles = "background-color: green;";
+			} else if (value == 'DOWNTREND-MACD-XOVER-IS-UP-TO-DOWN') {
+			    styles = "background-color: orange;";
+			} else if (value == 'UPTREND-MACD-INDICATOR-MOMENTUM-UP') {
+			    styles = "background-color: #64AAaa;";
+			} else if (value == 'DOWNTREND-MACD-INDICATOR-MOMENTUM-DOWN') {
+			    styles = "background-color: #f6d499;";
+			} else if (value == 'UPTREND-EMA-12-ABOVE-EMA-26') {
+			    styles = "background-color: #64ddaa;";
+			} else if (value == 'DOWNTREND-EMA-12-BELOW-EMA-26') {
+			    styles = "background-color: #f6dd99;";
+			}
+			return this.getStyledData("", value, value, styles);
 		    }
 		}
 	    }
@@ -604,7 +655,8 @@ function Moulder() {
                 styles = "background-color: inherit;";
             }
             return this.getStyledData("", value, value, styles);
-        } else if (columnName === "sort") {
+	} else if (columnName === "sort") {
+	    
             var sortClass = "";
             var styles = this.getSortStyle(value);
             // sort data as hyperlink

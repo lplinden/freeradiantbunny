@@ -18,8 +18,7 @@ CREATE TABLE public.processes (
     priority text,
     time_rules text,
     responsibility text,
-    yield text,
-    publish text
+    yield text
 );
 
 ALTER TABLE public.processes OWNER TO freerad2_special;

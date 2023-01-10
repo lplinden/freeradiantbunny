@@ -20,6 +20,7 @@ function PlantAttributes() {
 		   'plants_id',
 		   'attribute_name',
 		   'attribute_value'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_attributes classNameFilter =", classNameFilter);
         debug("plant_attributes paramSort =", paramSort);

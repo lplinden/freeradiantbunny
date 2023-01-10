@@ -1,6 +1,6 @@
 /**
  * Module Addresses.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,23 +9,29 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Addresses() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("addresses instantiated", instanceCount);
     this.name = "addresses";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'address',
+		   'coin_id'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("addresses idOrNoId =",idOrNoId);
         debug("addresses classNameFilter =", classNameFilter);
         debug("addresses paramSort =", paramSort);
         debug("addresses specialFlag =", specialFlag);
         debug("addresses queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-            sql = "select z.id, z.name, z.address, z.coin_id, c.name as coin_name from addresses z, coins c WHERE z.id = " + idOrNoId + " AND z.coin_id = c.id;";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            orderBy = "order by a.coin_id, a.name";
+            var orderBy = "order by a.coin_id, a.name";
             debug("addresses orderBy =", orderBy);
 	    /**
 	    // many

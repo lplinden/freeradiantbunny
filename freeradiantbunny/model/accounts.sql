@@ -14,7 +14,6 @@ CREATE TABLE public.accounts (
     img_url text,
     status text,
     sort text,
-    publish text,
     flow text
 );
 

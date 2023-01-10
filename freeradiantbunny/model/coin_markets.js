@@ -1,6 +1,6 @@
 /**
  * Module CoinMarkets.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,23 +9,28 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function CoinMarkets() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("coins instantiated", instanceCount);
-    this.name = "coins";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.name = "coin_markets";
+    this.schema = ['id',
+		   'markets_id',
+		   'coins_symbol'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("coins idOrNoId =", idOrNoId);
         debug("coins classNameFilter =", classNameFilter);
         debug("coins paramSort =", paramSort);
         debug("coins specialFlag =", specialFlag);
         debug("coins queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-            sql = "select z.id, coin_id, market_id from coin_markets z WHERE z.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            orderBy = "ORDER BY z.id";
+            var orderBy = "ORDER BY z.id";
             if (paramSort === "coin_id") {
                 orderBy = "ORDER BY z.coin_id, z..id";
 	    }

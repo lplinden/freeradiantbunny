@@ -1,6 +1,6 @@
 /**
  * Module Suppliers.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,23 +9,39 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Suppliers() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("suppliers instantiated", instanceCount);
     this.name = "suppliers";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort',
+		   'city',
+		   'state',
+		   'url',
+		   'bioregion',
+		   'last_password_change',
+		  'username'];
+    this.inboundForeignKeyTables = [];    
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("suppliers idOrNoId =",idOrNoId);
         debug("suppliers classNameFilter =", classNameFilter);
         debug("suppliers paramSort =", paramSort);
         debug("suppliers specialFlag =", specialFlag);
         debug("suppliers queryTerms =", queryTerms);
         var sql;
-        var orderBy;
 	if (typeof idOrNoId !== 'undefined' && idOrNoId !== "") {
-	    sql = "select s.id, s.name, s.city , s.state, s.url, s.bioregion, s.sort, s.status, s.sort, s.description, s.img_url from suppliers s where s.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
+	    // refactor
+	    //sql = "select s.id, s.name, s.city , s.state, s.url, s.bioregion, s.sort, s.status, s.sort, s.description, s.img_url from suppliers s where s.id = " + idOrNoId + ";";
         } else {
-            orderBy = "ORDER BY u.sort DESC, u.name, u.id";
+            var orderBy = "ORDER BY u.sort DESC, u.name, u.id";
             debug("suppliers orderBy =", orderBy);
 	    // many
 	    // sql with seed_packets count

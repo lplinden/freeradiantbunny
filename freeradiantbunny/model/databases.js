@@ -1,6 +1,6 @@
 /**
  * Module Databases.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,25 +9,35 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Databases() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("databases instantiated", instanceCount);
     this.name = "databases";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'management_system',
+		   'date_last_backup',
+		   'schema_version'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("databases idOrNoId =", idOrNoId);
         debug("databases classNameFilter =", classNameFilter);
         debug("databases paramSort =", paramSort);
         debug("databases specialFlag =", specialFlag);
         debug("databases queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-	    orderBy = "order by z.id";
-	    debug("databases orderBy =", orderBy);
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
+	    // refactor
 	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name as name, z.description from databases z where z.id = cast('" + idOrNoId + "' as integer);";
         } else {
-            orderBy = "order by z.sort DESC, z.name, z.id";
+            var orderBy = "order by z.sort DESC, z.name, z.id";
             debug("databases orderBy =", orderBy);
             sql = "select z.status, z.sort, z.id, z.img_url as image, z.name as name, z.description from databases z " + orderBy;
         }

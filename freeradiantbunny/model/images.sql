@@ -14,7 +14,7 @@ CREATE TABLE public.images (
     img_url text,
     status text,
     sort text,
-    domain_tli character varying(3) NOT NULL,
+    domains_tli character varying(3) NOT NULL,
     caption text,
     photographer text,
     license text,
@@ -27,4 +27,4 @@ ALTER TABLE ONLY public.images
     ADD CONSTRAINT images_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.images
-    ADD CONSTRAINT images_domain_tli_fk FOREIGN KEY (domain_tli) REFERENCES public.domains(tli);
+    ADD CONSTRAINT images_domains_tli_fk FOREIGN KEY (domains_tli) REFERENCES public.domains(tli);

@@ -22,7 +22,6 @@ function Accounts() {
 		   'img_url',
 		   'status',
 		   'sort',
-		   'publish',
 		   'flow'];
     this.inboundForeignKeyTables = ['scene_elements'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
@@ -37,25 +36,25 @@ function Accounts() {
 	    //if (classNameFilter) {
   		//if (classNameFilter == "budgets") {
 		    //var orderBy = "ORDER BY a.sort DESC, a.name";
-		    //sql = "select a.status, a.sort, a.id, a.img_url as image, a.name, a.description, a.flow from accounts a, budget_accounts ba where ba.account_id = a.id AND ba.budget_id = " + idOrNoId + " and a.publish='true' " + orderBy + ";";
+		    //sql = "select a.status, a.sort, a.id, a.img_url as image, a.name, a.description, a.flow from accounts a, budget_accounts ba where ba.account_id = a.id AND ba.budget_id = " + idOrNoId + " " + orderBy + ";";
 		//} else {
 		    // has dropped fields
-		    //sql = "select a.status, a.sort, a.id, a.img_url, a.name, a.description, a.database_string, a.class_name_string as class_name_string, concat('<a href=\"../', a.class_name_string, '/', a.class_primary_key_string,'\">', a.class_primary_key_string, '</a>') as class_primary_key_string from accounts a where a.id = " + idOrNoId + " and a.publish = 'true';";
-		    //sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from accounts z where publish ='true';";
+		    //sql = "select a.status, a.sort, a.id, a.img_url, a.name, a.description, a.database_string, a.class_name_string as class_name_string, concat('<a href=\"../', a.class_name_string, '/', a.class_primary_key_string,'\">', a.class_primary_key_string, '</a>') as class_primary_key_string from accounts a where a.id = " + idOrNoId + ";";
+		    //sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from accounts z;";
 		//}
 	    //} else {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
 		// refactor
 		// has dropped fields
-		//sql = "select a.status, a.sort, a.id, a.img_url, a.name, a.description, a.database_string, a.class_name_string as class_name_string, concat('<a href=\"../', a.class_name_string, '/', a.class_primary_key_string,'\">', a.class_primary_key_string, '</a>') as class_primary_key_string from accounts a where a.id = " + idOrNoId + " and a.publish = 'true';";
-		//sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from accounts z where publish ='true';";
+		//sql = "select a.status, a.sort, a.id, a.img_url, a.name, a.description, a.database_string, a.class_name_string as class_name_string, concat('<a href=\"../', a.class_name_string, '/', a.class_primary_key_string,'\">', a.class_primary_key_string, '</a>') as class_primary_key_string from accounts a where a.id = " + idOrNoId + ";";
+		//sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from accounts z;";
 	    //}
 	} else {
 	    var orderBy ="ORDER BY z.img_url, z.flow, z.id";
 	    debug("accounts orderBy =", orderBy);
 	    // this has a special field to keep things on another level of private
 	    // data is in the database but given if the field is null then it cannot be selected
-	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.flow from accounts z where publish ='true' " + orderBy + ";";
+	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.flow from accounts z " + orderBy + ";";
 	}
 	return sql;
     };

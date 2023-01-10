@@ -21,6 +21,7 @@ function PlantUnits() {
     this.schema = ['id',
 		   'plants_id',
 		   'units_id'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_units idOrNoId =", idOrNoId);
 	debug("plant_units classNameFilter =", classNameFilter);

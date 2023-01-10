@@ -9,18 +9,17 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function PermacultureTopics() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("permacultureTopics instantiated", instanceCount);
-    this.name = "permaculture_topics";
+    this.name = "permaculture_topic_tags";
     this.schema = ['id',
-		   'name',
-		   'description',
-		   'img_url',
-		   'status',
-		   'sort'];
-    this.inboundForeignKeyTables = ['permaculture_topic_tags'];
+		   'permaculture_topic_id',
+		   'tag_id'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("permaculture_topics idOrNoId =", idOrNoId);
 	debug("permaculture_topics classNameFilter =", classNameFilter);
@@ -31,7 +30,7 @@ function PermacultureTopics() {
         if (idOrNoId) {
 		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables,  paramUpkIsValid);
 	    // refactor
-            //sql = "select z.id, z.img_url as img, z.name, z.description, concat('<a href=\"../hyperlinks/permaculture_topics/', z.id, '\">', count(b.id), '</a>') as hyperlinkscount from permaculture_topics z LEFT JOIN (SELECT b.id, b.permaculture_topic_id FROM hyperlink_permaculture_topics b) b ON (z.id = b.permaculture_topic_id) WHERE z.id = " + idOrNoId + " GROUP BY z.id;";
+            // sql = "select z.id, z.img_url as img, z.name, z.description, concat('<a href=\"../hyperlinks/permaculture_topics/', z.id, '\">', count(b.id), '</a>') as hyperlinkscount from permaculture_topics z LEFT JOIN (SELECT b.id, b.permaculture_topic_id FROM hyperlink_permaculture_topics b) b ON (z.id = b.permaculture_topic_id) WHERE z.id = " + idOrNoId + " GROUP BY z.id;";
         } else {
             var orderBy = "ORDER BY z.id";
             debug("permaculture_topics orderBy =", orderBy);
