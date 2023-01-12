@@ -21,7 +21,8 @@ CREATE TABLE public.coin_prices (
     percent_change_7d numeric(7,3),
     volume_change_24h numeric(7,3),
     cmc_rank integer,
-    name text
+    name text,
+    baseline text
 );
 
 ALTER TABLE public.coin_prices OWNER TO freerad2_special;

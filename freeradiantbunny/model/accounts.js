@@ -23,7 +23,7 @@ function Accounts() {
 		   'status',
 		   'sort',
 		   'flow'];
-    this.inboundForeignKeyTables = ['scene_elements'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("accounts idOrNoId =", idOrNoId);
 	debug("accounts classNameFilter =", classNameFilter);
