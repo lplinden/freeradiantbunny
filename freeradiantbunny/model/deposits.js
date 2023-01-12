@@ -1,6 +1,6 @@
 /**
  * Module Deposits.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,26 +9,35 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Deposits() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("deposits instantiated", instanceCount);
     this.name = "deposits";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'coins_symbol',
+		   'delegations_id',
+		   'name',
+		   'amount',
+		   'tx_hash',
+		   'tx_fee',
+		   'scan_url'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("deposits idOrNoId =", idOrNoId);
 	debug("deposits classNameFilter =", classNameFilter);
         debug("deposits paramSort =", paramSort);
         debug("deposits specialFlag =", specialFlag);
         debug("deposits queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-	    // simple sql
-            sql = "select z.id, z.delegation_id, z.coin_id, z.amount, z.tx_hash, z.tx_fee, z.scan_url from deposits z where z.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            orderBy = "ORDER BY z.id";
+            var orderBy = "ORDER BY z.id";
             debug("deposits orderBy =", orderBy);
-	    sql = "select z.id, z.delegation_id, z.coin_id, z.amount, concat('<a href=\"', z.scan_url, z.tx_hash, '\">', z.tx_hash, '</a>'), z.tx_fee from deposits z " + orderBy + ";";
+	    sql = "select z.id, z.delegations_id, z.coins_symbol, z.amount, concat('<a href=\"', z.scan_url, z.tx_hash, '\">', z.tx_hash, '</a>'), z.tx_fee from deposits z " + orderBy + ";";
         }
         return sql;
     };

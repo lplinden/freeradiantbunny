@@ -25,7 +25,7 @@ function BusinessPlanTexts() {
 		   'order_by',
 		   'goal_statements_id'];
     this.inboundForeignKeyTables = ['processes'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFitler, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("business_plan_texts idOrNoId =", idOrNoId);
 	debug("business_plan_texts classNameFilter =", classNameFilter);	
 	debug("business_plan_texts paramSort =", paramSort);

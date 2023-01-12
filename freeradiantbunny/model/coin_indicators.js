@@ -21,7 +21,7 @@ function Coin_Indicators() {
 		   'last_updated',
 		   'measurement'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("coin_indicators idOrNoId =", idOrNoId);
         debug("coin_indicators classNameFilter =", classNameFilter);
         debug("coin_indicators paramSort =", paramSort);

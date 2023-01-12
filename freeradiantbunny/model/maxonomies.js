@@ -27,7 +27,7 @@ function Maxonomies() {
 		   'ocm',
 		   'order_by'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("maxonomies idOrNoId =", idOrNoId);
 	debug("maxonomies classNameFilter =", classNameFilter);
         debug("maxonomies paramSort =", paramSort);

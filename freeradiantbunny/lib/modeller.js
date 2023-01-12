@@ -18,12 +18,14 @@ function Modeller() {
     instanceCount = instanceCount + 1;
     debug("modeller instantiated", instanceCount);
     // used by controller
-    this.getDataSetPromise = function (className, classNameFilter, id, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getDataSetPromise = function (className, classNameFilter, id, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("modeller getDataSetPromise()");
         debug("modeller className =", className);
         debug("modeller classNameFilter =", classNameFilter);
         debug("modeller id =", id);
-        debug("modeller specialFlag =", specialFlag);
+        debug("modeller paramSort =", paramSort);
+	debug("modeller paramFilter =", paramFilter);
+	debug("modeller specialFlag =", specialFlag);
         debug("modeller queryTerms =", queryTerms);
         // get baseUrl
         var freeradiantbunny = require("freeradiantbunny");
@@ -37,10 +39,13 @@ function Modeller() {
             // send id to indicate only a single row
             idOrNoId = id;
         }
-        // deai with sort
+        // deal with sort
         if (paramSort) {
-            // send id to indicate only a single row
             debug(className + " paramSort =", paramSort);
+        }
+	// deal with filter
+        if (paramFilter) {
+            debug(className + " paramFilter =", paramFilter);
         }
         // menu
         var currentMenuSelections = [];
@@ -49,7 +54,7 @@ function Modeller() {
         currentMenuSelections.sort = paramSort;
         // solve for sql
         try {
-            var sql = sqlmaker.getSql(idOrNoId, paramSort, paramUpkIsValid, className, classNameFilter, specialFlag, queryTerms);
+            var sql = sqlmaker.getSql(idOrNoId, paramSort, paramFilter, paramUpkIsValid, className, classNameFilter, specialFlag, queryTerms);
             // returns a promise of a dataSet
             return database.queryDatabase(sql, className, baseUrl, currentMenuSelections, suitcase);
         } catch (error) {

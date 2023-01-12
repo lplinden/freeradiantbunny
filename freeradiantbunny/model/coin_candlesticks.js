@@ -27,7 +27,7 @@ function Coin_Candlesticks() {
 		   'volume',
 		   'name'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("coin_candlesticks idOrNoId =", idOrNoId);
         debug("coin_candlesticks classNameFilter =", classNameFilter);
         debug("coin_candlesticks paramSort =", paramSort);

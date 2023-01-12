@@ -23,7 +23,7 @@ function Zachmans() {
 		   'status',
 		   'sort'];
     this.inboundForeignKeyTables = ['classes'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("zachmans idOrNoId =", idOrNoId);
 	debug("zachmans classNameFilter =", classNameFilter);	
         debug("zachmans paramSort =", paramSort);

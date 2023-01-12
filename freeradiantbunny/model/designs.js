@@ -16,7 +16,6 @@ function Designs() {
     instanceCount = instanceCount + 1;
     debug("designs instantiated", instanceCount);
     this.name = "designs";
-    this.name = "goal_statements";
     this.schema = ['id',
 		   'name',
 		   'description',
@@ -24,7 +23,7 @@ function Designs() {
 		   'status',
 		   'sort',
 		   'domains_tli'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("designs classNameFilter =", classNameFilter);
         debug("designs paramSort =", paramSort);
         debug("designs specialFlag =", specialFlag);

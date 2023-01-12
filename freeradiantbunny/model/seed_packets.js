@@ -29,7 +29,7 @@ function SeedPackets() {
 		   'varieties_id',
 		   'suppliers_id'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("seed_packets idOrNoId =", idOrNoId);
 	debug("seed_packets classNameFilter =", classNameFilter);
         debug("seed_packets paramSort =", paramSort);

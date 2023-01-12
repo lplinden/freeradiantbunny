@@ -23,7 +23,7 @@ function Tenperdays() {
 		   'status',
 		   'sort'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("tenperdays idOrNoId =", idOrNoId);
 	debug("tenperdays classNameFilter =", classNameFilter);
         debug("tenperdays paramSort =", paramSort);

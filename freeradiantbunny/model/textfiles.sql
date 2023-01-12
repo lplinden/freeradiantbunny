@@ -14,7 +14,7 @@ CREATE TABLE public.textfiles (
     img_url text,
     status text,
     sort text,
-    domain_tli character varying(3) NOT NULL,
+    domains_tli character varying(3) NOT NULL,
     path text
 );
 
@@ -24,4 +24,4 @@ ALTER TABLE ONLY public.textfiles
     ADD CONSTRAINT textfiles_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.textfiles
-    ADD CONSTRAINT textfiles_domain_tli_fk FOREIGN KEY (domain_tli) REFERENCES public.domains(tli);
+    ADD CONSTRAINT textfiles_domains_tli_fk FOREIGN KEY (domains_tli) REFERENCES public.domains(tli);

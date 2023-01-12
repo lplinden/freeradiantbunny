@@ -1,6 +1,6 @@
 /**
  * Module Rules.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,23 +9,27 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Rules() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("rules instantiated", instanceCount);
     this.name = "rules";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("rules idOrNoId =",idOrNoId);
         debug("rules classNameFilter =", classNameFilter);
         debug("rules paramSort =", paramSort);
         debug("rules specialFlag =", specialFlag);
         debug("rules queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-            sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.description, z.antecedent, z.consequent from rules z WHERE z.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            orderBy = "order by z.name, z.id";
+            var orderBy = "order by z.name, z.id";
             debug("rules orderBy =", orderBy);
 	    // many
             sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.description, z.antecedent, z.consequent from rules z " + orderBy + ";";

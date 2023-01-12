@@ -34,7 +34,7 @@ function Domains() {
 		   'ssl_cert',
 		   'username'];
     this.inboundForeignKeyTables = ['webpages'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("domains idOrNoId =", idOrNoId);
 	debug("domains classNameFilter =", classNameFilter);
         debug("domains paramSort =", paramSort);

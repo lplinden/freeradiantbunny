@@ -112,10 +112,13 @@ function Validator() {
 	    "seed_packets",
 	    "songs",
 	    "stacks",
+	    "stakes",
 	    "stages",
+	    "stylesheets",
 	    "subsystems",
 	    "suppliers",
 	    "tags",
+	    "textfiles",
 	    "timecards",
 	    "tools",
 	    "trade_tickets",
@@ -128,6 +131,7 @@ function Validator() {
 	    "varieties",
 	    "yields",
 	    "zachmans",
+	    "zipzaps"
 	];
         if (validClassNames.includes(userString)) {
             debug("validator found valid className =", userString);
@@ -151,6 +155,7 @@ function Validator() {
 	    "applications",
 	    "budgets",
 	    "business_plan_texts",
+	    "coin_prices",
 	    "databases",
 	    "datastores",
 	    "delegations",
@@ -178,13 +183,16 @@ function Validator() {
 	    "scene_elements",
 	    "searches",
 	    "songs",
+	    "stakes",
 	    "suppliers",
+	    "textfiles",
 	    "timecards",
 	    "tools",
 	    "trade_tickets",
 	    "trades",
 	    "transactions",
 	    "webpages",
+	    "zipzaps"
 	];
         if (blockedClassNames.includes(userString)) {
             debug("validator found blocked className =", userString);
@@ -283,7 +291,7 @@ function Validator() {
     };
     this.OFFLINE_is_tli = function (user_input) {
         // note variable name is set
-        variable_name = "tli";
+        var variable_name = "tli";
         // check if an tli (three letter identifier)
         // todo check from database
         if (strlen(user_input) == 3) {
@@ -299,7 +307,7 @@ function Validator() {
         return 0;
     };
     this.validateSort = function (userInput) {
-        markup = "";
+        var markup = "";
         var validSorts = [
             "id",
             "date",
@@ -341,8 +349,23 @@ function Validator() {
 
         return markup;
     };
+    this.validateFilter = function (userInput) {
+        var markup = "";
+        var validFilters = [
+            "USD",
+            "XRP"
+        ];
+        // if valid, returns null string
+        // set the valid values for sort
+        for (var i = 0; i < validFilters.length; i++) {
+            if (validFilters[i] == userInput) {
+                return validFilters[i];
+            }
+        }
+        return markup;
+    };
     this.validateCommand = function (userInput) {
-        markup = "";
+        var markup = "";
         var validCommands = [
             "edit",
             "add"
@@ -359,7 +382,7 @@ function Validator() {
         return markup;
     };
     this.validateView = function (userInput) {
-        markup = "";
+        var markup = "";
         var validViews = [
             "html",
             "stream",
@@ -376,7 +399,7 @@ function Validator() {
         return markup;
     };
     this.OFFLINE_validate_as_domain_tli = function (user_input, variable_name) {
-        markup = "";
+        var markup = "";
         length = strlen(user_input);
         if (length == 3) {
             // valid
@@ -400,7 +423,7 @@ function Validator() {
         return x;
     };
     this.outputError = function (message, debug = "") {
-        markup = "";
+        var markup = "";
         // todo note there is a duplicate of this function in databasedashboard
         // todo this function should probably be moved to /lib/errors.php
         if (debug != null && debug == "off") {
@@ -410,15 +433,15 @@ function Validator() {
         return markup;
     };
     this.OFFLINE_validate_form_field = function (given_parameter, given_validation_type = "") {
-        error_message = "";
+        var error_message = "";
         //print "debug validator validating " + given_validation_type + " " + _POST[given_parameter] + "<br />";
         // todo add validation code here
         if (given_validation_type == "") {
             // default is text
         } else if (given_validation_type == "date") {
             // string should be like this YYYY-MM-DD
-            pattern = '/^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]/';
-            match_count = preg_match(pattern, _POST[given_parameter], matches, PREG_OFFSET_CAPTURE);
+            var pattern = '/^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]/';
+            var match_count = preg_match(pattern, _POST[given_parameter], matches, PREG_OFFSET_CAPTURE);
             if (match_count == 0) {
                 error_message = "Not a valid date. Please, use this format: YYYY-MM-DD.";
             }
@@ -494,7 +517,7 @@ function Validator() {
         // this can be done by checking the parameters
         // note that the .htaccess file changes REST urls to url parameters
         // class_name
-        class_name = "";
+        var class_name = "";
         // did the user supply a class_name?
         if (isset(_GET['class_name'])) {
             // filter 1 
@@ -548,7 +571,7 @@ function Validator() {
             return "";
         }
         // request_url
-        request_uri = _SERVER['REQUEST_URI'];
+        var request_uri = _SERVER['REQUEST_URI'];
         // factory object
         include_once("factory.php");
         factory = new Factory(config);

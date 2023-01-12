@@ -28,7 +28,7 @@ function Images() {
 		   'quality',
 		   'domains_tli'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("images classNameFilter =", classNameFilter);
         debug("images paramSort =", paramSort);
 	debug("images specialFlag =", specialFlag);

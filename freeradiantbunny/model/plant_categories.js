@@ -23,7 +23,7 @@ function PlantCategories() {
 		   'status',
 		   'sort'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_categories idOrNoId =", idOrNoId);
 	debug("plant_categories classNameFilter =", classNameFilter);
         debug("plant_categories paramSort =", paramSort);

@@ -1,6 +1,6 @@
 /**
  * Module Indiegoals.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,23 +9,31 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Indiegoals() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("indiegoals instantiated", instanceCount);
     this.name = "indiegoals";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("indiegoals idOrNoId =",idOrNoId);
 	debug("indiegoals classNameFilter =", classNameFilter);
         debug("indiegoals paramSort =", paramSort);
 	debug("indiegoals specialFlag =", specialFlag);
         debug("indiegoals queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-            sql = "select a.status, a.sort, a.id, a.name, a.url from indiegoals a where a.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            orderBy = "ORDER BY a.status DESC, a.sort DESC, a.name, a.id";
+            var orderBy = "ORDER BY a.status DESC, a.sort DESC, a.name, a.id";
             if (paramSort === "id") {
                 orderBy = "ORDER BY a.id";
             } else if (paramSort === "name") {

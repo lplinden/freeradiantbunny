@@ -14,15 +14,15 @@ var instanceCount = 0;
 function Sqlmaker() {
     instanceCount = instanceCount + 1;
     debug("sqlmaker instantiated", instanceCount);
-    this.getSql = function (idOrNoId, paramSort, paramUpkIsValid, className, classNameFilter, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, paramSort, paramFilter, paramUpkIsValid, className, classNameFilter, specialFlag, queryTerms) {
         debug("sqlmaker idOrNoId =", idOrNoId);
         debug("sqlmaker paramSort =", paramSort);
+	debug("sqlmaker paramFilter =", paramFilter);
+	debug("sqlmaker paramUpkIsValid =", paramUpkIsValid);
         debug("sqlmaker className =", className);
         debug("sqlmaker classNameFilter =", classNameFilter);
         debug("sqlmaker specialFlag =", specialFlag);
         debug("sqlmaker queryTerms =", queryTerms);
-	// debug only
-	debug("sqlmaker paramUpkIsValid =", paramUpkIsValid);
         // get sql from model
         var path = require('path');
         var modelName = '../model/' + className + '.js';
@@ -35,7 +35,7 @@ function Sqlmaker() {
             var why = "sqlmaker unable able to find fileName = " + fileName + "; " + error;
             throw why;
         }
-        var sql = model.getSql(idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms);
+        var sql = model.getSql(idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms);
         debug("sqlmaker sql =", sql);
         return sql;
     };

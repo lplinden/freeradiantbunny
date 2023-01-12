@@ -1,6 +1,6 @@
 /**
  * Module Stylesheets.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,26 +9,36 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Stylesheets() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("stylesheets instantiated", instanceCount);
     this.name = "stylesheets";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort',
+		   'domains_url',
+		   'url'];    
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("stylesheets idOrNoId =", idOrNoId);
 	debug("stylesheets classNameFilter =", classNameFilter);
         debug("stylesheets paramSort =", paramSort);
         debug("stylesheets specialFlag =", specialFlag);
         debug("stylesheets queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
 	    // simple sql
-            sql = "select z.id, z.name from stylesheets z where z.id = " + idOrNoId + ";";
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            orderBy = "ORDER BY z.name, z.id";
+            var orderBy = "ORDER BY z.name, z.id";
             debug("stylesheets orderBy =", orderBy);
-	    sql = "select z.id, z.name from stylesheets z " + orderBy + ";";
+	    sql = "select z.status, z.sort, z.img_url as image, z.id, z.name, z.domains_tli, z.url from stylesheets z " + orderBy + ";";
         }
         return sql;
     };

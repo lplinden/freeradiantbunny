@@ -51,8 +51,8 @@ function Coins() {
 		   'acceleration_change_note',
 		   'symbol'];
     // todo fix below because the data would be too numerous, add code to count instead
-    this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.inboundForeignKeyTables = ['addresses'];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("coins idOrNoId =", idOrNoId);
         debug("coins classNameFilter =", classNameFilter);
         debug("coins paramSort =", paramSort);

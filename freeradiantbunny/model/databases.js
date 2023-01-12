@@ -25,7 +25,7 @@ function Databases() {
 		   'date_last_backup',
 		   'schema_version'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("databases idOrNoId =", idOrNoId);
         debug("databases classNameFilter =", classNameFilter);
         debug("databases paramSort =", paramSort);

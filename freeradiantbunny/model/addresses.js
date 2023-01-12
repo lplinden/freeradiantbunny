@@ -21,7 +21,7 @@ function Addresses() {
 		   'address',
 		   'coin_id'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("addresses idOrNoId =",idOrNoId);
         debug("addresses classNameFilter =", classNameFilter);
         debug("addresses paramSort =", paramSort);

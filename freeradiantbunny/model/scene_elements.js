@@ -28,7 +28,7 @@ function SceneElements() {
 		   'class_name_string',
 		   'class_primary_key_string'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("scene_elements idOrNoId =", idOrNoId);
 	debug("scene_elements classNameFilter =", classNameFilter);
 	debug("scene_elements paramSort =", paramSort);

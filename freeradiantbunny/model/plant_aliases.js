@@ -20,7 +20,7 @@ function PlantAliases() {
 		   'plants_id',
 		   'name'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("plant_aliases idOrNoId =", idOrNoId);
 	debug("plant_aliases classNameFilter =", classNameFilter);
         debug("plant_aliases paramSort =", paramSort);

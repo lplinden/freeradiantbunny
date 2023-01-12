@@ -24,7 +24,7 @@ function GoalStatements() {
 		   'sort',
 		   'projects_id'];
     this.inboundForeignKeyTables = ['business_plan_texts'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("goal_statements idOrNoId =", idOrNoId);
 	debug("goal_statements classNameFilter =", classNameFilter);
 	debug("goal_statements paramSort =", paramSort);

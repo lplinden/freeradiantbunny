@@ -20,7 +20,7 @@ function WebpageMaxonomies() {
 		   'webpages_id',
 		   'maxonomies_id'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("webpage_maxonomies idOrNoId =", idOrNoId);
 	debug("webpage_maxonomies classNameFilter =", classNameFilter);
         debug("webpage_maxonomies paramSort =", paramSort);

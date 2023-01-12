@@ -24,7 +24,7 @@ function Yields() {
 		   'denominator_unit2_id',
 		   'range'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("yields idOrNoId =", idOrNoId);
 	debug("yields classNameFilter =", classNameFilter);
         debug("yields paramSort =", paramSort);

@@ -18,8 +18,7 @@ CREATE TABLE public.scene_elements (
     database_string text,
     class_name_string text,
     class_primary_key_string text,
-    yield text,
-    publish text
+    yield text
 );
 
 ALTER TABLE public.scene_elements OWNER TO freerad2_special;

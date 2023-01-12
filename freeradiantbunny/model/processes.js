@@ -28,7 +28,7 @@ function Processes() {
 		   'yield',
 		   'business_plan_texts_id'];
     this.inboundForeignKeyTables = ['scene_elements'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("processes idOrNoId =",idOrNoId);
 	debug("processes classNameFilter =", classNameFilter);
 	debug("processes paramSort =", paramSort);

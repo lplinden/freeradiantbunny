@@ -14,7 +14,7 @@ CREATE TABLE public.designs (
     img_url text,
     status text,
     sort text,
-    domain_tli character varying(3) NOT NULL
+    domains_tli character varying(3) NOT NULL
 );
 
 ALTER TABLE public.designs OWNER TO freerad2_special;
@@ -23,4 +23,4 @@ ALTER TABLE ONLY public.designs
     ADD CONSTRAINT designs_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.designs
-    ADD CONSTRAINT designs_domain_tli_fk FOREIGN KEY (domain_tli) REFERENCES public.domains(tli);
+    ADD CONSTRAINT designs_domains_tli_fk FOREIGN KEY (domains_tli) REFERENCES public.domains(tli);

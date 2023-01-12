@@ -1,6 +1,6 @@
 /**
  * Module Keywords.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,23 +9,31 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Keywords() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("keywords instantiated", instanceCount);
     this.name = "keywords";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("keywords idOrNoId =", idOrNoId);
 	debug("keywords classNameFilter =", classNameFilter);
         debug("keywords paramSort =", paramSort);
         debug("keywords specialFlag =", specialFlag);
         debug("keywords queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
-            sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.description where z.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            orderBy = "ORDER BY z.sort DESC, z.name, z.id";
+            var orderBy = "ORDER BY z.sort DESC, z.name, z.id";
             debug("keywords orderBy =", orderBy);
 	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from keywords z " + orderBy + ";";
         }

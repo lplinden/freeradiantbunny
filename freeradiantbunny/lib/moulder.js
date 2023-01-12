@@ -396,6 +396,33 @@ function Moulder() {
 		}
 	    }
 	} else if (columnName === "price") {
+	    // remove zeros
+	    var new_string = "";
+	    var end_flag = 1;
+	    var end_char = "";
+	    var chars = value.toString().split("").reverse();
+	    for (let i = 0; i < chars.length; i++) {
+		if (chars[i] == "0" && end_flag) {
+		    // skip (until actual non-zero numbers)
+		} else {
+		    // stop skipping zero using this flag
+		    end_flag = 0;
+		    // get end_char to see if it is a decimal
+		    if (end_char == "") {
+			end_char = chars[i];
+		    }
+		    // concatenate chars
+		    new_string += chars[i];
+		}
+	    }
+	    // if it chopped of all decimal zeros, then add a zero
+	    // to the beginning, which is soon to be the end
+	    if (end_char == ".") {
+		new_string = "00" + new_string;
+	    }
+	    // reverse string (back to forward)
+	    value = new_string.split("").reverse().join("");
+	    // add style
 	    styles = "text-align: right; font-size: 120%;";
 	    return this.getStyledData("", value, value, styles);
         } else if (columnName === "ath") {

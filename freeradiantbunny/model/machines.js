@@ -23,7 +23,7 @@ function Machines() {
 		   'status',
 		   'sort'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFitler, paramUpkIsValid, specialFlag, queryTerms) {
         debug("machines idOrNoId =",idOrNoId);
         debug("machines classNameFilter =", classNameFilter);
         debug("machines paramSort =", paramSort);

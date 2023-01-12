@@ -28,6 +28,7 @@ function Controller() {
 	// set default
         var paramView = "html";
         var paramSort = "";
+	var paramFilter = "USD";
         var specialFlag = pageName;
         var editTerms = [];
 	// deal with paramView
@@ -56,7 +57,7 @@ function Controller() {
         // get data
         var dataSetPromise;
         try {
-            dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, paramUpkIsValid, specialFlag, queryTerms);
+            dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms);
         } catch (error) {
             var why = "controller failed getting dataSetPromise from modeller; " + error;
             var freeradiantbunny = require("freeradiantbunny");
@@ -97,6 +98,7 @@ function Controller() {
 	// set default
         var paramView = "html";
         var paramSort;
+	var paramFilter;
         var paramCommand;
         var paramMakeSortToday;
         if (reqQuery.view) {
@@ -107,6 +109,10 @@ function Controller() {
             paramSort = validator.validateSort(reqQuery.sort);
             debug("controller paramSort =", paramSort);
         }
+	if (reqQuery.filter) {
+            paramFilter = validator.validateFilter(reqQuery.filter);
+            debug("controller paramFilter =", paramFilter);
+	}
         if (reqQuery.command) {
             paramCommand = validator.validateCommand(reqQuery.command);
             debug("controller paramCommand =", paramCommand);
@@ -139,11 +145,11 @@ function Controller() {
         var classNameFilterNamePromise = Promise.resolve("");
         if (className === "hyperlinks") {
             if (classNameFilter === "reasons" ||
-                    classNameFilter === "categories" ||
-                    classNameFilter === "tags" ||
-                    classNameFilter === "permaculture_topics" ||
-                    classNameFilter === "plant_lists" ||
-                    classNameFilter === "plants") {
+                classNameFilter === "categories" ||
+                classNameFilter === "tags" ||
+                classNameFilter === "permaculture_topics" ||
+                classNameFilter === "plant_lists" ||
+                classNameFilter === "plants") {
                 // special for associative-table
                 classNameFilterNamePromise = modeller.getNameGivenClassNameFilterAndIdPromise(classNameFilter, id);
             }
@@ -163,14 +169,14 @@ function Controller() {
             // this displays a page with forms that allows the editing of the data
             debug("controller paramCommand =", paramCommand);
             // get data
-            dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, paramUpkIsValid, specialFlag, queryTerms);
+            dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms);
             // markup data
             viewer.getOutputEdit(res, dataSetPromise, className, id);
         } else {
             // get data
             debug("controller get data");
             try {
-                dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, paramUpkIsValid, specialFlag, queryTerms);
+                dataSetPromise = modeller.getDataSetPromise(className, classNameFilter, id, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms);
             } catch (error) {
                 var why = "controller failed getting dataSetPromise from modeller; " + error;
 		debug("controller catch error why =", why);

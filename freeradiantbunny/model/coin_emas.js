@@ -22,7 +22,7 @@ function Coin_Emas() {
 		   'period',
 		   'ema'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("coin_emas idOrNoId =", idOrNoId);
         debug("coin_emas classNameFilter =", classNameFilter);
         debug("coin_emas paramSort =", paramSort);

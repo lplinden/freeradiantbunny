@@ -17,7 +17,7 @@ function Markets() {
     this.schema = ['id',
 		  'name'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("markets idOrNoId =", idOrNoId);	
         debug("markets classNameFilter =", classNameFilter);
         debug("markets paramSort =", paramSort);

@@ -69,7 +69,8 @@ function Sqlgenerator() {
 		} else {
 		    paramUpkIsValidString = "";
 		}
-		var subquery = "array(SELECT CONCAT('<a href=\"../" + inboundFkTableName + "/', fk.id, '" + paramUpkIsValidString + "\">', fk.name, '</a>') FROM " + inboundFkTableName + " fk WHERE fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + " ORDER BY fk.name)";
+		// also lists the status
+		var subquery = "array(SELECT CONCAT(fk.status, ' ', '<a href=\"../" + inboundFkTableName + "/', fk.id, '" + paramUpkIsValidString + "\">', fk.name, '</a>') FROM " + inboundFkTableName + " fk WHERE fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + " ORDER BY fk.name)";
 		columnNames += subquery + " as " + "\"associated " + inboundFkTableName + "\"";
 	    }
 	}

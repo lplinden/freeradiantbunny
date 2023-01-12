@@ -23,7 +23,7 @@ function Projects() {
 		   'status',
 		   'sort'];
     this.inboundForeignKeyTables = ['goal_statements'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("projects idOrNoId =", idOrNoId);
 	debug("projects classNameFilter =", classNameFilter);
 	debug("projects paramSort =", paramSort);

@@ -29,7 +29,7 @@ function Suppliers() {
 		   'last_password_change',
 		  'username'];
     this.inboundForeignKeyTables = [];    
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("suppliers idOrNoId =",idOrNoId);
         debug("suppliers classNameFilter =", classNameFilter);
         debug("suppliers paramSort =", paramSort);

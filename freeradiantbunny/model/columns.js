@@ -23,7 +23,7 @@ function Columns() {
 		   'status',
 		   'sort'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("columns idOrNoId =", idOrNoId);
 	debug("columns classNameFilter =", classNameFilter);
         debug("columns paramSort =", paramSort);

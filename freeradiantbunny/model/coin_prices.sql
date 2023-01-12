@@ -31,3 +31,6 @@ ALTER TABLE ONLY public.coin_prices
 
 ALTER TABLE ONLY public.coin_prices
     ADD CONSTRAINT coin_prices_coins_symbol_fk FOREIGN KEY (coins_symbol) REFERENCES public.coins(symbol);
+
+ALTER TABLE ONLY public.coin_prices
+    ADD CONSTRAINT coin_prices_coins_symbol_last_updated_quote_denominator_unique UNIQUE (coins_symbol, last_updated, quote_denominator);

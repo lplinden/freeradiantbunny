@@ -25,7 +25,7 @@ function ProcessFlows() {
 		   'parent_processes_id',
 		   'child_processes_id'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("process_flows idOrNoId =", idOrNoId);
 	debug("process_flows classNameFilter =", classNameFilter);
 	debug("process_flows paramSort =", paramSort);

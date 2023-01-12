@@ -25,7 +25,7 @@ function Stacks() {
 		   'application_id',
 		   'priority'];
     this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("stacks idOrNoId =", idOrNoId);
 	debug("stacks classNameFilter =", classNameFilter);
 	debug("stacks paramSort =", paramSort);

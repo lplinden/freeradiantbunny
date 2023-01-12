@@ -25,8 +25,8 @@ function Webpages() {
 		   'img_url',
 		   'path',
 		   'quality'];
-    this.inboundForeignKeyTables = [];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.inboundForeignKeyTables = ['blogposts'];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("webpages idOrNoId =", idOrNoId);
         debug("webpages classNameFilter =", classNameFilter);
         debug("webpages paramSort =", paramSort);

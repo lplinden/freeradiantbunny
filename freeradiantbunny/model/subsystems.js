@@ -23,7 +23,7 @@ function Subsystems() {
 		   'status',
 		   'sort'];
     this.inboundForeignKeyTables = ['classes'];
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("subsystems idOrNoId =", idOrNoId);
 	debug("subsystems classNameFilter =", classNameFilter);
         debug("subsystems paramSort =", paramSort);
