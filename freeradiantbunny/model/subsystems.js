@@ -22,7 +22,7 @@ function Subsystems() {
 		   'img_url',
 		   'status',
 		   'sort'];
-    this.inboundForeignKeyTables = ['classes'];
+    this.inboundForeignKeyTables = ['classes','modules'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("subsystems idOrNoId =", idOrNoId);
 	debug("subsystems classNameFilter =", classNameFilter);

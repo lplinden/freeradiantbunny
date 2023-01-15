@@ -9,9 +9,9 @@ ALTER SEQUENCE public.stake_providers_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.stake_providers (
     id integer DEFAULT nextval('public.stake_providers_id_seq'::regclass) NOT NULL,
-    name text,
-    stake_id integer,
-    provider_id integer,
+    stakes_id integer,
+    providers_id integer,
+    name text
 );
 
 ALTER TABLE public.stake_providers OWNER TO freerad2_special;
@@ -20,7 +20,7 @@ ALTER TABLE ONLY public.stake_providers
     ADD CONSTRAINT stake_providers_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.stake_providers
-    ADD CONSTRAINT stake_providers_stake_id_fk FOREIGN KEY (stake_id) REFERENCES public.stakes(id);
+    ADD CONSTRAINT stake_providers_stakes_id_fk FOREIGN KEY (stakes_id) REFERENCES public.stakes(id);
 
 ALTER TABLE ONLY public.stake_providers
-    ADD CONSTRAINT stake_providers_provider_id_fk FOREIGN KEY (provider_id) REFERENCES public.providers(id);
+    ADD CONSTRAINT stake_providers_providers_id_fk FOREIGN KEY (providers_id) REFERENCES public.providers(id);

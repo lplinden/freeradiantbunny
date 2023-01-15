@@ -14,7 +14,7 @@ CREATE TABLE public.stylesheets (
     img_url text,
     status text,
     sort text,
-    domain_tli character varying(3) NOT NULL,
+    domains_tli character varying(3) NOT NULL,
     url text
 );
 
@@ -24,7 +24,7 @@ ALTER TABLE ONLY public.stylesheets
     ADD CONSTRAINT stylesheets_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.stylesheets
-    ADD CONSTRAINT stylesheets_domain_tli_fk FOREIGN KEY (domain_tli) REFERENCES public.domains(tli);
+    ADD CONSTRAINT stylesheets_domains_tli_fk FOREIGN KEY (domains_tli) REFERENCES public.domains(tli);
 
 ALTER TABLE ONLY public.stylesheets
     ADD CONSTRAINT stylesheets_url_unique UNIQUE (url);

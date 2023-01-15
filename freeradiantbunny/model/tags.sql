@@ -14,7 +14,7 @@ CREATE TABLE public.tags (
     img_url text,
     status text,
     sort text,
-    permaculture_topic_id integer,
+    permaculture_topics_id integer,
     alias text,
     url text
 );
@@ -25,4 +25,4 @@ ALTER TABLE ONLY public.tags
     ADD CONSTRAINT tags_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.tags
-    ADD CONSTRAINT tags_permaculture_topic_id_fk FOREIGN KEY (permaculture_topic_id) REFERENCES public.permaculture_topics(id);
+    ADD CONSTRAINT tags_permaculture_topics_id_fk FOREIGN KEY (permaculture_topics_id) REFERENCES public.permaculture_topics(id);

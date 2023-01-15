@@ -148,7 +148,7 @@ function Markup() {
 	// manifest the menu
 	// default
         var menuType = "view";
-	// view is on hold because it is under constructino
+	// view is on hold because it is under construction
         //manifest.viewMenu = menu.getMenu(menuType, currentMenuSelections, choicesViewMenu, url);
 	// check if sub menu is applicable
 	var choicesSubsMenu;
@@ -186,6 +186,15 @@ function Markup() {
 	    className == "tags") {
             currentMenuSelections.subs = className;
             choicesSubsMenu = ["coins", "tags"];
+	    menuType = "subs";
+            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl);
+	} else if (className == "coin_prices" ||
+		   className == "coin_emacs" ||
+		   className == "coin_markets" ||
+		   className == "coin_indicators" ||
+		   className == "coin_prices") {
+            currentMenuSelections.subs = className;
+            choicesSubsMenu = ["coins", "coin_prices", "coin_emas", "coin_indicators", "coin_markets"];
 	    menuType = "subs";
             manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl);
 	}

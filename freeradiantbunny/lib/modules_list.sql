@@ -1,0 +1,20 @@
+
+INSERT INTO modules (name, id) VALUES ('bot', 1);
+INSERT INTO modules (name, id) VALUES ('configuration', 2);
+INSERT INTO modules (name, id) VALUES ('controller', 3);
+INSERT INTO modules (name, id) VALUES ('database', 4);
+INSERT INTO modules (name, id) VALUES ('freeradiantbunny', 5);
+INSERT INTO modules (name, id) VALUES ('markup', 6);
+INSERT INTO modules (name, id) VALUES ('menu', 7);
+INSERT INTO modules (name, id) VALUES ('modeller', 8);
+INSERT INTO modules (name, id) VALUES ('modules', 9);
+INSERT INTO modules (name, id) VALUES ('modules_list', 10);
+INSERT INTO modules (name, id) VALUES ('moulder', 11);
+INSERT INTO modules (name, id) VALUES ('realtime', 12);
+INSERT INTO modules (name, id) VALUES ('sqlgenerator', 13);
+INSERT INTO modules (name, id) VALUES ('sqlmaker', 14);
+INSERT INTO modules (name, id) VALUES ('timekeeper', 15);
+INSERT INTO modules (name, id) VALUES ('validator', 16);
+INSERT INTO modules (name, id) VALUES ('viewer', 17);
+INSERT INTO modules (name, id) VALUES ('standards_entities', 18);
+INSERT INTO modules (name, id) VALUES ('standards_tags', 19);

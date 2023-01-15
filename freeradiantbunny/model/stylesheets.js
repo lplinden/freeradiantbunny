@@ -22,7 +22,7 @@ function Stylesheets() {
 		   'img_url',
 		   'status',
 		   'sort',
-		   'domains_url',
+		   'domains_tli',
 		   'url'];    
     this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {

@@ -17,11 +17,14 @@ function Filenames() {
     debug("filenames instantiated", instanceCount);
     this.name = "filenames";
     this.schema = ['id',
+		   'datastores_id',
+		   'path',
 		   'name',
-		   'description',
-		   'img_url',
-		   'status',
-		   'sort'];
+		   'extension',
+		   'fullpath_filename',
+		   'md5sum',
+		   'size',
+		   'monetize'];
     this.inboundForeignKeyTables = [];    
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("filenames idOrNoId =", idOrNoId);

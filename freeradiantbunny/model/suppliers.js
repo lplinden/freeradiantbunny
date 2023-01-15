@@ -28,7 +28,7 @@ function Suppliers() {
 		   'bioregion',
 		   'last_password_change',
 		  'username'];
-    this.inboundForeignKeyTables = [];    
+    this.inboundForeignKeyTables = ['seed_packets'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("suppliers idOrNoId =",idOrNoId);
         debug("suppliers classNameFilter =", classNameFilter);

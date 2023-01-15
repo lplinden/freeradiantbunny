@@ -17,11 +17,15 @@ function Transactions() {
     debug("transactions instantiated", instanceCount);
     this.name = "transactions";
     this.schema = ['id',
-		   'name',
-		   'description',
-		   'img_url',
-		   'status',
-		   'sort'];
+		   'date',
+		   'broker_debit',
+		   'unit_debit',
+		   'amount_debit',
+		   'broker_credit',
+		   'unit_credit',
+		   'amount_credit',
+		   'audit',
+		   'tnx_ref'];
     this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("transactions idOrNoId =",idOrNoId);
