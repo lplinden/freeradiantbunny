@@ -34,7 +34,7 @@ function Coin_Evaluations() {
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables,  paramUpkIsValid);	    
         } else {
-            var orderBy = "ORDER BY z.conclusion, z.coins_symbol";
+            var orderBy = "ORDER BY z.last_updated DESC, z.conclusion DESC, z.coins_symbol";
             debug("coin_evaluations orderBy =", orderBy);
 	    sql = "select z.id, to_char(z.last_updated at time zone 'est', 'YYYY-MM-DD HH24:MI') as last_updated, c.img_url as img, z.coins_symbol, z.price, z.reasons, z.conclusion from coin_evaluations z, coins c where z.coins_symbol = c.symbol " + orderBy + ";";
 	}

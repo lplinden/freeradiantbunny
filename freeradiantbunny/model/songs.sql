@@ -14,7 +14,7 @@ CREATE TABLE public.songs (
     img_url text,
     status text,
     sort text,
-    album_id integer,
+    albums_id integer,
     lyrics_url text,
     mp3_url text,
     album_sort text,

@@ -79,6 +79,22 @@ function Moulder() {
 	    associatedListMarkup += "</ul>";
 	    var chardata = associatedListMarkup;
 	    return this.getStyledData("", chardata, value, styles);
+
+	} else if (columnName.slice(0, 10) == "reasons") {
+	    debug("moulder given value ", value);
+	    var reasonsListMarkup = "<ul>";
+	    // turn the value into a html list
+	    // remove semicolon at the end so that it is not made into a list item
+	    var reason_string = value.slice(0, -1);
+	    var reasons = reason_string.split(';');
+	    for (let i = 0; i < reasons.length; i++) {
+		reasonsListMarkup += "<li>";
+		reasonsListMarkup += reasons[i];
+		reasonsListMarkup += "</li>";
+	    }
+	    reasonsListMarkup += "</ul>";
+	    var chardata = reasonsListMarkup;
+	    return this.getStyledData("", chardata, value, styles);
 	    
 	} else if (columnName === "statuscode") {
             var chardata = this.getIdAsUrl(baseUrl, className, value, value, paramUpkIsValid);
@@ -828,7 +844,11 @@ function Moulder() {
                 styles = "background-color: #CD5555;";
             }
             return this.getStyledData("", value, value, styles);
-	    
+
+	} else if (columnName === "business_plan_texts") {
+            styles = "width: 40%;"
+            return this.getStyledData("", value, value, styles);
+
         } else if (columnName === "extends_class") {
 
             // shorten field name for display purposes

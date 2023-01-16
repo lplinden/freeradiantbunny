@@ -1,6 +1,6 @@
 /**
  * Module Hyperlinks.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -9,19 +9,27 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
 function Hyperlinks() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("hyperlinks instantiated", instanceCount);
     this.name = "hyperlinks";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("hyperlinks idOrNoId =", idOrNoId);
 	debug("hyperlinks classNameFilter =", classNameFilter);
         debug("hyperlinks paramSort =", paramSort);
 	debug("hyperlinks specialFlag =", specialFlag);
         debug("hyperlinks queryTerms =", queryTerms);
         var sql;
-        var orderBy;
         if (idOrNoId) {
             if (classNameFilter) {
                 if (classNameFilter === "reasons") {
@@ -43,29 +51,33 @@ function Hyperlinks() {
                     debug("hyperlinks error classNameFilter is not known",  classNameFilter);
                 }
             } else {
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);		
+		// refactor
                 sql = "select u.id, u.img_url as img, concat('<a href=\"', u.url, '\">', u.name, '</a>') as nameurl, concat('<a href=\"', u.url, '\">', u.url, '</a>') as urlurl, u.description, count(r.id) as reasonscount, count(b.id) as ptopicscount, count(c.id) as categoriescount, count(t.id) as tagscount , count(p.id) as plantscount from hyperlinks u LEFT JOIN hyperlink_permaculture_topics b ON u.id = b.hyperlink_id LEFT JOIN hyperlink_reasons r ON u.id = r.hyperlink_id LEFT JOIN hyperlink_categories c ON u.id = c.hyperlink_id LEFT JOIN hyperlink_tags t ON u.id = t.hyperlink_id LEFT JOIN hyperlink_plants p ON u.id = p.hyperlink_id where u.id = " + idOrNoId + " GROUP BY u.id";
             }
         } else {
             if (specialFlag) {
                 if (queryTerms.length > 0) {
                     // search
-                    orderBy = "ORDER BY u.id";
+                    var orderBy = "ORDER BY u.id";
                     debug("hyperlinks orderBy =", orderBy);
                     sql = "SELECT * FROM search('" + queryTerms + "');";
                 } else {
 		    // note that the following can go away and was a poor idea or misplaced idea
                     // hyperlinks special page
-                    orderBy = "ORDER BY random()";
+                    var orderBy = "ORDER BY random()";
                     debug("hyperlinks orderBy =", orderBy);
                     sql = "select u.id, concat('<a href=\"', u.url, '\"><img src=\"', u.img_url, '\" alt=\"\" style=\"width: 44px; height: 44px; border-radius:12%;\"/></a>') as aimg, concat('<a href=\"', u.url, '\">', u.name, '</a>') as nameurl, u.description from hyperlinks u " + orderBy + " LIMIT 8;";
                 }
             } else {
-                orderBy = "ORDER BY u.name";
+                var orderBy = "ORDER BY u.name";
                 debug("hyperlinks orderBy =", orderBy);
 		// complicated, too complicated
                 //sql = "select u.id, u.img_url as img, concat('<a href=\"', u.url, '\">', u.name, '</a>') as nameurl, concat('<a href=\"', u.url, '\">', u.url, '</a>') as urlurl, count(r.id) as reasonscount, count(b.id) as ptopicscount, count(c.id) as categoriescount, count(t.id) as tagscount , count(p.id) as plantscount from hyperlinks u LEFT JOIN hyperlink_permaculture_topics b ON u.id = b.hyperlink_id LEFT JOIN hyperlink_reasons r ON u.id = r.hyperlink_id LEFT JOIN hyperlink_categories c ON u.id = c.hyperlink_id LEFT JOIN hyperlink_tags t ON u.id = t.hyperlink_id LEFT JOIN hyperlink_plants p ON u.id = p.hyperlink_id GROUP BY u.id " + orderBy;
 		// simple
-		sql = "select u.id, u.img_url as img, concat('<a href=\"', u.url, '\">', u.name, '</a>') as nameurl, concat('<a href=\"', u.url, '\">', u.url, '</a>') as urlurl from hyperlinks u " + orderBy;
+		// todo fix this so that it paginates (find all of the LIMITs)
+		var limit = 100;
+		sql = "select u.id, u.img_url as img, concat('<a href=\"', u.url, '\">', u.name, '</a>') as nameurl, concat('<a href=\"', u.url, '\">', u.url, '</a>') as urlurl from hyperlinks u " + orderBy + " LIMIT " + limit + ";";
             }
         }
         return sql;

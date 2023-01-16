@@ -24,7 +24,6 @@ function Processes() {
 		   'sort',
 		   'priority',
 		   'time_rules',
-		   'responsibility',
 		   'yield',
 		   'business_plan_texts_id'];
     this.inboundForeignKeyTables = ['scene_elements'];

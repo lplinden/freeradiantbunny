@@ -17,7 +17,6 @@ CREATE TABLE public.processes (
     business_plan_texts_id integer,
     priority text,
     time_rules text,
-    responsibility text,
     yield text
 );
 

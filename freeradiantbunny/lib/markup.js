@@ -192,9 +192,10 @@ function Markup() {
 		   className == "coin_emacs" ||
 		   className == "coin_markets" ||
 		   className == "coin_indicators" ||
+		   className == "coin_evaluations" ||
 		   className == "coin_prices") {
             currentMenuSelections.subs = className;
-            choicesSubsMenu = ["coins", "coin_prices", "coin_emas", "coin_indicators", "coin_markets"];
+            choicesSubsMenu = ["coins", "coin_prices", "coin_emas", "coin_indicators", "coin_evaluations", "coin_markets"];
 	    menuType = "subs";
             manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl);
 	}
