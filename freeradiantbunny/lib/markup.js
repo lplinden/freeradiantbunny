@@ -149,7 +149,7 @@ function Markup() {
 	// default
         var menuType = "view";
 	// view is on hold because it is under construction
-        //manifest.viewMenu = menu.getMenu(menuType, currentMenuSelections, choicesViewMenu, url);
+        //manifest.viewMenu = menu.getMenu(menuType, currentMenuSelections, choicesViewMenu, url, paramUpkIsValid);
 	// check if sub menu is applicable
 	var choicesSubsMenu;
 	if (className == "plants" ||
@@ -169,9 +169,9 @@ function Markup() {
             choicesSubsMenu = ["plants", "plant_lists", "plant_list_plants", "plant_histories", "plant_events", "varieties", "seed_packets", "soil_areas", "beds", "lands", "plant_families", "plant_categories", "plant_attributes"];
 	    menuType = "subs";
 	    // view is on hold because it is under constructino
-            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl);
+            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl, paramUpkIsValid);
 	    menuType = "subs";
-            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl);
+            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl, paramUpkIsValid);
 	} else if (className == "domains" ||
 	    className == "webpages" ||
 	    className == "tenperdays" ||
@@ -181,23 +181,22 @@ function Markup() {
             currentMenuSelections.subs = className;
             choicesSubsMenu = ["domains", "webpages", "tenperdays", "webpage_tags", "webpage_maxonomies", "maxonomies"];
 	    menuType = "subs";
-            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl);
+            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl, paramUpkIsValid);
 	} else if (className == "coins" ||
 	    className == "tags") {
             currentMenuSelections.subs = className;
             choicesSubsMenu = ["coins", "tags"];
 	    menuType = "subs";
-            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl);
+            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl, paramUpkIsValid);
 	} else if (className == "coin_prices" ||
-		   className == "coin_emacs" ||
-		   className == "coin_markets" ||
 		   className == "coin_indicators" ||
+		   className == "coin_emas" ||
 		   className == "coin_evaluations" ||
-		   className == "coin_prices") {
+		   className == "coin_markets") {
             currentMenuSelections.subs = className;
             choicesSubsMenu = ["coins", "coin_prices", "coin_emas", "coin_indicators", "coin_evaluations", "coin_markets"];
 	    menuType = "subs";
-            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl);
+            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl, paramUpkIsValid);
 	}
 	
         // strip first slash
@@ -221,12 +220,12 @@ function Markup() {
 	// looks like a duplicate
         //var menuType = "sort";
         //var choicesSortMenu = ["id", "name", "sort", "status"];
-        //manifest.sortMenu = menu.getMenu(menuType, currentMenuSelections, choicesSortMenu, url);
+        //manifest.sortMenu = menu.getMenu(menuType, currentMenuSelections, choicesSortMenu, url, paramUpkIsValid);
 	// ON HOLD because it was showing up on every page (need only plants)
         // manifest the menu
         //menuType = "sort";
         //var choices = ["id", "name", "sort", "status", "subsystem", "extends", "notes", "rank", "botanical_name", "plant_family", "plant_category", "attribute_name"];
-        //manifest.sortMenu = menu.getMenu(menuType, currentMenuSelections, choices, url);
+        //manifest.sortMenu = menu.getMenu(menuType, currentMenuSelections, choices, url, paramUpkIsValid);
 	// deal with table-title and make into hyperlink
 	//// only if on single page
 	//if (typeof id !== 'undefined' && id !== "") {

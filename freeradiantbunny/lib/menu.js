@@ -14,7 +14,7 @@ var instanceCount = 0;
 function Menu() {
     instanceCount = instanceCount + 1;
     debug("menu instantiated", instanceCount);
-    this.getMenu = function (menuType, currentMenuSelections, choices, url, baseUrl = "x") {
+    this.getMenu = function (menuType, currentMenuSelections, choices, url, baseUrl = "x", paramUpkIsValid) {
         var currentMenuSelected = "";
         var choice;
         if (menuType === "subs") {
@@ -48,7 +48,11 @@ function Menu() {
             } else {
 		if (menuType === "subs") {
 		    var subsUrl = baseUrl + choices[i];
-		    menu += "<a href=\"" + subsUrl + "\">" + choices[i] + "</a>";
+		    menu += "<a href=\"" + subsUrl;
+		    if (paramUpkIsValid) {
+			menu += "?" + paramUpkIsValid;
+		    }
+		    menu += "\">" + choices[i] + "</a>";
 		} else {
                     var params = this.getParams(menuType, choices[i], currentMenuSelections);
                     menu += "<a href=\"" + url + params + "\">" + choices[i] + "</a>";

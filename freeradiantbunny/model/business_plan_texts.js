@@ -33,14 +33,12 @@ function BusinessPlanTexts() {
 	debug("business_plan_texts queryTerms =", queryTerms);
 	var sql;
 	if (idOrNoId) {
-	    if (classNameFilter) {
-  		if (classNameFilter == "projects") {
-		    // id refers to project_id
-		    sql = "select bpt.status, bpt.sort, bpt.id, bpt.img_url as image, bpt.name from business_plan_texts bpt, goal_statements gs where bpt.goal_statement_id = gs.id AND gs.project_id = " + idOrNoId + ";";
-		} else {
-		    // id refers to process_id
-		    sql = "select bpt.status, bpt.sort, bpt.id, bpt.img_url as image, bpt.name from business_plan_texts bpt, goal_statements gs where bpt.goal_statement_id = gs.id AND gs.id = " + idOrNoId + ";";
-		}
+	    if (classNameFilter && classNameFilter == "projects") {
+		// id refers to projects_id
+		sql = "select bpt.status, bpt.sort, bpt.id, bpt.img_url as image, bpt.name from business_plan_texts bpt, goal_statements gs where bpt.goal_statements_id = gs.id AND gs.projects_id = " + idOrNoId + ";";
+	    } else if (classNameFilter && classNameFitler == "goal_statements") {
+		// id refers to goal_statements.id
+		sql = "select bpt.status, bpt.sort, bpt.id, bpt.img_url as image, bpt.name from business_plan_texts bpt, goal_statements gs where bpt.goal_statements_id = gs.id AND gs.id = " + idOrNoId + ";";
 	    } else {
 		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
 		// refactor

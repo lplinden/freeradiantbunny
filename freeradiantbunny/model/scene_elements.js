@@ -24,6 +24,7 @@ function SceneElements() {
 		   'sort',
 		   'processes_id',
 		   'yield',
+		   'sprite',
 		   'database_string',
 		   'class_name_string',
 		   'class_primary_key_string'];
@@ -36,16 +37,14 @@ function SceneElements() {
 	debug("scene_elements queryTerms =", queryTerms);
 	var sql;
 	if (idOrNoId) {
-	    if (classNameFilter) {
-		var orderBy ="ORDER BY se.processes_id, se.class_name_string, se.sort DESC, se.class_primary_key_string, se.id";  		if (classNameFilter == "projects") {
-		    orderBy ="ORDER BY se.suppliers_id, se.class_name_string, se.class_primary_key_string, se.id";
-		    // id refers to project_id
-		    sql = "select se.status, se.sort, se.id, se.img_url as image, se.name, se.description, concat('<a href=\"', '../../', se.class_name_string, '\">', se.class_name_string, '</a>') as class_name_string, se.suppliers_id as suppliers_id from scene_elements se, processes pr, business_plan_texts bpt, goal_statements gs where se.processes_id = pr.id AND pr.business_plan_texts_id = bpt.id AND bpt.goal_statements_id = gs.id AND gs.projects_id = " + idOrNoId + " " + orderBy + ";";
-		} else {
-		    orderBy ="ORDER BY se.sort DESC, se.class_name_string, se.class_primary_key_string, se.id";
-		    // id refers to processes_id
-		    sql = "select se.class_name_string as class_name_string, se.status, se.sort, se.id, se.img_url as image, se.name, se.description from scene_elements se, processes pr where se.processes_id = pr.id AND pr.id = " + idOrNoId + " " + orderBy + ";";
-		}
+	    if (classNameFilter && classNameFilter == "projects") {
+		// id refers to project_id
+		var orderBy ="ORDER BY se.class_name_string, se.class_primary_key_string, se.id";
+		sql = "select se.status, se.sort, se.id, se.img_url as image, se.name, concat('<a href=\"', '../../', se.class_name_string, '/', se.class_primary_key_string, '\">', se.class_name_string, '/', se.class_primary_key_string, '</a>') as class_name_string from scene_elements se, processes pr, business_plan_texts bpt, goal_statements gs where se.processes_id = pr.id AND pr.business_plan_texts_id = bpt.id AND bpt.goal_statements_id = gs.id AND gs.projects_id = " + idOrNoId + " " + orderBy + ";";
+	    } else if (classNameFilter && classNameFilter == "processes") {
+		// id refers to processes.id
+		var orderBy ="ORDER BY se.sort DESC, se.class_name_string, se.class_primary_key_string, se.id";
+		sql = "select se.class_name_string as class_name_string, se.status, se.sort, se.id, se.img_url as image, se.name, se.sprite, se.description from scene_elements se, processes pr where se.processes_id = pr.id AND pr.id = " + idOrNoId + " " + orderBy + ";";
 	    } else {
 		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
 		// refactor
@@ -53,7 +52,7 @@ function SceneElements() {
 	    }
 	} else {
 	    // old
-	    // orderBy ="ORDER BY z.class_name_string, z.class_primary_key_string, z.sort DESC, z.name, z.id";
+	    //var orderBy ="ORDER BY z.class_name_string, z.class_primary_key_string, z.sort DESC, z.name, z.id";
 	    // new
 	    var orderBy ="ORDER BY z.status DESC, z.processes_id, z.class_name_string, z.id";
             if (paramSort === "class_primary_key_string") {

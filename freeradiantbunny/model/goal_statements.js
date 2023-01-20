@@ -32,7 +32,7 @@ function GoalStatements() {
 	debug("goal_statements queryTerms =", queryTerms);
 	var sql;
 	if (idOrNoId) {
-	    if (classNameFilter) {
+	    if (classNameFilter && classNameFilter == "projects") {
 		// id refers to process_id
 		// bug in the sql below the ../../ assumes the classNameFilter context (make more dynamic)
 		sql = "select gs.status, gs.sort, gs.id, gs.img_url as image, gs.name, array(select concat('<br /><a href=\"../../business_plan_texts/', bpt.id, '\">', bpt.name, '</a>') from business_plan_texts bpt where gs.id = bpt.goal_statements_id order by bpt.order_by) as business_plan_texts from goal_statements gs, projects p where p.id = " + idOrNoId + " AND p.id = gs.projects_id;";

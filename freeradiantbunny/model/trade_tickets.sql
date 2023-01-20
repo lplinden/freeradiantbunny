@@ -7,21 +7,19 @@ CREATE SEQUENCE public.trade_tickets_id_seq
 
 ALTER SEQUENCE public.trade_tickets_id_seq OWNER TO freerad2_special;
 
-CREATE TYPE trade_state AS ENUM ('planned','ordered','traded','closed','audited');
-
 CREATE TABLE public.trade_tickets (
     id integer DEFAULT nextval('public.trade_tickets_id_seq'::regclass) NOT NULL,
-    name text,
+    name text NOT NULL,
     description text,
-    sort text,
-    status text,
     img_url text,
+    status text,
+    sort text,
     generated_ts text,
     coin_id integer,
     base_coin_id integer,
     trading_pair text,
     market_id integer,
-    trade_state trade_state DEFAULT 'planned',
+    trade_state text,
     signal_buy_stories text,
     entry_setup_price text,
     target_price text,
@@ -36,7 +34,7 @@ CREATE TABLE public.trade_tickets (
     exit_transaction_id integer,
     exit_price text,
     exit_amount text,
-    partial_amount text,	
+    partial_amount text,
     partial_trade_ticket_id integer,
     performance_measures text,
     tnx_ref text

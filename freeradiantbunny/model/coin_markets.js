@@ -31,14 +31,14 @@ function CoinMarkets() {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
             var orderBy = "ORDER BY z.id";
-            if (paramSort === "coin_id") {
-                orderBy = "ORDER BY z.coin_id, z..id";
+            if (paramSort === "coins_symbol") {
+                orderBy = "ORDER BY z.coins_symbol, z..id";
 	    }
-            if (paramSort === "market_id") {
-                orderBy = "ORDER BY z.market_id, z.id";
+            if (paramSort === "markets_id") {
+                orderBy = "ORDER BY z.markets_id, z.id";
 	    }
             debug("coins orderBy =", orderBy);
-            sql = "select z.id, z.coin_id, c.ticker as coin, z.market_id, m.name as market from coin_markets z, coins c, markets m where z.coin_id = c.id AND z.market_id = m.id " + orderBy + ";";
+            sql = "select z.id, z.coins_symbol, c.symbol as coin, z.markets_id, m.name as market from coin_markets z, coins c, markets m where z.coins_symbol = c.symbol AND z.markets_id = m.id " + orderBy + ";";
         }
         return sql;
     };

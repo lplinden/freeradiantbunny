@@ -16,7 +16,8 @@ function Sqlgenerator() {
     this.getStandardSingle = function (tableName, schema, id, inboundForeignKeyTables, paramUpkIsValid) {
         // create sql
 	var tablePrefix = "a";
-        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableName, schema, inboundForeignKeyTables, paramUpkIsValid) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE a.id = " + id + ";";
+	// todo refactor that "a" alias below
+        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableName, schema, inboundForeignKeyTables, paramUpkIsValid) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE " + tablePrefix + ".id = " + id + ";";
         return sql;
     };
     this.getColumnNames = function (tablePrefix, tableName, schema, inboundForeignKeyTables, paramUpkIsValid) {
@@ -74,14 +75,29 @@ function Sqlgenerator() {
 		columnNames += subquery + " as " + "\"associated " + inboundFkTableName + "\"";
 	    }
 	}
-	// add column to query if this table is scene_elements with a polymorphic object
-	// on hold need to replace the template below with the polymorphic object
-	// use columns: class_name_string class_primary_key_string
-	//	if (tableName eq "scene_elements") {
-//	    var subquery = "array(SELECT CONCAT('<a href=\"../" + inboundFkTableName + "/', fk.id, '" + paramUpkIsValidString + "\">', fk.name, '</a>') FROM " + inboundFkTableName + " fk WHERE fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + " ORDER BY fk.name)";//
-//	    columnNames += subquery + " as " + "\"polymorphic " + inboundFkTableName + "\"";
-//	}
-	// ok heavy ho send it forward in to the cyberspaces
+	// add columns to query if this table has inbound foreign keys
+	if (tableName == "scene_elements") {
+	    // add comma
+	    columnNames += ", ";
+	    // also lists the status
+	    // to fix the below so that it gets the variable from db
+	    // only needed because the SQL falls short
+	    var polyTableName
+	    if (1) {
+		polyTableName = "domains";
+	    } else if (0) {
+		polyTableName = "suppliers";
+	    } else if (0) {
+		polyTableName = "applications";
+	    } else if (0) {
+		polyTableName = "machines";
+	    } else if (0) {
+		polyTableName = "email_addresses";
+	    }
+	    var subquery = "array(SELECT CONCAT(poly.status, ' ', '<a href=\"../', " + tablePrefix + ".class_name_string, '/', " + tablePrefix + ".class_primary_key_string, '\">', poly.name, '</a>') FROM " + polyTableName + " poly WHERE " + tablePrefix + ".class_primary_key_string = poly.id::varchar(10))";
+	    columnNames += subquery + " as \"associated polymorphic\"";
+	}
+	// ok, heavy ho, send it forward in to the cyberspaces
 	return columnNames;
     };
     this.getTableNameFromFKConstraint = function (columnName) {
