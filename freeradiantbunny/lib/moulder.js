@@ -940,7 +940,7 @@ function Moulder() {
             return 7;
             break;
         }
-    }
+    };
     this.getIdAsUrl = function (baseUrl, className, id, chardata, paramUpkIsValid) {
 	var paramString = "";
 	if (paramUpkIsValid) {
@@ -948,17 +948,17 @@ function Moulder() {
 	}
         return "<a href=\"" + baseUrl + className + "/" + id + paramString + "\">" + chardata + "</a>";
         //return "<a href=\"" + id + "\">" + id + "</a>";
-    }
+    };
     this.getAsUrl = function (chardata) {
         return "<a href=\"" + chardata + "\">" + chardata + "</a>";
-    }
+    };
     this.getAsUrl = function (href, chardata) {
         return "<a href=\"" + href + "\">" + chardata + "</a>";
-    }
+    };
     this.makeStandOut = function (chardata) {
         //return "<a href=\"" + className + "/" + id + "\">" + id + "</a>";
         return "<h2>" + chardata + "</h2>";
-    }
+    };
     this.getImgUrlAsImageElement = function (baseUrl, className, imgUrl, id, size = "") {
         // need to implement alt attribute and title attribute
 	if (size == "image") {
@@ -969,19 +969,19 @@ function Moulder() {
             return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-album-image\" alt=\"\" title=\"\" /></a>";
 	}
         return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-img\" alt=\"\" title=\"\" /></a>";
-    }
+    };
     this.getImgUrlAsImageElementToSingle = function (baseUrl, className, imgUrl, id) {
         // need to implement alt attribute and title attribute
         //debug("moulder getImgUrlAsImageElementToSingle()");
 	//debug("moulder imgUrl =", imgUrl);
         return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-img\" alt=\"\" title=\"\" style=\"width: 33px; height: 24px;\" /></a>";
-    }
+    };
     this.getSortStyle = function(sort) {
         return "background: " + this.calculateCellColor(sort) + "; text-align: center; width: 140px;";
-    }
+    };
     this.getSortAsLink = function(baseUrl, className, id, sort) {
         return markup;
-    }
+    };
     this.getAsLink = function(chardata, baseUrl, className, id) {
         // note set url
         var url = "";
@@ -992,7 +992,7 @@ function Moulder() {
             url += "/" + id;
 	}
         return "<a href=\"" + url + "\" style=\"text-decoration: none;\">" + chardata + "</a>";
-    }
+    };
     this.calculateCellColor = function (sort) {
         // color = "#0099CC";
         // define colors
@@ -1050,7 +1050,7 @@ function Moulder() {
         //color = "#CCFFCC";
         //}
         return color;
-    }
+    };
     this.getExtendsClassStyle = function(extends_class_id) {
         // associate colors with class and store hash in system config
         // test benchmark time versus switch statement
@@ -1074,14 +1074,14 @@ function Moulder() {
             return "background-color: #3399EE; color: #000000;";
         }
         return "background-color: #CCCCCC;";
-    }
+    };
     this.getSortNoPrefix = function(sort) {
         // assumes "Z " is at the beginning of string
         if (sort !== null) {
             return sort.substring(2, 12);
         }
         return "";
-    }
+    };
     this.getStyledData = function (theClass, chardata, raw = "", styles = "") {
         //debug("moulder getStyledData()");
         var styledData = {
@@ -1092,7 +1092,7 @@ function Moulder() {
         }
         //debug("moulder styledData =", styledData);
         return styledData;
-    }
+    };
     this.getClassesListGivenZachmanId = function (zachman_id) {
         var classesList = [];
         // consult database to get list of classes matching this zachmand_id
@@ -1106,7 +1106,7 @@ function Moulder() {
         //            }
         var foreignKeyDataSetPromise = "";
         return foreignKeyDataSetPromise;
-    }
+    };
     this.getPlantAttributesGivenPlantsId = function (plantId) {
         var classesList = [];
         // consult database to get list of classes matching this zachmand_id
@@ -1120,7 +1120,7 @@ function Moulder() {
         var foreignKeyDataSetPromise = "";
         // foreignKeyDataSetPromise;
 	return "[to-be-developed]";
-    }
+    };
 };
 
 module.exports = new Moulder();
