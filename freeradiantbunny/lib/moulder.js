@@ -66,7 +66,7 @@ function Moulder() {
 	    styles = "white-space: nowrap;";
 	    return this.getStyledData("", value, value, styles);
 	    
-        } else if (columnName.slice(0, 10) == "associated") {
+        } else if (columnName.slice(0, 10) == "associated" && columnName != "associated polymorphic") {
             debug("moulder given className.slice(0, 11) =", columnName.slice(0, 11));
 	    debug("moulder given value ", value);
 	    var associatedListMarkup = "<ul>";

@@ -16,9 +16,9 @@ function Timekeeper() {
     debug("timekeeper instantiated", instanceCount);
     // used by server
     this.isToday = function (givenString) {
-	debug("timekeeper isToday()");
-        debug("timekeeper givenStringee =",  givenString);
-        debug("timekeeper nowDate =",  this.getNowDate());
+	//debug("timekeeper isToday()");
+        //debug("timekeeper givenStringee =",  givenString);
+        //debug("timekeeper nowDate =",  this.getNowDate());
         if (this.getNowDate() === givenString) {
 	    debug("timekeeper isToday() returning true");
             return 1;
@@ -26,8 +26,8 @@ function Timekeeper() {
         return 0;
     };
     this.getDaysElapsed = function (givenString) {
-        debug("timekeeper getDaysElapsed()");
-        debug("timekeeper givenString =",  givenString);
+        //debug("timekeeper getDaysElapsed()");
+        //debug("timekeeper givenString =",  givenString);
         var daysElapsed = "";
         // this day is EST
         // to get GMT add 4 hours
@@ -37,12 +37,12 @@ function Timekeeper() {
         // this day is EST
         // to get GMT add 4 hours
         var dateToday = this.getSortNoPrefix(dateTodayWithPrefix);
-        debug("timekeeper dateToday =", dateToday);
+        //debug("timekeeper dateToday =", dateToday);
         var timestampToday = this.convertYearFirstStyleDateToTimestamp(dateToday);
-        debug("timekeeper timestampToday =",  timestampToday);
+        //debug("timekeeper timestampToday =",  timestampToday);
         // get difference
         var diff = timestampToday - timestampGiven;
-        debug("timekeeper diff =", diff);
+        //debug("timekeeper diff =", diff);
         // divide by seconds minutes hours
         // in order to make days
         daysElapsed = Math.round((diff / (60 * 60 * 24)), 0);
@@ -63,10 +63,10 @@ function Timekeeper() {
         return daysElapsed;
     };
     this.convertYearFirstStyleDateToTimestamp = function (yearFirstStyleDateStart) {
-        debug("timekeeper convertYearFirstStyleDateToTimestamp()");
-        debug("timekeeper yearFirstStyleDateStart =", yearFirstStyleDateStart);
+        //debug("timekeeper convertYearFirstStyleDateToTimestamp()");
+        //debug("timekeeper yearFirstStyleDateStart =", yearFirstStyleDateStart);
         var hyphenCount = yearFirstStyleDateStart.split("-").length - 1;
-        debug("timekeeper hyphenCount =", hyphenCount);
+        //debug("timekeeper hyphenCount =", hyphenCount);
         // note: year_first_style_date is in the "2010-11-21" style
         // est the string first to make sure that 2 dashes exist
         // only split if there exists the correct form
@@ -77,15 +77,15 @@ function Timekeeper() {
         } else {
             // perhaps there is a a better way to deal with the error
             var why = "timekeeper found bad sort form";
-            debug("timekeeper error why =", why);
+            //debug("timekeeper error why =", why);
             throw why;
         }
         var year = list[0];
         var month = list[1];
         var day = list[2];
-        debug("timekeeper list (year) =", list[0]);
-        debug("timekeeper list (month) =", list[1]);
-        debug("timekeeper list (day) =", list[2]);
+        //debug("timekeeper list (year) =", list[0]);
+        //debug("timekeeper list (month) =", list[1]);
+        //debug("timekeeper list (day) =", list[2]);
         // convert date input into timestamp
         // note that this function appears to assume local zone (+4 from GMT)
         var hour = 0;
@@ -123,20 +123,20 @@ function Timekeeper() {
     };
     this.getNowDate = function () {
 	// make localtime
-	debug("timekeeper getNowDate()");
+	//debug("timekeeper getNowDate()");
 	// convert from UTC to localtime
         var date = new Date();
-	debug("timekeeper date =", date);
+	//debug("timekeeper date =", date);
 	var offset = date.getTimezoneOffset();
-	debug("timekeeper offset =", offset);
+	//debug("timekeeper offset =", offset);
 	var offset_hours = offset / 60;
-	debug("timekeeper offset_hours =", offset_hours);
+	//debug("timekeeper offset_hours =", offset_hours);
 	var hours = date.getHours();
-	debug("timekeeper hours =", hours);
+	//debug("timekeeper hours =", hours);
 	var diff_hours = hours - offset_hours;
-	debug("timekeeper diff_hours =", diff_hours);
+	//debug("timekeeper diff_hours =", diff_hours);
 	date.setHours(diff_hours);
-	debug("timekeeper date =", date);
+	//debug("timekeeper date =", date);
 	var dateStyled = date.toISOString().slice(0, 10)
 	debug("timekeeper dateStyles =", dateStyled);
 	return dateStyled;

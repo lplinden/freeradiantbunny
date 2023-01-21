@@ -59,7 +59,7 @@ function SceneElements() {
 		orderBy ="ORDER BY z.class_name_string, processes_id, z.sort DESC, z.class_primary_key_string, z.id";
 	    }
 	    debug("scene_elements orderBy =", orderBy);
-	    sql = "select z.status, array(select pr.name from processes pr where pr.id = z.processes_id) as processes_id, z.id, z.img_url as image, concat('<a href=\"../', z.class_name_string, '/', z.class_primary_key_string, '\">', z.class_name_string, '/', z.class_primary_key_string, '</a>') as class_primary_key_string, z.sort, z.name, a.name as account_name from scene_elements z, accounts a where z.accounts_id = a.id " + orderBy + ";";
+	    sql = "select z.status, z.sort, array(select pr.name from processes pr where pr.id = z.processes_id) as processes_id, z.id, z.img_url as image, concat('<a href=\"../', z.class_name_string, '/', z.class_primary_key_string, '\">', z.class_name_string, '/', z.class_primary_key_string, '</a>') as class_primary_key_string, z.name from scene_elements z " + orderBy + ";";
 	}
 	return sql;
     };

@@ -17,10 +17,10 @@ function Sqlgenerator() {
         // create sql
 	var tablePrefix = "a";
 	// todo refactor that "a" alias below
-        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableName, schema, inboundForeignKeyTables, paramUpkIsValid) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE " + tablePrefix + ".id = " + id + ";";
+        var sql = "SELECT " + this.getColumnNames(tablePrefix, tableName, schema, id, inboundForeignKeyTables, paramUpkIsValid) + " FROM " + tableName + " " + tablePrefix + " " + "WHERE " + tablePrefix + ".id = " + id + ";";
         return sql;
     };
-    this.getColumnNames = function (tablePrefix, tableName, schema, inboundForeignKeyTables, paramUpkIsValid) {
+    this.getColumnNames = function (tablePrefix, tableName, schema, id, inboundForeignKeyTables, paramUpkIsValid) {
 	// debug only
 	//debug("sqlgenerator paramUpkIsValid =", paramUpkIsValid);
 	// note: schema = columnKeys
@@ -40,6 +40,15 @@ function Sqlgenerator() {
 		columnNames += hyperlinkSql;
 		columnNames += " as ";
 		columnNames += columnName;
+	    } else if (columnName == "class_primary_key_string") {
+		// make class_primary_key_string into hyperlink
+		var paramUpkIsValidString = "";
+		if (typeof paramUpkIsValid === "undefined") {
+		    // skip
+		} else {
+		    paramUpkIsValidString = "?" + paramUpkIsValid;
+		}
+		columnNames += "concat('<a href=\"../', " + tablePrefix + ".class_name_string, '/', " + tablePrefix + ".class_primary_key_string, '" + paramUpkIsValidString+ "\">', " + tablePrefix + ".class_primary_key_string, '</a>') as " + columnName;
 	    } else {
 		columnNames += prefixedColumn;
 	    }
@@ -71,31 +80,17 @@ function Sqlgenerator() {
 		    paramUpkIsValidString = "";
 		}
 		// also lists the status
-		var subquery = "array(SELECT CONCAT(fk.status, ' ', '<a href=\"../" + inboundFkTableName + "/', fk.id, '" + paramUpkIsValidString + "\">', fk.name, '</a>') FROM " + inboundFkTableName + " fk WHERE fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + " ORDER BY fk.name)";
-		columnNames += subquery + " as " + "\"associated " + inboundFkTableName + "\"";
+		var subquery = "ARRAY(SELECT CONCAT(fk.status, ' ', '<a href=\"../" + inboundFkTableName + "/', fk.id, '" + paramUpkIsValidString + "\">', fk.name, '</a>') FROM " + inboundFkTableName + " fk WHERE fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + " ORDER BY fk.name)";
+		columnNames += subquery + " AS " + "\"associated " + inboundFkTableName + "\"";
 	    }
 	}
-	// add columns to query if this table has inbound foreign keys
+	// perhaps add columns to query
 	if (tableName == "scene_elements") {
-	    // add comma
+	    // the SQL requires dynamic SQL, so there is a function
+	    // gets the name the scene_elements' polymophic element
 	    columnNames += ", ";
-	    // also lists the status
-	    // to fix the below so that it gets the variable from db
-	    // only needed because the SQL falls short
-	    var polyTableName
-	    if (1) {
-		polyTableName = "domains";
-	    } else if (0) {
-		polyTableName = "suppliers";
-	    } else if (0) {
-		polyTableName = "applications";
-	    } else if (0) {
-		polyTableName = "machines";
-	    } else if (0) {
-		polyTableName = "email_addresses";
-	    }
-	    var subquery = "array(SELECT CONCAT(poly.status, ' ', '<a href=\"../', " + tablePrefix + ".class_name_string, '/', " + tablePrefix + ".class_primary_key_string, '\">', poly.name, '</a>') FROM " + polyTableName + " poly WHERE " + tablePrefix + ".class_primary_key_string = poly.id::varchar(10))";
-	    columnNames += subquery + " as \"associated polymorphic\"";
+	    columnNames += "concat('<a href=\"../', " + tablePrefix + ".class_name_string, '/', " + tablePrefix + ".class_primary_key_string, '" + paramUpkIsValidString+ "\">', get_polymorphic_name(" + id + "), '</a>')";
+	    columnNames += " AS \"associated polymorphic\"";
 	}
 	// ok, heavy ho, send it forward in to the cyberspaces
 	return columnNames;

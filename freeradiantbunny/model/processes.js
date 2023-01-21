@@ -45,7 +45,7 @@ function Processes() {
 	    } else {
 		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables,  paramUpkIsValid);
 		// refactor
-		//sql = "select array(select concat('<a href=\"../business_plan_texts/', bpt.id, '\">', bpt.name, '</a>') from business_plan_texts bpt where bpt.id = pr.business_plan_texts_id) as business_plan_texts_id, pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, pr.description, array(select concat('<br /><a href=\"../scene_elements/', se.id, '\">', se.name, '</a>') from scene_elements se, processes pr where pr.id = se.process_id AND pr.id = " + idOrNoId + ") as scene_elements from processes pr where pr.id = " + idOrNoId + ";";
+		//sql = "select array(select concat('<a href=\"../business_plan_texts/', bpt.id, '\">', bpt.name, '</a>') from business_plan_texts bpt where bpt.id = pr.business_plan_texts_id) as business_plan_texts_id, pr.status, pr.sort, pr.id, pr.img_url as image, pr.name, pr.description, array(select concat('<br /><a href=\"../scene_elements/', se.id, '\">', se.name, '</a>') from scene_elements se, processes pr where pr.id = se.processes_id AND pr.id = " + idOrNoId + ") as scene_elements from processes pr where pr.id = " + idOrNoId + ";";
 	    }
 	} else {
 	    // old way, the standard way, and what you would expect
@@ -53,7 +53,7 @@ function Processes() {
 	    // new way this allows user to specify using table field priority
 	    var orderBy ="ORDER BY z.priority, z.name";
 	    debug("processes orderBy =", orderBy);
-	    sql = "select z.priority, z.status, z.sort, array(select gs.name from goal_statements gs, business_plan_texts bpt where gs.id = bpt.goal_statement_id AND bpt.id = z.business_plan_texts_id) as goal_statements, array(select bpt.name from business_plan_texts bpt where bpt.id = z.business_plan_texts_id) as business_plan_texts, z.id, z.img_url as image, z.name, array(select concat('<a href=\"../scene_elements/processes/', z.id , '\">', count(se.id), '</a>') from scene_elements se where se.process_id = z.id) as se_count from processes z " + orderBy + ";";
+	    sql = "select z.priority, z.status, z.sort, array(select gs.name from goal_statements gs, business_plan_texts bpt where gs.id = bpt.goal_statements_id AND bpt.id = z.business_plan_texts_id) as goal_statements, array(select bpt.name from business_plan_texts bpt where bpt.id = z.business_plan_texts_id) as business_plan_texts, z.id, z.img_url as image, z.name, array(select concat('<a href=\"../scene_elements/processes/', z.id , '\">', count(se.id), '</a>') from scene_elements se where se.processes_id = z.id) as se_count from processes z " + orderBy + ";";
 	}
 	return sql;
     };
