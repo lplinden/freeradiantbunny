@@ -1,3 +1,20 @@
+CREATE OR REPLACE FUNCTION get_polymorphic_name (IN given_id INTEGER)
+RETURNS text AS $$
+DECLARE
+   table_name text;
+   table_primary_key text;
+   result text;
+BEGIN
+   -- First query
+   SELECT class_name_string, class_primary_key_string INTO table_name, table_primary_key
+   FROM scene_elements
+   WHERE id = given_id;
+
+   -- Second query
+   EXECUTE 'SELECT name FROM ' || table_name || ' WHERE ' || table_primary_key || ' = id ' INTO result;
+   RETURN result;
+END; $$ LANGUAGE plpgsql;
+
 CREATE SEQUENCE public.scene_elements_id_seq
     START WITH 1
     INCREMENT BY 1

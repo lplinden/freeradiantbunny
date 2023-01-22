@@ -14,3 +14,4 @@ BEGIN
    EXECUTE 'SELECT name FROM ' || table_name || ' WHERE ' || table_primary_key || ' = id ' INTO result;
    RETURN result;
 END; $$ LANGUAGE plpgsql;
+
