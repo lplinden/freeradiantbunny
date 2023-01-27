@@ -67,15 +67,7 @@ function Moulder() {
 	} else if (columnName === "last_updated") {
 	    styles = "white-space: nowrap;";
 	    return this.getStyledData("", value, value, styles);
-	} else if (columnName === "profit_or_loss") {
-	    if (value) {
-		if (value > 0) {
-		    styles += "background-color: #64e390;";
-		} else {
-		    styles = "background-color: #ff9999;";
-		}
-	    }
-	    return this.getStyledData("", value, value, styles);
+	    
         } else if (columnName.slice(0, 10) == "associated" && columnName != "associated polymorphic") {
             debug("moulder given className.slice(0, 11) =", columnName.slice(0, 11));
 	    debug("moulder given value ", value);
@@ -185,6 +177,7 @@ function Moulder() {
 		}
 	    }
 	    return this.getStyledData("", value, value, styles);
+
 	} else if (columnName === "ticker") {
 	    styles = "text-align: center; font-family: monospace; font-size: 200%;";
 	    return this.getStyledData("", value, value, styles);
@@ -376,25 +369,6 @@ function Moulder() {
 		    styles = "background-color: #64e390;";
 		    return this.getStyledData("", value, value, styles);
 		}
-	    }
-	} else if (columnName === "profit_or_loss") {
-	    if (value) {
-		if (value > 0) {
-		    // color of success light-green
-		    styles = "background-color: #64e390;";
-		} else {
-		    styles = "text-align: right; background-color: #ff9999;";
-		}
-		return this.getStyledData("", value, value, styles);
-	    }
-	} else if (columnName === "trade_completed") {
-	    if (value) {
-		if (value === "PRICE-FELL-BELOW-BUY-PRICE") {
-		    styles = "background-color: #CE9AF3;";
-		} else if (value === "SIGNAL-FELL-BELOW-SIGNAL-BUY") {
-		    styles = "background-color: #6534AA; color: yellow;";
-		}
-		return this.getStyledData("", value, value, styles);
 	    }	    
         } else if (columnName === "watch") {
 	    if (className === "coins") {

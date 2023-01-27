@@ -36,7 +36,7 @@ function Sqlgenerator() {
 		lastFourChars == "_tli" ||
 		lastSevenChars == "_symbol") {
 		// make fk_contraints into hyperlinks
-		var hyperlinkSql = this.getHyperlinkSql(fkTableName, prefixedColumn, tablePrefix, columnName);
+		var hyperlinkSql = this.getHyperlinkSql(fkTableName, prefixedColumn, tablePrefix, columnName, id);
 		columnNames += hyperlinkSql;
 		columnNames += " as ";
 		columnNames += columnName;
@@ -67,7 +67,7 @@ function Sqlgenerator() {
 		var suffix;
 		if (inboundFkTableName == "webpages" && tableName == "domains") {
 		    suffix = "tli";
-		} else if (inboundFkTableName == "coin_indicators" && tableName == "coins") {
+		} else if (tableName == "coins" && (inboundFkTableName == "coin_indicators" || inboundFkTableName == "coin_emas" || inboundFkTableName == "coin_prices" || inboundFkTableName == "coin_evaluations" || inboundFkTableName == "addresses")) {
 		    suffix = "symbol";
 		} else {
 		    suffix = "id";
@@ -80,7 +80,12 @@ function Sqlgenerator() {
 		    paramUpkIsValidString = "";
 		}
 		// also lists the status
-		var subquery = "ARRAY(SELECT CONCAT(fk.status, ' ', '<a href=\"../" + inboundFkTableName + "/', fk.id, '" + paramUpkIsValidString + "\">', fk.name, '</a>') FROM " + inboundFkTableName + " fk WHERE fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + " ORDER BY fk.name)";
+		if (tableName === "coins") {
+		    // coins associated tables does not have columns for status or name
+		    var subquery = "ARRAY(SELECT CONCAT('<a href=\"../" + inboundFkTableName + "/', fk.id, '" + paramUpkIsValidString + "\">', fk.id, '</a>') FROM " + inboundFkTableName + " fk WHERE fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + " ORDER BY fk.id)";
+		} else {
+		    var subquery = "ARRAY(SELECT CONCAT(fk.status, ' ', '<a href=\"../" + inboundFkTableName + "/', fk.id, '" + paramUpkIsValidString + "\">', fk.name, '</a>') FROM " + inboundFkTableName + " fk WHERE fk." + tableName + "_" + suffix + " = " + tablePrefix + "." + suffix + " ORDER BY fk.name)";
+		}
 		columnNames += subquery + " AS " + "\"associated " + inboundFkTableName + "\"";
 	    }
 	}
@@ -116,15 +121,25 @@ function Sqlgenerator() {
 	    var length = columnName.length;
 	    var indexEnd = length - 4;
 	    foreignTableName = columnName.slice(0, indexEnd);
+	} else if (columnName.slice(-7) == "_symbol") {
+	    // remove "_tli" from end of string
+	    var length = columnName.length;
+	    var indexEnd = length - 7;
+	    foreignTableName = columnName.slice(0, indexEnd);
 	}
 	return foreignTableName;
     };
-    this.getHyperlinkSql = function (fkTableName, prefixedColumn, tablePrefix, columnName) {
+    this.getHyperlinkSql = function (fkTableName, prefixedColumn, tablePrefix, columnName, id) {
 	var hyperlinkSql= "";
 	hyperlinkSql += "concat('<a href=\"../";
 	hyperlinkSql += fkTableName;
 	hyperlinkSql += "/', ";
-	hyperlinkSql += prefixedColumn;
+	if (fkTableName == "coins") {
+	    // swap out the id for the symbol
+	    hyperlinkSql += "(select w.id from coins w where w.symbol = a.coins_symbol)";
+	} else {
+	    hyperlinkSql += prefixedColumn;
+	}
 	hyperlinkSql += ", '\">";
 	hyperlinkSql += fkTableName;
 	hyperlinkSql += "/', ";

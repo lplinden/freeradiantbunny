@@ -36,7 +36,7 @@ function Coin_Indicators() {
             debug("coin_indicators orderBy =", orderBy);
 	    // query nested with query so that only the max timestamp of a coin shows
 	    // kludge to get started (uses UNION)
-	    sql = "SELECT z.id, z.coins_symbol, z.last_updated, z.measurement FROM coin_indicators z " + orderBy + " LIMIT " + limit + ";";
+	    sql = "SELECT z.id, z.coins_symbol, to_char(z.last_updated at time zone 'est', 'YYYY-MM-DD-HH24:MI'), z.measurement FROM coin_indicators z WHERE (select max(y.last_updated) from coin_indicators y) = z.last_updated " + orderBy + " LIMIT " + limit + ";";
 	}
 	return sql;
     };

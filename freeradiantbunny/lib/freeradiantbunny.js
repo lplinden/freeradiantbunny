@@ -23,7 +23,7 @@ var fileName200 = path.join(__dirname, '../public/200.html');
 
 var bot = require('./bot.js');
 var controller = require('./controller.js');
-var realtime = require('./realtime.js');
+//var realtime = require('./realtime.js');
 var validator = require('./validator.js');
 
 /**
@@ -53,10 +53,10 @@ module.exports = {
 	debug("freeradiantbunny getController()");
         return controller;
     },
-    getRealtime: function () {
-	debug("freeradiantbunny getRealtime()");
-        return realtime;
-    },
+    //getRealtime: function () {
+	//debug("freeradiantbunny getRealtime()");
+        //return realtime;
+    //},
     getValidator: function () {
 	debug("freeradiantbunny getValidator()");
         return validator;

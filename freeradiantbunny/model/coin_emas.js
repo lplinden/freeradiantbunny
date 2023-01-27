@@ -32,12 +32,9 @@ function Coin_Emas() {
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables,  paramUpkIsValid);	    
         } else {
-            var orderBy = "ORDER BY z.last_updated, z.id";
+            var orderBy = "ORDER BY z.last_updated DESC, z.coins_symbol, z.period";
             debug("coin_emas orderBy =", orderBy);
-	    // query nested with query so that only the max timestamp of a coin shows
-	    // kludge to get started (uses UNION)
-	    var limit = 100;
-	    sql = "SELECT z.id, z.coins_symbol, z.last_updated, z.period, z.ema FROM coin_emas z " + orderBy + " LIMIT " + limit + ";";
+	    sql = "SELECT z.id, z.coins_symbol, to_char(z.last_updated at time zone 'est', 'YYYY-MM-DD-HH24:MI') as last_updated, z.period, z.ema FROM coin_emas z WHERE z.last_updated = (select max(y.last_updated) from coin_emas y)" + orderBy + ";";
 	}
 	return sql;
     };

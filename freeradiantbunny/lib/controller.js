@@ -195,7 +195,7 @@ function Controller() {
 		}
 	    }
             // markup data
-	    viewer.getOutput(res, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, classNameFilterNamePromise, paramUpkIsValid);
+	    viewer.getOutput(res, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, classNameFilterNamePromise, paramUpkIsValid, paramFilter);
         }
 	// aside post
         // after the action, deal with user requests (if any)

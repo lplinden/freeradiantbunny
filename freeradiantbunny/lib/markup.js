@@ -13,7 +13,7 @@ var instanceCount = 0;
 var columnCount = 0;
 var columnNum = 1;
 
-var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pageName, paramUpkIsValid) {
+var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pageName, paramUpkIsValid, paramFilter) {
     debug("markup convertDataSet()");
     var aDataSet = [];
     var moulder = require('./moulder.js');
@@ -74,9 +74,10 @@ var convertDataSet = function (dataSet, className, id, baseUrl, localBaseUrl, pa
 	    debug("markup extends_class_id =", extends_class_id);
 	    debug("markup pageName =", pageName);
 	    debug("markup aId =", aId);
+	    debug("markup paramFilter =", paramFilter);
 	    var dataToUse = row[columnNameAsLinkOrNot];
 	    // store in array
-            aRow[columnNameAsLinkOrNot] = moulder.get(columnName, dataToUse, className, id, baseUrl, localBaseUrl, extends_class_id, id, pageName, aId, paramUpkIsValid);
+            aRow[columnNameAsLinkOrNot] = moulder.get(columnName, dataToUse, className, id, baseUrl, localBaseUrl, extends_class_id, id, pageName, aId, paramUpkIsValid, paramFilter);
             debug("markup database aRow =", aRow[columnNameAsLinkOrNot]);
         }
         aDataSet.push(aRow);
@@ -95,11 +96,12 @@ function Markup() {
     };
     var myTags = this.associate('tags');
     var myEntitiesObj = this.associate('entities');
-    this.getPage = function (res, suitcase, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, pageName, classNameFilterNamePromise, special, paramUpkIsValid) {
+    this.getPage = function (res, suitcase, dataSetPromise, className, classNameFilter, id, paramSort, paramView, io, pageName, classNameFilterNamePromise, special, paramUpkIsValid, paramFilter) {
         debug("markup getPage()");
         debug("markup className =", className);
         debug("markup pageName =", pageName);
         debug("markup paramView =", paramView);
+	debug("markup paramFilter =", paramFilter);
 
         var freeradiantbunny = require("freeradiantbunny");
         var config = freeradiantbunny.getConfig();
@@ -192,9 +194,10 @@ function Markup() {
 		   className == "coin_indicators" ||
 		   className == "coin_emas" ||
 		   className == "coin_evaluations" ||
-		   className == "coin_markets") {
+		   className == "coin_markets" ||
+		   className == "coin_signals") {
             currentMenuSelections.subs = className;
-            choicesSubsMenu = ["coins", "coin_prices", "coin_emas", "coin_indicators", "coin_evaluations", "coin_markets"];
+            choicesSubsMenu = ["coins", "coin_prices", "coin_emas", "coin_indicators", "coin_evaluations", "coin_signals", "coin_markets"];
 	    menuType = "subs";
             manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl, paramUpkIsValid);
 	}
@@ -247,7 +250,7 @@ function Markup() {
 	    // test if empty
 	    debug("markup Promise.all results[0] =", results[0]);
 	    debug("markup Promise.all results[1] =", results[1]);
-            var aDataSet = convertDataSet(dataSet, className, id, baseUrl, localBaseUrl, pageName, paramUpkIsValid);
+            var aDataSet = convertDataSet(dataSet, className, id, baseUrl, localBaseUrl, pageName, paramUpkIsValid, paramFilter);
             // process the data some before sending to template
             // sort field assumes that the id field is before it in sql query
             // the dataSet variable is created
