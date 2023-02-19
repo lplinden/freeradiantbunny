@@ -122,6 +122,9 @@ function Moulder() {
 	    styles = "text-align: center;";
 	    return this.getStyledData("", value, value, styles);
 
+	} else if (columnName.slice(0,14) == "units") {
+	    styles += "text-align: right;";
+	    return this.getStyledData("", value, value, styles);
 	} else if (columnName.slice(0,14) == "percent_change") {
 	    // columns from the coin_prices table
 	    if (value > 0) {
@@ -598,9 +601,9 @@ function Moulder() {
 			    styles = "background-color: green;";
 			} else if (value == 'DOWNTREND-MACD-XOVER-IS-UP-TO-DOWN') {
 			    styles = "background-color: orange;";
-			} else if (value == 'UPTREND-MACD-INDICATOR-MOMENTUM-UP') {
+			} else if (value == 'UPTREND-MACD-ABOVE-SIGNAL-LINE') {
 			    styles = "background-color: #64AAaa;";
-			} else if (value == 'DOWNTREND-MACD-INDICATOR-MOMENTUM-DOWN') {
+			} else if (value == 'DOWNTREND-MACD-BELOW-SIGNAL-LINE') {
 			    styles = "background-color: #f6d499;";
 			} else if (value == 'UPTREND-EMA-12-ABOVE-EMA-26') {
 			    styles = "background-color: #64ddaa;";

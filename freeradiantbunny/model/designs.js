@@ -23,6 +23,7 @@ function Designs() {
 		   'status',
 		   'sort',
 		   'domains_tli'];
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("designs classNameFilter =", classNameFilter);
         debug("designs paramSort =", paramSort);

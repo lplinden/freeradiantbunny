@@ -34,15 +34,15 @@ function TradeTickets() {
 		   'risk_ratio',
 		   'amount',
 		   'enter_transactions_id',
+		   'exit_transactions_id',
+		   'partial_trade_tickets_id',
 		   'trade_ts',
 		   'entry_actual_price',
 		   'signal_sell_stories',
 		   'stoploss_triggered_ts',
-		   'exit_transactions_id',
 		   'exit_price',
 		   'exit_amount',
 		   'partial_amount',
-		   'partial_trade_tickets_id',
 		   'performance_measures',
 		   'tnx_ref'];
     this.inboundForeignKeyTables = [];

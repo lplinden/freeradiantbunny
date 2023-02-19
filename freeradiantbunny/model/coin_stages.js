@@ -15,7 +15,7 @@ function Stages() {
     'use strict';
     instanceCount = instanceCount + 1;
     debug("stages instantiated", instanceCount);
-    this.name = "stages";
+    this.name = "coin_stages";
     this.schema = ['id',
 		   'name',
 		   'pos'];
@@ -30,9 +30,9 @@ function Stages() {
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            var orderBy = "ORDER BY z.pos";
+            var orderBy = "ORDER BY z.name";
             debug("stages orderBy =", orderBy);
-	    sql = "select z.id, z.name, z.pos from stages z " + orderBy + ";";
+	    sql = "select z.id, z.name, z.pos from coin_stages z " + orderBy + ";";
         }
         return sql;
     };

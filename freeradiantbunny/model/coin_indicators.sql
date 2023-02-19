@@ -11,7 +11,9 @@ CREATE TABLE public.coin_indicators (
     id integer DEFAULT nextval('public.coin_indicators_id_seq'::regclass) NOT NULL,
     coins_symbol character varying(10) NOT NULL,
     last_updated timestamp with time zone,
-    measurement text
+    signal_line text,
+    measurement text,
+    measurement_change text
 );
 
 ALTER TABLE public.coin_indicators OWNER TO freerad2_special;

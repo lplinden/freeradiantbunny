@@ -14,12 +14,12 @@ CREATE TABLE public.blogposts (
     img_url text,
     status text,
     sort text,
+    webpages_id integer,
     body text,
     tags text,
     url_alias text,
     author text,
     pubdate text,
-    webpage_id integer,
     database_string text,
     class_name_string text,
     class_primary_key_string text
@@ -29,3 +29,6 @@ ALTER TABLE public.blogposts OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.blogposts
     ADD CONSTRAINT blogposts_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.blogposts
+    ADD CONSTRAINT blogposts_webpages_id_fk FOREIGN KEY (webpages_id) REFERENCES public.webpages(id);

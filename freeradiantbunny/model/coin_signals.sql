@@ -13,6 +13,7 @@ CREATE TABLE public.coin_signals (
     coin_evaluations_id integer,
     last_updated_buy timestamp with time zone,
     price_buy numeric(20,10),
+    units text,
     last_updated_sell timestamp with time zone,
     price_sell numeric(20,10),
     signal_duration text,
@@ -29,7 +30,7 @@ ALTER TABLE ONLY public.coin_signals
     ADD CONSTRAINT coin_signals_coins_symbol_fk FOREIGN KEY (coins_symbol) REFERENCES public.coins(symbol);
 
 ALTER TABLE ONLY public.coin_signals
-    ADD CONSTRAINT coin_signals_coin_evaluations_id_fk FOREIGN KEY (coin_evaulations_id) REFERENCES public.coin_evaluations(id);
+    ADD CONSTRAINT coin_signals_coin_evaluations_id_fk FOREIGN KEY (coin_evaluations_id) REFERENCES public.coin_evaluations(id);
 
 ALTER TABLE ONLY public.coin_signals
-    ADD CONSTRAINT coin_signals_coins_symbol_last_updated_unique UNIQUE (coins_symbol, last_updated_buy);
+    ADD CONSTRAINT coin_signals_coins_symbol_last_updated_buy_unique UNIQUE (coins_symbol, last_updated_buy);

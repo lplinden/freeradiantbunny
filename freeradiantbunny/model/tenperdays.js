@@ -17,10 +17,7 @@ function Tenperdays() {
     debug("tenperdays instantiated", instanceCount);
     this.name = "tenperdays";
     this.schema = ['id',
-		   'name',
-		   'description',
-		   'img_url',
-		   'status',
+		   'count',
 		   'sort'];
     this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
@@ -33,7 +30,7 @@ function Tenperdays() {
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            var orderBy = "ORDER BY z.sort DESC";
+            var orderBy = "ORDER BY z.sort DESC, z.count, z.id";
             debug("tenperdays orderBy =", orderBy);
 	    // used for testing
 	    //var today = '2020-12-31';
@@ -41,7 +38,7 @@ function Tenperdays() {
 	    //var sql_insert = "insert into tenperdays (sort,count) values ('Y " + today + "','1');";
 	    //var sql_update = "update tenperdays set count=3 where sort = 'Y " + today + "'; ";
             //sql = "select z.id, z.sort, z.count, select count(wp.id) from webpages wp where wp.sort = 'Y " + today + "' as webpages_today_count from tenperdays z " + orderBy + ";";
-            sql = "select z.id, z.sort, z.count from tenperdays z " + orderBy + ";";
+            sql = "select z.sort, z.id, z.count from tenperdays z " + orderBy + ";";
         }
         return sql;
     };

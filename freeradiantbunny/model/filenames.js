@@ -25,7 +25,7 @@ function Filenames() {
 		   'md5sum',
 		   'size',
 		   'monetize'];
-    this.inboundForeignKeyTables = [];    
+    this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramUpkIsValid, specialFlag, queryTerms) {
         debug("filenames idOrNoId =", idOrNoId);
 	debug("filenames classNameFilter =", classNameFilter);

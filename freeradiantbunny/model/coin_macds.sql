@@ -11,6 +11,7 @@ CREATE TABLE public.coin_macds (
     id integer DEFAULT nextval('public.coin_macds_id_seq'::regclass) NOT NULL,
     coins_symbol character varying(10) NOT NULL,
     last_updated timestamptz,
+    previous_macd numeric(20,10),
     macd numeric(20,10)
 );
 

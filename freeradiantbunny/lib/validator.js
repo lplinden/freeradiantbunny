@@ -61,14 +61,15 @@ function Validator() {
 	    "business_plan_texts",
 	    "databases",
 	    "classes",
-	    "class_tags",
 	    "coins",
 	    "coin_candlesticks",
 	    "coin_emas",
 	    "coin_evaluations",
 	    "coin_indicators",
+	    "coin_macds",
 	    "coin_markets",
 	    "coin_prices",
+	    "coin_stages",
 	    "coin_signals",
 	    "columns",
 	    "datastores",
@@ -95,6 +96,7 @@ function Validator() {
 	    "modules",
 	    "moneymaker_measurement_instances",
 	    "moneymaker_measurements",
+	    "moneymakers",
 	    "namespaces",
 	    "permaculture_topics",
 	    "plants",
@@ -124,7 +126,9 @@ function Validator() {
 	    "subsystems",
 	    "suppliers",
 	    "tags",
+	    "tag_instances",
 	    "textfiles",
+	    "tenperdays",
 	    "timecards",
 	    "tools",
 	    "trade_tickets",
@@ -166,6 +170,8 @@ function Validator() {
 	    "coin_indicators",
 	    "coin_prices",
 	    "coin_signals",
+	    "coin_macds",
+	    "coin_markets",
 	    "databases",
 	    "datastores",
 	    "delegations",
@@ -186,6 +192,7 @@ function Validator() {
 	    "markets",
 	    "moneymaker_measurement_instances",
 	    "moneymaker_measurements",
+	    "moneymakers",
 	    "namespaces",
 	    "process_flows",
 	    "processes",
@@ -199,6 +206,7 @@ function Validator() {
 	    "stake_providers",
 	    "stakes",
 	    "suppliers",
+	    "tenperdays",
 	    "textfiles",
 	    "timecards",
 	    "tools",
@@ -213,7 +221,7 @@ function Validator() {
             return true;
         }
         return false;
-    }
+    };
     this.validatePathName = function (userString) {
         // remove non-alphanumerical
         var result = userString.match(/^[\w\.]*$/);

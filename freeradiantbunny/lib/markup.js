@@ -177,11 +177,10 @@ function Markup() {
 	} else if (className == "domains" ||
 	    className == "webpages" ||
 	    className == "tenperdays" ||
-	    className == "webpage_tags" ||
 	    className == "webpage_maxonomies" ||
 	    className == "maxonomies") {
             currentMenuSelections.subs = className;
-            choicesSubsMenu = ["domains", "webpages", "tenperdays", "webpage_tags", "webpage_maxonomies", "maxonomies"];
+            choicesSubsMenu = ["domains", "webpages", "tenperdays", "webpage_maxonomies", "maxonomies"];
 	    menuType = "subs";
             manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl, paramUpkIsValid);
 	} else if (className == "coins" ||
@@ -195,9 +194,21 @@ function Markup() {
 		   className == "coin_emas" ||
 		   className == "coin_evaluations" ||
 		   className == "coin_markets" ||
+		   className == "coin_macds" ||
 		   className == "coin_signals") {
             currentMenuSelections.subs = className;
-            choicesSubsMenu = ["coins", "coin_prices", "coin_emas", "coin_indicators", "coin_evaluations", "coin_signals", "coin_markets"];
+            choicesSubsMenu = ["coins", "coin_prices", "coin_emas", "coin_indicators", "coin_evaluations", "coin_macds", "coin_signals", "coin_markets"];
+	    menuType = "subs";
+            manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl, paramUpkIsValid);
+	} else if (className == "addresses" ||
+		   className == "delegations" ||
+		   className == "providers" ||
+		   className == "delegation_provders" ||
+		   className == "stake_providers" ||
+		   className == "deposits" ||
+		   className == "stakes") {
+            currentMenuSelections.subs = className;
+            choicesSubsMenu = ["addresses", "delegations", "delegation_providers", "providers", "stakes", "stake_providers", "deposits"];
 	    menuType = "subs";
             manifest.subsMenu = menu.getMenu(menuType, currentMenuSelections, choicesSubsMenu, url, baseUrl, paramUpkIsValid);
 	}
