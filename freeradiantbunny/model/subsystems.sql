@@ -13,7 +13,8 @@ CREATE TABLE public.subsystems (
     description text,
     img_url text,
     status text,
-    sort text
+    sort text,
+    rules text
 );
 
 ALTER TABLE public.subsystems OWNER TO freerad2_special;

@@ -21,8 +21,9 @@ function Subsystems() {
 		   'description',
 		   'img_url',
 		   'status',
-		   'sort'];
-    this.inboundForeignKeyTables = [];
+		   'sort',
+		   'rules'];
+    this.inboundForeignKeyTables = ['classes', 'modules'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("subsystems idOrNoId =", idOrNoId);
 	debug("subsystems classNameFilter =", classNameFilter);
@@ -35,7 +36,7 @@ function Subsystems() {
         } else {
             var orderBy = "ORDER BY z.sort DESC, z.name";
             debug("subsystems orderBy =", orderBy);
-	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from subsystems z " + orderBy + ";";
+	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.rules , z.description from subsystems z " + orderBy + ";";
         }
         return sql;
     };
