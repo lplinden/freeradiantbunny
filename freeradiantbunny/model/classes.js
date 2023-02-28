@@ -33,7 +33,8 @@ function Classes() {
 		   'subsystems_id',
 		   'dev',
 		   'lookup',
-		   'notes'];
+		   'notes',
+		   'url'];
     this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("classes idOrNoId", idOrNoId);
@@ -66,7 +67,7 @@ function Classes() {
             debug("classes orderBy =", orderBy);
             // many
 	    // temp
-            sql = "select a.status, a.sort, a.id, a.name, array(select concat('<a href=\"../subsystems/', s.id, '\" style=\"text-decoration: none;\">', s.name, '</a>') from subsystems s where a.subsystems_id = s.id) as subsystem, array(select concat('<a href=\"../zachmans/', z.id, '\" style=\"text-decoration: none;\">', z.name, '</a>') from zachmans z where a.zachmans_id = z.id) as zachman, a.dev, a.fk_constraints from classes a " + orderBy;
+            sql = "select a.status, a.sort, a.id, a.name, array(select concat('<a href=\"../subsystems/', s.id, '\" style=\"text-decoration: none;\">', s.name, '</a>') from subsystems s where a.subsystems_id = s.id) as subsystem, array(select concat('<a href=\"../zachmans/', z.id, '\" style=\"text-decoration: none;\">', z.name, '</a>') from zachmans z where a.zachmans_id = z.id) as zachman, a.dev from classes a " + orderBy;
         }
         return sql;
     };

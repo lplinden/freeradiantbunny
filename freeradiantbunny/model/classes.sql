@@ -13,7 +13,8 @@ CREATE TABLE public.classes (
     scrubber_flag boolean,
     increment_id_flag boolean,
     fk_constraints text,
-    specialized_fields text
+    specialized_fields text,
+    url text
 );
 
 ALTER TABLE public.classes OWNER TO freerad2_special;

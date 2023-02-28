@@ -34,9 +34,9 @@ function Subsystems() {
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            var orderBy = "ORDER BY z.sort DESC, z.name";
+            var orderBy = "ORDER BY z.status, z.sort DESC, z.name";
             debug("subsystems orderBy =", orderBy);
-	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.rules , z.description from subsystems z " + orderBy + ";";
+	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.rules, count(c.id) as classes_count from subsystems z, classes c where z.id = c.subsystems_id group by z.status, z.sort, z.id, z.img_url, z.name, z.rules " + orderBy + ";";
         }
         return sql;
     };

@@ -13,7 +13,8 @@ CREATE TABLE public.keywords (
     description text,
     img_url text,
     status text,
-    sort text
+    sort text,
+    url text
 );
 
 ALTER TABLE public.keywords OWNER TO freerad2_special;

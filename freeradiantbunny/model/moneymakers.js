@@ -22,7 +22,11 @@ function Moneymakers() {
 		   'img_url',
 		   'status',
 		   'sort',
-		   'dirt'];
+		   'dirt',
+		   'ideal_client',
+		   'demographics',
+		   'url',
+		   'questions'];
     this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("moneymakers idOrNoId =", idOrNoId);
@@ -36,7 +40,7 @@ function Moneymakers() {
 	} else {
 	    var orderBy ="ORDER BY z.sort DESC, z.name, z.id";
 	    debug("moneymakers orderBy =", orderBy);
-	    sql = "select z.status, z.sort, z.id, z.img_url as image, z.name from moneymakers z " + orderBy + ";";
+	    sql = "select z.status, z.sort, z.id, z.img_url as image, z.name, z.url from moneymakers z " + orderBy + ";";
 	}
 	return sql;
     };

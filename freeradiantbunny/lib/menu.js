@@ -65,7 +65,7 @@ function Menu() {
                 menu += "\n";
             }
         }
-        menu += "<br />\n";
+        menu += "<br>\n";
         return menu;
     }
     this.getParams = function (menuType, theMenuItem, currentMenuSelections) {

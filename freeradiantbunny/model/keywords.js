@@ -21,7 +21,9 @@ function Keywords() {
 		   'description',
 		   'img_url',
 		   'status',
-		   'sort'];
+		   'sort',
+		   'keywords',
+		   'url'];
     this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("keywords idOrNoId =", idOrNoId);
@@ -35,7 +37,7 @@ function Keywords() {
         } else {
             var orderBy = "ORDER BY z.sort DESC, z.name, z.id";
             debug("keywords orderBy =", orderBy);
-	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name from keywords z " + orderBy + ";";
+	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.url from keywords z " + orderBy + ";";
         }
         return sql;
     };

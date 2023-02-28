@@ -14,7 +14,11 @@ CREATE TABLE public.moneymakers (
     img_url text,
     status text,
     sort text,
-    dirt text
+    dirt text,
+    ideal_client text,
+    demographics text,
+    url text,
+    questions text
 );
 
 ALTER TABLE public.moneymakers OWNER TO freerad2_special;

@@ -53,13 +53,13 @@ function Timekeeper() {
         // convert to fraction of a day
         //var hoursElapsedTodayInDays = hoursElapsedToday / 24;
         // debug
-        //print "debug dates.php get_days_elapsed(): hours elapsed today in days = " + hours_elapsed_today_in_days + "<br />\n";
+        //print "debug dates.php get_days_elapsed(): hours elapsed today in days = " + hours_elapsed_today_in_days + "<br>\n";
         // add the hours that have elapsed today
         //days_elapsed += hours_elapsed_today_in_days;
         // round
         //days_elapsed = Math.round(daysElapsed, 2);
         // debug
-        //print "debug dates.php get_days_elapsed(): days elapsed = " + days_elapsed + "<br />\n";
+        //print "debug dates.php get_days_elapsed(): days elapsed = " + days_elapsed + "<br>\n";
         return daysElapsed;
     };
     this.convertYearFirstStyleDateToTimestamp = function (yearFirstStyleDateStart) {

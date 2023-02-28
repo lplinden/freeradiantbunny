@@ -725,7 +725,7 @@ function Moulder() {
         } else if (columnName === "classes_associated") {
             var zachman_id = id;
             var classesList = this.getClassesListGivenZachmanId(zachman_id);
-            var charadata = "total count = " + value + "<br />" + classesList;
+            var charadata = "total count = " + value + "<br>" + classesList;
             return this.getStyledData("", chardata);
 
         } else if (columnName === "q") {
@@ -879,7 +879,7 @@ function Moulder() {
             // shorten field name for display purposes
             // save img_url field as img (see sql)
             // note that two values are concatenated below so showing more than one view withinn a view
-            var chardata = this.getImgUrlAsImageElement(baseUrl, className, value, id) + "<br />" + value;
+            var chardata = this.getImgUrlAsImageElement(baseUrl, className, value, id) + "<br>" + value;
 	    // older (not sure why it has only 2 parameters
             //return this.getStyledData("", chardata);
 	    // newer
@@ -1021,18 +1021,18 @@ function Moulder() {
         // need to implement alt attribute and title attribute
 	if (size == "image") {
 	    // image maintains original size see class and css
-            return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-image\" alt=\"\" title=\"\" /></a>";
+            return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-image\" alt=\"\" title=\"\"></a>";
 	} else if (size == "album") {
 	    // image maintains original size see class and css
-            return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-album-image\" alt=\"\" title=\"\" /></a>";
+            return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-album-image\" alt=\"\" title=\"\"></a>";
 	}
-        return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-img\" alt=\"\" title=\"\" /></a>";
+        return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-img\" alt=\"\" title=\"\"></a>";
     };
     this.getImgUrlAsImageElementToSingle = function (baseUrl, className, imgUrl, id) {
         // need to implement alt attribute and title attribute
         //debug("moulder getImgUrlAsImageElementToSingle()");
 	//debug("moulder imgUrl =", imgUrl);
-        return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-img\" alt=\"\" title=\"\" style=\"width: 33px; height: 24px;\" /></a>";
+        return "<a href=\"" + baseUrl + className + "/" + id + "\"><img src=\"" + imgUrl + "\" class=\"data-img\" alt=\"\" title=\"\" style=\"width: 33px; height: 24px;\"></a>";
     };
     this.getSortStyle = function(sort) {
         return "background: " + this.calculateCellColor(sort) + "; text-align: center; width: 140px;";

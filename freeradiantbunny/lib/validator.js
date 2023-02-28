@@ -136,6 +136,7 @@ function Validator() {
 	    "transactions",
 	    "units",
 	    "webpage_maxonomies",
+	    "webpage_moneymakers",
 	    "webpage_tags",
 	    "webpages",
 	    "varieties",
@@ -214,6 +215,8 @@ function Validator() {
 	    "trades",
 	    "transactions",
 	    "webpages",
+	    "webpage_maxonomies",
+	    "webpage_moneymakers",	    
 	    "zipzaps"
 	];
         if (blockedClassNames.includes(userString)) {
@@ -456,7 +459,7 @@ function Validator() {
     };
     this.OFFLINE_validate_form_field = function (given_parameter, given_validation_type = "") {
         var error_message = "";
-        //print "debug validator validating " + given_validation_type + " " + _POST[given_parameter] + "<br />";
+        //print "debug validator validating " + given_validation_type + " " + _POST[given_parameter] + "<br>";
         // todo add validation code here
         if (given_validation_type == "") {
             // default is text
@@ -545,31 +548,31 @@ function Validator() {
             // filter 1 
             if (config.get_debug()) {
                 // debug
-                //print "debug validator _GET class_name is set<br />\n";
+                //print "debug validator _GET class_name is set<br>\n";
             }
             if (this.is_short_alphanumeric(_GET['class_name'])) {
                 // filter 2
                 if (config.get_debug()) {
                     // debug
-                    //print "debug validator _GET class_name is_short_alphanumerica<br />\n";
+                    //print "debug validator _GET class_name is_short_alphanumerica<br>\n";
                 }
                 if (this.is_known_class(_GET['class_name'], config)) {
                     // ok
                     class_name = this.is_known_class(_GET['class_name'], config);
                     if (config.get_debug()) {
                         // debug
-                        //print "debug validator class_name = " + class_name + "<br />\n";
+                        //print "debug validator class_name = " + class_name + "<br>\n";
                     }
                     return class_name;
                 } else {
                     // error
-                    ////print "FRB validator error: not a known class_name: " + _GET['class_name'] + "<br />\n";
+                    ////print "FRB validator error: not a known class_name: " + _GET['class_name'] + "<br>\n";
                     // because the user's input is not valid the system should bail
                     return 0;
                 }
             } else {
                 // error
-                //print "FRB error: not a valid class_name.<br />\n";
+                //print "FRB error: not a valid class_name.<br>\n";
                 // because the user's input is not valid the system should bail
                 return 0;
             }
@@ -578,7 +581,7 @@ function Validator() {
     this.OFFLINE_output_freeradiantbunny = function (config, class_name) {
         // debug
         if (config.get_debug()) {
-            //print "debug validator output_freeradiantbunny()<br />\n";
+            //print "debug validator output_freeradiantbunny()<br>\n";
         }
         if (! class_name) {
             // todo should the message be sent?
@@ -621,19 +624,19 @@ function Validator() {
                     specifier = _GET['specifier'];
                     if (config.get_debug()) {
                         // debug
-                        //print "debug validator specifier = " + specifier + "<br />\n";
+                        //print "debug validator specifier = " + specifier + "<br>\n";
                     } 
                 } else {
                     // debug
-                    //print "debug validator: specifier = " + _GET['specifier'] + "<br />\n";
+                    //print "debug validator: specifier = " + _GET['specifier'] + "<br>\n";
                     // debug
-                    //print "debug validator: user input a specifier that was not known<br />\n";
+                    //print "debug validator: user input a specifier that was not known<br>\n";
                     // because the user's input is not valid the system should bail
                     bail = true;
                 }
             } else {
                 // debug
-                //print "debug validator user input a specifier that was not valid<br />\n";
+                //print "debug validator user input a specifier that was not valid<br>\n";
                 // because the user's input is not valid the system should bail
                 bail = true;
             }
@@ -657,17 +660,17 @@ function Validator() {
                         third_seat = this.is_known_third_seat(_GET['third_seat'], config);
                         if (config.get_debug()) {
                             // debug
-                            //print "debug validator third_seat = " + third_seat + "<br />\n";
+                            //print "debug validator third_seat = " + third_seat + "<br>\n";
                         }
                     } else {
                         // debug
-                        //print "debug validator user input a third_seat that was not known<br />\n";
+                        //print "debug validator user input a third_seat that was not known<br>\n";
                         // because the user's input is not valid the system should bail
                         bail = true;
                     }
                 } else {
                     // debug
-                    //print "debug validator user input a third_seat that was not valid<br />\n";
+                    //print "debug validator user input a third_seat that was not valid<br>\n";
                     // because the user's input is not valid the system should bail
                     bail = true;
                 }
@@ -682,7 +685,7 @@ function Validator() {
         } else {
             if (config.get_debug()) {
                 // debug
-                //print "debug validator bailing before output<br />\n";
+                //print "debug validator bailing before output<br>\n";
             }
         }
     }
@@ -694,14 +697,14 @@ function Validator() {
             specifier = untrusted_string;
             if (config.get_debug()) {
                 // debug
-                //print "debug validator specifier type is numeric = " + specifier + "<br />\n";
+                //print "debug validator specifier type is numeric = " + specifier + "<br>\n";
             }
         } else if (this.is_known_class(untrusted_string, config)) {
             // ok
             specifier = this.is_known_class(untrusted_string, config);
             if (config.get_debug()) {
                 // debug
-                //print "debug validator specifier resolved as scoping_class_name = " + specifier + "<br />\n";
+                //print "debug validator specifier resolved as scoping_class_name = " + specifier + "<br>\n";
             }
         } else if (this.is_tli(untrusted_string, config)) {
             // ok
@@ -709,7 +712,7 @@ function Validator() {
             // specifier have 3 letters
             if (config.get_debug()) {
                 // debug
-                //print "debug validator specifier resolved as tli = " + specifier + "<br />\n";
+                //print "debug validator specifier resolved as tli = " + specifier + "<br>\n";
             }
         }
         return specifier;
@@ -719,7 +722,7 @@ function Validator() {
             third_seat = untrusted_string;
             // debug
             if (config.get_debug()) {
-                //print "debug validator third_seat is numeric.<br />\n";
+                //print "debug validator third_seat is numeric.<br>\n";
             }
             return third_seat;
         } else {
@@ -731,13 +734,13 @@ function Validator() {
                 debug = 0;
                 if (debug) {
                     // debug
-                    //print "debug validator third_seat resolved as given_domain_tli = " + obj.get_given_domain_tli() + "<br />\n";
+                    //print "debug validator third_seat resolved as given_domain_tli = " + obj.get_given_domain_tli() + "<br>\n";
                 }
             } else {
                 debug = 0;
                 if (debug) {
                     // debug
-                    //print "debug validator third_seat not valiated tli = " + third_seat. "<br />\n";
+                    //print "debug validator third_seat not valiated tli = " + third_seat. "<br>\n";
                 }
             }
         }
@@ -757,7 +760,7 @@ function Validator() {
                     specifier = _GET['specifier'];
                     if (config.get_debug()) {
                         // debug
-                        //print "debug validator specifier = " + specifier + "<br />\n";
+                        //print "debug validator specifier = " + specifier + "<br>\n";
                     } 
                 }
             }
@@ -767,7 +770,7 @@ function Validator() {
             markup += specifier;
         } else {
             // debug
-            ////print "debug validator: missing specifier = " + specifier + "<br />\n";
+            ////print "debug validator: missing specifier = " + specifier + "<br>\n";
         }
         // todo code this so that it gets the name of the obj
         return markup;
