@@ -70,7 +70,7 @@
   </div><!-- end header-site-info -->
   </div><!-- end no-print -->  
   </header>
-<br />
+<br>
 <main>
 <div class="col-1">
 <!-- articles -->
@@ -83,11 +83,11 @@
 {/rawfeedFlag}
 <!--
 <form id="messageForm">
-  <label>enter message</label><br />
+  <label>enter message</label><br>
   <textarea class="form-control" id="message">
   </textarea>
   <input type="submit" class="btn btn-primary" value="send message" />
-  <br />
+  <br>
 </form>
 -->
 {?table-title}
@@ -97,7 +97,7 @@
 {?dataExistsFlag}
   {?linkToAllExists}
     <p>{linkToAll|s}</p>
-    <br />
+    <br>
   {/linkToAllExists}
   {?singleFlag}
 {>"table-single"/}
@@ -114,7 +114,7 @@
 {:else}
   <p>No data was found.</p>
 {/dataExistsFlag}
-<br />
+<br>
 <!-- end data -->
 </div><!-- col-1 -->
 </main>
@@ -128,7 +128,7 @@
   <li>{key} = {value|s}</li>
 {/iterate}
 </ul>
-<br />
+<br>
 <!-- end config -->
 </div><!-- col-2 -->
 <footer class="footer">
@@ -278,6 +278,6 @@
 {/socketioFlag}
 <p id="footer">&nbsp;</p>
 </div><!-- end page -->  
-<br />
+<br>
 </body>
 </html>

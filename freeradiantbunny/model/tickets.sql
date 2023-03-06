@@ -14,7 +14,7 @@ CREATE TABLE public.tickets (
     img_url text,
     sort text,
     status text DEFAULT 'open'::text,
-    process_id integer,
+    processes_id integer,
     action_to_take text
 );
 
@@ -24,4 +24,4 @@ ALTER TABLE ONLY public.tickets
     ADD CONSTRAINT tickets_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.tickets
-    ADD CONSTRAINT tickets_process_id_fk FOREIGN KEY (process_id) REFERENCES public.processes(id);
+    ADD CONSTRAINT tickets_processes_id_fk FOREIGN KEY (processes_id) REFERENCES public.processes(id);

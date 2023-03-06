@@ -1,6 +1,6 @@
 /**
  * Module Courses.
- * version 2.0.2
+ * version 2.0.4
  *
  * @public
  */
@@ -14,7 +14,14 @@ function Courses() {
     instanceCount = instanceCount + 1;
     debug("courses instantiated", instanceCount);
     this.name = "courses";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("courses idOrNoId =", idOrNoId);
 	debug("courses classNameFilter =", classNameFilter);
         debug("courses paramSort =", paramSort);
@@ -23,12 +30,11 @@ function Courses() {
         var sql;
         var orderBy;
         if (idOrNoId) {
-	    // simple sql
-            sql = "select z.id, z.name from courses z where z.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
-            orderBy = "ORDER BY z.name, z.id";
+            orderBy = "ORDER BY z.sort DESC, z.name, z.id";
             debug("courses orderBy =", orderBy);
-	    sql = "select z.id, z.name from courses z " + orderBy + ";";
+	    sql = "select z.status, z.sort, z.id, img_url as image, z.name from courses z " + orderBy + ";";
         }
         return sql;
     };

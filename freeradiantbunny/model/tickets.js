@@ -1,6 +1,6 @@
 /**
  * Module Tickets.
- * version 2.0.2
+ * version 2.0.3
  *
  * @public
  */
@@ -14,7 +14,15 @@ function Tickets() {
     instanceCount = instanceCount + 1;
     debug("tickets instantiated", instanceCount);
     this.name = "tickets";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort',
+		   'processes_id'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("tickets idOrNoId =", idOrNoId);
 	debug("tickets classNameFilter =", classNameFilter);
         debug("tickets paramSort =", paramSort);
@@ -23,8 +31,7 @@ function Tickets() {
         var sql;
         var orderBy;
         if (idOrNoId) {
-	    // simple sql
-            sql = "select z.id, z.name from tickets z where z.id = " + idOrNoId + ";";
+	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
         } else {
             orderBy = "ORDER BY z.name, z.id";
             debug("tickets orderBy =", orderBy);
