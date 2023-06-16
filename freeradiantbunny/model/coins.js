@@ -99,7 +99,10 @@ function Coins() {
 		// sql = "select z.id, z.symbol, concat('<a href=\"', z.url, '\">', z.name, '</a>') as name, z.type, z.platform, z.frb, z.watch, z.ath, z.risk, z.volume, z.stablecoin as stable, z.sort from coins z " + orderBy + ";";
 		// adding tags column
 		var limit = 100;
-		sql = "select z.id, z.status, z.sort, z.img_url as img, z.symbol, z.name, concat('<a href=\"', z.url, '\">', z.url, '</a>') as url, z.type, z.platform, z.frb, array(select concat(' <a href=\"../tags/', s2.id, '\">', s2.name, '</a>') from tags s2, class_tags cl where cl.class_name = 'coins' and cl.tag_id = s2.id and cl.id_of_given_class = z.id order by s2.name) as tags from coins z " + orderBy + " LIMIT " + limit + ";";
+		// # old hold had error unknown
+		// # sql = "select z.id, z.status, z.sort, z.img_url as img, z.symbol, z.name, concat('<a href=\"', z.url, '\">', z.url, '</a>') as url, z.type, z.platform, z.frb, array(select concat(' <a href=\"../tags/', s2.id, '\">', s2.name, '</a>') from tags s2, class_tags cl where cl.class_name = 'coins' and cl.tag_id = s2.id and cl.id_of_given_class = z.id order by s2.name) as tags from coins z " + orderBy + " LIMIT " + limit + ";";
+		// # keep simple
+		sql = "select z.id, z.status, z.sort, z.img_url as img, z.symbol, z.name from coins z order by sort DESC;";
 	    }
         }
         return sql;

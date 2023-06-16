@@ -12,8 +12,8 @@ CREATE TABLE public.tickets (
     name text NOT NULL,
     description text,
     img_url text,
+    status text,
     sort text,
-    status text DEFAULT 'open'::text,
     processes_id integer,
     action_to_take text
 );

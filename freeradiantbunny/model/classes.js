@@ -33,8 +33,7 @@ function Classes() {
 		   'subsystems_id',
 		   'dev',
 		   'lookup',
-		   'notes',
-		   'url'];
+		   'notes'];
     this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("classes idOrNoId", idOrNoId);

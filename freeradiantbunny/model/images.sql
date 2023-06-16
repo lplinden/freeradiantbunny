@@ -18,7 +18,8 @@ CREATE TABLE public.images (
     caption text,
     photographer text,
     license text,
-    quality text
+    quality text,
+    url text
 );
 
 ALTER TABLE public.images OWNER TO freerad2_special;
@@ -28,3 +29,6 @@ ALTER TABLE ONLY public.images
 
 ALTER TABLE ONLY public.images
     ADD CONSTRAINT images_domains_tli_fk FOREIGN KEY (domains_tli) REFERENCES public.domains(tli);
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT images_url_unique UNIQUE (url);

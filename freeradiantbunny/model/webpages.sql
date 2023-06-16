@@ -16,7 +16,6 @@ CREATE TABLE public.webpages (
     sort text,
     domains_tli character varying(3) NOT NULL,
     path text,
-    quality text,
     template text
 );
 

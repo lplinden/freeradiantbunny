@@ -1,3 +1,4 @@
+
 /**
  * Module Validator.
  * version 2.0.2
@@ -166,7 +167,6 @@ function Validator() {
         var blockedClassNames = [
 	    "accounts",
 	    "addresses",
-	    "applications",
 	    "budgets",
 	    "business_plan_texts",
 	    "coin_emas",
@@ -182,7 +182,6 @@ function Validator() {
 	    "delegations",
 	    "delegation_providers",
 	    "designs",
-	    "domains",
 	    "deposits",
 	    "documentations",
 	    "email_addresses",
@@ -219,7 +218,6 @@ function Validator() {
 	    "trade_tickets",
 	    "trades",
 	    "transactions",
-	    "webpages",
 	    "webpage_maxonomies",
 	    "webpage_moneymakers",	    
 	    "zipzaps"

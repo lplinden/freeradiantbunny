@@ -36,7 +36,7 @@ function Subsystems() {
         } else {
             var orderBy = "ORDER BY z.status, z.sort DESC, z.name";
             debug("subsystems orderBy =", orderBy);
-	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, z.rules, count(c.id) as classes_count from subsystems z, classes c where z.id = c.subsystems_id group by z.status, z.sort, z.id, z.img_url, z.name, z.rules " + orderBy + ";";
+	    sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, count(c.id) as classes_count from subsystems z, classes c where z.id = c.subsystems_id group by z.status, z.sort, z.id, z.img_url, z.name, z.rules " + orderBy + ";";
         }
         return sql;
     };

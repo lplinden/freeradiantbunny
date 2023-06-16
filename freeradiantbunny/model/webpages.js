@@ -24,7 +24,6 @@ function Webpages() {
 		   'description',
 		   'img_url',
 		   'path',
-		   'quality',
 		   'template'];
     this.inboundForeignKeyTables = ['blogposts'];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
@@ -39,7 +38,7 @@ function Webpages() {
 		var orderBy = "ORDER BY z.sort DESC, z.path, z.id";
 		sql = "select z.status, z.sort, z.id, z.img_url as img, z.name, concat('<a href=\"http', d.ssl_cert, '://', d.domain_name, z.path, '\">', z.path, '</a>') as path, array(select concat('<a href=../../maxonomies/', m.id, '>', m.name, '</a>') from maxonomies m, webpage_maxonomies wm, webpages w, domains d where wm.maxonomies_id = m.id AND w.id = wm.webpages_id AND z.id = w.id AND w.domains_tli = d.tli AND d.id = " + idOrNoId + ") as maxonomies, template from webpages z, domains d where d.tli = z.domains_tli AND d.id = " + idOrNoId + " " + orderBy + ";";
 	    } else {
-		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables,  paramUpkIsValid);
+		sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, this.inboundForeignKeyTables, paramUpkIsValid);
 		// refactor
 		//sql = "select z.id, concat('<a href=\"../domains/', d.id, '\">', d.tli,'</a>') as domains_tli, z.status, z.sort, z.img_url as img, z.name, z.path, concat('<a href=\"https://', d.domain_name, z.path, '\">', z.path, '</a>') as pathhyperlink, z.description from webpages z, domains d where d.tli = z.domains_tli AND z.id = " + idOrNoId + ";";
 	    }
@@ -62,7 +61,7 @@ function Webpages() {
 		// shows the statuscode that uses socket.io to test 200 or 404
 		sql = "select z.status, z.sort, z.id, z.domains_tli as tli, z.img_url as img, z.name, concat('<a href=\"https://', d.domain_name, z.path, '\">', z.path, '</a>') as pathhyperlink, concat('https://', d.domain_name, z.path) as statuscode, concat('https://', d.domain_name, z.path) as validhtml from webpages z, domains d, tags t where wt.webpage_id = z.id AND wt.tag_id = t.id AND d.tli = z.domains_tli GROUP BY z.status, z.sort, z.id, z.domains_tli, z.img_url, z.name, d.domain_name, z.path " + orderBy + ";";
 	    } else {
-		sql = "select z.status, z.sort, z.id, concat('<a href=\"http', d.ssl_cert, '://', d.domain_name, '\">', d.domain_name, '</a>') as tli, z.img_url as img, concat('<a href=\"https://', d.domain_name, z.path, '\">', 'https://', d.domain_name, z.path, '</a>') as pathhyperlink, z.quality as q, z.name as title from webpages z, domains d where d.tli = z.domains_tli  " + orderBy + ";";
+		sql = "select z.status, z.sort, z.id, concat('<a href=\"http', d.ssl_cert, '://', d.domain_name, '\">', d.domain_name, '</a>') as tli, z.img_url as img, concat('<a href=\"https://', d.domain_name, z.path, '\">', 'https://', d.domain_name, z.path, '</a>') as pathhyperlink, z.name as title from webpages z, domains d where d.tli = z.domains_tli  " + orderBy + ";";
 	    }
         }
         return sql;

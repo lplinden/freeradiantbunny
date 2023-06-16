@@ -23,8 +23,7 @@ function Applications() {
 		   'status',
 		   'sort',
 		   'url',
-		   'source_code_url',
-		   'documentation_url'];
+		   'source_code_url'];
     this.inboundForeignKeyTables = [];
     this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("applications idOrNoId =", idOrNoId);
@@ -36,9 +35,9 @@ function Applications() {
         if (idOrNoId) {
 	    sql = sqlgenerator.getStandardSingle(this.name, this.schema, idOrNoId, paramUpkIsValid);
         } else {
-            var orderBy = "order by z.sort DESC, z.status, z.name, z.id";
+            var orderBy = "order by z.sort DESC, z.id";
             debug("applications orderBy =", orderBy);
-            sql = "select z.status, z.sort, z.id, z.img_url as img, z.name as name, z.description, z.url from applications z " + orderBy;
+            sql = "select z.status, z.sort, z.id, z.img_url as image, z.name from applications z " + orderBy;
         }
         return sql;
     };

@@ -14,8 +14,8 @@ CREATE TABLE public.builds (
     img_url text,
     status text,
     sort text,
-    supplier_id integer,
-    project_id integer,
+    projects_id integer,
+    suppliers_id integer,
     versions text,
     ranking text
 );
@@ -26,7 +26,7 @@ ALTER TABLE ONLY public.builds
     ADD CONSTRAINT builds_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.builds
-    ADD CONSTRAINT builds_supplier_id_fk FOREIGN KEY (supplier_id) REFERENCES public.suppliers(id);
+    ADD CONSTRAINT builds_projects_id_fk FOREIGN KEY (projects_id) REFERENCES public.projects(id);
 
 ALTER TABLE ONLY public.builds
-    ADD CONSTRAINT builds_project_id_fk FOREIGN KEY (project_id) REFERENCES public.projects(id);
+    ADD CONSTRAINT builds_suppliers_id_fk FOREIGN KEY (suppliers_id) REFERENCES public.suppliers(id);

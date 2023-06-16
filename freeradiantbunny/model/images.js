@@ -24,6 +24,7 @@ function Images() {
 		   'photographer',
 		   'license',
 		   'sort',
+		   'url',
 		   'status',
 		   'quality',
 		   'domains_tli'];
@@ -47,7 +48,7 @@ function Images() {
 		//sql = "select a.id, a.name, a.description, a.img_url as img, a.sort, a.status, a.domains_tli from images a where a.id = " + idOrNoId + ";";
 	    }
         } else {
-            var orderBy = "ORDER BY a.status DESC, a.sort DESC, a.domains_tli, a.name, a.id";
+            var orderBy = "ORDER BY a.quality DESC, a.sort, a.domains_tli, a.name, a.id";
             if (paramSort === "id") {
                 orderBy = "ORDER BY a.id";
             } else if (paramSort === "name") {
@@ -56,7 +57,7 @@ function Images() {
             debug("images orderBy =", orderBy);
             // many
 	    var limit = 100;
-            sql = "select a.status, a.sort, a.domains_tli, a.id, a.img_url as img, a.name as alt, a.quality as q from images a " + orderBy + " LIMIT " + limit + ";";
+            sql = "select a.status, a.sort, a.id, a.domains_tli, a.quality as q, a.url as url from images a " + orderBy + " LIMIT " + limit + ";";
         }
         return sql;
     };

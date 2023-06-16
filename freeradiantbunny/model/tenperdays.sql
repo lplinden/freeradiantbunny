@@ -17,3 +17,6 @@ ALTER TABLE public.tenperdays OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.tenperdays
     ADD CONSTRAINT tenperdays_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.tenperdays
+    ADD CONSTRAINT tenperdays_sort_unique UNIQUE (sort);

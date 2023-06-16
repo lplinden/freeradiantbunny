@@ -9,9 +9,12 @@ ALTER SEQUENCE public.filenames_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.filenames (
     id integer DEFAULT nextval('public.filenames_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
+    description text,
+    img_url text,
+    status text,
+    sort text,
     datastores_id integer,
-    path text,
-    name text,
     extension text,
     fullpath_filename text,
     md5sum text,
@@ -26,3 +29,6 @@ ALTER TABLE ONLY public.filenames
 
 ALTER TABLE ONLY public.filenames
     ADD CONSTRAINT filenames_datastores_id_fk FOREIGN KEY (datastores_id) REFERENCES public.datastores(id);
+
+ALTER TABLE ONLY public.filenames
+    ADD CONSTRAINT filenames_fullpath_filename_unique UNIQUE (fullpath_filename);

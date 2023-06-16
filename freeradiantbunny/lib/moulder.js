@@ -859,7 +859,8 @@ function Moulder() {
 		    var chardata;
 		    var size = "";
 		    if (columnName === "image") {
-			size = "image";
+			// adjust the size of the image below
+			size = "200px";
 		    }
 		    chardata = this.getImgUrlAsImageElement(baseUrl, className, filteredValue, id, size);
                     return this.getStyledData("", chardata);
@@ -1067,7 +1068,7 @@ function Moulder() {
         var color_7 = "#3BF965"; // bright green
         // check date prefix to see if this is an old "Z" date
         // make the Y editable in the config
-        debug("mouler sort =", sort);
+        debug("moulder sort =", sort);
         var sortLetter = "";
         if (sort !== null) {
             sortLetter = sort.substr(0, 1);

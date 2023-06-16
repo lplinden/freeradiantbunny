@@ -17,8 +17,9 @@ function Filenames() {
     debug("filenames instantiated", instanceCount);
     this.name = "filenames";
     this.schema = ['id',
+		   'status',
+		   'sort',
 		   'datastores_id',
-		   'path',
 		   'name',
 		   'extension',
 		   'fullpath_filename',
@@ -38,7 +39,7 @@ function Filenames() {
         } else {
             var orderBy = "order by id";
             debug("filenames orderBy =", orderBy);
-	    sql = "select id from filenames " + orderBy + ";";
+	    sql = "select id, name, extension from filenames " + orderBy + ";";
         }
         return sql;
     };
