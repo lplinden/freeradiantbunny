@@ -1,6 +1,6 @@
 /**
- * Module Budgets.
- * version 2.0.2
+ * Module budgets.
+ * version 2.0.3
  *
  * @public
  */
@@ -9,12 +9,23 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
-function Budgets() {
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
+function BudgetAccounts() {
     'use strict';
     instanceCount = instanceCount + 1;
-    debug("budgets instantiated", instanceCount);
+    debug("domains instantiated", instanceCount);
     this.name = "budgets";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'img_url',
+		   'description',
+		   'sort',
+		   'status',
+		   'publish',
+		  'process_state'];
+    this.inboundForeignKeyTables = [''];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
 	debug("budgets idOrNoId =", idOrNoId);
 	debug("budgets classNameFilter =", classNameFilter);
 	debug("budgets paramSort =", paramSort);

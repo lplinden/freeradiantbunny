@@ -22,7 +22,16 @@ CREATE TABLE public.coin_prices (
     volume_change_24h numeric(7,3),
     cmc_rank integer,
     name text,
-    baseline text
+    baseline text,
+    run_count integer,
+    run_slice double precision,
+    was text,
+    target text,
+    chg text,
+    chg_trades text,
+    trade_balance text,
+    now text,
+    big integer
 );
 
 ALTER TABLE public.coin_prices OWNER TO freerad2_special;

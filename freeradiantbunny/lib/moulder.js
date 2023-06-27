@@ -125,7 +125,7 @@ function Moulder() {
 	} else if (columnName.slice(0,14) == "units") {
 	    styles += "text-align: right;";
 	    return this.getStyledData("", value, value, styles);
-	} else if (columnName.slice(0,14) == "percent_change") {
+	} else if (columnName.slice(0,7) == "perc_ch") {
 	    // columns from the coin_prices table
 	    if (value > 0) {
 		// determine shade of green
@@ -151,6 +151,20 @@ function Moulder() {
 	    } else {
 		// grey
 		styles = "text-align: right; background-color: #efefef;";
+	    }
+	    return this.getStyledData("", value, value, styles);
+	} else if (columnName.slice(0,14) == "run") {
+	    // columns from the coin_prices table
+	    if (value > 0) {
+		// 40% green
+		styles += "text-align: right; background-color: #00CC00; text-align: center;";
+	    }
+	    return this.getStyledData("", value, value, styles);
+	} else if (columnName.slice(0,14) == "big") {
+	    // columns from the coin_prices table
+	    if (value > 0) {
+		// 40% green
+		styles += "text-align: right; background-color: #00CC00; text-align: center;";
 	    }
 	    return this.getStyledData("", value, value, styles);
 	} else if (columnName === "sig_lvl" ||
@@ -443,6 +457,7 @@ function Moulder() {
 		}
 	    }
 	} else if (columnName === "price") {
+            // format 1 of 2
 	    // remove zeros
 	    var new_string = "";
 	    var end_flag = 1;
@@ -469,6 +484,30 @@ function Moulder() {
 	    }
 	    // reverse string (back to forward)
 	    value = new_string.split("").reverse().join("");
+            // format 2 of 2
+	    var decimal_flag = 0;
+	    var significant_digits = 0;
+            var chars = value.toString().split("");
+	    var new_string = "";
+	    for (let i = 0; i < chars.length; i++) {
+		if (chars[i] == ".") {
+		    decimal_flag = 1;
+		    new_string += chars[i];
+		} else {
+		    if (decimal_flag) {
+			significant_digits++;
+			if (significant_digits <= 3) {
+			    new_string += chars[i];
+			    if (chars[i] == "0") {
+				significant_digits--;
+			    }
+			}
+		    } else {
+			new_string += chars[i];
+		    }
+		}
+	    }
+	    value = new_string;
 	    // add style
 	    styles = "text-align: right; font-size: 120%;";
 	    // conditional style

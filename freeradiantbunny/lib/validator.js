@@ -170,7 +170,6 @@ function Validator() {
 	    "coin_emas",
 	    "coin_evaluations",
 	    "coin_indicators",
-	    "coin_prices",
 	    "coin_signals",
 	    "coin_macds",
 	    "coin_markets",

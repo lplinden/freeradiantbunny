@@ -13,8 +13,7 @@ CREATE TABLE public.accounts (
     description text,
     img_url text,
     status text,
-    sort text,
-    flow text
+    sort text
 );
 
 ALTER TABLE public.accounts OWNER TO freerad2_special;

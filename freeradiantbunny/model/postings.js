@@ -1,6 +1,6 @@
-/**
- * Module Postings.
- * version 2.0.2
+ /**
+ * Module postings.
+ * version 2.0.3
  *
  * @public
  */
@@ -9,12 +9,21 @@ var debug = require('debug')('frb');
 
 var instanceCount = 0;
 
-function Postings() {
+var sqlgenerator = require('../lib/sqlgenerator.js');
+
+function Accounts() {
     'use strict';
     instanceCount = instanceCount + 1;
-    debug("postings instantiated", instanceCount);
+    debug("accounts instantiated", instanceCount);
     this.name = "postings";
-    this.getSql = function (idOrNoId, classNameFilter, paramSort, specialFlag, queryTerms) {
+    this.schema = ['id',
+		   'name',
+		   'description',
+		   'img_url',
+		   'status',
+		   'sort'];
+    this.inboundForeignKeyTables = [];
+    this.getSql = function (idOrNoId, classNameFilter, paramSort, paramFilter, paramUpkIsValid, specialFlag, queryTerms) {
         debug("postings idOrNoId =", idOrNoId);
 	debug("postings classNameFilter =", classNameFilter);
         debug("postings paramSort =", paramSort);
