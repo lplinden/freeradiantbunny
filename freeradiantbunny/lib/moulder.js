@@ -167,6 +167,13 @@ function Moulder() {
 		styles += "text-align: right; background-color: #00CC00; text-align: center;";
 	    }
 	    return this.getStyledData("", value, value, styles);
+	} else if (columnName.slice(0,14) == "vlf") {
+	    // columns from the coin_prices table
+	    if (value > 0) {
+		// 40% green
+		styles += "text-align: right; background-color: #00CC00; text-align: center;";
+	    }
+	    return this.getStyledData("", value, value, styles);
 	} else if (columnName === "sig_lvl" ||
 		   columnName === "recent" ||
 		   columnName === "recent_previous" ||

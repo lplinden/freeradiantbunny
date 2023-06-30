@@ -58,7 +58,7 @@ function Coin_Prices() {
 		// on hold
 		//sql = "select z.id, z.cmc_rank, to_char(z.last_updated at time zone 'est', 'YYYY-MM-DD HH24:MI') as last_updated, y.img_url as img, z.coins_symbol, z.quote_denominator as den, z.price, z.percent_change_1h, z.percent_change_24h, z.percent_change_7d, z.volume_24h, z.volume_change_24h, z.source_url from coin_prices z, coins y WHERE y.symbol = z.coins_symbol AND z.last_updated = (select max(y.last_updated) from coin_prices y WHERE z.quote_denominator = 'USD' AND y.coins_symbol IN (select d.symbol from coins d where d.watch='true')) AND z.coins_symbol IN (select c.symbol from coins c where c.watch='true') " + orderBy + ";";
 		// simple
-		sql = "select z.id, z.coins_symbol as symbol, z.price, z.run_count as run, z.big as big, z.run_slice as slice, z.was as was, z.target, z.chg as chg, z.chg_trades, z.trades_balance, z.now as now, z.percent_change_1h as perc_ch_1h, z.percent_change_24h as perc_ch_24h, z.volume_change_24h as vol_ch_24h, z.percent_change_7d as perc_ch_7d, z.last_updated from coin_prices z where z.last_updated = (select y.last_updated from coin_prices y order by y.last_updated DESC limit 1)" + orderBy + ";";
+		sql = "select z.id, z.coins_symbol as symbol, z.price, z.run_count as run, z.big as big, z.vlf as vlf, z.run_slice as slice, z.was as was, z.target, z.chg as chg, z.chg_trades, z.trades_balance, z.now as now, z.percent_change_1h as perc_ch_1h, z.percent_change_24h as perc_ch_24h, z.volume_change_24h as vol_ch_24h, z.percent_change_7d as perc_ch_7d, z.last_updated from coin_prices z where z.last_updated = (select y.last_updated from coin_prices y order by y.last_updated DESC limit 1)" + orderBy + ";";
 	    }
 	}
 	return sql;

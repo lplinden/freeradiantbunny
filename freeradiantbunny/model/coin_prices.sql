@@ -1,5 +1,5 @@
 CREATE SEQUENCE public.coin_prices_id_seq
-    START WITH 1
+1;2c    START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     MAXVALUE 99999999
@@ -31,7 +31,8 @@ CREATE TABLE public.coin_prices (
     chg_trades text,
     trade_balance text,
     now text,
-    big integer
+    big integer,
+    vlf integer
 );
 
 ALTER TABLE public.coin_prices OWNER TO freerad2_special;
