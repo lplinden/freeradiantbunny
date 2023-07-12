@@ -125,7 +125,8 @@ function Moulder() {
 	} else if (columnName.slice(0,14) == "units") {
 	    styles += "text-align: right;";
 	    return this.getStyledData("", value, value, styles);
-	} else if (columnName.slice(0,7) == "perc_ch") {
+	} else if (columnName.slice(0,7) == "perc_ch" ||
+		   columnName == "vol_ch_24h") {
 	    // columns from the coin_prices table
 	    if (value > 0) {
 		// determine shade of green
@@ -152,6 +153,10 @@ function Moulder() {
 		// grey
 		styles = "text-align: right; background-color: #efefef;";
 	    }
+	    return this.getStyledData("", value, value, styles);
+	} else if (columnName == "trades_balance" ||
+	    	   columnName == "trades_comp") {
+	    styles += "font-family: monospace;";
 	    return this.getStyledData("", value, value, styles);
 	} else if (columnName.slice(0,14) == "run") {
 	    // columns from the coin_prices table
