@@ -1,5 +1,7 @@
 freeradiantbunny
 
-freeradiantbunny is a website designed as an herb garden information system.
+freeradiantbunny is a database-backed website designed as an plant list system with an herb garden information system for permaculture design method freaks on top and in fact may doublesas an multimedia inquiring system aiming to make the herb garden maps a delightful and edcucational experience.
+
+Our mascot is Kitto, the botany bunny, and is said to be an expert on all things Radiant Bunny if only he could be asked about it before hopping quickly away.
 
 For more information about freeradiantbunny, see the **website**: [freeradiantbunny.org](https://freeradiantbunny.org/)
