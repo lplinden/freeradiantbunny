@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{ head_title }}</title>
+  <link rel="stylesheet" type="text/css" href="{{ site_style }}">
+  <meta charset="utf-8">
+  <meta name="decription" content="{{ description }}">
+{% if socket_io_flag == "true" -%}
+  <script src="socket.io/socket.io.js"></script>
+{% endif -%}
+</head>
+<body>
+<div id="page" class="page">
+  <div class="no-print">
+  <header>
+  <div id="header-float-right">
+    <table class="upper-right">
+    <tr>
+      <td>
+        &nbsp;&nbsp;&nbsp;<a href="{{ home_href }}/index.html" class="active">Home</a> | <a href="{{ home_href }}/about.html">About</a>
+{% if search_form_flag == "true" -%}
+	<div id="search">
+	  <form action="{{ home_href }}/search.html" method="post" id="search-block-form" accept-charset="UTF-8">
+	    <table style="margin-top: 12px;">
+	      <tr>
+		<td>
+		  <p class="element-invisible" style="margin-top: 6px;">Search</p>
+		</td>
+		<td>
+		  <div class="form-textfield" style="display: inline;">
+		    <input title="Enter the terms you wish to search for." type="text" name="queryterm" value="" size="16" maxlength="30" class="form-text">
+		  </div>
+		</td>
+		<td>
+		  <div class="search-button" id="search-submit-button" style="display: inline;"><input type="image" id="edit-submit" name="submit" src="{{ home_href }}/_images/search_stamp.png" style="width: 20px; margin-top: 3px;" class="form-submit" alt="search">
+		  </div>
+		</td>
+	    </table>
+        </form>
+        </div>
+{% endif -%}
+      </td>
+    </tr>
+    </table>
+  </div>
+  <div id="header-site-info">
+    <table class="site-info">
+    <tr>
+      <td class="logo">
+        <div class="logo"><a href="{{ home_href }}" title="{{ home_title }}"><img src="{{ logo_src }}" alt="logo-alt" class="{{ logo_class }}" style="width: 110px;"></a></div>
+      </td>
+      <td>
+        <div id="site-name"><a href="{{ freeradiantbunny_home_href }}" title="{{ home_title }}">{{ site_name }}</a></div>
+        <p id="tagline">{{ site_tagline }}</p>
+	<div id="navbox">
+        <nav>
+          <div id="subs-menu">{{ goto_menu|safe }}</div>
+        </nav>
+	</div>
+      </td>
+    </tr>
+    </table>
+  </div><!-- end header-site-info -->
+  </header>
+  </div><!-- end no-print -->  
+  <br>
+  <div class="col-1">
+{% if message_form_flag == "true" -%}
+    <form id="messageForm">
+      <label>enter message</label><br>
+      <textarea class="form-control" id="message">
+      </textarea>
+      <input type="submit" class="btn btn-primary" value="send message">
+      <br>
+    </form>
+{% endif -%}
+{% if table_title_flag == "true" -%}
+    <h1 class="table-title">{{ table_title|safe }}</h1>
+{% endif -%}
+<!-- data -->
+{% if data_exists_flag == "true" -%}
+  <table class="grid-single">
+    {% for table_header in table_headers_instance.get_table_headers() -%}
+    <tr>
+      <td class="header-single">{{ table_header.get_name()|safe }}</td>
+      {% let dot = "." -%}
+      {% let dot_name = dot.to_string() + table_header.get_name().as_str() -%}
+      {% let id = table_header.get_id().to_string() -%}
+      {% let identifier_almost = id + dot_name.as_str() -%}
+      {% let identifier = identifier_almost -%}
+      <td id="{{ identifier }}" class="{{ table_header.get_name() }}" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+    </tr>
+    {% endfor -%}
+  </table>
+{% else -%}
+  <p>No data was found.</p>
+{% endif -%}
+  <br>
+  <!-- end data -->
+  </div><!-- col-1 end -->
+</div><!-- end page -->  
+<br>
+</body>
+</html>

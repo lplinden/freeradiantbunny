@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ head_title }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ site_style }}">
+    <meta name="decription" content="{{ description }}">
+    {% if socket_io_flag == "true" -%}
+    <script src="socket.io/socket.io.js"></script>
+    {% endif -%}
+  </head>
+  <body>
+    <div class="no-print">
+      <header>
+	<div id="header-float-right">
+	  <table class="upper-right">
+	    <tr>
+	      <td>
+		&nbsp;&nbsp;&nbsp;<a href="{{ home_href }}/index.html" class="active">Home</a> | <a href="{{ home_href }}/about.html">About</a>
+		{% if search_form_flag == "true" -%}
+		<div id="search">
+		  <form action="{{ home_href }}/search.html" method="post" id="search-block-form" accept-charset="UTF-8">
+		    <table style="margin-top: 12px;">
+		      <tr>
+			<td><p class="element-invisible" style="margin-top: 6px;">Search</p></td>
+			<td>
+			  <div class="form-textfield" style="display: inline;">
+			    <input title="Enter the terms you wish to search for." type="text" name="queryterm" value="" size="16" maxlength="30" class="form-text">
+			  </div>
+			</td>
+			<td>
+			  <div class="search-button" id="search-submit-button" style="display: inline;"><input type="image" id="edit-submit" name="submit" src="{{ home_href }}/_images/search_stamp.png" style="width: 20px; margin-top: 3px;" class="form-submit" alt="search">
+			  </div>
+			</td>
+		    </table>
+		  </form>
+		</div>
+		{% endif -%}
+	      </td>
+	    </tr>
+	  </table>
+	</div>
+	<div id="header-site-info">
+	  <table class="site-info">
+	    <tr>
+	      <td class="logo">
+		<div class="logo"><a href="{{ home_href }}" title="{{ home_title }}"><img src="{{ logo_src }}" alt="logo-alt" class="{{ logo_class }}" style="width: 110px;"></a></div>
+	      </td>
+	      <td>
+		<div id="site-name"><a href="{{ freeradiantbunny_home_href }}" title="{{ home_title }}">{{ site_name }}</a></div>
+		<p id="tagline">{{ site_tagline }}</p>
+		<div id="navbox">
+		  <nav>
+		    <div id="menu">{{ goto_menu|safe }}</div>
+		  </nav>
+		</div>
+	      </td>
+	    </tr>
+	  </table>
+	</div><!-- end header-site-info -->
+      </header>
+    </div><!-- end no-print -->  
+    <br>
+	{% if message_form_flag == "true" -%}
+    <form id="messageForm">
+      <label>enter message</label><br>
+      <textarea class="form-control" id="message">
+      </textarea>
+      <input type="submit" class="btn btn-primary" value="send message">
+      <br>
+    </form>
+    {% endif -%}
+    {% if table_title_flag == "true" -%}
+    <h1 class="table-title">{{ table_title|safe }}</h1>
+    {% endif -%}
+    <!-- data -->
+    {% if data_exists_flag == "true" -%}
+    <table class="grid">
+      <!-- data table headers -->
+      <tr>
+	<td class="header">#</td>
+	{% for header_display in table_headers_instance.get_header_displays() -%}
+	<td class="header">{{ header_display|safe }}</td>
+	{% endfor -%}
+      </tr>
+      <!-- data table rows -->
+      {% for key in vector_of_boxed_rows -%}
+      <tr>
+	<td id="num.{{  key.get_num().expect("option is None") }}" class="num">{{ key.get_num().expect("option is None") }}</td>
+	{% if classes_name == "classes" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was none") + ".subsystems" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance">{{ key.get_subsystems().expect("option is None")|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".dev" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_dev().expect("option is None") }}</td>
+	{% endif -%}
+	{% if classes_name == "subsystems" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("optopn was None") + ".referenced" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "zachmans" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".description" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".referenced" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "modules" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".dev" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_dev().expect("option is None") }}</td>
+	{% endif -%}
+	{% if classes_name == "domains" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".domain_name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".referenced" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "webpages" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "applications" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "maxonomies" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".referenced" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "plants" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".botanical_name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".plant_families" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "plant_lists" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".referenced" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "plant_families" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".referenced" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "images" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "stylesheets" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "webpage_maxonomies" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".webpages_id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".maxonomies_id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "permaculture_topics" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "projects" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "goal_statements" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "business_plan_texts" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "processes" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "scene_elements" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "coins" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".symbol" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".watch" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".type" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".platform" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+	{% if classes_name == "coin_prices" -%}
+	{% let identifier = key.get_id().expect("option was None") + ".status" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ key.get_status().expect("option is None") }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".sort" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".id" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".img_url" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% let identifier = key.get_id().expect("option was None") + ".name" -%}
+	<td id="{{ identifier }}" class="{{ key.get_id().expect("option was None") }}.instance" style="{{ style_manager_instance.get_styled_data(identifier).get_style_properties() }}">{{ style_manager_instance.get_styled_data(identifier).get_processed_data()|safe }}</td>
+	{% endif -%}
+      </tr>
+      {% endfor %}
+    </table>
+    {% else -%}
+    <p>No data was found.</p>
+    {% endif -%}
+    <br>
+    <!-- end data -->
+{% if socket_io_flag == "true" -%}
+{% raw -%}
+<script>
+  $(function(){
+    var socket = io.connect();
+    var $messageForm = $('#messageForm');
+    var $message = $('#message');
+    var $rawfeed = $('#rawfeed');
+    $messageForm.submit(function(e) {
+      e.preventDefault();
+      console.log('submmitted');
+      socket.emit('send message', $message.val());
+      $message.val('');
+    });
+    $('.statuscode-instance').mouseover(function(element) {
+      var id = element.currentTarget.id;
+      var url = element.currentTarget.innerText;
+      var className = element.currentTarget.baseURI.split('/')[3];
+      if (url.match(/http/)) {
+        console.log('updateStatusCode()');
+        socket.emit('updateStatusCodes', id, url, className);
+      } else {
+        console.log('already updateStatusCode()');
+      }
+    });
+    $('.validhtml-instance').mouseover(function(element) {
+      var id = element.currentTarget.id;
+      var url = element.currentTarget.innerText;
+      var className = element.currentTarget.baseURI.split('/')[3];
+      if (url.match(/http/)) {
+        console.log('updateValidHtml()');
+        socket.emit('updateValidHtml', id, url, className);
+      } else {
+        console.log('already updateValidHtml()');
+      }
+    });
+    $('.linkcheck-instance').mouseover(function(element) {
+      var id = element.currentTarget.id;
+      var url = element.currentTarget.innerText;
+      var className = element.currentTarget.baseURI.split('/')[3];
+      if (url.match(/http/)) {
+        console.log('updateLinkCheck()');
+        socket.emit('updateLinkCheck', id, url, className);
+      } else {
+        console.log('already updateLinkCheck()');
+      }
+    });
+    $('.measure-instance').mouseover(function(element) {
+      // only once
+      var idString = element.currentTarget.id;
+      //var id = idString.split('-')[1];
+      var index = idString.indexOf("-") + 1;
+      var id = idString.substring(index);
+      // eventually make this dynamic using DOM
+      var className = "moneymaker_measurement_instances";
+      socket.emit("measure", id, className);
+      console.log("measure(" + id + ", " + className + ")");
+    });
+    $('.measure-instance').click(function(element) {
+      element.currentTarget.innerText = "";
+      // change color
+      element.currentTarget.style.background = "transparent";
+      console.log('measure() blanked text.');
+    });
+    socket.on('new message', function(data) {
+      $rawfeed.text(data.msg);
+      console.log('new message', data.msg);
+    });
+    socket.on('rawfeed', function(data) {
+      $rawfeed.text(data.msg);
+      console.log('rawfeed', data.msg);
+    });
+    socket.on('refreshStatusCode', function(data) {
+      //$rawfeed.text('updated statuscode');
+      $('#' + data.msg1).text(data.msg2);
+      $('#' + data.msg1).css('background-color', data.msg3);
+      console.log('refreshStatusCode element id ', data.msg1);
+      console.log('refreshStatusCode value ', data.msg2);
+    });
+      socket.on('refreshMeasure', function(data) {
+	  //element.currentTarget.style.background = "#9933FF";
+	  //console.log("standards refreshMeasure element id ", data.msg1);
+	  //console.log("standards refreshMeasure element className ", data.msg2);
+	  //console.log("standards refreshMeasure element measurement ", data.msg3);
+	  //console.log("standards refreshMeasure element backgroundColor ", data.msg4);
+	  // build element id value
+	  var elementId = "#measure-" + data.msg1;
+	  console.log("standards.tera refreshMeasure elementId =", elementId);
+	  // parse JSON
+	  try {
+              var messageObject = JSON.parse(data.msg3);
+              var details = "";
+              var dataString = "";
+              if (true) {
+		  // measurement json
+		  details = data.msg3;
+              } else {
+		  // moneymaker_measurement_instances json
+		  //details += " " + messageObject.single.id.toString();
+		  //
+		  dataString = messageObject.single.moneymaker_measurement_name.toString();
+		  dataString += " " + messageObject.single.address.toString();
+		  dataString = String(dataString).replace(/%20/g, ' ').replace(/%7B/g, '{').replace(/%7D/g, '}').replace(/%7D/g, '}').replace(/%3C/g, '<').replace(/%3E/g, '/').replace(/%22/g, "\"");
+		  details += " " + dataString + ", ";
+		  details += " " + messageObject.single.txn_hash.toString();
+              }
+              $(elementId).text(details);
+              // assess color
+              var backgroundColor = "";
+              if (data.msg3.includes("fail")) {
+		  backgroundColor = "#FFFF66";
+              } else {
+		  backgroundColor = data.msg4;
+              }
+              $(elementId).css('background-color', backgroundColor);
+	  } catch (e) {
+              var errorMessage = "standards.tera JSON parse error =" + e;
+              $(elementId).text(errorMessage + " " + data.msg3);
+              var backgroundColor = "red";
+              $(elementId).css('background-color', backgroundColor);
+	  }
+      });
+      socket.on('refreshValidHtml', function(data) {
+	  $rawfeed.text('updated validhtml');
+	  $('#' + data.msg1).text(data.msg2);
+	  $('#' + data.msg1).css('background-color', data.msg3);
+	  console.log('refreshValidHtml element id ', data.msg1);
+	  //console.log('refreshValidHtml value ', data.msg2);
+      });
+      socket.on('refreshLinkCheck', function(data) {
+	  $rawfeed.text('updated linkcheck');
+	  $('#' + data.msg1).text(data.msg2);
+	  $('#' + data.msg1).css('background-color', data.msg3);
+	  console.log('refreshLinkCheck element id ', data.msg1);
+	  //console.log('refreshLinkCheck value ', data.msg2);
+      });
+  });
+</script>
+{% endraw -%}
+{% endif -%}
+<br>
+</body>
+</html>
