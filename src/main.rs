@@ -12,7 +12,7 @@ pub mod freeradiantbunny;
 // server is entrace and exit
 use crate::freeradiantbunny::controller::server;
 
-// conststant
+// constant
 use crate::freeradiantbunny::site_configuration::site_configuration::IP_ADDRESS_AND_PORT;
 
 #[doc = "This is the main() function of the application. This function uses a TcpListener and may spawn thread."]

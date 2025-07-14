@@ -27,7 +27,8 @@ CREATE TABLE public.machines (
     details text,
     networks text,
     output_info text,
-    ssl_certificate character varying(1)
+    ssl_certificate character varying(1),
+    approved boolean
 );
 
 ALTER TABLE public.machines OWNER TO freerad2_special;

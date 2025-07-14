@@ -1,4 +1,4 @@
--- version 0.0.5
+-- version 0.0.6
 CREATE SEQUENCE public.applications_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -11,11 +11,17 @@ ALTER SEQUENCE public.applications_id_seq OWNER TO freerad2_special;
 CREATE TABLE public.applications (
     id integer DEFAULT nextval('public.application_id_seq'::regclass) NOT NULL,
     name text NOT NULL,
-    url text NOT NULL,
     sort text  NOT NULL,
     img_url text NOT NULL,
     description text NOT NULL,
-    status text NOT NULL
+    status text NOT NULL,
+    url text,
+    url_external text,
+    runtarget text,
+    runtarget_switches text
+    inhouse boolean,
+    mudiabot boolean,
+    approved boolean
 );
 
 ALTER TABLE public.applications OWNER TO freerad2_special;

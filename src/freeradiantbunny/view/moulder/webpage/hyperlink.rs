@@ -4,7 +4,7 @@
 
 /// hyperlinks - models the a element of HTML
 
-#[doc = "The Hyperlink structure."]xs
+#[doc = "The Hyperlink structure."]
 struct Hyperlink {
     base_url: String,
     path: String,
@@ -13,7 +13,7 @@ struct Hyperlink {
     parameter: String,
 }
 
-#[doc = "The Hyperlink implementation."]xs
+#[doc = "The Hyperlink implementation."]
 impl Hyperlink {
     #[doc = "new()."]xs
     pub fn new() -> Hyperlink {
@@ -21,7 +21,7 @@ impl Hyperlink {
             
         }
     }
-    #[doc = "get_id_as_hyperlink()."]xs
+    #[doc = "get_id_as_hyperlink()."]
     pub fn get_id_as_hyperlink {
         //= function (base_url, className, id, chardata, paramUpkIsValid) {
 	//var paramString = "";
@@ -30,7 +30,7 @@ impl Hyperlink {
 	//}
         //return "<a href=\"" + base_url + className + "/" + id + paramString + "\">" + chardata + "</a>";
     }
-    #[doc = "get_url_with_fk_table()."]xs
+    #[doc = "get_url_with_fk_table()."]
     pub fn get_url_with_fk_table(baseUrl, className, classNameFilter) {
         let  slash = '\\';
         let url = baseUrl + className;
@@ -39,7 +39,7 @@ impl Hyperlink {
         }
         return url;
     }
-    #[doc = "get_offsite_url()."]xs
+    #[doc = "get_offsite_url()."]
     pub fn get_offsite_url {
         //return "<a href=\"" + chardata + "\">" + chardata + "</a>";
     }

@@ -17,7 +17,8 @@ CREATE TABLE public.documentations (
     username text,
     categorization text,
     table_name text,
-    how_to_measure text
+    how_to_measure text,
+    approved boolean    
 );
 
 ALTER TABLE public.documentations OWNER TO freerad2_special;

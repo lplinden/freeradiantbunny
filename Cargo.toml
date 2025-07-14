@@ -1,6 +1,6 @@
 [package]
 name = "freeradiantbunny"
-version = "0.0.5"
+version = "0.0.6"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -16,3 +16,8 @@ sha2 = "0.9.5"
 tokio = { version = "1", features = ["full"] }
 tokio-postgres = "0.7"
 vec_map = "0.8.2"
+
+[profile.dev]
+lto = "off"
+panic = "abort"
+incremental = false

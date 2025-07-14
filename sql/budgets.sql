@@ -15,7 +15,8 @@ CREATE TABLE public.budgets (
     status text,
     sort text,
     publish text,
-    process_state text
+    process_state text,
+    approved boolean
 );
 
 ALTER TABLE public.budgets OWNER TO freerad2_special;

@@ -3,7 +3,9 @@
 // version 0.0.5
 
 use crate::freeradiantbunny::controller::api::api_constants::KNOWN_KEY_MAKESORTTODAY;
-use crate::freeradiantbunny::controller::characters::{DOT, EQUALS_SIGN, QUESTION_MARK, SLASH};
+use crate::freeradiantbunny::controller::api::api_constants::KNOWN_KEY_CLASS;
+use crate::freeradiantbunny::controller::api::api_constants::MAKESORTTODAY_WEBPAGE;
+use crate::freeradiantbunny::controller::characters::{DOT, EQUALS_SIGN, QUESTION_MARK, SLASH, AMPERSAND};
 use crate::freeradiantbunny::model::manifest::column_type::ColumnType;
 use crate::freeradiantbunny::model::manifest::manifest::Manifest;
 /// style_manager - manages the CSS styles placed within HTML elements
@@ -13,6 +15,7 @@ use crate::freeradiantbunny::model::manifest::scrubber::Scrubber;
 use crate::freeradiantbunny::model::persistent::row_type::RowType;
 use crate::freeradiantbunny::model::timekeeper::Date;
 use crate::freeradiantbunny::site_configuration::site_configuration::BASE_URL;
+use crate::freeradiantbunny::site_configuration::site_configuration::BASE_DIRECTORY;
 use crate::freeradiantbunny::view::moulder::styled_data::StyledData;
 use crate::freeradiantbunny::view::moulder::version::Version;
 use crate::freeradiantbunny::view::moulder::webpage::cell_colors::CellColors;
@@ -280,6 +283,18 @@ impl StyleManager<'_> {
                     None,
                     None,
                     &ColumnType::Url,
+                    value_string,
+                    row_type,
+                    id.to_string(),
+                ));
+            }
+	    ColumnType::UrlExternal => {
+                self.styled_data_vec.push(self.get_style(
+                    Version::UrlStyle,
+                    classes_type,
+                    None,
+                    None,
+                    &ColumnType::UrlExternal,
                     value_string,
                     row_type,
                     id.to_string(),
@@ -1012,6 +1027,27 @@ impl StyleManager<'_> {
                     }
                 };
             }
+	    ColumnType::UrlExternal => {
+                let option = row.get_url();
+                match option {
+                    Some(url_external) => {
+                        let value_string = url_external;
+                        self.styled_data_vec.push(self.get_style(
+                            Version::UrlStyle,
+                            classes_type,
+                            None,
+                            None,
+                            &ColumnType::UrlExternal,
+                            value_string,
+                            row_type,
+                            id,
+                        ));
+                    }
+                    None => {
+                        panic!("style_manager panic: failed to get url_external.");
+                    }
+                };
+            }
             ColumnType::SubsystemsId => {
                 let option = row.get_subsystems_id();
                 match option {
@@ -1677,80 +1713,80 @@ impl StyleManager<'_> {
         let url: String;
         let classes_name = classes_type.to_string();
         if version == "id-style".to_string() {
-            url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+            url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
         } else if version == "name-style".to_string() {
             // this is cool because classes is special in that the names are the classes part of url
             match classes_type {
                 Manifest::Classes => {
                     // classes RowType::Many
                     // go to classes.name of this row
-                    url = format!("{}{}{}", BASE_URL, SLASH, value);
+                    url = format!("{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, value);
                 }
                 Manifest::Subsystems => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Zachmans => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Modules => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Domains => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Webpages => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Images => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Stylesheets => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Applications => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Maxonomies => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Plants => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::PlantLists => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::PlantListPlants => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::PlantFamilies => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::WebpageMaxonomies => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::PermacultureTopics => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Projects => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::GoalStatements => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::BusinessPlanTexts => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Processes => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::SceneElements => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::Coins => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
                 Manifest::CoinPrices => {
-                    url = format!("{}{}{}{}{}", BASE_URL, SLASH, classes_name, SLASH, id);
+                    url = format!("{}{}{}{}{}{}", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id);
                 }
             };
         } else if version == "url-style".to_string() {
@@ -1763,14 +1799,19 @@ impl StyleManager<'_> {
             url = format!("https://{}", value);
         } else if version == "sort-style".to_string() {
             url = format!(
-                "{}{}{}{}{}{}{}",
-                BASE_URL,
+                "{}{}{}{}{}{}{}{}{}{}{}{}",
+		BASE_URL,
+		BASE_DIRECTORY,
                 SLASH,
-                classes_name,
+		MAKESORTTODAY_WEBPAGE,
                 QUESTION_MARK,
                 KNOWN_KEY_MAKESORTTODAY,
                 EQUALS_SIGN,
-                id
+                id,
+		AMPERSAND,
+		KNOWN_KEY_CLASS,
+                EQUALS_SIGN,
+                classes_name,
             );
         } else {
             panic!(
@@ -1795,8 +1836,8 @@ impl StyleManager<'_> {
         let classes_name = referenced_type.to_string();
         if version == "referenced-table-style".to_string() {
             url = format!(
-                "{}{}{}{}{}",
-                BASE_URL, SLASH, classes_name, SLASH, referenced_id
+                "{}{}{}{}{}{}",
+                BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, referenced_id
             );
         } else {
             panic!("style_manager get_as_a_element_referenced() error: failed because of unknown version: {}", version);
@@ -1820,8 +1861,8 @@ impl StyleManager<'_> {
         let foreign_key_classes_name = foreign_key_classes_type.to_string();
         if version == "referenced-style".to_string() {
             url = format!(
-                "{}{}{}{}{}{}{}",
-                BASE_URL, SLASH, foreign_key_classes_name, SLASH, classes_name, SLASH, id
+                "{}{}{}{}{}{}{}{}",
+                BASE_URL, BASE_DIRECTORY, SLASH, foreign_key_classes_name, SLASH, classes_name, SLASH, id
             );
         } else {
             panic!(
@@ -1847,7 +1888,7 @@ impl StyleManager<'_> {
             // todo implement title attribute
             let img_style = "width: 30px;";
             let classes_name = classes_type.to_string();
-            format!("<a href=\"{}{}{}{}{}\"><img style=\"{}\" src=\"{}\" class=\"data-image\" alt=\"\" title=\"\"></a>", BASE_URL, SLASH, classes_name, SLASH, id, img_style, value)
+            format!("<a href=\"{}{}{}{}{}{}\"><img style=\"{}\" src=\"{}\" class=\"data-image\" alt=\"\" title=\"\"></a>", BASE_URL, BASE_DIRECTORY, SLASH, classes_name, SLASH, id, img_style, value)
         } else {
             panic!(
                 "style_manager get_as_img_element() error: failed because version is not known."

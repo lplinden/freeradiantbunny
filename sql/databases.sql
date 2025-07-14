@@ -16,7 +16,8 @@ CREATE TABLE public.databases (
     sort text,
     management_system character varying(20),
     date_last_backup text,
-    schema_version text
+    schema_version text,
+    approved boolean
 );
 
 ALTER TABLE public.databases OWNER TO freerad2_special;

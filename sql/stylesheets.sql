@@ -16,7 +16,8 @@ CREATE TABLE public.stylesheets (
     status text NOT NULL,
     img_url text NOT NULL,
     domains_tli character varying(3) NOT NULL,
-    path text NOT NULL
+    path text NOT NULL,
+    approved boolean
 );
 
 ALTER TABLE public.stylesheets OWNER TO freerad2_special;

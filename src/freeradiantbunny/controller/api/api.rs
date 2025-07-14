@@ -1,6 +1,6 @@
 // freeradiantbunny - website for permaculture herb gardeners
 // Copyright (C) 2023 Lars Paul Linden
-// version 0.0.5
+// version 0.0.6
 
 use crate::freeradiantbunny::controller::api::api_constants::{DATA, NONE};
 /// api - The API defines the REST URLs the user should use.
@@ -17,7 +17,7 @@ use crate::freeradiantbunny::view::viewer;
 use crate::freeradiantbunny::model::manifest::upk_type::UpkType;
 use crate::freeradiantbunny::site_configuration::site_configuration::USER_PASSKEY;
 
-#[doc = "This efines a structure for the freeeradiantbunny API. The api_pattern for the application allows three types of URl constructions to extract data from the database, and one pattern remains for declaring errors.pub struct Api {"]
+#[doc = "This refines a structure for the freeeradiantbunny API. The api_pattern for the application allows three types of URL constructions to extract data from the database, and one type remains for declaring errors."]
 pub enum Api {
     Classes,
     IdCandidate,
@@ -176,9 +176,7 @@ impl Api {
                             &host,
                         );
                         // let the viewer have its say
-                        // this does not sink back into the guts of the controoler but is sitting here in the database_server.
-                        // on hold
-                        //let message_string = "api.rs was here with a message.".to_string();
+                        // this does not sink back into the guts of the controller but is sitting here in the database_server.
                         // html_content
                         viewer::make_viewable(row_type, &suitcase_instance, &vector_of_boxed_rows)
                     }

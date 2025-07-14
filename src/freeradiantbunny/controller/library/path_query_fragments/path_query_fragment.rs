@@ -21,7 +21,7 @@ pub struct PathQueryFragment {
 impl PathQueryFragment {
     pub fn new(given_path_query_fragment: &str) -> PathQueryFragment {
         // error check the given
-        // calculate lengnth
+        // calculate length
         let given_path_query_fragment_length = given_path_query_fragment.len();
         // check that path exists
         if given_path_query_fragment_length == 0 {
@@ -68,8 +68,12 @@ impl PathQueryFragment {
 
 #[doc = "split_given_path_query_fragment()."]
 fn split_given_path_query_fragment(given_path_query_fragment: &str) -> (String, String, String) {
+    // todo need to make the following string a constant so that the user can change the directory
+    // remove BASE_DIRECTORY characters from given_path_query_fragment
+    let given: &str = &given_path_query_fragment[8..];
+    // convert given string to vector
     let given_path_array_by_question_mark: Vec<&str> =
-        given_path_query_fragment.split(QUESTION_MARK).collect();
+        given.split(QUESTION_MARK).collect();
     match given_path_array_by_question_mark.len() {
         1 => {
             // ok

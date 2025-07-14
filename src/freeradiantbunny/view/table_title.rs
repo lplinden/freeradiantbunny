@@ -7,6 +7,7 @@ use crate::freeradiantbunny::controller::api::api_pattern_requested;
 use crate::freeradiantbunny::controller::characters::{SEMICOLON, SLASH};
 use crate::freeradiantbunny::controller::library::suitcase::suitcase::Suitcase;
 use crate::freeradiantbunny::site_configuration::site_configuration::URL_SCHEME;
+use crate::freeradiantbunny::site_configuration::site_configuration::BASE_DIRECTORY;
 
 pub fn get_table_title_with_hyperlink(suitcase: &Suitcase) -> String {
     let found_known_host = suitcase.get_host().get_found_known_host();
@@ -41,13 +42,14 @@ pub fn get_table_title_with_hyperlink(suitcase: &Suitcase) -> String {
     };
     // make a hyperlink
     let this_classes_home_url = format!(
-        "{}{}{}{}{}{}{}",
+        "{}{}{}{}{}{}{}{}",
         URL_SCHEME,
         SEMICOLON,
         SLASH,
         SLASH,
         found_known_host,
-        SLASH,
+	BASE_DIRECTORY,
+	SLASH,
         suitcase
             .get_api_pattern_requested()
             .get_manifest_selected()

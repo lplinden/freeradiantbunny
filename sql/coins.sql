@@ -28,13 +28,9 @@ CREATE TABLE public.coins (
     signal_level text,
     uuid text,
     notes text,
-    recent text,
-    change text,
-    recent_rank text,
-    change_previous text,
-    acceleration text,
-    acceleration_previous text,
-    acceleration_change text
+    price_epoch numeric(20,10),
+    volume_24h_epoch bigint,	
+    approved boolean
 );
 
 ALTER TABLE public.coins OWNER TO freerad2_special;

@@ -17,7 +17,8 @@ CREATE TABLE public.classes (
     subsystems_id integer NOT NULL,
     zachmans_id integer NOT NULL,
     make_index_flag boolean NOT NULL,
-    private_flag boolean NOT NULL	
+    private_flag boolean NOT NULL,
+    approved boolean
 );
 
 ALTER TABLE public.classes OWNER TO freerad2_special;

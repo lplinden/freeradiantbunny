@@ -17,7 +17,8 @@ CREATE TABLE public.indiegoals (
     date_string text,
     reading text,
     yawp_agent_type text,
-    url text
+    url text,
+    approved boolean
 );
 
 ALTER TABLE public.indiegoals OWNER TO freerad2_special;

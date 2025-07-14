@@ -1,5 +1,5 @@
 CREATE SEQUENCE public.coin_prices_id_seq
-1;2c    START WITH 1
+    START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     MAXVALUE 99999999
@@ -12,7 +12,7 @@ CREATE TABLE public.coin_prices (
     coins_symbol character varying(10) NOT NULL,
     source_url text,
     cmc_coin_id integer,
-    last_updated timestamp with time zone,
+    last_updated timestamptz,
     quote_denominator character varying(10),
     price numeric(20,10),
     volume_24h numeric(30,8),
@@ -32,7 +32,8 @@ CREATE TABLE public.coin_prices (
     trade_balance text,
     now text,
     big integer,
-    vlf integer
+    vlf integer,
+    synthetic boolean default false
 );
 
 ALTER TABLE public.coin_prices OWNER TO freerad2_special;

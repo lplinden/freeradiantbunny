@@ -14,14 +14,14 @@ CREATE TABLE public.postings (
     img_url text,
     status text,
     sort text,
-    account_id integer,
-    journal_id integer,
-    asset_type_id integer,
+    accounts_id integer,
+    journals_id integer,
+    asset_types_id integer,
     amount text,
-    budget_id integer,
+    budgets_id integer,
     transaction_date text,
-    transfer_account_id integer,
-    supplier_id integer,
+    transfer_accounts_id integer,
+    suppliers_id integer,
     due_date text
 );
 
@@ -29,3 +29,16 @@ ALTER TABLE public.postings OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.postings
     ADD CONSTRAINT postings_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.postings
+    ADD CONSTRAINT postings_accounts_id_fk FOREIGN KEY (accounts_id) REFERENCES public.accounts(id);
+
+ALTER TABLE ONLY public.postings
+    ADD CONSTRAINT postings_journals_id_fk FOREIGN KEY (journals_id) REFERENCES public.journals(id);
+
+ALTER TABLE ONLY public.postings
+    ADD CONSTRAINT postings_budgets_id_fk FOREIGN KEY (budgets_id) REFERENCES public.budgets(id);
+
+ALTER TABLE ONLY public.postings
+    ADD CONSTRAINT postings_suppliers_id_fk FOREIGN KEY (suppliers_id) REFERENCES public.suppliers(id);
+

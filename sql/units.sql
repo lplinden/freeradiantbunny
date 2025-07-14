@@ -20,3 +20,6 @@ ALTER TABLE public.units OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.units
     ADD CONSTRAINT units_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.units
+    ADD CONSTRAINT name_unique UNIQUE (name);

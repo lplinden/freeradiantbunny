@@ -14,6 +14,7 @@ CREATE TABLE public.domain_measurements (
     img_url text,
     status text,
     sort text,
+    last_updated timestamp with time zone,
     key text,
     value text
 );

@@ -16,11 +16,11 @@ CREATE TABLE public.ux_design_docs (
     status text NOT NULL,
     priority text NOT NULL,
     code_name text NOT NULL,
-    url text NOT NULL
+    url text NOT NULL,
+    description text NOT NULL
 );
 
 ALTER TABLE public.ux_design_docs OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.ux_design_docs
     ADD CONSTRAINT ux_design_docs_pk PRIMARY KEY (id);
-

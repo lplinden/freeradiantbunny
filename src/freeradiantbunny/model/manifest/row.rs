@@ -13,7 +13,7 @@ use crate::freeradiantbunny::model::manifest::column_type::{
     IMG_URL, INCREMENT_ID_FLAG, LOG, LOOKUP, MAKE_INDEX_FLAG, MAKE_UNIQUE, MAXONOMIES_ID, NAME,
     PATH, PLANT_FAMILIES, PLANT_LIST_NAME, PRIVILEGED_OWNER, REFERENCED, REFERENCED_ID,
     REFERENCED_TABLE, REGISTRAR, RULES, SCRUBBER_FLAG, SORT, SPECIALIZED_FIELDS, SSL_CERT, STATUS,
-    SUBSYSTEMS, SUBSYSTEMS_ID, TAGLINE, TLI, URL, WEBPAGES_ID, ZACHMANS, ZACHMANS_ID, WATCH, TYPE, PLATFORM, SYMBOL
+    SUBSYSTEMS, SUBSYSTEMS_ID, TAGLINE, TLI, URL, URL_EXTERNAL, WEBPAGES_ID, ZACHMANS, ZACHMANS_ID, WATCH, TYPE, PLATFORM, SYMBOL
 };
 
 #[derive(Clone)]
@@ -250,6 +250,14 @@ impl Scrubber for Row {
             }
         }
         panic!("row failed to get_url().");
+    }
+    fn get_url_external(&self) -> Option<String> {
+        for field_box in self.get_field_boxes() {
+            if field_box.get_column_type().to_string() == URL_EXTERNAL.to_string() {
+                return field_box.get_value_string();
+            }
+        }
+        panic!("row failed to get_url_external().");
     }
     fn get_subsystems_id(&self) -> Option<i32> {
         for field_box in self.get_field_boxes() {

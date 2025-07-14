@@ -16,7 +16,8 @@ CREATE TABLE public.images (
     status text NOT NULL,
     sort text NOT NULL,
     domains_tli character varying(3) NOT NULL,
-    path text NOT NULL
+    path text NOT NULL,
+    approved boolean
 );
 
 ALTER TABLE public.images OWNER TO freerad2_special;

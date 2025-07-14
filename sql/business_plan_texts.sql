@@ -15,7 +15,8 @@ CREATE TABLE public.business_plan_texts (
     status text,
     sort text,
     goal_statements_id integer,
-    order_by text
+    order_by text,
+    approved boolean
 );
 
 ALTER TABLE public.business_plan_texts OWNER TO freerad2_special;

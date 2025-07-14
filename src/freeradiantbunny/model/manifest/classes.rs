@@ -39,7 +39,8 @@ impl Classes {
     }
     #[doc = "print()."]
     pub fn print(&self) {
-        format!("classes_name: {}", self.get_classes_name());
+      // comment out due to compiler warning
+      // format!("classes_name: {}", self.get_classes_name());
     }
     #[doc = "get_sql()."]
     pub fn get_sql(&self) -> Option<String> {

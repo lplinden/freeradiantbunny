@@ -318,8 +318,9 @@ pub fn load_screen_with_classes() -> Option<Screen> {
                                  "type".to_string(),
                                  "platform".to_string(),
                                  "symbol".to_string(),
+				 "url_external".to_string(),
                              ],
-                             "SELECT a.status, a.sort, a.id, a.img_url, a.symbol, concat('<a href=\"', a.url, '\">', a.name, '</a>') as name, a.watch, a.type, a.platform from coins a ORDER BY a.watch DESC, a.sort DESC, a.name LIMIT 50;".to_string(),
+                             "SELECT a.status, a.sort, a.id, a.img_url, a.symbol, concat('<a href=\"', a.url, '\">', a.name, '</a>') as name, a.watch, a.type, a.platform, a.url_external from coins a ORDER BY a.watch DESC, a.sort DESC, a.name LIMIT 70;".to_string(),
                              UpkType::None
     );
     let coin_prices = Classes::new(COIN_PRICES.to_string(),

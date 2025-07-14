@@ -30,6 +30,7 @@ pub trait Scrubber {
     fn get_scrubber_flag(&self) -> Option<bool>;
     fn get_rules(&self) -> Option<String>;
     fn get_url(&self) -> Option<String>;
+    fn get_url_external(&self) -> Option<String>;
     fn get_subsystems_id(&self) -> Option<i32>;
     fn get_zachmans_id(&self) -> Option<i32>;
     fn get_subsystems(&self) -> Option<String>;

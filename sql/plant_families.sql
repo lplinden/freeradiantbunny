@@ -16,3 +16,6 @@ ALTER TABLE public.plant_families OWNER TO freerad2_special;
 
 ALTER TABLE ONLY public.plant_families
     ADD CONSTRAINT plant_families_pk PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.plant_families
+    ADD CONSTRAINT plant_families_name_unique UNIQUE (name);

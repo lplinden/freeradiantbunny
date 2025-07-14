@@ -49,6 +49,14 @@ impl CellColors {
                 // orange on blue
                 (ORANGE, BLUE)
             }
+            "2024" => {
+                // blue on yellow
+                (BLUE, YELLOW)
+            }
+            "2025" => {
+                // blue on yellow
+                (BLACK, HEX_GREEN)
+            }
             _ => (DEFAULT_COLOR, DEFAULT_BACKGROUND_COLOR),
         }
     }
@@ -92,6 +100,7 @@ impl CellColors {
         // adjust color based upon value of status
         match dev {
             "0.0.5" => (BLACK, HEX_ANISE),
+	    "0.0.6" => (BLUE, ORANGE),
             "2.0.3" => (BLACK, ORANGE),
             "2.0.2" => (ORANGE, BLUE),
             _ => (DEFAULT_COLOR, DEFAULT_BACKGROUND_COLOR),

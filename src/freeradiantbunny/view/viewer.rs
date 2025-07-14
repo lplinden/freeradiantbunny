@@ -1,6 +1,6 @@
 // freeradiantbunny - website for permaculture herb gardeners
 // Copyright (C) 2023 Lars Paul Linden
-// version 0.0.5
+// version 0.0.6
 
 /// viewer - works with the model and the controller
 // structures
@@ -10,7 +10,7 @@ use crate::freeradiantbunny::model::persistent::row_type::RowType;
 use crate::freeradiantbunny::view::markup;
 // constants
 use crate::freeradiantbunny::controller::api::api_constants::{
-    KNOWN_KEY_VIEW, KNOWN_KEY_VIEW_VALUE_HTML, KNOWN_KEY_VIEW_VALUE_TEXT,
+    KNOWN_KEY_VIEW, KNOWN_KEY_VIEW_VALUE_HTML, KNOWN_KEY_VIEW_VALUE_TEXT, KNOWN_KEY_VIEW_VALUE_HTMX,
 };
 
 #[doc = "make_viewwable()."]
@@ -43,6 +43,12 @@ pub fn make_viewable(
                     // send command-line version
                     return do_text(suitcase);
                 }
+	        KNOWN_KEY_VIEW_VALUE_HTMX => {
+                    // make htmx
+		    // real-time
+		    // changes to database reflected on webpage
+                    return do_htmx(&suitcase, &vector_of_boxed_rows, row_type);
+                }
                 _ => {
                     // todo bubble up the error
                     panic!("viewer error: panic during match should not be here.");
@@ -67,7 +73,7 @@ fn do_html(
 ) -> String {
     markup::do_html(&suitcase, vector_of_boxed_rows, row_type)
 }
-#[doc = "do_textl()."]
+#[doc = "do_text()."]
 fn do_text(suitcase: &Suitcase) -> String {
     // text generation implemented here
     // loop data and store in string
@@ -85,5 +91,16 @@ fn do_text(suitcase: &Suitcase) -> String {
     // return
     string_from_database
 }
-
+#[doc = "do_htmx()."]
+fn do_htmx(
+    suitcase: &Suitcase,
+    vector_of_boxed_rows: &Vec<Box<dyn Scrubber>>,
+    //screen: &Screen,
+    row_type: RowType,
+) -> String {
+  // start the real-time engine with stage
+  // create sprites and load the stage with sprites
+  // send the real-time engine handle to user menu
+  markup::do_htmx(&suitcase, vector_of_boxed_rows, row_type)
+}
 /* end */

@@ -4,6 +4,7 @@
 
 /// menu - produces meny in HTML for webpage
 use crate::freeradiantbunny::site_configuration::site_configuration::BASE_URL;
+use crate::freeradiantbunny::site_configuration::site_configuration::BASE_DIRECTORY;
 
 pub struct Menu {
     goto_menu: String,
@@ -12,8 +13,9 @@ pub struct Menu {
 impl Menu {
     pub fn new() -> Menu {
         let goto_menu_html = format!(
-            "<ul class=\"table-menu\"><li><a href=\"{}/classes\">classes</a></li></ul>",
-            BASE_URL
+            "<ul class=\"table-menu\"><li><a href=\"{}{}/classes\">classes</a></li></ul>",
+            BASE_URL,
+	    BASE_DIRECTORY,
         );
         let menu = Menu {
             goto_menu: goto_menu_html,

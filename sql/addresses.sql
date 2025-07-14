@@ -11,7 +11,8 @@ CREATE TABLE public.addresses (
     id integer DEFAULT nextval('public.addresses_id_seq'::regclass) NOT NULL,
     coins_symbol character varying(10) NOT NULL,
     name text,
-    address text
+    address text,
+    device text
 );
 
 ALTER TABLE public.addresses OWNER TO freerad2_special;

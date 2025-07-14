@@ -14,7 +14,8 @@ CREATE TABLE public.goal_statements (
     img_url text,
     status text,
     sort text,
-    projects_id integer
+    projects_id integer,
+    sort text
 );
 
 ALTER TABLE public.goal_statements OWNER TO freerad2_special;

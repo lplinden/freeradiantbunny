@@ -25,6 +25,7 @@ pub const INCREMENT_ID_FLAG: &str = "increment_id_flag";
 pub const SCRUBBER_FLAG: &str = "scrubber_flag";
 pub const RULES: &str = "rules";
 pub const URL: &str = "url";
+pub const URL_EXTERNAL: &str = "url_external";
 pub const SUBSYSTEMS_ID: &str = "subsystems_id";
 pub const ZACHMANS_ID: &str = "zachmans_id";
 pub const SUBSYSTEMS: &str = "subsystems";
@@ -70,6 +71,7 @@ pub enum ColumnType {
     ScrubberFlag,
     Rules,
     Url,
+    UrlExternal,
     SubsystemsId,
     ZachmansId,
     Subsystems,
@@ -119,6 +121,7 @@ pub fn convert_str_to_type(input: &str) -> Option<ColumnType> {
         SCRUBBER_FLAG => Some(ColumnType::ScrubberFlag),
         RULES => Some(ColumnType::Rules),
         URL => Some(ColumnType::Url),
+	URL_EXTERNAL => Some(ColumnType::UrlExternal),
         SUBSYSTEMS_ID => Some(ColumnType::SubsystemsId),
         ZACHMANS_ID => Some(ColumnType::ZachmansId),
         SUBSYSTEMS => Some(ColumnType::Subsystems),
@@ -173,6 +176,7 @@ impl std::fmt::Display for ColumnType {
             ColumnType::ScrubberFlag => write!(f, "scrubber_flag"),
             ColumnType::Rules => write!(f, "rules"),
             ColumnType::Url => write!(f, "url"),
+	    ColumnType::UrlExternal => write!(f, "url_external"),
             ColumnType::SubsystemsId => write!(f, "subsystems_id"),
             ColumnType::ZachmansId => write!(f, "zachmans_id"),
             ColumnType::Subsystems => write!(f, "subsystems"),

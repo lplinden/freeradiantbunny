@@ -17,7 +17,8 @@ CREATE TABLE public.processes (
     business_plan_texts_id integer,
     priority text,
     time_rules text,
-    yield text
+    yield text,
+    approved boolean
 );
 
 ALTER TABLE public.processes OWNER TO freerad2_special;

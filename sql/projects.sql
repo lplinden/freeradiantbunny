@@ -13,7 +13,8 @@ CREATE TABLE public.projects (
     description text,
     img_url text,
     status text,
-    sort text
+    sort text,
+    approved boolean
 );
 
 ALTER TABLE public.projects OWNER TO freerad2_special;

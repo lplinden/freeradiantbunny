@@ -19,7 +19,8 @@ CREATE TABLE public.suppliers (
     url text,
     bioregion text,
     last_password_change text,
-    username text
+    username text,
+    approved boolean
 );
 
 ALTER TABLE public.suppliers OWNER TO freerad2_special;

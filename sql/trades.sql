@@ -5,10 +5,10 @@ CREATE SEQUENCE public.trades_id_seq
     MAXVALUE 99999999
     CACHE 1;
 
-ALTER SEQUENCE public.tradea_id_seq OWNER TO freerad2_special;
+ALTER SEQUENCE public.trades_id_seq OWNER TO freerad2_special;
 
 CREATE TABLE public.trades (
-    id integer DEFAULT nextval('public.tradea_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('public.trades_id_seq'::regclass) NOT NULL,
     name text NOT NULL,
     description text,
     img_url text,

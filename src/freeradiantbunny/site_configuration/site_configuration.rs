@@ -3,29 +3,24 @@
 // version 0.0.5
 
 /// site_configuration - enables specification hosted website
-pub const IP_ADDRESS_AND_PORT: &str = "127.0.0.1:5002";
+pub const IP_ADDRESS_AND_PORT: &str = "127.0.0.1:5050";
 pub const URL_SCHEME: &str = "https";
 pub const WEBSITE_NAME: &str = "mudia.com";
 pub const BASE_URL: &str = "https://mudia.com";
+pub const BASE_DIRECTORY: &str = "/frbrust";
 pub const HOME_HREF: &str = BASE_URL;
 pub const HOME_TITLE: &str = "mudia.com";
 pub const SITE_NAME: &str = "mudia.com running freeradiantbunny";
 pub const SITE_TAGLINE: &str = "a demo of an inquiring system for permaculture herb gardeners.";
-pub const DEFAULT_HOST_DIR: &str = "/public_mlk";
-pub const KNOWN_HOSTS: [(&str, &str); 6] = [
-    ("localhost:5002", "/public_mlk"),
+pub const DEFAULT_HOST_DIR: &str = "/public_mud";
+pub const KNOWN_HOSTS: [(&str, &str); 3] = [
+    ("localhost:5050", "/public_mud"),
     ("mudia.com", "/public_mud"),
-    ("mudia.dev", "/public_mev"),
-    ("mudia.com", "/public_mlk"),
     ("freeradiantbunny.org", "/public_frb"),
-    ("freeradiantbunny.com", "/public_fcm"),
 ];
-pub const KNOWN_PATHS: [&str; 5] = [
+pub const KNOWN_PATHS: [&str; 2] = [
     "/index.html",
-    "/about.html",
-    "/zachmans.html",
     "/404.html",
-    "/robots.txt",
 ];
 pub const DEFAULT_CLASSES_PATH: &str = "/classes";
 pub const USER_HOME_PATH: &str = "/home/lazlo";

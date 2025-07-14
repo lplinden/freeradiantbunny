@@ -18,7 +18,8 @@ CREATE TABLE public.moneymakers (
     ideal_client text,
     demographics text,
     url text,
-    questions text
+    questions text,
+    approved boolean
 );
 
 ALTER TABLE public.moneymakers OWNER TO freerad2_special;

@@ -8,6 +8,7 @@ use crate::freeradiantbunny::controller::characters::{
 /// path = models the part of URL that contains file information
 // constants
 use crate::freeradiantbunny::site_configuration::site_configuration::KNOWN_PATHS;
+use crate::freeradiantbunny::site_configuration::site_configuration::BASE_DIRECTORY;
 
 #[doc = "Path is from the URI."]
 pub struct Path {
@@ -68,7 +69,9 @@ pub fn validate(given_path_string: &str) -> (String, String) {
     for known_path in KNOWN_PATHS {
         // check for valid match
         if given_path_string == known_path {
-            return (known_path.to_string(), NULL_STR.to_string());
+	   // concatenate the BASE_DIRECTORY back
+           let full_known_path: String = BASE_DIRECTORY.to_string() + known_path;
+	   return (full_known_path, NULL_STR.to_string());
         }
     }
     // todo write more code that sanitizes the user input

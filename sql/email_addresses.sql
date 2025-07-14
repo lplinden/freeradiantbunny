@@ -13,7 +13,8 @@ CREATE TABLE public.email_addresses (
     description text,
     img_url text,
     status text,
-    sort text
+    sort text,
+    approved boolean
 );
 
 ALTER TABLE public.email_addresses OWNER TO freerad2_special;
