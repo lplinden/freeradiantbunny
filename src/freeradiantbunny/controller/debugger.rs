@@ -1,6 +1,6 @@
 // freeradiantbunny - website for permaculture herb gardeners
 // Copyright (C) 2023 Lars Paul Linden
-// version 0.0.5
+// version 0.0.7
 
 use crate::freeradiantbunny::controller::library::filename::filename::Filename;
 use crate::freeradiantbunny::site_configuration::site_configuration::{CONFIG_DIR, LOG_PATH};

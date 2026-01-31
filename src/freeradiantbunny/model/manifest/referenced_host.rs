@@ -1,6 +1,6 @@
 // freeradiantbunny - website for permaculture herb gardeners
 // Copyright (C) 2023 Lars Paul Linden
-// version 0.0.5
+// version 0.0.7
 
 /// referenced_host - this models the table containing st least one foreign key to another table.
 // constants

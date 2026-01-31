@@ -1,6 +1,6 @@
 // freeradiantbunny - website for permaculture herb gardeners
 // Copyright (C) 2023 Lars Paul Linden
-// version 0.0.5
+// version 0.0.7
 
 use crate::freeradiantbunny::controller::characters::{
     AMPERSAND, DOLLAR_SIGN, GREATER_THAN_SIGN, LESS_THAN_SIGN, NULL_STR,

@@ -1,6 +1,6 @@
 // freeradiantbunny - website for permaculture herb gardeners
 // Copyright (C) 2023 Lars Paul Linden
-// version 0.0.5
+// version 0.0.7
 
 /// cell_colors - manages the colors on the webpage and specifically the colors of the cells of the table
 // structures
