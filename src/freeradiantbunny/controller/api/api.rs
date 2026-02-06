@@ -1,6 +1,6 @@
 // freeradiantbunny - website for permaculture herb gardeners
 // Copyright (C) 2023 Lars Paul Linden
-// version 0.0.6
+// version 0.0.7
 
 use crate::freeradiantbunny::controller::api::api_constants::{DATA, NONE};
 /// api - The API defines the REST URLs the user should use.

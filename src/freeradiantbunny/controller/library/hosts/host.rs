@@ -1,6 +1,6 @@
 // freeradiantbunny - website for permaculture herb1;2c gardeners
 // Copyright (C) 2023 Lars Paul Linden
-// version 0.0.5
+// version 0.0.7
 
 /// host - models a domain_name being live on a webserver
 // import

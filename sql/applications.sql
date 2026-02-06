@@ -18,10 +18,12 @@ CREATE TABLE public.applications (
     url text,
     url_external text,
     runtarget text,
-    runtarget_switches text
+    runtarget_switches text,
     inhouse boolean,
     mudiabot boolean,
-    approved boolean
+    approved boolean,
+    appmap_url text,
+    repository text
 );
 
 ALTER TABLE public.applications OWNER TO freerad2_special;

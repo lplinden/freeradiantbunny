@@ -1,6 +1,6 @@
 // freeradiantbunny - website for permaculture herb gardeners
 // Copyright (C) 2023 Lars Paul Linden
-// version 0.0.5
+// version 0.0.7
 
 /// table_title - Constructs the title of the webpage's table.
 use crate::freeradiantbunny::controller::api::api_pattern_requested;
