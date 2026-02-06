@@ -17,8 +17,6 @@ CREATE TABLE public.applications (
     status text NOT NULL,
     url text,
     url_external text,
-    runtarget text,
-    runtarget_switches text,
     inhouse boolean,
     mudiabot boolean,
     approved boolean,
