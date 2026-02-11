@@ -1,0 +1,1 @@
+cargo:rustc-env=MIME_TYPES_GENERATED_PATH=/home/mudiabot/webapps/freeradiantbunny/target/debug/build/mime_guess-6440f108a212bc5e/out/mime_types_generated.rs

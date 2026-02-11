@@ -198,4 +198,203 @@ pub fn convert_option_referenced_to_string(option_value: Option<Referenced>) -> 
     }
 }
 
+// LPL 2026-02-11
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // Test ApiPatternRequested::new() creates instance correctly
+    #[test]
+    fn test_api_pattern_requested_new_basic() {
+        let api_req = ApiPatternRequested::new(Manifest::Plants, None, None);
+        assert!(matches!(api_req.get_manifest_selected(), Manifest::Plants));
+        assert!(api_req.get_referenced_type_option().is_none());
+        assert!(api_req.get_id_candidate_option().is_none());
+    }
+
+    #[test]
+    fn test_api_pattern_requested_new_with_id() {
+        let api_req = ApiPatternRequested::new(Manifest::Classes, None, Some(42));
+        assert!(matches!(api_req.get_manifest_selected(), Manifest::Classes));
+        assert!(api_req.get_id_candidate_option().is_some());
+        assert_eq!(api_req.get_id_candidate_option().unwrap(), 42);
+    }
+
+    #[test]
+    fn test_api_pattern_requested_new_with_referenced() {
+        let api_req =
+            ApiPatternRequested::new(Manifest::Plants, Some(Referenced::PlantFamilies), Some(5));
+        assert!(api_req.get_referenced_type_option().is_some());
+        assert!(api_req.get_id_candidate_option().is_some());
+    }
+
+    // Test get_api_pattern() returns correct Api variant
+    #[test]
+    fn test_get_api_pattern_classes() {
+        let api_req = ApiPatternRequested::new(Manifest::Plants, None, None);
+        assert!(matches!(api_req.get_api_pattern(), Api::Classes));
+    }
+
+    #[test]
+    fn test_get_api_pattern_id_candidate() {
+        let api_req = ApiPatternRequested::new(Manifest::Plants, None, Some(123));
+        assert!(matches!(api_req.get_api_pattern(), Api::IdCandidate));
+    }
+
+    #[test]
+    fn test_get_api_pattern_referenced() {
+        let api_req =
+            ApiPatternRequested::new(Manifest::Plants, Some(Referenced::PlantFamilies), Some(10));
+        assert!(matches!(api_req.get_api_pattern(), Api::Referenced));
+    }
+
+    // Test is_referenced_type()
+    #[test]
+    fn test_is_referenced_type_true() {
+        let api_req =
+            ApiPatternRequested::new(Manifest::Classes, Some(Referenced::Subsystems), None);
+        assert!(api_req.is_referenced_type());
+    }
+
+    #[test]
+    fn test_is_referenced_type_false() {
+        let api_req = ApiPatternRequested::new(Manifest::Classes, None, None);
+        assert!(!api_req.is_referenced_type());
+    }
+
+    // Test is_id_candidate()
+    #[test]
+    fn test_is_id_candidate_true() {
+        let api_req = ApiPatternRequested::new(Manifest::Domains, None, Some(99));
+        assert!(api_req.is_id_candidate());
+    }
+
+    #[test]
+    fn test_is_id_candidate_false() {
+        let api_req = ApiPatternRequested::new(Manifest::Domains, None, None);
+        assert!(!api_req.is_id_candidate());
+    }
+
+    // Test get_row_type()
+    #[test]
+    fn test_get_row_type_many() {
+        let api_req = ApiPatternRequested::new(Manifest::Webpages, None, None);
+        assert_eq!(api_req.get_row_type(), RowType::Many);
+    }
+
+    #[test]
+    fn test_get_row_type_one() {
+        let api_req = ApiPatternRequested::new(Manifest::Webpages, None, Some(1));
+        assert_eq!(api_req.get_row_type(), RowType::One);
+    }
+
+    #[test]
+    fn test_get_row_type_referenced() {
+        let api_req =
+            ApiPatternRequested::new(Manifest::Webpages, Some(Referenced::Domains), Some(1));
+        assert_eq!(api_req.get_row_type(), RowType::Referenced);
+    }
+
+    // Test is_referenced_host_type()
+    #[test]
+    fn test_is_referenced_host_type_true() {
+        let api_req =
+            ApiPatternRequested::new(Manifest::Plants, Some(Referenced::PlantFamilies), None);
+        assert!(api_req.is_referenced_host_type());
+    }
+
+    #[test]
+    fn test_is_referenced_host_type_false() {
+        let api_req = ApiPatternRequested::new(Manifest::Plants, None, None);
+        assert!(!api_req.is_referenced_host_type());
+    }
+
+    // Test convert_option_i32_to_string()
+    #[test]
+    fn test_convert_option_i32_to_string_some() {
+        assert_eq!(convert_option_i32_to_string(Some(42)), "42");
+        assert_eq!(convert_option_i32_to_string(Some(0)), "0");
+        assert_eq!(convert_option_i32_to_string(Some(-5)), "-5");
+    }
+
+    #[test]
+    fn test_convert_option_i32_to_string_none() {
+        assert_eq!(convert_option_i32_to_string(None), "None");
+    }
+
+    // Test convert_option_referenced_to_string()
+    #[test]
+    fn test_convert_option_referenced_to_string_some() {
+        assert_eq!(
+            convert_option_referenced_to_string(Some(Referenced::Plants)),
+            "plants"
+        );
+        assert_eq!(
+            convert_option_referenced_to_string(Some(Referenced::Domains)),
+            "domains"
+        );
+    }
+
+    #[test]
+    fn test_convert_option_referenced_to_string_none() {
+        assert_eq!(convert_option_referenced_to_string(None), "None");
+    }
+
+    // Test Display trait
+    #[test]
+    fn test_api_pattern_requested_display() {
+        let api_req = ApiPatternRequested::new(Manifest::Plants, None, Some(42));
+        let display_string = format!("{}", api_req);
+        assert!(display_string.contains("plants"));
+        assert!(display_string.contains("42"));
+        assert!(display_string.contains("None"));
+    }
+
+    // Test get_pretty()
+    #[test]
+    fn test_get_pretty() {
+        let api_req = ApiPatternRequested::new(Manifest::Classes, None, None);
+        let pretty = api_req.get_pretty();
+        assert!(pretty.contains("ApiPatternRequested"));
+        assert!(pretty.contains("classes"));
+    }
+
+    // Test all manifest types work with ApiPatternRequested
+    #[test]
+    fn test_various_manifests() {
+        let manifests = vec![
+            Manifest::Classes,
+            Manifest::Subsystems,
+            Manifest::Zachmans,
+            Manifest::Plants,
+            Manifest::PlantLists,
+            Manifest::Domains,
+            Manifest::Webpages,
+        ];
+        for manifest in manifests {
+            let api_req = ApiPatternRequested::new(manifest, None, None);
+            assert!(matches!(api_req.get_api_pattern(), Api::Classes));
+            assert_eq!(api_req.get_row_type(), RowType::Many);
+        }
+    }
+
+    // Test all referenced types work
+    #[test]
+    fn test_various_referenced_types() {
+        let refs = vec![
+            Referenced::Subsystems,
+            Referenced::Zachmans,
+            Referenced::Domains,
+            Referenced::Plants,
+            Referenced::PlantLists,
+            Referenced::PlantFamilies,
+        ];
+        for referenced in refs {
+            let api_req = ApiPatternRequested::new(Manifest::Classes, Some(referenced), Some(1));
+            assert!(api_req.is_referenced_type());
+            assert!(matches!(api_req.get_api_pattern(), Api::Referenced));
+        }
+    }
+}
+
 /* end */

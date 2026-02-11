@@ -1,6 +1,6 @@
 // freeradiantbunny - website for permaculture herb gardeners
 // Copyright (C) 2023 Lars Paul Linden
-// version 0.0.7
+// version 0.0.8
 
 /// timekeeper - models dates
 // import
@@ -426,7 +426,7 @@ fn convert_date_styled_date_string_to_timestamp(date_styled_date_string: String)
     let date_time = date_time
         .and_hms_opt(0, 0, 0)
         .expect("Timekeeper error: not a NaiveDate hms.");
-    let unix_timestamp = date_time.timestamp();
+    let unix_timestamp = date_time.and_utc().timestamp();
     unix_timestamp
 }
 
