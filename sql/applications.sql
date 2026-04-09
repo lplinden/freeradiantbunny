@@ -20,7 +20,9 @@ CREATE TABLE public.applications (
     inhouse boolean,
     mudiabot boolean,
     approved boolean,
-    appmap_url text
+    appmap_url text,
+    docs text,
+    next_applications_id integer
 );
 
 ALTER TABLE public.applications OWNER TO freerad2_special;
@@ -31,4 +33,18 @@ ALTER TABLE ONLY public.applications
 ALTER TABLE ONLY public.applications
     ADD CONSTRAINT applications_name_unique UNIQUE (name);
 
-SELECT pg_catalog.setval('public.applications_id_seq', 90, true);
+SELECT pg_catalog.setval('public.applications_id_seq', 238, true);
+
+COMMENT ON TABLE applications IS 'The applications tables stores information for applications, software, code, scripts, and programs.';	
+
+COMMENT ON COLUMN applications.url IS 'The url of the applications points to the documentation homepage.';    
+
+COMMENT ON COLUMN applications.url_external IS 'The url_external of the application represents an orgaanizations homepage..'; 
+
+COMMENT ON COLUMN applications.img_url IS 'The url of the image file that represents the applications icon.';
+
+COMMENT ON COLUMN applications.sort IS 'The timestamp that a given ig play() occured.';
+
+COMMENT ON COLUMN applications.status IS 'The year that a given applications has been approved.';
+
+COMMENT ON CONSTRAINT applications_pk ON applications IS 'The id field is the primary key of the applications table.';
