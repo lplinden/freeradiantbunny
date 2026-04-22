@@ -20,7 +20,6 @@ CREATE TABLE public.applications (
     inhouse boolean,
     mudiabot boolean,
     approved boolean,
-    docs text,
     next_applications_id integer
 );
 
