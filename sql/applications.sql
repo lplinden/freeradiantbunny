@@ -19,8 +19,7 @@ CREATE TABLE public.applications (
     url_external text,
     inhouse boolean,
     mudiabot boolean,
-    approved boolean,
-    appmap_url text
+    approved boolean
 );
 
 ALTER TABLE public.applications OWNER TO freerad2_special;
