@@ -15,7 +15,8 @@ CREATE TABLE public.webpages (
     img_url text NOT NULL,
     status text NOT NULL,
     path text NOT NULL,
-    domains_tli character varying(3) NOT NULL
+    domains_tli character varying(3) NOT NULL,
+    timestamp_modified int
 );
 
 ALTER TABLE public.webpages OWNER TO freerad2_special;
