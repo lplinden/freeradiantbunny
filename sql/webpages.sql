@@ -16,7 +16,8 @@ CREATE TABLE public.webpages (
     status text NOT NULL,
     path text NOT NULL,
     domains_tli character varying(3) NOT NULL,
-    timestamp_modified int
+    timestamp_modified int,
+    webpages integer
 );
 
 ALTER TABLE public.webpages OWNER TO freerad2_special;

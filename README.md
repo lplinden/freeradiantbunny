@@ -15,3 +15,9 @@ The freeradiantbunny application is a database-backed website designed as a plan
 Our mascot is Kitto, the botany bunny, and is said to be an expert on all things gardening and Radiant Bunny and so on if only he could be asked about it before hopping quickly away.
 
 For more information about freeradiantbunny, see the **website**: [freeradiantbunny.org](https://freeradiantbunny.org/)
+
+## Keywords
+### bootstrap
+### command
+### feedback
+### talk
