@@ -16,6 +16,7 @@ CREATE TABLE public.webpages (
     status text NOT NULL,
     path text NOT NULL,
     domains_tli character varying(3) NOT NULL,
+    subdomains_tli character varying(3) NOT NULL,
     timestamp_modified int,
     webpages integer
 );
